@@ -10,7 +10,7 @@
 
 		function exportWorkbook(cri, opts) {
 			var p;
-			p = _getStyles(opts).then(function (res) {
+			p = _getStyles().then(function (res) {
 				opts.theme = res;
 			});
 			p = p.then(function () {
@@ -596,8 +596,8 @@
 				range.e.r = Math.max(range.e.r, _range.e.r);
 				if (_R == -1) range.e.r = _R = _range.e.r + 1;
 			}
-			for (var R = 0; R != data.length; ++R) {
-				for (var C = 0; C != data[R].length; ++C) {
+			for (var R = 0; R < data.length; ++R) {
+				for (var C = 0; C < data[R].length; ++C) {
 					if (typeof data[R][C] === 'undefined') continue;
 					var cell = ({ v: data[R][C] });
 					if (Array.isArray(cell.v)) {

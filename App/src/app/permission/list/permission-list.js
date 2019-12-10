@@ -179,8 +179,8 @@
         function save() {
             appUtils.showLoading();
             $scope.permissions.all = $scope.objectDatas.permissions.all;
-            $scope.permissions.roles = arrayToObjAcl($scope.objectDatas.permissions.roles, true, true);
-            $scope.permissions.users = arrayToObjAcl($scope.objectDatas.permissions.users, true, true);
+            $scope.permissions.roles = arrayToObjAcl($scope.objectDatas.permissions.roles);
+            $scope.permissions.users = arrayToObjAcl($scope.objectDatas.permissions.users);
             permissionService.updatePermissionAcl($scope.permissions, $scope.objectDatas.permissionId).then(function(rs) {
                 appUtils.hideLoading();
                 if (!rs.result) {

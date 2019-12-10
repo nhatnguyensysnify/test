@@ -112,7 +112,7 @@
             }).catch(function (error) {
                 return { result: false, errorMsg: error };
             }).then(function (res) {
-                return index(authUid, { priority: true }).then(function () {
+                return index(authUid).then(function () {
                     return res;
                 });
             });

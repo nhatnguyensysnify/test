@@ -1721,7 +1721,7 @@
                 $timeout.cancel(onScrollTimeout);
             }
             onScrollTimeout = $timeout(function () {
-                _onScrollLoadData(event);
+                _onScrollLoadData();
             }, onScrollDebounce);
         }
 
