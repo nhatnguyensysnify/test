@@ -1,0 +1,313 @@
+<div id="membership" class="row">
+    <div class="col-md-6 text-left">
+
+    </div>
+    <div class="col-md-6 text-right">
+        <a class="btn blue margin-top-bottom-5" href="#" ng-click="applicationVm.addApplicationByManualModal()">New
+            Application</a>
+        <a class="btn blue margin-top-bottom-5" href="#/membership/add-ocr">Forms Upload</a>
+        <!-- <a class="btn blue margin-top-bottom-5" ng-click="can('access', 'ViewAllApplications')">Check</a> -->
+    </div>
+
+    <div class="col-md-12">
+        <div class="portlet light bordered ">
+            <div class="portlet-body">
+                <ul class="nav nav-tabs">
+                    <li ng-class="{'active' : applicationVm.activetab === -1 }">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(-1)"><i class="fa fa-file-o"></i>
+                            All </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 1 }">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(1)"><i class="fa fa-spinner"></i>
+                            Processing </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 2 }">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(2)"><i class="fa fa-check-square-o"></i>
+                            Verified </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 3 }">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(3)"><i class="fa fa-hourglass-half"></i>
+                            Pending </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 8}">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(8)"><i class="fa fa-usd"></i>
+                            Billing Required </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 4}">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(4)"><i class="fa fa-user"></i>
+                            Billing Approved </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 6 }">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(6)"><i class="fa  fa-times"></i>
+                            Cancelled </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 7 }">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(7)"><i class="fa fa-exclamation-triangle"></i>
+                            Error </a>
+                    </li>
+                    <li ng-class="{'active' : applicationVm.activetab === 5 }">
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(5)"><i class="fa fa fa-exclamation-circle"></i>
+                            Payment Failed </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!--ALl-->
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3 no-padding-right">
+                                    <div class="input-icon margin-top-bottom-5">
+                                        <i class="icon-magnifier"></i>
+                                        <input type="text" class="form-control width100 form-control-solid" placeholder="search..."
+                                            ng-model="applicationVm.cri.keyword" ng-change="applicationVm.search(true)">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-2 no-padding-right">
+                                    <div class="form-group margin-top-bottom-5">
+                                        <!--<select class="form-control" ng-model="applicationVm.clients">
+                                            <option value="All" ng-if="userPermission.isAdmin">All Client</option>
+                                            <option ng-repeat="item in applicationVm.employees" value="{{item.$id}}"><span ng-if="item.repCode && item.repCode != ''">{{item.repCode}} </span>({{item.firstName + ' ' + item.lastName}})</option>
+                                        </select>-->
+                                        <!-- <select ui-select2 ng-model="applicationVm.cri.clients" data-placeholder="Select a client">
+                                            <option value="'All'" ng-if="userPermission.isAdmin || userPermission.viewAllApplication">All Reps</option>
+                                            <option ng-repeat="item in applicationVm.employees" value="{{item.repCode || item.username}}"><span ng-if="item.repCode && item.repCode != ''">{{item.firstName + ' ' + item.lastName}} </span>({{item.repCode}})</option>
+                                        </select> -->
+                                        <select ng-model="applicationVm.clients" ui-select2="applicationVm.select2Options"
+                                            id="filterClients" class="form-control">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-2 no-padding-right">
+                                    <div class="form-group margin-top-bottom-5">
+                                        <select class="form-control" ng-model="applicationVm.cri.state">
+                                            <option value="All">All States</option>
+                                            <option ng-repeat="item in applicationVm.appStatelist" value="{{item.iso}}">{{item.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-2 no-padding-right">
+                                    <div class="form-group margin-top-bottom-5">
+                                        <select class="form-control bs-select" ng-disabled="!applicationVm.showStatusfilter"
+                                            ng-model="applicationVm.cri.status">
+                                            <option ng-repeat="item in applicationVm.appStatus" value="{{item.key}}">{{item.value}}</option>
+                                        </select>
+                                        <!-- <button type="button"  ng-show="!applicationVm.showStatusfilter" class="btn green-haze padding-l-r-20" ng-click="applicationVm.filterItems(true)">Filter</button> -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3 no-padding-right">
+                                    <div class="form-group margin-top-bottom-5">
+                                        <select ui-select2 ng-model="applicationVm.chooseRegions" id="chooseRegions"
+                                            multiple ng-options="region.id as region.guid for (key, region) in applicationVm.allRegions"
+                                            data-placeholder="All Plan Types">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5 no-padding-right">
+                                    <div class="form-group margin-top-bottom-5" style="display:flex;">
+                                        <date-range-report id="applicationrange" style="padding: 8px 14px !important;"
+                                            start="{{applicationVm.cri.timestampStart}}" end="{{applicationVm.cri.timestampEnd}}"
+                                            class="width100"></date-range-report>
+                                        <label class="control-label margin-top-bottom-5 bold" style="padding: 3px 10px !important;">AS</label>
+                                        <select class="form-control" ng-model="applicationVm.reportDate" style="background: #e1e5ec">
+                                            <option ng-repeat="item in applicationVm.reportDates" value="{{item.key}}">{{item.value}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-2 no-padding-right">
+                                    <div class="form-group margin-top-bottom-5">
+                                        <select class="form-control" ng-model="applicationVm.cri.sort" style="background: #e1e5ec"
+                                            ng-change="applicationVm.filterItems(true)">
+                                            <option ng-repeat="item in applicationVm.sortByData" value="{{item.key}}">{{item.value}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-2 no-padding-right">
+                                    <div class="form-group margin-top-bottom-5">
+                                        <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
+                                            ng-click="applicationVm.filterItems(true)">Filter</button>
+                                        <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                                            ng-click="applicationVm.resetFilter()">Reset</button>
+                                        <!--<button type="button" class="btn btn-default" ng-click="applicationVm.resetFilter()">Reset Filters</button>                                        -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3 text-right">
+                                    <div class="form-group margin-top-bottom-5">
+                                        <list-paging style="float:right" ng-model="applicationVm.paging" change-page="changePage"></list-paging>
+                                    </div>
+                                    <!--<list-paging class="margin-top-bottom-5 display-inline-block" ng-model="applicationVm.paging" on-change="applicationVm.changePage()"></list-paging>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane active in" id="tab_1_1">
+                            <div class="row">
+                                <div class="col-md-2 text-left" style="padding-right:5px;">
+                                    <div style="line-height:20px;">
+                                        <div class="col-md-12 border-bottom no-padding-left" ng-class="{'bold' : item.status && item.status === 0, 'bg-grey bg-font-grey' : item.$id === itemSelected}"
+                                            ng-repeat="item in modelItems">
+                                            <div class="pull-left padding-l-r-5 " style="width:10%">
+                                                <span>
+                                                    <i class="fa" ng-class="applicationVm.getIconStatus(item)"></i>
+                                                </span>
+                                            </div>
+                                            <div class="pull-left padding-l-r-5" style="width:10%">
+                                                <a href="#" ng-click="applicationVm.markPriority(item)">
+                                                    <i class="fa" ng-class="applicationVm.getStatusFlagIcon(item)"></i>
+                                                </a>
+                                            </div>
+
+                                            <div class="pull-left padding-l-r-5" style="width:80%" style="cursor:pointer;"
+                                                ng-click="applicationVm.edit(item)">
+                                                <div class="pull-left width100">
+                                                    <!--<a class="font-grey-gallery">{{applicationVm.appFullname[item.membershipId]}}</a>-->
+                                                    <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
+                                                    <i ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></i>
+                                                    <a class="font-grey-gallery" style="word-wrap: break-word;">{{item.primaryMember
+                                                        || item.secondaryMember || ' '}}</a>
+                                                </div>
+                                                <div class="pull-left width100 font-11">
+                                                    Method: {{applicationVm.getMethodName(item.method)}}
+                                                </div>
+                                                <div class="pull-left font-11 bold font-grey-gallery width100 text-left">
+                                                    {{item.timestampCreated | date: 'MM/dd/yyyy @ h:mm a'}}
+                                                </div>
+                                                
+                                            </div>
+                                            <div style="height: 40px;" class="pull-left padding-l-r-5 width100" style="width:100%" style="cursor:pointer;">
+                                            <div class="pull-left font-11 font-grey-silver width100 text-center"
+                                                    ng-if="item.isEdited">
+                                                    <p class="edited-loading"><img src="./img/editing-loading.png" /></p>
+                                                    <p class="edited-by font-blue-steel"><b>Being edited by: </b>{{item.editingBy}}</p>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <ng-include ng-if="!itemSelected" src="'app/membership/application/add_edit/welcome.tpl.html'"></ng-include>
+                                <ng-include ng-if="itemSelected" src="'app/membership/application/add_edit/edit.tpl.html'"
+                                    ng-controller="EditAppCtrl as applicationVm"></ng-include>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal Preview Application -->
+        <!--<ng-include src="'app/membership/modal/preview-app.tpl.html'" ng-controller="PreviewAppCtrl as previewAppVm"></ng-include>-->
+        <!-- /.modal -->
+
+        <!-- /.modal Add New Application -->
+        <!--<ng-include src="'app/membership/modal/add-web-app.tpl.html'"></ng-include>-->
+        <!-- /.modal -->
+
+        <!-- /.modal Upload File -->
+        <!--<ng-include src="'app/membership/modal/upload-file-app.tpl.html'"></ng-include>-->
+
+        <!-- /.modal -->
+
+        <!-- /.modal Edit Paper Mode -->
+        <!--ng-include src="'app/membership/modal/edit-paper-app.tpl.html'"></ng-include-->
+        <!-- /.modal -->
+    </div>
+</div>
+
+<script type="text/javascript">
+    // $('.datepicker').datepicker({ dateFormat: "MM/dd/yyyy" }).datepicker("setDate", new Date());
+    $(".select2-multiple").select2();
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.daterange').daterangepicker({
+            opens: (App.isRTL() ? 'left' : 'right'),
+            startDate: moment().subtract('days', 29),
+            endDate: moment(),
+            //minDate: '01/01/2012',
+            //maxDate: '12/31/2014',
+            dateLimit: {
+                days: 60
+            },
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: true,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                'Last 7 Days': [moment().subtract('days', 6), moment()],
+                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+            },
+            buttonClasses: ['btn'],
+            applyClass: 'green',
+            cancelClass: 'default',
+            format: 'MM/DD/YYYY',
+            separator: ' to ',
+            locale: {
+                applyLabel: 'Apply',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay: 1
+            }
+        },
+            function (start, end) {
+                $('.daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
+        );
+        //Set the initial state of the picker label
+        $('.daterange span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+
+
+        $('#revenuerange').daterangepicker({
+            opens: (App.isRTL() ? 'left' : 'right'),
+            startDate: moment().subtract('days', 29),
+            endDate: moment(),
+            //minDate: '01/01/2012',
+            //maxDate: '12/31/2014',
+            dateLimit: {
+                days: 60
+            },
+            showDropdowns: true,
+            showWeekNumbers: true,
+            timePicker: false,
+            timePickerIncrement: 1,
+            timePicker12Hour: true,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                'Last 7 Days': [moment().subtract('days', 6), moment()],
+                'Last 30 Days': [moment().subtract('days', 29), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+            },
+            buttonClasses: ['btn'],
+            applyClass: 'green',
+            cancelClass: 'default',
+            format: 'MM/DD/YYYY',
+            separator: ' to ',
+            locale: {
+                applyLabel: 'Apply',
+                fromLabel: 'From',
+                toLabel: 'To',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                firstDay: 1
+            }
+        },
+            function (start, end) {
+                $('#revenuerange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            }
+        );
+        //Set the initial state of the picker label
+        $('#revenuerange span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+
+    });
+</script>

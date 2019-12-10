@@ -1,0 +1,247 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ranking-report-area">
+        <div class="portlet light portlet-fit bordered min-height-520" id="RankingReport">
+            <div class="portlet-title">
+                <div class="caption col-xs-8 col-sm-8 col-md-8 col-lg-8 margin-top-bottom-5">
+                    <i class=" icon-layers font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Event Completion</span>
+                </div>
+                <div class="actions col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right padding-10 margin-top-bottom-5">
+                    <button class="btn btn-circle btn-default" ng-disabled="initPage" title="View All" ng-click="eventVm.showEventListPopup(eventVm.cri);">
+                        View All
+                    </button>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <h5 class="font-blue-steel bold uppercase" style="float:left; margin: 8px 5px 8px 0px;">Top 20 events completed</h5>
+                        <div style="margin: 6px 5px;"><span>(Column headers are sortable)</span></div>
+                        <!-- <list-paging ng-model="eventVm.paging" change-page="eventVm.changePage" style="float:right; margin: 8px 0px;"></list-paging> -->
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-scrollable table-scrollable-borderless event-completion">
+                            <table class="table table-hover table-light dataTable">
+                                <thead>
+                                    <tr class="uppercase">
+                                        <th class="width100 text-center hidden-md hidden-lg">Information</th>
+                                        <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('startDate'); eventVm.sort.field='startDate'">
+                                            <p>
+                                                Start Date
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'startDate'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('type'); eventVm.sort.field='type'">
+                                            <p>
+                                                Type
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'type'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width15 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('name'); eventVm.sort.field='name'">
+                                            <p>
+                                                Name
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'name'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('appUploaded'); eventVm.sort.field='appUploaded'">
+                                            <p>
+                                                Uploaded
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'appUploaded'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('facilityCode'); eventVm.sort.field='facilityCode'">
+                                            <p>
+                                                Facility
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'facilityCode'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('state'); eventVm.sort.field='state'">
+                                            <p>
+                                                State
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'state'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('planType'); eventVm.sort.field='planType'">
+                                            <p>
+                                                Plan Type
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'planType'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('iptTotalRevenue'); eventVm.sort.field='iptTotalRevenue'">
+                                            <p>
+                                                Total Revenue
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'iptTotalRevenue'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventVm.toggleSort('iptCloseRate'); eventVm.sort.field='iptCloseRate'">
+                                            <p>
+                                                Closing Rate
+                                                <span class="margin-left-5 margin-right-5" ng-show="eventVm.sort.field == 'iptCloseRate'">
+                                                    <span ng-show="!eventVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                                </span>
+                                            </p>
+                                        </th>
+                                        <!-- <th class="width10 hidden-xs hidden-sm text-right"> Est. Revenue </th> -->
+                                        <!-- <th class="width10 hidden-xs hidden-sm text-right"> System Total Revenue </th> -->
+                                        <th class="width15 hidden-xs hidden-sm text-left"> Representative</th>
+                                        <!-- <th class="width10 hidden-xs hidden-sm text-right"> System Closing Rate </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in eventVm.eventsRanking">
+                                        <td class="hidden-md hidden-lg">
+                                            <table class="table table-striped">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="width30 text-left">Start Date: </td>
+                                                        <td>{{eventVm.getDateTime(item.startDate)}}
+                                                            <span ng-if="item.endDate"> - </span> {{eventVm.getDateTime(item.endDate)}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="width30 text-left">Type: </td>
+                                                        <td>{{eventVm.getType(item.type)}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="width30 text-left">Name: </td>
+                                                        <td><a class="primary-link" href="#/events/details?id={{item.$id}}" target="_blank">{{item.name}}</a></td>
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td class="width30 text-left">Apps Uploaded: </td>
+                                                        <td> <span>&nbsp; {{item.appUploaded === true ||
+                                                                item.appUploaded === false ?
+                                                                (item.appUploaded ? 'Yes' : 'No') : 'N/A'}}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="width30 text-left">Facility: </td>
+                                                        <td ng-bind-html="eventVm.getFacility(item.facilityId)"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="width30 text-left">State: </td>
+                                                        <td>{{eventVm.getState(item.state)}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="width30 text-left">Plan Type: </td>
+                                                        <td>{{eventVm.getRegion(item)}}</td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td class="width30 text-right">Est. Revenue: </td>
+                                                        <td>
+                                                            {{eventVm.parseToNumber(item.estTotalRevenue) | currency}}
+                                                        </td>
+                                                    </tr> -->
+                                                    <tr>
+                                                        <td class="width30 text-left">Total Revenue: </td>
+                                                        <td>
+                                                            {{eventVm.parseToNumber(item.iptTotalRevenue) | currency}}
+                                                        </td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td class="width30 text-left">System Total Revenue: </td>
+                                                        <td>
+                                                            {{eventVm.parseToNumber(item.sysTotalRevenue) | currency}}
+                                                        </td>
+                                                    </tr> -->
+                                                    <tr>
+                                                        <td class="width30 text-left">Closing Rate: </td>
+                                                        <td>
+                                                            {{item.iptCloseRate !== undefined ? eventVm.parseToNumber(item.iptCloseRate).toFixed(2) + '%' : ''}}
+                                                            <!-- {{eventVm.parseToNumber(item.iptCloseRate).toFixed(2)}}% -->
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="width30 text-left">Representative: </td>
+                                                        <td ng-bind-html="eventVm.getRequesters(item.representativeAttended)"></td>
+                                                    </tr>
+                                                    <!-- <tr>
+                                                        <td class="width30 text-left">System Closing Rate: </td>
+                                                        <td>
+                                                            {{item.sysCloseRate ?
+                                                            eventVm.parseToNumber(item.sysCloseRate).toFixed(2) + '%' :
+                                                            ''}}
+                                                        </td>
+                                                    </tr> -->
+
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                        <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventVm.getDateTime(item.startDate)}}
+                                            <span ng-if="item.endDate"> - </span> {{eventVm.getDateTime(item.endDate)}}</td>
+                                        <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventVm.getType(item.type)}}</td>
+                                        <td class=" hidden-xs hidden-sm" style="vertical-align: middle;">
+                                            <a class="primary-link" href="#/events/details?id={{item.$id}}" target="_blank">{{item.name}}</a>
+                                        </td>
+                                        <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                            <span>&nbsp; {{item.appUploaded === true || item.appUploaded === false ?
+                                                (item.appUploaded ? 'Yes' : 'No') : 'N/A'}}</span>
+                                        </td>
+                                        <td class=" hidden-xs hidden-sm text-left" style="vertical-align: middle;" ng-bind-html="eventVm.getFacility(item.facilityId)">
+                                        </td>
+                                        <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventVm.getState(item.state)}}
+                                        </td>
+                                        <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventVm.getRegion(item.state, item.region)}}
+                                        </td>
+                                        <!-- <td class="width10 hidden-xs hidden-sm text-right">
+                                            {{eventVm.parseToNumber(item.estTotalRevenue) | currency}}
+                                        </td> -->
+                                        <td class=" hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                            {{eventVm.parseToNumber(item.iptTotalRevenue) | currency}}
+                                        </td>
+                                        <!-- <td class=" hidden-xs hidden-sm text-right" style="vertical-align: middle;" >
+                                            {{eventVm.parseToNumber(item.sysTotalRevenue) | currency}}
+                                        </td> -->
+                                        <td class=" hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                            <!-- {{eventVm.parseToNumber(item.iptCloseRate).toFixed(2)}}% -->
+                                            {{item.iptCloseRate !== undefined ? eventVm.parseToNumber(item.iptCloseRate).toFixed(2) + '%' : ''}}
+                                        </td>
+                                        <!-- <td class=" hidden-xs hidden-sm text-right" style="vertical-align: middle;" >
+                                            {{item.sysCloseRate ? eventVm.parseToNumber(item.sysCloseRate).toFixed(2) +
+                                            '%' : ''}}
+                                        </td> -->
+                                        <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;" ng-bind-html="eventVm.getRequesters(item.representativeAttended)">
+                                        </td>
+                                    </tr>
+                                    <tr ng-if="eventVm.eventsRanking && eventVm.eventsRanking.length === 0">
+                                        <td class="hidden-xs hidden-sm" colspan="9">
+                                            <h5>No records</h5>
+                                        </td>
+                                        <td class="hidden-md hidden-lg">
+                                            <h5>No records</h5>
+                                        </td>
+                                        <tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

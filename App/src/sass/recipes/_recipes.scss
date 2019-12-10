@@ -1,0 +1,13 @@
+.recipes{
+    auto-complete-div{
+        .default-style {
+            input {
+                width: 100% !important;
+            }
+            ul{
+                overflow: scroll;
+                max-height: 200px;
+            }
+        }
+    }
+}

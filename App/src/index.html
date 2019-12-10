@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Smart Admin</title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+  <link href="lib/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css" />
+  <link href="lib/AngularJS-Toaster/toaster.min.css" rel="stylesheet" type="text/css" />
+  <link href="lib/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+  <link href="lib/dropzone/dist/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+  <link href="lib/angular-ui-tree/dist/angular-ui-tree.min.css" rel="stylesheet" type="text/css" />
+  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+
+  <link href="lib/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet"
+    type="text/css">
+  <link href="lib/summernote/dist/summernote.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="css/app.css" />
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- inject:css -->
+  <!-- endinject: css -->
+  <!-- Matomo - LIVE -->
+  <!-- <script type="text/javascript">
+    var _paq = window._paq || [];
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function () {
+      var u = "https://analytic1.mcmhq.com/";
+      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setSiteId', '2']);
+      var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+      g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+    })();
+  </script> -->
+  <!-- End Matomo Code -->
+
+  
+  <!-- Matomo - QC -->
+  <script type="text/javascript">
+    var _paq = window._paq || [];
+    // tracker methods like "setCustomDimension" should be called before "trackPageView" /
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function () {
+      var u = "https://analytic1.mcmhq.com/";
+      _paq.push(['setTrackerUrl', u + 'matomo.php']);
+      _paq.push(['setSiteId', '3']);
+      var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+      g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+    })();
+  </script>
+  <!-- End Matomo Code -->
+</head>
+
+<body
+  class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed-hide-logo page-on-load login"
+  ng-class="{'page-sidebar-closed': settings.layout.pageSidebarClosed}" ng-controller="AppCtrl">
+  <toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}">
+  </toaster-container>
+  <div data-ng-include="'app/layout/shell.tpl.html'" style="min-height: calc(100vh);"></div>
+  <!-- inject:vendorjs -->
+  <!-- endinject: vendorjs -->
+  <!-- inject:appjs -->
+  <!-- endinject: apjs -->
+</body>
+
+</html>
+<!-- Global site tag (gtag.js) - Google Analytics - LIVE -->
+<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141291633-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-141291633-1');
+</script> -->
+
+<!-- Global site tag (gtag.js) - Google Analytics - QC -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-141216116-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141216116-1');
+</script>
+
+
+<script async defer type="text/javascript"
+  src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyDSPZy_RzNkdDcgvdWi_O76TVbWjypv4i4"></script>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>

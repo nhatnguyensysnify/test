@@ -1,0 +1,400 @@
+<script id="customMonthCell.html" type="text/ng-template">
+    <div class="cal-month-day {{day.cssClass}}
+    {{!day.inMonth? 'cal-day-outmonth': 'cal-day-inmonth'}}">
+      <span
+        class="pull-right"
+        data-cal-date
+        ng-bind="day.label">
+      </span>
+      <span class="pull-right availability-container" data-cal-date style="margin-right: 3px;margin-top: 20px; opacity: 1;">
+        <div ng-if="day.events[0].canEditShift" class="pull-left btn-container" ng-if="day.inMonth">
+            <i  ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-plus icon-add"></i>
+        </div>
+      </span>
+      <div style="
+      position: absolute; top: 50px; width: 100%; " ng-if="day.events && day.events.length > 0">
+      <div class="row no-margin">
+          <!-- <a href="javascript:;" class="col-md-12">  {{day.events[0].value}}</a> -->
+          <div ng-repeat="eventItem in day.events"  class="col-xs-12 col-sm-12 col-md-12" style=" padding-top: 3px; " ng-click="vm.onEventClick({calendarEvent:eventItem})">
+            <span class="badge badge-danger" ng-if="eventItem.showBadge" style="
+                position: absolute;
+                z-index: 1;
+                left: 6px;
+                top: -2px;
+                width: 18px;
+            ">!</span>
+            <a ng-if="eventItem.activities === undefined" href="javascript:;" class="col-xs-12 col-sm-12 col-md-12 {{eventItem.monthCssClass}}" >
+                <span ng-if="eventItem.icon"  ng-bind-html="eventItem.icon | calendarTrustAsHtml"></span>
+               {{eventItem.titleMonth}}
+            </a>
+            <a class="col-xs-12 col-sm-12 col-md-12 no-padding {{eventItem.monthCssClass}}" ng-if="eventItem.activities !== undefined">
+                <span class="col-xs-12 col-sm-12 col-md-6 no-padding-right text-left force-line">
+                 {{eventItem.property}}
+                </span>
+                <span class="col-xs-12 col-sm-12 col-md-2 no-padding text-left">
+                    {{eventItem.activities}}
+                </span>
+                <span class="col-xs-12 col-sm-12 col-md-4 no-padding-left text-right">
+                    {{eventItem.sumTotalRevenue | currency}}
+                </span>
+            </a>
+        </div>
+       </div>
+      <!-- <small style="position: absolute; bottom: 10px; left: 5px;font-size: 1.2em; font-weight: 400; opacity: .5;">
+         {{day.events[0].value}}
+      </small> -->
+      <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <i class="glyphicon glyphicon-chevron-up"></i> <i class="fa fa-chevron-up"></i> </div>
+  
+    </div>
+  </script>
+<script id="customMonthCellEventCalendar.html" type="text/ng-template">
+    <div class="cal-month-day {{day.cssClass}} 
+    {{!day.inMonth? 'cal-day-outmonth': 'cal-day-inmonth'}} " >
+      <span
+        class="pull-right"
+        data-cal-date
+        ng-bind="day.label">
+      </span>
+      <!-- <span
+        class="pull-right"
+        data-cal-date style="margin-right: 3px;margin-top: 20px;">
+        <a href="javascript:;" ng-if="day.events && day.events.length> 0 && day.events[0].colorShift" ng-click="$event.stopPropagation(); day.events[0].editShift()" class="pull-left event row-percent-event-item" ng-style="{backgroundColor: day.events[0].colorShift}" ng-mousedown="$event.stopPropagation()" ng-mouseenter="vm.highlightEvent(event, true)" ng-mouseleave="vm.highlightEvent(event, false)" tooltip-append-to-body="true" 
+            uib-tooltip-html="day.events[0].txtShift | calendarTrustAsHtml"
+            tooltip-placement="left" tooltip-append-to-body="true"> </a>
+      </span> -->
+      <div style="
+      position: absolute; top: 50px; width: 100%; padding: 0 5px; " ng-if="day.events && day.events.length > 0">
+      <div class="row no-margin">
+          <div class="col-xs-12 col-sm-12 col-md-6 no-padding-right text-left">
+                <a href="javascript:;" class="row-percent-event-item" >Activity Type</a>
+            </div>
+          <div class="col-xs-12 col-sm-12 col-md-2 no-padding text-left">
+                <a href="javascript:;" class="row-percent-event-item">#</a>
+            </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 no-padding-left text-right">
+                <a href="javascript:;" class="row-percent-event-item">$ </a>
+            </div>
+       </div>
+          <!-- <a href="javascript:;" class="col-md-12">  {{day.events[0].value}}</a> -->
+          <div  class="row no-margin margin-top-5 {{eventItem.monthCssClass}} event-row" ng-repeat="eventItem in day.events" ng-click="vm.onEventClick({calendarEvent:eventItem})" >
+                <a class="col-xs-12 col-sm-12 col-md-12 no-padding">
+                    <span class="col-xs-12 col-sm-12 col-md-6 no-padding-right text-left force-line">
+                     {{eventItem.property}}
+                    </span>
+                <span class="col-xs-12 col-sm-12 col-md-2 no-padding text-left">
+                    {{eventItem.activities}}
+                </span>
+                <span class="col-xs-12 col-sm-12 col-md-4 no-padding-left text-right">
+                    {{eventItem.sumTotalRevenue | currency}}
+                </span>
+        </a>
+       </div>
+      
+      <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <i class="glyphicon glyphicon-chevron-up"></i> <i class="fa fa-chevron-up"></i> </div>
+  
+    </div>
+  </script>
+<div id="events" class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 text-left page-head">
+        <div class="page-title">
+        <h1>
+            <span >{{titlePage}}</span>
+        </h1>
+    </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+        <!-- <button class="btn blue margin-top-bottom-5" ng-click="eventVm.showShiftsModal()">Add Shift</button> -->
+        <!-- <button class="btn blue margin-top-bottom-5" >Publish {{eventVm.calendarView}} <span class="badge badge-danger"> 2 </span></button> -->
+        <!-- <a class="btn blue margin-top-bottom-5" href="#/events/details" ng-if="!allowAddUser">Add New</a> -->
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div class="form-group margin-top-bottom-5">
+                            <date-range-report id="EventRange" class="width100" event="true"
+                                start="{{eventVm.timestampStart}}" end="{{eventVm.timestampEnd}}"
+                                class="margin-top-bottom-5"></date-range-report>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.keyword"
+                                ng-change="eventVm.searchKeyword()"
+                                placeholder="Search By Name, Money Order, Member... ">
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="right form-group margin-top-bottom-5" style="float:left;">
+                            <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
+                                ng-click="eventVm.searchCalendar(true)">Filter</button>
+                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                                ng-click="eventVm.resetFiler()">Reset</button>
+                        </div>
+                        <!-- <div class="form-group margin-top-bottom-5">
+                                <select ui-select2 ng-model="eventVm.cri.facilityId" ng-options="item.$id as item.text for item in eventVm.allFacilities">
+                                </select>
+                            </div> -->
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                        <div class="btn-group form-group margin-top-bottom-5" style="float:right;"
+                            ng-if="eventVm.calendarView != 'timelineView' && !userPermission.isRep">
+                            <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown"
+                                data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV"
+                                href="#" style="position: relative;top: 0px;">
+                                <i class="fa fa-download"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                                <li>
+                                    <a href="#" ng-click="eventVm.searchCalendar(true, true)">Utilization Export</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eventVm.cri.type" class="form-control" required
+                                ng-change="eventVm.searchCalendar()">
+                                <option value="All">All Types</option>
+                                <option ng-repeat="type in  eventVm.eventTypes" value="{{type.value}}"
+                                    ng-selected="type.value == eventVm.cri.types">{{type.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eventVm.cri.status" class="form-control" required
+                                ng-change="eventVm.searchCalendar()">
+                                <option value="All">All Events Status</option>
+                                <option ng-repeat="stt in  eventVm.eventStatus" value="{{stt.value}}"
+                                    ng-selected="stt.value == eventVm.cri.status" ng-show="stt.value != 0">{{stt.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ng-model="eventVm.requester" ui-select2="eventVm.select2Options"
+                                id="filterRequester" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select ui-select2 ng-model="eventVm.chooseRegions" id="chooseRegions" multiple
+                                ng-options="region.id as region.guid for (key, region) in eventVm.allRegions"
+                                data-placeholder="All Plan Types">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ng-model="eventVm.chooseFacilities" ui-select2="eventVm.select2OptionsF" multiple
+                                id="chooseFacilities" data-placeholder="All Facilities" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ui-select2 ng-model="eventVm.chooseStates" id="chooseState" multiple
+                                ng-options="state.iso as state.name for (key, state) in eventVm.allStates"
+                                data-placeholder="All States">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select ui-select2 ng-model="eventVm.chooseTerritories" id="chooseTerritories" multiple
+                                ng-options="territory.id as territory.name for (key, territory) in eventVm.allTerritories"
+                                data-placeholder="All Territories">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-10"
+                            ng-if="eventVm.calendarView != 'timelineView' && !userPermission.isRep">
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input id="resourceAvailability" type="checkbox" ng-model="eventVm.resourceAvailability"
+                                    ng-change="eventVm.onChangeResourceAvailability()" name="resourceAvailability" />
+                                <span></span>
+                            </label>
+                            <label for="resourceAvailability" class="control-label">Resource Availability</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select name="verifyStatus" ng-model="eventVm.cri.verifyStatus" class="form-control" required
+                                ng-change="eventVm.searchCalendar()">
+                                <option value="All">All Status</option>
+                                <option ng-repeat="stt in eventVm.eventVerifyStatus" value="{{stt.value}}"
+                                    ng-selected="stt.value == eventVm.cri.verifyStatus">{{stt.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.moneyOrder"
+                                placeholder="Search By Money Order... ">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.memKeyword"  placeholder="Search By Member">
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+            <div class="portlet-body">
+                <h2 class="text-center">
+                    {{ eventVm.calendarView != 'timelineView'? eventVm.getMonthText() :'Events Timeline' }}
+                </h2>
+                <div class="row">
+                    <div class="col-md-6 text-left">
+                        <div class="btn-group" ng-show="eventVm.calendarView != 'timelineView'">
+
+                            <button class="btn btn-primary" mwl-date-modifier date="eventVm.viewDate"
+                                decrement="eventVm.calendarView"
+                                ng-click="eventVm.cellIsOpen = false; eventVm.onChangeCalendarView();">
+                                Previous
+                            </button>
+                            <button class="btn btn-default" mwl-date-modifier date="eventVm.viewDate" set-to-today
+                                ng-click="eventVm.cellIsOpen = false; eventVm.onChangeCalendarView();">
+                                Current
+                            </button>
+                            <button class="btn btn-primary" mwl-date-modifier date="eventVm.viewDate"
+                                increment="eventVm.calendarView"
+                                ng-click="eventVm.cellIsOpen = false; eventVm.onChangeCalendarView();">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+
+                    <br class="visible-xs visible-sm">
+
+                    <div class="col-md-6 text-right">
+
+                        <div class="btn-group">
+                            <!-- <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'year'" ng-click="eventVm.cellIsOpen = false">Year</label> -->
+                            <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'week'"
+                                ng-click="eventVm.cellIsOpen = false; eventVm.onChangeCalendarView()">Week</label>
+                            <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'month'"
+                                ng-click="eventVm.onChangeCalendarView()">Month</label>
+                            <label class="btn btn-primary" ng-model="eventVm.calendarView"
+                                uib-btn-radio="'timelineView'" ng-click="eventVm.cellIsOpen = false">Events</label>
+                            <!-- <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'day'" ng-click="eventVm.cellIsOpen = false">Day</label> -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <br>
+                <div class="row" ng-if="eventVm.calendarView != 'timelineView' && !eventVm.isLoading">
+                    <div ng-repeat="eventsByState in eventVm.events" class="margin-top-20">
+                        <h3 ng-if="(eventVm.calendarView != 'week' || !eventsByState.eventsCalendar || eventsByState.eventsCalendar.length == 0) && (eventVm.cri.state.indexOf(eventsByState.iso) > -1 || (eventVm.cri.state == '' && eventsByState.iso == 'US') )"
+                            class="margin-top-50" ng-class="{'text-center':eventVm.calendarView == 'month'}">
+                            <a style=" font-weight: bold; ">{{eventsByState.stateTxt}}</a> <span
+                                ng-if="eventsByState.eventsCalendar.length == 0">: No records</span>
+                        </h3>
+                        <mwl-calendar
+                            ng-if="(eventVm.cri.state.indexOf(eventsByState.iso) > -1  || (eventVm.cri.state == '' && eventsByState.iso == 'US'))"
+                            events="eventsByState.eventsCalendar" view="eventVm.calendarView"
+                            view-title="eventVm.calendarTitle" view-date="eventVm.viewDate"
+                            on-event-click="eventVm.eventClicked(calendarEvent)"
+                            on-event-times-changed="eventVm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+                            cell-modifier="eventVm.modifyCell(calendarCell)" cell-auto-open-disabled="true"
+                            custom-template-urls="{calendarMonthCell: eventVm.resourceAvailability? 'customMonthCell.html' :'customMonthCellEventCalendar.html' }"
+                            on-view-change-click="eventVm.viewChangeClicked(calendarNextView)"
+                            on-timespan-click="eventVm.timespanClicked(calendarDate, calendarCell)"
+                            ng-class="{'week-mode':eventVm.calendarView == 'week'}">
+                        </mwl-calendar>
+                    </div>
+
+                    <!-- cell-is-open="eventVm.cellIsOpen" day-view-start="06:00" day-view-end="22:59" day-view-split="30" -->
+                </div>
+                <div class="row" ng-if="eventVm.calendarView == 'timelineView'">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                        <h5 ng-if="!eventVm.isHaveRecords">No records</h5>
+                    </div>
+                    <div class="mt-timeline-2">
+                        <div class="mt-timeline-line border-grey-steel"></div>
+                        <ul class="mt-container">
+                            <li class="mt-item" ng-repeat="eventsByDay in eventVm.eventsGroupUS.groupByDateRange"
+                                ng-if="eventsByDay.events && eventsByDay.events.length > 0">
+                                <div class="mt-timeline-icon bg-blue bg-font-blue border-grey-steel">
+                                    <!-- <i class="icon-home"></i> -->
+                                    <p style=" top: 40%;  font-size: 14px; position: relative;text-align: center; ">
+                                        {{eventsByDay.title}} </p>
+                                </div>
+                                <div class="mt-timeline-content" ng-if="$even">
+                                    <div class="mt-content-container" style=" overflow-y: scroll; max-height: 400px; ">
+                                        <!-- <div class="mt-title">
+                                            <h3 class="mt-content-title">Event List</h3>
+                                        </div> -->
+                                        <!-- <div class="mt-author">
+                                            <div class="mt-author-name">
+                                                <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                            </div>
+                                        </div> -->
+                                        <div class="border-grey-salt">
+                                            <p>Total {{eventsByDay.events.length}} items</p>
+                                            <p ng-repeat="eventItem in eventsByDay.events"><a
+                                                    href="#/events/details?id={{eventItem.$id}}" target="_blank"
+                                                    class="font-blue-madison">{{$index+1}}. {{eventItem.name}}</a> -
+                                                {{eventVm.getType(eventItem.type)}} -
+                                                {{eventItem.state}} - <span
+                                                    ng-bind-html="eventVm.getRequesters(eventItem.representativeAttended)"></span>
+                                                - <span ng-bind-html="eventVm.getFacility(eventItem.facilityId)"></span>
+                                                <i class="fa fa-database font-green-jungle"
+                                                    ng-style="{visibility: eventItem.dataEntered === true ? 'visible': 'hidden'}"></i>
+                                                <i class="fa fa-cloud-upload font-green-jungle"
+                                                    ng-style="{visibility: eventItem.appUploaded === true ? 'visible': 'hidden'}"></i>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-timeline-content" ng-if="$odd">
+                                    <div class="mt-content-container bg-white border-grey-steel"
+                                        style=" overflow-y: scroll; max-height: 400px; ">
+                                        <div class="border-grey-steel">
+                                            <p>Total {{eventsByDay.events.length}} items</p>
+                                            <p ng-repeat="eventItem in eventsByDay.events"><a
+                                                    href="#/events/details?id={{eventItem.$id}}" target="_blank"
+                                                    class="font-blue-madison">{{$index+1}}. {{eventItem.name}}</a> -
+                                                {{eventVm.getType(eventItem.type)}} -
+                                                {{eventItem.state}} - <span
+                                                    ng-bind-html="eventVm.getRequesters(eventItem.representativeAttended)"></span>
+                                                - <span ng-bind-html="eventVm.getFacility(eventItem.facilityId)"></span>
+                                                <i class="fa fa-database font-green-jungle"
+                                                    ng-style="{visibility: eventItem.dataEntered === true ? 'visible': 'hidden'}"></i>
+                                                <i class="fa fa-cloud-upload font-green-jungle"
+                                                    ng-style="{visibility: eventItem.appUploaded === true ? 'visible': 'hidden'}"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,140 @@
+<div id="add-app-ocr" style="min-height:500px;">
+
+    <div class="portlet light no-margin-bottom">
+        <div class="portlet-title">
+            <div class="caption col-md-4">
+                <i class="fa fa-star"></i>
+                <span class="caption-subject bold uppercase">Upload Applications</span>
+            </div>
+            <div class="col-md-8">
+                <a href="#/membership/list" style="margin: 0px; float:right" class="btn btn-primary" title="View Applications">View
+                    Applications</a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <form class="form-horizontal" role="form" name="appOCRForm" novalidate>
+                <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appOCRForm.state.$error.required)}">
+                    <label class="col-md-4 control-label text-right">State <span class="required-field">*</span></label>
+                    <div class="col-md-3">
+                        <select name="appState" ng-model="applicationVm.state" required class="form-control" ng-change="applicationVm.changeState()">
+                            <option value="" disabled>State</option>
+                            <option ng-repeat="state in applicationVm.appStatelist" data-id="{{state.id}}" value="{{state.iso}}"
+                                ng-selected="state.iso == user.state">{{state.name}}</option>
+                        </select>
+                        <label class="control-label" ng-show="applicationVm.showInvalid && appOCRForm.state.$error.required">* This field is required</label>
+                    </div>
+                    <div class="col-md-5">
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appOCRForm.planType.$error.required)}">
+                    <label class="col-md-4 control-label text-right">Plan Type <span class="required-field">*</span></label>
+                    <div class="col-md-3">
+                        <select name="planType" ng-model="applicationVm.region" required class="form-control" autocomplete="off" ng-change="applicationVm.changeRegion()">
+                            <option value="" disabled>Choose Plan Type</option>
+                            <option ng-repeat="region in applicationVm.regionGroups[applicationVm.state]" data-code="{{region.code}}" value="{{region.id}}">{{region.guid}}</option>
+                        </select>
+                        <label class="control-label" ng-show="applicationVm.showInvalid && appOCRForm.planType.$error.required">* This field is required</label>
+                    </div>
+                    <div class="col-md-5">
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appOCRForm.facility.$error.required}">
+                    <label class="col-md-4 control-label">Facility <span class="required-field">*</span></label>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="applicationVm.facilityTxt" required disabled class="form-control" name="facility" />
+                        <label class="control-label required-field" ng-show="applicationVm.initPopup && (!applicationVm.state || applicationVm.state ==='')">* Please select state</label>
+                        <label class="control-label font-yellow" ng-if="applicationVm.notBelongState">* Facility does not belong to {{applicationVm.getState(applicationVm.state)}}</label>
+                    </div>
+                    <div class="col-md-5 margin-top-10">
+                        <a href="#" ng-click="applicationVm.showPopupFacilityList(applicationVm.state)">Select Facility</a>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appOCRForm.event.$error.required}">
+                    <label class="col-md-4 control-label">Event <span class="required-field">*</span>
+                    </label>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="applicationVm.eventTxt" required disabled class="form-control" name="event" />
+                        <label class="control-label required-field" ng-if="applicationVm.initSeclectEvent && (!applicationVm.state || applicationVm.state === '')">* Please select state</label>
+                        <br ng-if="applicationVm.initSeclectEvent && (!applicationVm.facilityId || applicationVm.facilityId === '')">
+                        <label class="control-label required-field" ng-if="applicationVm.initSeclectEvent && (!applicationVm.facilityId || applicationVm.facilityId === '')">* Please select facility</label>
+                    </div>
+                    <div class="col-md-5 margin-top-10">
+                        <a href="#" ng-click="applicationVm.showPopupEventList(applicationVm.state, applicationVm.facilityId)">Select Event</a>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appOCRForm.repCode.$error.required}">
+                    <label class="col-md-4 control-label">Representative Code/Rep Code <span class="required-field">*</span></label>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="applicationVm.employeeSelected.repCode" required class="form-control" name="repCode" />
+                    </div>
+                    <div class="col-md-5 margin-top-10">
+                        <a href="#" ng-click="applicationVm.showPopupEmployeeList()">Select Rep</a>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appOCRForm.saleRep.$error.required}">
+                    <label class="col-md-4 control-label">Sale Rep <span class="required-field">*</span></label>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="applicationVm.employeeSelected.saleRep" required class="form-control" name="saleRep" />
+                    </div>
+                </div>
+                <div class="form-group" ng-show="!appOCRForm.$invalid">
+                    <div class="col-md-offset-2 col-md-7">
+                        <ng-dropzone class="dropzone dz-clickable" options="applicationVm.dzOptions" callbacks="applicationVm.dzCallbacks" methods="applicationVm.dz">
+                        </ng-dropzone>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+        <div class="portlet-title">
+            <div class="caption col-md-4">
+                <i class="fa fa-star"></i>
+                <span class="caption-subject bold uppercase">Upload Tracking</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <ng-include src="'app/employee/add_edit/_employee-log-history.tpl.html'" ng-controller="uploadFileAppHistoryController as employeeHistoryVm"></ng-include>
+        </div>
+    </div>
+</div>
+<!-- <div class="modal-content" id="upload-file">            
+    <div class="modal-header">
+        <button type="button" class="close" aria-hidden="true" ng-click="applicationVm.close()"></button>
+        <h4 class="modal-title">ADD NEW APPLICATION (OCR)</h4>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" role="form" name="appOCRForm" novalidate>
+            <div class="portlet light no-margin-bottom">
+                <div class="portlet-title">
+                    <div class="caption width100">
+                        <i class="fa fa-star"></i>
+                        <span class="caption-subject bold uppercase">Select Region</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appOCRForm.state.$error.required)}">
+                <label class="col-md-4 control-label text-right">Region <span class="required-field">*</span></label>
+                <div class="col-md-8">
+                    <select name="state" ng-model="applicationVm.model.state" required class="form-control">
+                        <option value="" disabled >Region</option>
+                        <option ng-repeat="state in applicationVm.appStatelist" data-id="{{state.id}}" value="{{state.iso}}" ng-selected="state.iso == user.state">{{state.name}}</option>
+                    </select>
+                    <label class="control-label" ng-show="applicationVm.showInvalid && appOCRForm.state.$error.required">* This field is required</label>
+                </div>
+            </div>
+            <div class="row" ng-show="!appOCRForm.state.$error.required">
+                <div class="col-md-12">
+                    <form action="http://localhost:3000/#/media/uploadfiles" class="dropzone dropzone-file-area" id="form-dropzone" style="width: 100%; margin-top: 50px;">
+                        <h3 class="sbold">Drop files here or click to upload</h3>
+                        <p> This is just a demo dropzone. Selected files are not actually uploaded. </p>
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" ng-click="applicationVm.close()">Close</button>
+    </div>
+</div> -->

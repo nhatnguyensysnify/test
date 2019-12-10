@@ -1,0 +1,235 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dashVm.close()"></button>
+	<h4 class="modal-title" ng-bind-html="dashVm.title"></h4>
+</div>
+<div class="modal-body" id="modal-body">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="actions">
+						<div class="form-group">
+							<div class="col-md-12 no-padding-right">
+								Total Amount: <strong>{{dashVm.total || 0 | currency}}</strong>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-12 no-padding-right">
+								Members: <strong>{{dashVm.members || 0}}</strong>
+							</div>
+						</div>
+						<div class="form-group" ng-if="dashVm.revenueChart">
+							<div class="col-md-12 no-padding-right">
+								Report By: <strong>{{dashVm.reportBy.toUpperCase()}}</strong>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="portlet-body" style="overflow-x:auto; height: calc(75vh - 140px);">
+					<div class="table-scrollable table-scrollable-borderless event-completion">
+						<table class="table table-hover table-light dataTable" ng-class="{'dashboard-popup-width': isByPlanType}">
+							<thead>
+								<tr>
+									<th class="width20 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width20' :'width25'}}"
+									 ng-click="dashVm.toggleSort('primaryMember'); dashVm.sort.field='primaryMember'">
+										<p>
+											Full Name
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'primaryMember'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<!-- <th class="text-center cursor-pointer" ng-class="{{isByPlanType ? 'width15' :'width25'}}" ng-click="dashVm.toggleSort('lastName'); dashVm.sort.field='lastName'">
+									<p>
+												Last Name 
+										<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'lastName'">
+											<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+											<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+										</span>
+									</p>
+								</th> -->
+									<th class="width15 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width15' :'width20'}}"
+									 ng-click="dashVm.toggleSort('facilityCode'); dashVm.sort.field='facilityCode'">
+										<p>
+											Facility Code
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'facilityCode'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<th class="width15 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width15' :'width20'}}"
+									 ng-click="dashVm.toggleSort('representativeCode'); dashVm.sort.field='representativeCode'">
+										<p>
+											Representative Code
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'representativeCode'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<th class="width25 text-center cursor-pointer hidden-xs hidden-sm" ng-click="dashVm.toggleSort('planName'); dashVm.sort.field='planName'"
+									 ng-if="isByPlanType">
+										<p>
+											Plans/Addons
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'planName'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<!-- <th class="width25 text-center cursor-pointer hidden-xs" ng-if="isByPlanType">
+									<p>
+											Addons 
+									</p>
+								</th> -->
+									<th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width10'}}"
+									 ng-click="dashVm.toggleSort('state'); dashVm.sort.field='state'">
+										<p>
+											State
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'state'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width10'}}"
+									 ng-click="dashVm.toggleSort('planType'); dashVm.sort.field='planType'">
+										<p>
+											Plan Type
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'planType'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<th class="width5 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width5' :'width10'}}"
+									 ng-click="dashVm.toggleSort('totalAmount'); dashVm.sort.field='totalAmount'">
+										<p>
+											Total
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'totalAmount'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width15'}}"
+									 ng-click="dashVm.toggleSort('timestampSignatured'); dashVm.sort.field='timestampSignatured'">
+										<p>
+											Signature Date
+											<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'timestampSignatured'">
+												<span ng-show="!dashVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+												<span ng-show="dashVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+											</span>
+										</p>
+									</th>
+									<th class="width100 text-center cursor-pointer hidden-md hidden-lg">
+										<p>
+											Information
+										</p>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in dashVm.items">
+									<td class="text-center hidden-xs hidden-sm "><a href="#" ng-click="goTo(item)">{{item.primaryMember}}</a></td>
+									<!-- <td class="text-center"><a href="#" ng-click="goTo(item)">{{item.lastName || 'Unknown'}}</a></td> -->
+									<td class="text-center hidden-xs hidden-sm ">{{item.facilityCode}}<br> {{item.facilityName}}</td>
+									<td class="text-center hidden-xs hidden-sm ">{{item.representativeCode}}<br> ({{item.saleRep ||
+										item.employeeName || ''}})</td>
+									<!-- <td class="text-center hidden-xs" ng-if="isByPlanType">{{item.planName}}</td>
+								<td class="text-left   hidden-xs"  ng-if="isByPlanType" ng-bind-html="item.addons"></td> -->
+									<td class="text-center hidden-xs hidden-sm " ng-if="isByPlanType">
+										<table class="table table-striped">
+											<tbody>
+												<tr>
+													<td class="width25">Plans: </td>
+													<td>
+														{{item.planName}}
+													</td>
+												</tr>
+												<tr>
+													<td class="width25">Addons: </td>
+													<td ng-bind-html="item.addons">
+
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+									<td class="text-center hidden-xs hidden-sm ">{{item.state}}</td>
+									<td class="text-center hidden-xs hidden-sm ">{{item.planType}}</td>
+									<td class="text-center hidden-xs hidden-sm ">{{item.totalAmount | currency}}</td>
+									<td class="text-center hidden-xs hidden-sm ">{{item.timestampSignatured | date: 'MM/dd/yyyy'}}</td>
+									<td class="width100 text-center hidden-md hidden-lg">
+										<table class="table table-striped">
+											<tbody>
+												<tr>
+													<td class="width30 text-left">Full Name: </td>
+													<td class="text-left">
+														<a href="#" ng-click="goTo(item)">{{item.primaryMember}}</a>
+													</td>
+												</tr>
+												<tr>
+													<td class="width30 text-left">Facility Code: </td>
+													<td class="text-left">
+														{{item.facilityCode}}<br> {{item.facilityName}}
+													</td>
+												</tr>
+												<tr>
+													<td class="width30 text-left">Representative Code: </td>
+													<td class="text-left">{{item.representativeCode}}<br> {{item.saleRep || item.employeeName || ''}}</td>
+												</tr>
+
+												<tr ng-if="isByPlanType">
+													<td class="width30 text-left">Plans: </td>
+													<td class="text-left">{{item.planName}}</td>
+												</tr>
+												<tr ng-if="isByPlanType">
+													<td class="width30 text-left">Addons: </td>
+													<td class="text-left" ng-bind-html="item.addons"></td>
+												</tr>
+												<tr>
+													<td class="width30 text-left">State </td>
+													<td class="text-left">
+														{{item.state}}
+													</td>
+												</tr>
+												<tr>
+													<td class="width30 text-left">Plan Type </td>
+													<td class="text-left">
+														{{item.planType}}
+													</td>
+												</tr>
+												<tr>
+													<td class="width30 text-left">Total: </td>
+													<td class="text-left">{{item.totalAmount | currency}}</td>
+												</tr>
+												<tr>
+													<td class="width30 text-left">Signature Date: </td>
+													<td class="text-left">{{item.timestampSignatured | date: 'MM/dd/yyyy'}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr ng-if="dashVm.items.length === 0">
+									<td class="hidden-xs hidden-sm" colspan="6">
+										No Records.
+									</td>
+									<td class="hidden-md hidden-lg">
+										No Records.
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn dark btn-outline" type="button" ng-click="dashVm.close()">Close</button>
+</div>

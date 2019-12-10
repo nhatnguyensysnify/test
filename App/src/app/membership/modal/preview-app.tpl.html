@@ -1,0 +1,76 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" ng-click="close()"></button>
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">Preview Application: Version {{currentVersion}}</span>
+    </div>
+</div>
+<div class="modal-body" id="preview-web-app">
+       <form class="form-horizontal" role="form" name="appForm" novalidate>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 left">
+                    <div class="form-body">
+                        <!--State-->
+                        <div class="portlet light no-margin-bottom">
+                            <div class="portlet-title">
+                                <div class="caption width100">
+                                    <i class="fa fa-star"></i>
+                                    <span class="caption-subject bold uppercase">Select Program</span>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.appState.$error.required)}">
+                            <label class="col-md-4 control-label">State <span class="required-field">*</span></label>
+                            <div class="col-md-8">
+                                <select name="appState" ng-model="applicationVm.model.state" required class="form-control" autocomplete="off" ng-change="applicationVm.changeState()">
+                                    <option value="" disabled >State</option>
+                                    <option ng-repeat="(key, state) in applicationVm.appStatelist" data-id="{{state.id}}" value="{{state.iso}}">{{state.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                         <!-- Regions -->
+                        <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.appState.$error.required)}">
+                            <label class="col-md-4 control-label">Plan Type <span class="required-field">*</span></label>
+                            <div class="col-md-8">
+                                <select name="appRegion" ng-model="applicationVm.model.region" required class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-change="applicationVm.changeRegion()">
+                                        <option value="" disabled >Plan Type</option>
+                                        <option ng-repeat="region in applicationVm.regionGroups[applicationVm.model.state]" data-code="{{region.code}}" value="{{region.id}}">{{region.guid}}</option>
+                                    </select>
+                                <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.state.$error.required">* This field is required</label>-->
+                            </div>
+                        </div>
+
+                        <!--Payment Method-->
+                        <ng-include src="'app/membership/application/add_edit/_edit_group_paymentmethod.tpl.html'" ng-if="applicationVm.model.regionCode == 'standard'"></ng-include>
+
+                        
+                        <!--Primary Member-->
+                        <ng-include src="'app/membership/application/add_edit/_edit_group_pri_member.tpl.html'"></ng-include>
+                        <ng-include src="'app/membership/application/add_edit/_edit_group_agency.tpl.html'" ng-if="applicationVm.model.regionCode=='leo'"></ng-include>
+                        <div class="form-group" ng-if="applicationVm.model.regionCode == 'nfa' || applicationVm.model.regionCode == 'sec'" ng-class="{'has-error': applicationVm.showInvalid && appForm.officerRegistration.$error.required}">
+                            <label class="col-md-4 control-label">Private Security Officer Registration#<span class="required-field">*</span></label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="Private Security Officer Registration" value="" ng-model="applicationVm.model.officerRegistration" name="officerRegistration" ng-click="focusMe('officerRegistration', false)" ng-class="{'form-check': mapping.officerRegistration.selected}" ng-disabled="applicationVm.model.isLocked"
+                                    required>
+                            </div>
+                        </div>
+                        <!--Secondary Member-->
+                        <ng-include src="'app/membership/application/add_edit/_edit_group_sec_member.tpl.html'"></ng-include>
+
+                        <ng-include src="'app/membership/application/add_edit/_edit_group_paymentmethod.tpl.html'" ng-if="applicationVm.model.regionCode !== 'standard'"></ng-include>
+
+                        <ng-include src="'app/membership/application/add_edit/_edit_group_total.tpl.html'"></ng-include>
+                        
+                        <ng-include src="'app/membership/application/add_edit/_edit_group_sign_fac_extra.tpl.html'"></ng-include>
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+<div class="modal-footer">
+    <button type="button" id="cancel-app" class="btn default" ng-click="close()">Close</button>
+    <button type="button" class="btn green" ng-click="applicationVm.select(appForm)" ng-disabled="appForm.$invalid || (applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast))">Apply & Close</button>
+</div>

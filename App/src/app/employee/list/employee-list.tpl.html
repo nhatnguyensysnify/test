@@ -1,0 +1,314 @@
+﻿<div id="users" class="row">
+    <div class="col-md-6 text-left">
+
+    </div>
+    <div class="col-md-6 text-right">
+        <a href="#" ng-click="addNew()" class="btn blue margin-top-bottom-5" ng-if="allowAddUser && userPermission.isAdmin">Add New</a>
+    </div>
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 margin-top-5 text-left">
+                        <div class="inputs">
+                            <div class="portlet-input input-large input-inline" style="width: 100% !important;">
+                                <div class="input-icon right">
+                                    <i class="icon-magnifier"></i>
+                                    <input type="text" class="form-control form-control-solid" ng-model="cri.keyword" placeholder="search..." ng-change="searchUser()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ng-model="requester" ui-select2="select2Options" id="filterRequester" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select name="eventType" ng-model="cri.licenseType" class="form-control" required>
+                                <option ng-value="'All'">All Types Of License</option>
+                                <option ng-repeat="(key,value) in licenseTypes" ng-value="{{key}}">{{value}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select name="eventType" ng-model="cri.hireType" class="form-control" required>
+                                <option value="All">All Types Of Hire</option>
+                                <option ng-repeat="stt in hireTypes" value="{{stt.value}}">{{stt.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="cri.licenseType" class="form-control" required>
+                                <option value="All">All Types Of License</option>
+                                <option ng-repeat="stt in licenseTypes" value="{{stt.value}}">{{stt.text}}</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ui-select2 ng-model="chooseStates" id="chooseStates" multiple ng-options="state.iso as state.name for (key, state) in allStates" data-placeholder="All Working States">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ui-select2 ng-model="chooseTerritories" id="chooseTerritories" multiple ng-options="territory.id as territory.name for (key, territory) in allTerritories" data-placeholder="All Working Territories">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ui-select2 ng-model="chooseIssuingStates" id="chooseIssuingStates" multiple ng-options="state.iso as state.name for (key, state) in allStates" data-placeholder="All Issuing States">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+                        <div class="right form-group margin-top-bottom-5" style="float:left;">
+                            <button type="button" id="filter-users" class="btn green-haze padding-l-r-20" style="float: left;" ng-click="searchUser(true)">Filter</button>
+                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;" ng-click="resetFiler()">Reset</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <label class="mt-checkbox mt-checkbox-outline margin-top-10">
+                                <input id="isAuthorized" type="checkbox" ng-model="cri.isAuthorized"
+                                    ng-change="searchUser(true)" />
+                                <span></span>
+                            </label>
+                            <label for="isAuthorized" class="control-label">Active</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <label class="mt-checkbox mt-checkbox-outline margin-top-10">
+                                <input id="LicenseExpiration" type="checkbox" name="licenseexpiration"
+                                    ng-model="cri.licenseExp" />
+                                <span></span>
+                            </label>
+                            <label for="LicenseExpiration" class="control-label">License Expiration</label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" ng-show="cri.licenseExp">
+                        <div class="form-group margin-top-bottom-5">
+                            <date-range-report id="EmployeeRange" class="width100" event="true" start="{{timestampStart}}" end="{{timestampEnd}}" class="margin-top-bottom-5">
+                            </date-range-report>
+                        </div>
+                    </div>
+                    <div class="col-xs-12" ng-class="{'col-sm-6 col-md-4 col-lg-3': cri.licenseExp, 'col-sm-12 col-md-4 col-lg-6': !cri.licenseExp}">
+                        <div class="btn-group form-group margin-top-bottom-5" style="float:right;">
+                            <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV" href="#" style="position: relative;top: 0px;">
+                                <i class="fa fa-download"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                                <li>
+                                    <a href="#" ng-click="exportCSV()">Employee Export</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-title role-sum" ng-if="userPermission.isAdmin">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-bottom-5">
+                        <label ng-class="{selected: !cri.role}">
+                            <span class="caption-subject font-blue-madison">
+                                <a href="javascript:;" ng-click="getUserByRole()">All</a>
+                            </span>
+                            <span class="caption-helper">({{allUsers}})</span>
+                        </label>
+                        <label ng-repeat="role in rolesList" ng-class="{selected: cri.role == role.$id}">
+                            <span class="caption-helper">|</span>
+                            <span class="caption-subject font-blue-madison">
+                                <a href="javascript:;" ng-click="getUserByRole(role.$id)">{{role.name}}</a>
+                            </span>
+                            <span class="caption-helper">({{role.totalUsers}})</span>
+                            <span class="caption-helper"
+                                ng-if="!userPermission.isAdmin && rolesList.length !== $index">|</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-title margin-top-5">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-if="userPermission.isAdmin">
+                        <div class="col-xs-4 col-sm-3 col-md-3 form-group margin-top-bottom-5 no-padding-left">
+                            <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3  margin-top-5" ng-if="userPermission.isAdmin">
+                        <div class="col-xs-8 col-sm-9 col-md-9 no-padding-left-right"> -->
+                            <select class="bs-select form-control" id="action-list">
+                                <option value="0">Bulk Actions</option>
+                                <option value="delete" ng-if="!allowAddUser">Delete</option>
+                                <option value="disable">Disable</option>
+                                <option value="enable">Enable</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-4 col-sm-3 col-md-3 no-padding-left-right margin-top-5">
+                            <button type="button" style="width: 85px;" class="btn green-haze padding-l-r-20" ng-click="applyAction('select-user','action-list')">Apply</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 margin-top-5" ng-class="{'col-lg-12': !userPermission.isAdmin,'col-md-6':userPermission.isAdmin, 'col-lg-6':userPermission.isAdmin}">
+                        <list-paging ng-model="paging" change-page="changePage" style="float:right; padding: 5px 0px;">
+                        </list-paging>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 margin-top-5"
+                        ng-class="{'col-lg-8': !userPermission.isAdmin}">
+                        <list-paging ng-model="paging" change-page="changePage" style="float:right; padding: 5px 0px;">
+                        </list-paging>
+                    </div>
+                </div> -->
+            </div>
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-striped table-hover">
+                    <thead class="flip-content">
+                        <tr class="uppercase">
+                            <th>
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" id="select-all-user"
+                                        ng-click="selectAllUser('select-all-user','select-user')" />
+                                    <span></span>
+                                </label>
+                            </th>
+                            <th class="width100 text-center hidden-md hidden-lg">Employee Information</th>
+                            <th colspan="2" class="hidden-xs hidden-sm width20"> Email </th>
+                            <th class="width10 hidden-xs hidden-sm"> UserName </th>
+                            <th class="width15 hidden-xs hidden-sm"> Full Name </th>
+                            <th class="width15 hidden-xs hidden-sm"> Role </th>
+                            <th class="width15 hidden-xs hidden-sm"> Manager </th>
+                            <th class="width10 hidden-xs hidden-sm">Last Activity Performed</th>
+                            <th class="width5 hidden-xs hidden-sm text-center">Status</th>
+                            <th class="width5 hidden-xs hidden-sm text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in users">
+                            <td>
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="select-user" value="{{item.$id}}"
+                                        class="chk-select-user" />
+                                    <span></span>
+                                </label>
+                            </td>
+                            <td class="hidden-md hidden-lg">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td class="width35 text-left">Email: </td>
+                                            <td class="text-left show-function">
+                                                <span class="primary-link" style="word-break: break-all;">{{item.email}}</span>
+                                                <p class="functions" style="font-style: italic">
+                                                    <span ng-if="userPermission.isAdmin">
+                                                        <a class="primary-link" href="#" style="word-break: break-all;"
+                                                            ng-click="editEmployee(item.$id)">Edit
+                                                        </a>
+                                                    </span>
+                                                    <span ng-if="userPermission.isAdmin && !item.rep">|</span>
+                                                    <span ng-if="userPermission.isAdmin && !item.rep">
+                                                        <a class="primary-link" href="#" style="word-break: break-all;"
+                                                            ng-click="showModalReplace(item)">Replace
+                                                        </a>
+                                                    </span>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">UserName: </td>
+                                            <td class="text-left">
+                                                {{item.repCode}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">Full Name: </td>
+                                            <td class="text-left"><span class="font-blue">{{item.firstName + ' ' +
+                                                    item.lastName}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">Role: </td>
+                                            <td class="text-left">{{getRoleText(item)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">Manager: </td>
+                                            <td class="text-left" ng-bind-html="item.manager"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="width35 text-left">Last Login: </td>
+                                            <td class="text-left">{{item.lastLoginDate | date: 'MM/dd/yyyy hh:mm a'}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">Status: </td>
+                                            <td class="text-left">
+                                                <i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left"></td>
+                                            <td class="text-left">
+                                                <a href="#" ng-click="showManagerInfo(item)" data-toggle="tooltip" title="Show Manager Hierarchy"><i class="fa fa-info-circle"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="fit hidden-xs hidden-sm">
+                                <p ng-if="!item.photoURL || item.photoURL ===''" class="img-responsive employee-pic" data-letters="{{dataLetterPic(item)}}"></p>
+                                <img ng-if="item.photoURL && item.photoURL !==''" ng-src="{{item.photoURL}}" class="user-pic" class="" alt="profile-image">
+                            </td>
+                            <td class="hidden-xs hidden-sm show-function">
+                                <span class="primary-link" style="word-break: break-all;">{{item.email}}</span>
+                                <p class="functions" style="font-style: italic">
+                                    <span ng-if="userPermission.isAdmin">
+                                        <a class="primary-link" href="#" style="word-break: break-all;"
+                                            ng-click="editEmployee(item.$id)">Edit
+                                        </a>
+                                    </span>
+                                    <span ng-if="userPermission.isAdmin && !item.rep">|</span>
+                                    <span ng-if="userPermission.isAdmin && !item.rep">
+                                        <a class="primary-link" href="#" style="word-break: break-all;"
+                                            ng-click="showModalReplace(item)">Replace
+                                        </a>
+                                    </span>
+                                </p>
+                            </td>
+                            <td class="hidden-xs hidden-sm">
+                                {{item.repCode}}
+                            </td>
+                            <td class="hidden-xs hidden-sm"><a class="primary-link" href="#">{{item.firstName + ' ' +
+                                    item.lastName}}</a></td>
+                            <td class="hidden-xs hidden-sm">{{getRoleText(item)}}</td>
+                            <td class="hidden-xs hidden-sm" ng-bind-html="item.manager"></td>
+
+                            <td class="hidden-xs hidden-sm">
+                                {{item.timestampActivity?(item.timestampActivity | date: 'MM/dd/yyyy hh:mm a'):""}}
+                            </td>
+                            <td class="hidden-xs hidden-sm text-center"><i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i>
+                            </td>
+                            <td class="hidden-xs hidden-sm text-center"><a href="#" data-toggle="tooltip" title="Show Manager Hierarchy" ng-click="showManagerInfo(item)"><i
+                                        class="fa fa-info-circle"></i></a></td>
+                        </tr>
+                        <tr ng-if="users.length === 0">
+                            <td class="hidden-xs hidden-sm" colspan="10">
+                                <h5>No records</h5>
+                            </td>
+                            <td class="hidden-md hidden-lg">
+                                <h5>No records</h5>
+                            </td>
+                            <tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

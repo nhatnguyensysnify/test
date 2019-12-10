@@ -1,0 +1,16 @@
+div.dataTables_paginate , div.dataTables_length, div.dataTables_info{
+	display: inline-flex;
+    float: none!important;
+    padding: 0!important;
+    margin: 0!important;
+    position: static!important;
+}
+
+div.dataTables_info{
+	label {
+		padding-top: 4px;
+	}
+}
+.pagination-panel-total{
+	display: inline-block;
+}

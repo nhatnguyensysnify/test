@@ -1,0 +1,21 @@
+<div class="portlet light bordered">
+    <div class="portlet-title ">
+        <form role="form" id="processFileForm" name="processFileForm" novalidate>
+            <div class="form-horizontal" >
+                <div class="form-group col-md-5 text-right" ng-class="{'has-error': processFileShowValid || fileNotExisted}">
+                    <label class="col-md-4 control-label text-right">Upload IDs File</label>
+                    <div class="col-md-8">
+                        <input type="file" id="files" class="form-control input-inline pull-left" name="fileName" required ng-click="enalbleInputFile()">
+                    </div>
+                </div>
+                <div class="form-group col-md-2">
+                    <div class="col-md-12">
+                        <span class="help-inline pull-left padding-top-2">
+                            <button class="btn btn-sm green" id="submit-parse" ng-click="handleFileSelect(processFileForm)">Process & Clear Application</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,186 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-top-10">
+        <select ui-select2 ng-model="eventVm.chooseStates" multiple
+            ng-options="state.iso as state.name for (key, state) in eventVm.allStates" data-placeholder="All States"
+            ng-change="eventVm.changeState();">
+        </select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-top-10">
+        <select ui-select2 ng-model="eventVm.chooseTerritories" id="chooseTerritories" multiple
+            ng-options="territory.id as territory.name for (key, territory) in eventVm.allTerritories"
+            data-placeholder="All Territories" ng-change="eventVm.changeState();">
+        </select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-top-10">
+        <select ng-model="eventVm.chooseFacilities" ui-select2="eventVm.select2OptionsF" multiple id="chooseFacilities"
+            data-placeholder="All Facilities" class="form-control" ng-change="eventVm.changeState();">
+        </select>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 margin-top-10 text-right">
+        <date-range-report id="EventDateRange" position="left" ng-disabled="initPage" event="true"
+            start="{{eventVm.timestampStart}}" end="{{eventVm.timestampEnd}}" style="position: relative;top: 0px;">
+        </date-range-report>
+        <!-- <div class="btn-group">
+            <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown"
+                data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV" href="#"
+                style="position: relative;top: 0px;">
+                <i class="fa fa-download"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                <li>
+                    <a href="#" ng-click="">Notification Export</a>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+</div>
+<div class="row margin-top-10 margin-bottom-10">
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+        <select ng-model="eventVm.cri.type" class="form-control" ng-change="eventVm.changeType();" ng-disabled="true">
+            <option value="All">All Types</option>
+            <option ng-repeat="type in eventVm.eventTypes" value="{{type.value}}">{{type.text}}</option>
+        </select>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+        <select ui-select2 ng-model="eventVm.chooseRegions" id="chooseRegions" ng-change="eventVm.changeState();"
+            multiple ng-options="region.id as region.guid for (key, region) in eventVm.allRegions"
+            data-placeholder="All Plan Types">
+        </select>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 overview-area">
+        <div class="btn-group pull-right" >
+            <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle  margin-right-10" data-toggle="dropdown"
+                data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV" href="#"
+                style="position: relative;top: 0px;">
+                <i class="fa fa-download"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                <li>
+                    <a ng-click="eventVm.exportCampaignsData()">Campaigns Export</a>
+                </li>
+               
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 overview-area">
+        <div class="portlet light bordered" id="overviewReport">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="caption col-xs-4 col-sm-3 col-md-3 col-lg-3 margin-top-10">
+                        <i class=" icon-layers font-blue-steel"></i>
+                        <span class="caption-subject font-blue-steel bold uppercase">Summary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="item in eventVm.sectionNotification"
+                        ng-click="item.function()">
+                        <div class="dashboard-stat2 bordered" style="background-color: {{item.color}};">
+                            <div class="display">
+                                <div class="col-md-10 no-padding-left-right number">
+                                    <small>{{item.title}}</small>
+                                </div>
+                                <div class="col-md-2 no-padding-left-right text-right icon">
+                                    <i class="fa {{item.icon}} font-white"></i>
+                                    <!-- <span class="label label-sm label-danger circle" style="background: #EF5B5B !important; font-size: 16px; padding: 6px 10px;">{{item.total}}</span> -->
+                                </div>
+                            </div>
+                            <div class="display-number">
+                                <small class="total">{{item.total}}</small>
+                                <!-- <small class="total"  style="visibility: {{item.hideTotal ? 'hidden' : 'inherit'}}">{{item.percent && item.percent !== 'N/A' ? item.percent + '%' : item.percent}}</small>
+                                    <small class="amount" ng-if="item.type === 'revenue'">
+                                        {{item.value_1 | currency}} VS {{item.value_2 | currency}}
+                                    </small>
+                                    <small class="amount" ng-if="item.type !== 'revenue'" >{{item.value_1 || 0}} VS {{item.value_2 || 0}}</small> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 overview-area">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 margin-top-5">
+                    <i class="icon-bar-chart font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Notification Statistic
+                        (Email/SMS)</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="RevenueEventLineChart" config="eventVm.revenueChartConfig"
+                    style="margin: 0 auto; width: calc(100vw - 250px);" ng-if="eventVm.tabIdx === 1"></highchart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  notification-pie-chart-area">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid"
+                                ng-model="eventVm.criCampaigns.keyword" ng-change="eventVm.searchCampaigns()"
+                                placeholder="Search By Campaign Name">
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-9 col-lg-9">
+                        <list-paging ng-model="eventVm.pagingCampaigns" change-page="eventVm.changePageCampaigns"
+                            style="float: right;">
+                        </list-paging>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr class="uppercase">
+                                <th class="width100 text-center hidden-md hidden-lg">Notification</th>
+                                <th class="width20 hidden-xs hidden-sm"> Campaigns </th>
+                                <th class="width10 hidden-xs hidden-sm"> Sent Date </th>
+                                <th class="width10 hidden-xs hidden-sm text-center"> Total Notifications </th>
+                                <th class="width10 hidden-xs hidden-sm text-center"> Total Classes </th>
+                                <th class="width10 hidden-xs hidden-sm text-center"> Classes Confirmed </th>
+                                <th class="width10 hidden-xs hidden-sm text-center"> Classes Cancelled </th>
+                                <th class="width10 hidden-xs hidden-sm text-center"> Reps Waived Off </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="campaignItem in eventVm.pagedCampaigns">
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                    <a class="primary-link"
+                                        ng-click="eventVm.selectCampaign(campaignItem)">{{campaignItem.title}}</a>
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                    {{campaignItem.dateString}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                                    {{campaignItem.totalSend}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                                    {{campaignItem.totalEvents}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                                    {{campaignItem.totalEventsConfirmed}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                                    {{campaignItem.totalEventsCanceled}}
+                                </td>
+                                <td class="width10 hidden-xs hidden-sm text-center"> {{campaignItem.totalRepsWaiveOff}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

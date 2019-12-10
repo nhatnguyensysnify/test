@@ -1,0 +1,37 @@
+<div class="row" id="event-details">
+    <div class="col-sm-12 col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <ul class="nav nav-tabs">
+                    <li ng-class="{'active' : eventVm.tabIdx === 1 }">
+                        <a ng-click="eventVm.tabIdx = 1;"><i class="fa fa-info-circle"></i>Details </a>
+                    </li>
+                    <li ng-class="{'active' : eventVm.tabIdx === 2 }"
+                        ng-if="eventVm.ready && eventVm.isEdit && eventVm.model.status === 1 && !eventVm.model.primaryTLSKey">
+                        <a ng-click="eventVm.tabIdx = 2; eventVm.loadEventUploadHistory()"><i class="fa fa-upload"></i>
+                            Upload Applications</a>
+                    </li>
+                    <li ng-class="{'active' : eventVm.tabIdx === 3 }" ng-if="eventVm.ready && eventVm.isEdit">
+                        <a ng-click="eventVm.tabIdx = 3; eventVm.initMap()"><i class="fa fa-map"></i> Address </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!--Infomation-->
+                    <div class="tab-pane" id="tab_1_1" ng-class="{ 'active in': eventVm.tabIdx == 1 }">
+                        <ng-include src="'app/event/add_edit/_details.tpl.html'"></ng-include>
+                    </div>
+                    <!--Upload Application-->
+                    <div class="tab-pane" id="tab_1_2" ng-class="{ 'active in': eventVm.tabIdx == 2 }"
+                        ng-if="eventVm.ready && eventVm.isEdit && eventVm.model.status === 1 && !eventVm.model.primaryTLSKey">
+                        <ng-include src="'app/event/add_edit/_upload.tpl.html'"></ng-include>
+                    </div>
+                    <!--Upload Application-->
+                    <div class="tab-pane" id="tab_1_3" ng-class="{ 'active in': eventVm.tabIdx == 3 }"
+                        ng-if="eventVm.ready && eventVm.isEdit">
+                        <ng-include src="'app/event/add_edit/_address.tpl.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

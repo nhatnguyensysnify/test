@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<title>Original Image</title>
+		<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+	</head>
+	<body style="background:white;">
+		<div class="modal-header">
+		    <button type="button" class="close" aria-hidden="true" onclick="window.close();"></button>
+		    <div class="caption caption-md">
+		        <i class="icon-globe theme-font hide"></i>
+		        <span class="caption-subject font-blue-madison bold uppercase">Original Image</span>
+		    </div>
+		</div>
+		<div class="modal-footer">
+		    <a href="javascript:;" class="btn btn-icon-only blue" title="rotate" style="width: 65px;" onclick="rotate()">
+		         <i class="fa fa-repeat"></i>
+		    </a>
+		</div>
+		<div id="modal-body" style="text-align: center;">
+		    <canvas id="canvas-original-image"></canvas>
+		</div>
+		<div class="modal-footer">
+		    <a href="javascript:;" class="btn btn-icon-only blue" title="rotate" style="width: 65px;" onclick="rotate()">
+		         <i class="fa fa-repeat"></i>
+		    </a>
+		    <button class="btn dark btn-outline" type="button" onclick="window.close();">Close</button>
+		</div>
+		<script type="text/javascript">
+			var imageUrl = "{{imageUrl}}", rotating = false, myImage;
+			var canvas = document.getElementById('canvas-original-image');
+			var cw, ch, context;
+			loadCanvas(imageUrl);
+			function loadCanvas(dataURL) {
+		        context = canvas.getContext('2d');
+		       
+		        // load image from data url
+		        var imageObj = new Image();
+		        imageObj.onload = function() {
+		            if(imageObj.width > imageObj.height){
+		                canvas.width = 1600;
+		                canvas.height = 1200;
+		                cw =  canvas.width;
+		                ch =  canvas.height;
+		                context.drawImage(imageObj, 0, 0, canvas.width,canvas.height);
+		            }else{
+		                canvas.width = 1200;
+		                canvas.height = 1600;
+		                cw =  canvas.width;
+		                ch =  canvas.height;
+		                context.drawImage(imageObj, 0, 0, canvas.width,canvas.height);
+		            }
+		            
+		            URL.revokeObjectURL(dataURL);
+		        };
+		       
+		        imageObj.src = dataURL;
+		    }
+		    function rotate(){
+		        if (!rotating) {
+		            rotating = true;            
+		            // store current data to an image
+		            myImage = new Image();
+		            myImage.src = canvas.toDataURL();
+
+		            myImage.onload = function () {
+		                // reset the canvas with new dimensions
+		                canvas.width = ch;
+		                canvas.height = cw;
+		                cw = canvas.width;
+		                ch = canvas.height;
+
+		                context.save();
+		                // translate and rotate
+		                context.translate(cw, ch / cw);
+		                context.rotate(Math.PI / 2);
+		                // draw the previows image, now rotated
+		                context.drawImage(myImage, 0, 0);               
+		                context.restore();
+		            
+		                // clear the temporary image
+		                myImage = null;
+		            
+		                rotating = false;               
+		            };
+		        }
+		    }
+		</script>
+	</body>
+</html>

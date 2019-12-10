@@ -1,0 +1,68 @@
+<!-- BEGIN LOGO -->
+<div class="logo">
+    <a>
+        <img src="img/logo-sa.png" alt="" />
+    </a>
+</div>
+<!-- END LOGO -->
+<!-- BEGIN LOGIN -->
+<toaster-container toaster-options="{'time-out': 3000, 'close-button':true, 'animation-class': 'toast-top-right'}"></toaster-container>
+<div class="content">
+    <!-- BEGIN LOGIN FORM -->
+    <form class="login-form" name="loginForm" novalidate ng-submit="loginVm.login(loginForm)">
+        <input type="submit" value="Fake Enter Submit Form" ng-show="false" />
+        <h3 class="form-title font-green">Sign In</h3>
+        <div class="form-body">
+            <div class="alert alert-danger display-hide">
+                <button class="close" data-close="alert"></button>
+                <span> Enter any username and password. </span>
+            </div>
+            <div class="form-group" ng-class="{'has-error':  loginVm.showInvalid && (loginForm.username.$error.required || loginForm.username.$error.email)}">
+                <label class="control-label visible-ie8 visible-ie9">Email</label>
+                <input type="text" class="form-control form-control-solid placeholder-no-fix" placeholder="Email" name="username"
+                    ng-model="loginVm.userName" required>
+            </div>
+            <div class="form-group" ng-class="{'has-error':  loginVm.showInvalid && loginForm.password.$error.required}">
+                <label class="control-label visible-ie8 visible-ie9">Password</label>
+                <input type="password" class="form-control form-control-solid placeholder-no-fix" placeholder="Password"
+                    name="password" ng-model="loginVm.password" required>
+            </div>
+            <div class="form-group login-error-msg" ng-show="loginVm.showInvalid && (loginForm.username.$error.required || loginForm.password.$error.required || loginForm.username.$error.pattern || loginForm.username.$error.email)">
+                <label class="control-label" ng-show="loginVm.showInvalid && loginForm.username.$error.required">*
+                    Email is required</label>
+                <br>
+                <label class="control-label" ng-show="loginVm.showInvalid && loginForm.password.$error.required">*
+                    Password is required</label>
+                <br>
+                <label class="control-label" ng-show="loginVm.showInvalid && loginForm.username.$error.email">* This is
+                    not valid email</label>
+            </div>
+            <div class="form-group login-error-msg" ng-show="showError">
+                <label class="control-label" ng-show="showError">* {{errMessage}}</label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <input type="submit" class="btn green uppercase" value="Login" />
+            <label class="rememberme check mt-checkbox mt-checkbox-outline">
+                <input type="checkbox" name="remember" value="1" />Remember
+                <span></span>
+            </label>
+            <a href="javascript:;" id="forget-password" class="forget-password" ng-click="loginVm.openResetPassPopup()">Forgot
+                Password?</a>
+        </div>
+    </form>
+    <!-- END LOGIN FORM -->
+    <!-- BEGIN FORGOT PASSWORD FORM -->
+    <form class="forget-form" action="index.html" method="post">
+        <h3 class="font-green">Forget Password ?</h3>
+        <p> Enter your e-mail address below to reset your password. </p>
+        <div class="form-group">
+            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Email" name="email" />
+        </div>
+        <div class="form-actions">
+            <button type="button" id="back-btn" class="btn green btn-outline">Back</button>
+            <button type="submit" class="btn btn-success uppercase pull-right">Submit</button>
+        </div>
+    </form>
+    <!-- END FORGOT PASSWORD FORM -->
+</div>

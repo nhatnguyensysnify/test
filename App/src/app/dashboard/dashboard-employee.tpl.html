@@ -1,0 +1,234 @@
+<div id="membership" class="profile-dashboard">
+    <div class="row">
+        <div class=" col-lg-12 col-md-12 col-sm-12">
+            <div class="portlet light portlet-fit bordered min-height-520">
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-6 padding-top-10">
+                            <date-range-report id="dashboardRange" user-statistic="true" start="{{dashboardVm.timestampDStart}}" end="{{dashboardVm.timestampDEnd}}" class="width100"></date-range-report>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 padding-top-10">
+                            <h3 style="margin: 0px; float:right" class="font-blue-steel bold">Total: {{dashboardVm.dashBoardModel.total}}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-green-sharp" ng-click="dashboardVm.showEmployeeDashboardModal('Form Capture');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Form Capture</small>
+                                    </div>
+                                    <div class="col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database font-white"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.ocr.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.ocr.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-red-haze" ng-click="dashboardVm.showEmployeeDashboardModal('New Application');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>New Application</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.manual.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.manual.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-blue-sharp" ng-click="dashboardVm.showEmployeeDashboardModal('Submit Online');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Submit Online</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.direct.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.direct.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-purple-soft" ng-click="dashboardVm.showEmployeeDashboardModal('Offline');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Submit Offline</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.offLine.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.offLine.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body" style="width: 100%;">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-green-turquoise" ng-click="dashboardVm.showEmployeeDashboardModal('New');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>New</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.new.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.new.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-yellow-gold" ng-click="dashboardVm.showEmployeeDashboardModal('Processing');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Processing</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.process.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.process.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-yellow-soft" ng-click="dashboardVm.showEmployeeDashboardModal('Verified');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Verified</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.verified.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.verified.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-blue" ng-click="dashboardVm.showEmployeeDashboardModal('Billing Approved');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Billing Approved</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.approved.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.approved.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-purple-seance" ng-click="dashboardVm.showEmployeeDashboardModal('Billing Required');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Billing Required</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.required.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.required.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-grey-cascade" ng-click="dashboardVm.showEmployeeDashboardModal('Billing Pending');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Billing Pending</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.pending.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.pending.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-red" ng-click="dashboardVm.showEmployeeDashboardModal('Billing Denied');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Billing Denied</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.denied.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.denied.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-red-mint" ng-click="dashboardVm.showEmployeeDashboardModal('Error');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Error</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.error.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.error.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 bordered bg-grey-salsa" ng-click="dashboardVm.showEmployeeDashboardModal('Cancelled');">
+                                <div class="display">
+                                    <div class="col-md-11 no-padding-left-right number">
+                                        <small>Cancelled</small>
+                                    </div>
+                                    <div class=" col-md-1 no-padding-left-right icon">
+                                        <i class="fa fa-database"></i>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total">{{dashboardVm.dashBoardModel.cancelled.total}}</small>
+                                    <small class="amount">{{dashboardVm.dashBoardModel.cancelled.amount | currency}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

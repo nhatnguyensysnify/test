@@ -1,0 +1,526 @@
+<div class="page-sidebar navbar-collapse collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <ul class="page-sidebar-menu"  ng-show="isShowSideBar" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+        <!-- Level 1-->
+        <li class="nav-item" ng-repeat="item in rootMenus.items" ng-class="{'open': item.isSelected}" ng-show="showHideSideBar(item)">
+            <a href="#" ng-click="goTo(item)" ng-disabled="item.isSelected && (!item.items || item.items.length <= 0)">
+                <i class="{{item.icon}}"></i>
+                <span class="title">{{item.pageTitle}}</span>
+                <span ng-if="item.items && item.items.length > 0" class="arrow" ng-class="{open: item.isSelected}"></span>
+            </a>
+            <!--<tree-sidebar-menus ng-if="item.items && item.items.length > 0" family="item" style="display: block;" keyword="" go-to="goTo"></tree-sidebar-menus>-->
+            <!-- Level 2-->
+            <ul class="sub-menu" ng-if="item.items && item.items.length > 0" ng-class="{'display': item.isSelected}"
+                ng-show="showHideSideBar(item)">
+                <li class="nav-item" ng-repeat="item2 in item.items" ng-class="{'open': item2.isSelected}" ng-show="showHideSideBar(item2)">
+                    <a href="#" ng-click="goTo(item2)" ng-disabled="item2.isSelected && (!item2.items || item2.items.length <= 0)">
+                        <i ng-if="item2.icon" class="{{item2.icon}}"></i>
+                        <span class="title">{{item2.pageTitle}}</span>
+                        <span ng-if="item2.items && item2.items.length > 0" class="arrow" ng-class="{open: item2.isSelected}"></span>
+                    </a>
+                    <!-- Level 3-->
+                    <ul class="sub-menu" ng-if="item2.items && item2.items.length > 0" ng-class="{'display': item2.isSelected}"
+                        ng-show="showHideSideBar(item2)">
+                        <li class="nav-item" ng-repeat="item3 in item2.items" ng-class="{'open': item3.isSelected}"
+                            ng-show="showHideSideBar(item3)">
+                            <a href="#" ng-click="goTo(item3)" ng-disabled="item3.isSelected && (!item3.items || item3.items.length <= 0)">
+                                <i ng-if="item3.icon" class="{{item3.icon}}"></i>
+                                <span class="title">{{item3.pageTitle}}</span>
+                                <span ng-if="item3.items && item3.items.length > 0" class="arrow" ng-class="{open: item3.isSelected}"></span>
+                            </a>
+                            <!-- Level 4-->
+                            <ul class="sub-menu" ng-if="item3.items && item3.items.length > 0" ng-class="{'display': item3.isSelected}"
+                                ng-show="showHideSideBar(item3)">
+                                <li class="nav-item" ng-repeat="item4 in item3.items" ng-class="{'open': item4.isSelected}"
+                                    ng-show="showHideSideBar(item4)">
+                                    <a href="#" ng-click="goTo(item4)" ng-disabled="item4.isSelected && (!item4.items || item4.items.length <= 0)">
+                                        <i ng-if="item4.icon" class="{{item4.icon}}"></i>
+                                        <span class="title">{{item4.pageTitle}}</span>
+                                        <span ng-if="item4.items && item4.items.length > 0" class="arrow" ng-class="{open: item4.isSelected}"></span>
+                                    </a>
+                                    <!-- Level 5-->
+                                    <ul class="sub-menu" ng-if="item4.items && item4.items.length > 0" ng-class="{'display': item4.isSelected}"
+                                        ng-show="showHideSideBar(item4)">
+                                        <li class="nav-item" ng-repeat="item5 in item4.items" ng-class="{'open': item5.isSelected}"
+                                            ng-show="showHideSideBar(item5)">
+                                            <a href="#" ng-click="goTo(item5)" ng-disabled="item5.isSelected && (!item5.items || item5.items.length <= 0)">
+                                                <i ng-if="item5 && item5.icon" class="{{item5.icon}}"></i>
+                                                <span class="title">{{item5.pageTitle}}</span>
+                                                <span ng-if="item5.items && item5.items.length > 0" class="arrow"
+                                                    ng-class="{open: item5.isSelected}"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+    <!--<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+
+        <li class="nav-item" ng-repeat="menu in sidebarMenus" ng-class="{open: menu.currentState}">
+            <a href="#" ng-click="goTo(menu.state, menu)">
+                <i class="{{menu.icon}}"></i>
+                <span class="title">{{menu.name}}</span>
+                <span ng-if="menu.subs.length > 0" class="arrow" ng-class="{open: menu.currentState}"></span>
+            </a>
+            <ul class="sub-menu" ng-if="menu.subs.length > 0" ng-class="{display: menu.currentState}">
+                <li ng-repeat="sub in menu.subs" ng-class="{open: sub.currentState}">
+                    <a href="#" ng-click="goTo(sub.state, menu, sub)">
+                        <span>{{sub.name}}</span>
+                        <span ng-if="sub.subs.length > 0" class="arrow" ng-class="{open: sub.currentState}"></span>
+                    </a>
+                    <ul class="sub-menu" ng-if="sub.subs.length > 0" ng-class="{display: sub.currentState}">
+                        <li ng-repeat="sub1 in sub.subs" ng-class="{open: sub1.currentState}">
+                            <a href="#" ng-click="goTo(sub1.state, sub, sub1)">
+                                <span>{{sub1.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>-->
+
+    <!--<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" ng-class="{'page-sidebar-menu-closed': settings.layout.pageSidebarClosed}">
+        <li class="nav-item" ng-repeat="menu in sidebarMenus" ng-class="{open: menu.currentState}">
+            <a href="#" ng-click="goTo(menu.state, menu)">
+                <i class="{{menu.icon}}"></i>
+                <span class="title">{{menu.name}}</span>
+                <span ng-if="menu.subs.length > 0" class="arrow" ng-class="{open: menu.currentState}"></span>
+            </a>
+            <ul class="sub-menu" ng-if="menu.subs.length > 0" ng-class="{display: menu.currentState}">
+                <li ng-repeat="sub in menu.subs" ng-class="{open: sub.currentState}">
+                    <a href="#" ng-click="goTo(sub.state, menu, sub)">
+                        <span>{{sub.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="start nav-item">
+            <a href="#/dashboard.html">
+                <i class="icon-speedometer"></i>
+                <span class="title">Dashboard  {{$state.current.name}}</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('posts')">
+                <i class="icon-pin"></i>
+                <span class="title">Post</span>
+                <span class="arrow"></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('posts')">
+                        <span>All Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('addPost')">
+                        <span>Add New</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('postCategories')">
+                        <span>Categories</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="goTo('postTags')">
+                        <span>Tags</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('library')">
+                <i class="icon-picture"></i>
+                <span class="title">Media</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('library')">
+                        <span>Library</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('addMedia')">
+                        <span>Add New</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('pages')">
+                <i class="icon-docs"></i>
+                <span class="title">Pages</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('pages')">
+                        <span>All Pages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('addPage')">
+                        <span>Add New</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('adProducts')">
+                <i class="fa fa-product-hunt"></i>
+                <span class="title">Ad Products</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('manageCategories')">
+                        <span>Manage Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('manageCollection')">
+                        <span>Manage Collection</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('manageBrands')">
+                        <span>Manage Brand</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('recycleBin')">
+                        <span>Recycle Bin</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('')">
+                <i class="fa fa-text-width"></i>
+                <span class="title">Ad Template</span>
+                <span class="arrow "></span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('projectsManagement')">
+                <i class="fa fa-buysellads"></i>
+                <span class="title">Ad Planning</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('projectsManagement')">
+                        <span>Ad Management</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('newAdProject')">
+                        <span>New Ad Project</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('templatesManagement')">
+                        <span>Template Management</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </li>
+        
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('')">
+                <i class="fa fa-bold "></i>
+                <span class="title">Ad Building</span>
+                <span class="arrow "></span>
+            </a>
+
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('')">
+                <i class="fa fa-pinterest-p"></i>
+                <span class="title">Ad Proof</span>
+                <span class="arrow "></span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('membership')">
+                <i class="fa fa-universal-access"></i>
+                <span class="title">Membership</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('application')">
+                        <span>Application</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('members')">
+                        <span>Members</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('events')">
+                <i class="fa fa-stack-overflow "></i>
+                <span class="title">MCM Events</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('events')">
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/#/registrations" ng-click="goTo('registrations')">
+                        <span>Registrations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('transactions')">
+                        <span>Transactions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('eventThemes')">
+                        <span>Event Themes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('messages')">
+                        <span>Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('pricing')">
+                        <span>Pricing</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('regForm')">
+                        <span>Registration Form</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('venues')">
+                        <span>Venues</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('barcoder')">
+                        <span>Barcode Scanner</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('generalsetting')">
+                        <span>General Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('calendar')">
+                        <span>Calendar</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('payment')">
+                        <span>Payment Methods</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('comments')">
+                <i class="icon-speech"></i>
+                <span class="title">Comments</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#">
+                <i class="icon-share"></i>
+                <span class="title">Widgets</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;">
+                <i class="fa fa-paint-brush"></i>
+                <span class="title">Appearance</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('themes')">
+                        <span>Themes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>Customize</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>Widgets</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('menus')">
+                        <span>Menus</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>Editor</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="javascript:;">
+                <i class="fa fa-plug"></i>
+                <span class="title">Plugins</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#">
+                        <span>Installed Plugins</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>Add New</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>Editor</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('users')" id="sidebar_menu_link_profile">
+                <i class="fa fa-users"></i>
+                <span class="title">Users</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('users')">
+                        <span>All Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('addUser')">
+                        <span>Add New</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('employees')">
+                <i class="fa fa-suitcase"></i>
+                <span class="title">Employees</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('employees')">
+                        <span>All Employees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('addEmployee')">
+                        <span>Add New</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('roles')">
+                <i class="fa fa-circle-o"></i>
+                <span class="title">Roles</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('permissionList')">
+                <i class="icon-settings"></i>
+                <span class="title">Permissions</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('permissionList')">
+                        <span>All Permissions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('addPermission')">
+                        <span>Add New</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#/todo">
+                <i class="icon-wrench"></i>
+                <span class="title">Tools</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#" ng-click="goTo('general')">
+                <i class="icon-equalizer"></i>
+                <span class="title">Settings</span>
+                <span class="arrow "></span>
+            </a>
+            <ul class="sub-menu">
+                <li>
+                    <a href="#" ng-click="goTo('general')">
+                        <span>General</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('analytics')">
+                        <span>Analytics</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" ng-click="goTo('media')">
+                        <span>Media</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" ng-click="goTo('payment')">
+                        <span>Payment</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>-->
+    <!-- END SIDEBAR MENU -->
+</div>

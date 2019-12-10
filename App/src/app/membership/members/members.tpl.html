@@ -1,0 +1,212 @@
+<div id="membership">
+    <div class="portlet light ">
+        <div class="portlet-title">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="form-group margin-top-bottom-5">
+                        <date-range-report id="memberrange" class="width100" subtract="6" class="margin-top-bottom-5"></date-range-report>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="form-group margin-top-bottom-5">
+                        <select ng-model="membershipVm.clients" ui-select2="membershipVm.select2Options" id="filterClients"
+                            class="form-control">
+                        </select>
+                        <!-- <select ui-select2 ng-model="membershipVm.cri.clients" data-placeholder="Select a client">
+                            <option value="'All'" ng-if="userPermission.isAdmin || userPermission.viewAllApplication">All Reps</option>
+                            <option ng-repeat="item in membershipVm.employees" value="{{((item.repCode || item.username) + ',' + item.alias)}}"><span ng-if="item.repCode && item.repCode != ''">{{item.firstName + ' ' + item.lastName}} </span>({{item.repCode}})</option>
+                        </select> -->
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="right margin-top-bottom-5">
+                        <select class="form-control" ng-model="membershipVm.cri.state">
+                            <option selected value="All">All States</option>
+                            <option ng-repeat="item in membershipVm.allStates" value="{{item.iso}}">{{item.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-3">
+                    <div class="form-group margin-top-bottom-5">
+                        <button type="button" class="btn green-haze padding-l-r-20 " style="float: left;" ng-click="membershipVm.filterItems(true)">Filter</button>
+                        <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                        ng-click="membershipVm.resetFilter()">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-title">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                    <div class="input-icon margin-top-bottom-5">
+                        <i class="icon-magnifier"></i>
+                        <input type="text" class="form-control form-control-solid" ng-model="membershipVm.cri.keyword"
+                            placeholder="search..." ng-change="membershipVm.searchMember(true)">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                    <div class="form-group margin-top-bottom-5">
+                        <select class="form-control bs-select" ng-model="membershipVm.cri.status">
+                            <option ng-repeat="item in membershipVm.memberStatus" value="{{item.key}}">{{item.value}}</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="col-sm-6 col-md-3 no-padding-right">
+                    <div class="form-group margin-top-bottom-5">
+                        <select class="form-control" ng-model="membershipVm.reportDate" >
+                            <option ng-repeat="item in membershipVm.reportDates" value="{{item.key}}">{{item.value}}</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                    <div class="form-group margin-top-bottom-5">
+                        <select class="form-control" ng-model="membershipVm.cri.sort" ng-change="membershipVm.filterItems(true)">
+                            <option ng-repeat="item in membershipVm.sortByData" value="{{item.key}}">{{item.value}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                    <div class="form-group margin-top-bottom-5">
+                        <select ui-select2 ng-model="membershipVm.chooseRegions" id="chooseRegions" multiple
+                            ng-options="region.id as region.guid for (key, region) in membershipVm.allRegions"
+                            data-placeholder="All Plan Types">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="form-group margin-top-bottom-5">
+                        <list-paging ng-model="membershipVm.paging" change-page="membershipVm.changePage" style="float: right; padding: 10px 0px;"></list-paging>
+                    </div>
+                </div>
+                <!-- <div class="col-md-4">
+                    <select class="bs-select form-control">
+                        <option>All Status</option>
+                        <option>Completed/Active</option>
+                        <option>Cancel/Inactive</option>
+                    </select>
+                </div> -->
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr class="uppercase">
+                            <!--<th class="width3">
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="tnc" id="select-all-event" ng-click="membershipVm.selectAll('select-all-event','select-event')" />
+                                    <span></span>
+                                </label>
+                            </th>-->
+                            <!--  <th class="width3"> ID </th> -->
+                            <th class="width100 text-center hidden-md hidden-lg">Member Information</th>
+                            <th class="width20 hidden-xs hidden-sm"> Name </th>
+                            <th class="width10 hidden-xs hidden-sm"> RepCode </th>
+                            <th class="width10 hidden-xs hidden-sm"> Facility </th>
+                            <th class="width10 hidden-xs hidden-sm"> State </th>
+                            <th class="width10 hidden-xs hidden-sm"> Plan Type </th>
+                            <th class="width10 hidden-xs hidden-sm"> Total </th>
+                            <th class="width5 hidden-xs hidden-sm"> Method </th>
+                            <th class="width5 hidden-xs hidden-sm"> Status </th>
+                            <th class="width10 hidden-xs hidden-sm"> SignUp Date Time </th>
+                            <th class="width10 hidden-xs hidden-sm"> Verified Date Time </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in membershipVm.memberModel">
+                            <!--<td>
+                                <label class="mt-checkbox mt-checkbox-outline">
+                                    <input type="checkbox" name="select-event" />
+                                    <span></span>
+                                </label>
+                            </td>-->
+                            <!-- <td>{{$index + 1}}</td> -->
+                            <td class="hidden-md hidden-lg">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td>Name: </td>
+                                            <td>
+                                                <a class="primary-link" href="#" ng-click="membershipVm.editMember(item.membershipId)">
+                                                    <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
+                                                    <i ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></i>
+                                                    {{item.primaryMember || ' '}}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>RepCode: </td>
+                                            <td>{{item.representativeCode}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Facility: </td>
+                                            <td ng-bind-html="item.facilityText"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>State: </td>
+                                            <td>{{item.total | currency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Plan Type: </td>
+                                            <td>{{item.total | currency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total: </td>
+                                            <td>{{item.total | currency}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Method: </td>
+                                            <td>{{membershipVm.getMethod(item.method)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Status: </td>
+                                            <td>{{item.status === 4 ? 'Completed' : 'Billing Required'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>SignUp Date Time: </td>
+                                            <td>{{item.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Verified Date Time: </td>
+                                            <td>{{item.timestampVerified | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                <p class=" margin-bottom-10">
+                                    <a class="primary-link" href="#" ng-click="membershipVm.editMember(item.membershipId)">
+                                        <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
+                                        <i ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></i>
+                                        {{item.primaryMember || ' '}}
+                                    </a>
+                                </p>
+                                <p class="functions margin-bottom-5">
+                                    <span><a href="#" ng-click="membershipVm.editMember(item.membershipId)">Details</a></span>
+                                </p>
+                            </td>
+                            <td class="hidden-xs hidden-sm">{{item.representativeCode}}</td>
+                            <td class="hidden-xs hidden-sm" ng-bind-html="item.facilityText"></td>
+                            <td class="hidden-xs hidden-sm">{{membershipVm.getState(item.state)}}</td>
+                            <td class="hidden-xs hidden-sm">{{membershipVm.getRegion(item)}}</td>
+                            <td class="hidden-xs hidden-sm">{{item.total | currency}}</td>
+                            <td class="hidden-xs hidden-sm">{{membershipVm.getMethod(item.method)}}</td>
+                            <td class="hidden-xs hidden-sm">{{item.status === 4 ? 'Completed' : 'Billing Required'}}</td>
+                            <td class="hidden-xs hidden-sm">{{item.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
+                            <td class="hidden-xs hidden-sm">{{item.timestampVerified | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
+                        </tr>
+                        <tr ng-if="membershipVm.memberModel && membershipVm.memberModel.length === 0">
+                            <td class="hidden-xs hidden-sm" colspan="8">
+                                <h5>No records</h5>
+                            </td>
+                            <td class="hidden-md hidden-lg">
+                                <h5>No records</h5>
+                            </td>
+                        <tr>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

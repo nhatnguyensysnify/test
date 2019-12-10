@@ -1,0 +1,304 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="eventModalVm.close()"></button>
+    <h4 class="modal-title">Event Completion</h4>
+</div>
+<div class="modal-body event-dashboard-info" id="events">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <div class="form-group margin-top-bottom-5">
+                                <date-range-report id="EventModalRange" class="width100" event="true" start="{{eventModalVm.cri.timestampStart}}"
+                                    end="{{eventModalVm.cri.timestampEnd}}" class="margin-top-bottom-5"></date-range-report>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="input-icon margin-top-bottom-5">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control form-control-solid" ng-model="eventModalVm.cri.keyword"
+                                    ng-change="eventModalVm.searchKeyword()" placeholder="Search By Name... ">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="right margin-top-bottom-5">
+                                <select name="eventType" ng-model="eventModalVm.cri.type" class="form-control" required
+                                    ng-change="eventModalVm.search()">
+                                    <option value="All">All Types</option>
+                                    <option ng-repeat="type in  eventModalVm.eventTypes" value="{{type.value}}"
+                                        ng-selected="type.value == eventModalVm.cri.types">{{type.text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="form-group margin-top-bottom-5">
+                                <select ng-model="eventModalVm.requester" ui-select2="eventModalVm.select2Options" id="chooseManager"
+                                    class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="form-group margin-top-bottom-5">
+                                <select ng-model="eventModalVm.chooseFacilities" ui-select2="eventModalVm.select2OptionsF" multiple id="chooseFacility"
+                                    class="form-control" data-placeholder="All Facilities">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="form-group margin-top-bottom-5">
+                                <select ui-select2 ng-model="eventModalVm.chooseStates" id="chooseStates" multiple
+                                    ng-options="state.iso as state.name for (key, state) in eventModalVm.allStates"
+                                    data-placeholder="All States">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="right margin-top-bottom-5">
+                                <select ui-select2 ng-model="eventModalVm.chooseTerritories" id="chooseTerritories"
+                                    multiple ng-options="territory.id as territory.name for (key, territory) in eventModalVm.allTerritories"
+                                    data-placeholder="All Territories">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="right margin-top-bottom-5">
+                                <select ui-select2 ng-model="eventModalVm.chooseRegions" id="chooseRegions" multiple
+                                    ng-options="region.id as region.guid for (key, region) in eventModalVm.allRegions"
+                                    data-placeholder="All Plan Types">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="right form-group margin-top-bottom-5" style="float:left;">
+                                <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
+                                    ng-click="eventModalVm.search(true)">Filter</button>
+                                <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                                    ng-click="eventModalVm.resetFiler()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group margin-top-bottom-5">
+                                <list-paging ng-model="eventModalVm.paging" change-page="eventModalVm.changePage" style="float: right; padding: 10px 0px;"></list-paging>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body" style="overflow-x:auto; height: calc(70vh - 180px);">
+                <div class="table-scrollable table-scrollable-borderless event-completion">
+                    <table class="table table-hover table-light dataTable">
+                        <thead>
+                            <tr class="uppercase">
+                                <th class="width100 text-center hidden-md hidden-lg">Information</th>
+                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('startDate'); eventModalVm.sort.field='startDate'">
+                                    <p>
+                                        Start Date
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'startDate'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('type'); eventModalVm.sort.field='type'">
+                                    <p>
+                                        Type
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'type'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width20 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('name'); eventModalVm.sort.field='name'">
+                                    <p>
+                                        Name
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'name'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('appUploaded'); eventModalVm.sort.field='appUploaded'">
+                                    <p>
+                                        Uploaded
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'appUploaded'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width15 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('facilityCode'); eventModalVm.sort.field='facilityCode'">
+                                    <p>
+                                        Facility
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'facilityCode'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('state'); eventModalVm.sort.field='state'">
+                                    <p>
+                                        State
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'state'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('planType'); eventModalVm.sort.field='planType'">
+                                    <p>
+                                        Plan Type
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'planType'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('iptTotalRevenue'); eventModalVm.sort.field='iptTotalRevenue'">
+                                    <p>
+                                        Total Revenue
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'iptTotalRevenue'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('iptCloseRate'); eventModalVm.sort.field='iptCloseRate'">
+                                    <p>
+                                        Closing Rate
+                                        <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'iptCloseRate'">
+                                            <span ng-show="!eventModalVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                            <span ng-show="eventModalVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                        </span>
+                                    </p>
+                                </th>
+                                <th class="width10 hidden-xs hidden-sm text-left">
+                                    <p>
+                                        Representative
+                                    </p>
+                                </th>
+                                <th class="width10 hidden-xs hidden-sm text-left">
+                                    <p>
+                                        Territory
+                                    </p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in eventModalVm.events">
+                                <td class="hidden-md hidden-lg">
+                                    <table class="table table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <td class="width30 text-left">Start Date: </td>
+                                                <td> {{eventModalVm.getDateTime(item.startDate)}}
+                                                    <span ng-if="item.endDate"> - </span>
+                                                    {{eventModalVm.getDateTime(item.endDate)}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Type: </td>
+                                                <td>{{eventModalVm.getType(item.type)}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Name: </td>
+                                                <td><a class="primary-link" href="#/events/details?id={{item.$id}}"
+                                                        target="_blank">{{item.name}}</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Apps Uploaded: </td>
+                                                <td> <span>&nbsp; {{item.appUploaded === true ||
+                                                        item.appUploaded === false ?
+                                                        (item.appUploaded ? 'Yes' : 'No') : 'N/A'}}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Facility: </td>
+                                                <td ng-bind-html="eventModalVm.getFacility(item.facilityId)"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">State: </td>
+                                                <td>{{eventModalVm.getState(item.state)}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Plan Type: </td>
+                                                <td>{{eventVm.getRegion(item.state, item.region)}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Total Revenue: </td>
+                                                <td>
+                                                    {{eventVm.parseToNumber(item.iptTotalRevenue) | currency}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Closing Rate: </td>
+                                                <td>
+                                                    {{item.iptCloseRate !== undefined ?
+                                                    eventVm.parseToNumber(item.iptCloseRate).toFixed(2) + '%'
+                                                    :
+                                                    ''}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width30 text-left">Representative: </td>
+                                                <td ng-bind-html="eventModalVm.getRequesters(item.representativeAttended)"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventModalVm.getDateTime(item.startDate)}}
+                                    <span ng-if="item.endDate"> - </span>
+                                    {{eventModalVm.getDateTime(item.endDate)}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventModalVm.getType(item.type)}}</td>
+                                <td class=" hidden-xs hidden-sm" style="vertical-align: middle;">
+                                    <a class="primary-link" href="#/events/details?id={{item.$id}}" target="_blank">{{item.name}}</a>
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                    <span>&nbsp; {{item.appUploaded === true || item.appUploaded === false ?
+                                        (item.appUploaded ? 'Yes' : 'No') : 'N/A'}}</span>
+                                </td>
+                                <td class=" hidden-xs hidden-sm text-left" style="vertical-align: middle;" ng-bind-html="eventModalVm.getFacility(item.facilityId)">
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventModalVm.getState(item.state)}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventVm.getRegion(item.state, item.region)}}
+                                </td>
+                                <td class=" hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                    {{eventVm.parseToNumber(item.iptTotalRevenue) | currency}}
+                                </td>
+                                <td class=" hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                    {{item.iptCloseRate !== undefined ? eventVm.parseToNumber(item.iptCloseRate).toFixed(2)
+                                    +
+                                    '%' : ''}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;" ng-bind-html="eventModalVm.getRequesters(item.representativeAttended)">
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventModalVm.getTerritory(item.territory)}}
+                                    </td>
+                            </tr>
+                            <tr ng-if="eventModalVm.events && eventModalVm.events.length === 0">
+                                <td class="hidden-xs hidden-sm" colspan="10">
+                                    <h5>No records</h5>
+                                </td>
+                                <td class="hidden-md hidden-lg">
+                                    <h5>No records</h5>
+                                </td>
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal-footer">
+    <button class="btn dark btn-outline" type="button" ng-click="eventModalVm.close()">Close</button>
+</div>

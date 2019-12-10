@@ -1,0 +1,33 @@
+<form role="form" id="changeProfileImg" name="changeProfileImg" novalidate ng-submit="changeAvatar(changeProfileImg)">
+    <div class="form-group">
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                <img ng-src="{{profileImage}}" ng-if="profileImage !==''" alt="" onerror="$(this).attr('src', 'http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image')"
+                    style="max-width: 200px; max-height: 150px;" />
+            </div>
+            <div class="fileinput-preview fileinput-exists thumbnail" style="line-height: 20px; max-height: 150px; max-width: 200px;">
+            </div>
+            <div style="margin-top: 2px;">
+                <span class="btn default btn-file">
+                    <span class="fileinput-new">Select</span>
+                    <span class="fileinput-exists"> Change </span>
+                    <input type="file" id="file" class="default" name="Thumbnail">
+                </span>
+                <a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
+                    Remove </a>
+            </div>
+        </div>
+        <br>
+        <div class="clearfix margin-top-10">
+            <span class="label label-danger">NOTE!</span>
+            <span>Attached image thumbnail is supported in Latest Firefox, Chrome,
+                Opera, Safari
+                and Internet Explorer 10 only </span>
+        </div>
+    </div>
+    <div class="margin-top-10">
+        <button class="btn green" type="submit">
+            Save Change
+        </button>
+    </div>
+</form>

@@ -1,0 +1,314 @@
+<div class="profile-info form-upload-tracking">
+    <div class="portlet">
+        <div class="portlet-title padding-bottom-10">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-5" ng-if="!employeeHistoryVm.fromEvent">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <date-range-report id="employeeLogDateRange" start="{{employeeHistoryVm.timestampStart}}" end="{{employeeHistoryVm.timestampEnd}}" class="width100"></date-range-report>
+                </div>
+                <div class="control-group col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    <select ng-model="employeeHistoryVm.action" class="form-control">
+                        <option value="All">All Actions</option>
+                        <option value="login"  ng-if="!employeeHistoryVm.fromEvent">Log in</option>
+                        <option value="logout" ng-if="!employeeHistoryVm.fromEvent">Log out</option>
+                        <option value="updateProfile" ng-if="!employeeHistoryVm.fromEvent">Update Profile</option>
+                        <option value="updateCareer" ng-if="!employeeHistoryVm.fromEvent">Update Career</option>
+                        <option value="updateLicense" ng-if="!employeeHistoryVm.fromEvent">Update Licenses</option>
+                        <option value="addAvailability" ng-if="!employeeHistoryVm.fromEvent">Add Availability</option>
+                        <option value="cancelAvailability" ng-if="!employeeHistoryVm.fromEvent">Cancel Availability</option>
+                        <option value="reassignAvailability" ng-if="!employeeHistoryVm.fromEvent">Reassign Availability</option>
+                        <option value="updateAvailability" ng-if="!employeeHistoryVm.fromEvent">Update Availability</option>
+                        <option value="setAvailability" ng-if="!employeeHistoryVm.fromEvent">Set Availability</option>
+                        <option value="uploadImage">Upload Image</option>
+                        <option value="uploadPDF">Upload PDF</option>
+                    </select>
+                </div>
+                <div class="control-group col-xs-12 col-sm-12 col-md-3 col-lg-3" ng-if="!employeeHistoryVm.fromEvent">
+                    <select ng-model="employeeHistoryVm.facility" ui-select2="employeeHistoryVm.select2Options" id="filterFacility" class="form-control">
+                    </select>
+                    <!-- <input class="form-control form-control-solid" ng-model="facility" ui-select2="employeeHistoryVm.select2Options" id="filterFacility"> -->
+                    <!-- <select name="appState" ng-model="employeeHistoryVm.facility" class="form-control">
+                        <option value="All" disabled>All Facilities</option>
+                    </select> -->
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <button type="button" class="btn green-haze padding-l-r-20" style="float: left;" ng-click="employeeHistoryVm.filter()">Filter</button>
+                        <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;" ng-click="employeeHistoryVm.filter(true)">Reset</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-20">
+                <list-paging ng-model="employeeHistoryVm.paging" style="float:right" change-page="changePage"></list-paging>
+            </div>
+        </div>
+        <div class="portlet-body" style="width: 100%;">
+            <div class="table-responsive employee-history-tracking">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <th class="text-center width10" style="vertical-align: middle;"> Action </th>
+                        <th class="text-center width5" style="vertical-align: middle;"> Status </th>
+                        <th class="text-center width20" style="vertical-align: middle;"> Facility </th>
+                        <th class="text-center width20" style="vertical-align: middle;"> File Name </th>
+                        <th class="text-center width5" style="vertical-align: middle;"> Pages Count </th>
+                        <th class="text-center width15" style="vertical-align: middle;"> On Date </th>
+                        <th class="text-center width10" style="vertical-align: middle;"> Author </th>
+                        <th class="text-center width10" style="vertical-align: middle;"> Source </th>
+                        <th class="text-center width5" style="vertical-align: middle;">Details</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat-start="item in employeeHistoryVm.list[employeeHistoryVm.paging.currentPage] track by $index" ng-class="{'tracking-info-active': employeeHistoryVm.trackingDetails === $index}">
+                            <td class="width10">
+                                <p class=""><strong>{{employeeHistoryVm.getAction(item.action)}}</strong></p>
+                            </td>
+                            <td class="width5 text-center bold">
+                                <p ng-class="{'font-red' : employeeHistoryVm.isErrorMessge(item.status), 'font-green-jungle' : !employeeHistoryVm.isErrorMessge(item.status)}">{{item.status}}</p>
+                            </td>
+                            <td class="width15 text-left" ng-bind-html="employeeHistoryVm.getFacilityTxt(item)" ng-click="employeeHistoryVm.filterByFacility(item && item.fileInfo && item.fileInfo.facility)">
+                            </td>
+                            <td class="width15 text-left">
+                                <p class="font-blue-madison" ng-click="employeeHistoryVm.setShowTrackingDetail($index, item)">{{item.fileInfo && item.fileInfo.fileName || ''}}</p>
+                            </td>
+                            <td class="width5 text-center">
+                                <p class="">{{item.fileInfo && item.fileInfo.totalPages || (item.action === 'uploadImage' ? 1 : 0)}}</p>
+                            </td>
+                            <td class="width15 text-center">
+                                <p>{{item.timestampString || formatTrackingTime(item.timestampCreated)}}</p>
+                            </td>
+                            <td class="width5 text-center"> <a href="#" ng-click="goToEmployee(item.updateBy || user.email)">{{item.updateBy || user.email}}</a></td>
+                            <td class="width5 text-center">
+                                <p>{{item.source}}</p>
+                            </td>
+                            <td class="width5  text-center">
+                                <a href="javascript:;" ng-class="{'tracking-info-action': employeeHistoryVm.trackingDetails === $index}" ng-click="employeeHistoryVm.setShowTrackingDetail($index, item)">
+                                    <i class="fa fa-info-circle padding-5 font-dark font-16"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-repeat-end>
+                            <td colspan="9" class="child">
+                                <div class="div-tracking-info ng-hide" ng-hide="employeeHistoryVm.trackingDetails !== $index" ng-class="{'has-file-info': item.fileUpload}">
+                                    <div class="portlet light bordered device-info">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i> Information
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body device-info-content">
+                                            <div class="row" ng-if="item.message != undefined && item.message != ''">
+                                                <p class="control-label padding-left-20">{{item.message}}</p>
+                                            </div>
+                                            <hr ng-if="item.message != undefined && item.message != ''" />
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="mt-widget-3">
+                                                        <div class="mt-body-actions-icons">
+                                                            <div class="btn-group btn-group btn-group-justified">
+                                                                <label class="btn bg-blue">
+                                                                    <span class="mt-icon">
+                                                                        OS
+                                                                    </span>
+                                                                    {{item.deviceInfo && item.deviceInfo.os || ''}}
+                                                                </label>
+                                                                <label class="btn bg-green-sharp">
+                                                                    <span class="mt-icon">
+                                                                        OS Version
+                                                                    </span>
+                                                                    {{item.deviceInfo && item.deviceInfo.osVersion ||
+                                                                    ''}}
+                                                                </label>
+                                                                <label class="btn bg-red-haze">
+                                                                    <span class="mt-icon">
+                                                                        Device Name
+                                                                    </span>
+                                                                    {{item.deviceInfo && item.deviceInfo.deviceName ||
+                                                                    ''}}
+                                                                </label>
+                                                                <label class="btn bg-yellow-soft">
+                                                                    <span class="mt-icon">
+                                                                        Build Version
+                                                                    </span>
+                                                                    {{item.deviceInfo && item.deviceInfo.buildVersion
+                                                                    || ''}}
+                                                                </label>
+                                                                <label class="btn bg-purple-soft">
+                                                                    <span class="mt-icon">
+                                                                        App Version
+                                                                    </span>
+                                                                    {{item.deviceInfo && item.deviceInfo.appVersion ||
+                                                                    ''}}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="portlet light bordered file-info" ng-if="item.fileInfo">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>Upload Details
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body file-info-content">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group col-md-12">
+                                                        <label class="control-label" ng-if="item.fileInfo && item.fileInfo.fileName">
+                                                            File Name:
+                                                        </label>
+                                                        <span class="font-blue-madison"><strong>{{item.fileInfo &&
+                                                                item.fileInfo.fileName || ''}}</strong></span>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label class="control-label">
+                                                            File Type:
+                                                        </label>
+                                                        <span class="font-blue-madison"><strong>{{item.fileInfo &&
+                                                                item.fileInfo.fileType || ''}}</strong></span>
+                                                    </div>
+                                                    <div class="form-group col-md-12">
+                                                        <label class="control-label">
+                                                            File Size:
+                                                        </label>
+                                                        <span class="font-blue-madison"><strong>{{employeeHistoryVm.bytesToSize(item.fileInfo
+                                                                && item.fileInfo.fileSize || 0)}}</strong></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="form-group col-md-12">
+                                                        <label class="control-label">
+                                                            Upload Status:
+                                                        </label>
+                                                        <span ng-class="{'font-red' : employeeHistoryVm.isErrorMessge(item.status), 'font-green-jungle' : !employeeHistoryVm.isErrorMessge(item.status)}"><strong>{{item.status}}</strong></span>
+                                                    </div>
+                                                    <div class="form-group col-md-12" ng-if="employeeHistoryVm.isErrorMessge(item.status) && item.message">
+                                                        <label class="control-label">
+                                                            Message:
+                                                        </label>
+                                                        <span class="font-red"><strong>{{item.message}}</strong></span>
+                                                    </div>
+                                                    <div class="form-group col-md-12" ng-if="item.fileInfo && item.fileInfo.totalPages">
+                                                        <label class="control-label">
+                                                            Total Pages:
+                                                        </label>
+                                                        <span class="font-blue-madison"><strong>{{item.fileInfo.totalPages
+                                                                || 0}}</strong></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <div class="form-group col-md-12 text-right" style="word-break: break-all;" ng-if="item.fileInfo.mediaId && !item.fileInfo.hideDownLoadLink">
+                                                        <a title="Download File" class="btn btn-circle btn-icon-only btn-default" ng-if="item.fileInfo.downloadUrl" href="#" ng-click="downloadImageWithCustomName(item.fileInfo.downloadUrl,item.fileInfo.fileName)">
+                                                            <i class="margin-left-10 fa fa-download"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-title">
+                                            <div class="caption" ng-click="employeeHistoryVm.refresh(item, $index)">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>Applications
+                                            </div>
+                                            <div class="actions" style="padding: 10px 0px;">
+                                                <i class="fa fa-refresh font-green-jungle bold font-14" aria-hidden="true" ng-click="employeeHistoryVm.refresh(item, $index)"></i>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body file-info-content" ng-if="item.fileInfo && item.fileInfo.applicationData">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="table-scrollable table-scrollable-borderless">
+                                                        <table class="table table-hover table-light">
+                                                            <thead>
+                                                                <tr class="uppercase">
+                                                                    <th> MEMBER </th>
+                                                                    <th class="text-center"> Page Index </th>
+                                                                    <th class="text-center"> Status </th>
+                                                                    <th class="text-center"> Method </th>
+                                                                    <th class="text-center"> Created Date </th>
+                                                                    <th class="text-center"> Download Image</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="application in item.fileInfo.applicationData">
+                                                                    <td>
+                                                                        <a href="javascript:;" ng-click="goTo(application)" class="primary-link">{{employeeHistoryVm.getFullName(application)}}</a>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{item.fileInfo.applications[application.appId].pageIndex}}</td>
+                                                                    <td class="text-center">
+                                                                        {{employeeHistoryVm.getStatus(application.status)}}</td>
+                                                                    <td class="text-center">
+                                                                        {{employeeHistoryVm.getMethod(application.method)}}
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        {{application.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}} </td>
+                                                                    <td class="text-center">
+                                                                        <a title="Download File" ng-if="hideDownloadLink(application.status) && application.downloadUrl" class="btn btn-circle btn-icon-only btn-default" ng-if="application.downloadUrl" href="#" ng-click="downloadImageWithCustomName(application.downloadUrl, application.fileName)">
+                                                                            <i class="margin-left-10 fa fa-download"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body file-info-content" ng-if="item.fileInfo && !item.fileInfo.applicationData">
+                                            <div class="row">
+                                                <div class="col-md-12" ng-if="!item.fileInfo.messageQueue && !item.messageQueue">
+                                                    <span class="edited-loading"><strong class="font-13 bold font-yellow-saffron"><i>File Processing</i></strong><img src="./img/editing-loading.png"/></span>
+                                                </div>
+                                                <div class="col-md-12" ng-if="item.fileInfo.messageQueue || item.messageQueue">
+                                                    <span class="font-13 bold font-red">{{item.fileInfo.messageQueue || item.messageQueue}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet light bordered file-info" ng-if="item.diffValue && (item.action === 'updateProfile' || item.action === 'updateLicense' || item.action === 'updateAvailability')">
+                                        <div class="portlet-title">
+                                            <div class="caption">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>Update Details
+                                            </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <div class="row">
+                                                <div class="{{field.class}} form-group changed-field" ng-repeat="field in item.diffValue" ng-if="employeeHistoryVm.fieldText[field.field] !== undefined && !field.hide">
+                                                    <label class="control-label">
+                                                      {{employeeHistoryVm.fieldText[field.field]}}:
+                                                    </label>
+                                                    <span class="font-yellow-gold" ng-if="field.field !== 'primaryPhone' && field.field !== 'availability' && field.field !== 'licenses'">
+                                                        <strong><strike ng-bind-html="field.oldTxt"></strike> - <span ng-bind-html="field.newTxt"></span></strong>
+                                                    </span>
+                                                    <span class="font-yellow-gold" ng-if="field.field === 'primaryPhone'">
+                                                        <strong><strike>{{field.oldTxt | tel}}</strike> - <span>{{field.newTxt | tel}}</span></strong>
+                                                    </span>
+                                                    <span class="font-yellow-gold" ng-if="field.field === 'availability'">
+                                                        <strong>
+                                                            <br>
+                                                            <strike>{{field.oldTxt}}</strike>
+                                                            <br>
+                                                            <span>{{field.newTxt}}</span>
+                                                    </strong>
+                                                    </span>
+                                                    <div ng-if="field.field === 'licenses'" ng-bind-html="field.template">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </td>
+                        </tr>
+                        <tr ng-if="employeeHistoryVm.paging.totalRecord === 0">
+                            <td colspan="9">
+                                No Records.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>

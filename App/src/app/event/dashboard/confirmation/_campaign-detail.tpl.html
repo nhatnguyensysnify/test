@@ -1,0 +1,243 @@
+<div class="row margin-bottom-10">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 overview-area">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2 uppercase margin-top-10"><strong>Campaign:
+                </strong></label>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <select ng-model="eventVm._selectedCampaign" class="form-control"
+                    ng-change="eventVm.changeSelectedCampaign();">
+                    <option ng-repeat="campaign in eventVm.campaigns" value="{{campaign.title}}">{{campaign.title}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 overview-area">
+        <div class="btn-group pull-right">
+            <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown"
+                data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV" href="#"
+                style="position: relative;top: 0px;">
+                <i class="fa fa-download"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                <li>
+                    <a ng-click="eventVm.exportEventData()">Events Export</a>
+                </li>
+                <li>
+                    <a href="#" ng-click="eventVm.exportRunsData()">Notifications Export</a>
+                </li>
+            </ul>
+        </div>
+        <div class="form-group pull-right">
+            <label class="control-label col-xs-12 col-sm-2 col-md-12 col-lg-12 uppercase margin-top-10"><strong>Total
+                    Notifications: {{eventVm.selectedCampaign.totalSend}}</strong></label>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 overview-area">
+        <div class="portlet light bordered" id="overviewReport">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="caption col-xs-4 col-sm-3 col-md-3 col-lg-3 margin-top-10">
+                        <i class=" icon-layers font-blue-steel"></i>
+                        <span class="caption-subject font-blue-steel bold uppercase">Summary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+                        ng-repeat="item in eventVm.sectionNotificationSelectedCampaign" ng-click="item.function()">
+                        <div class="dashboard-stat2 bordered" style="background-color: {{item.color}}">
+                            <div class="display">
+                                <div class="col-md-10 no-padding-left-right number">
+                                    <small>{{item.title}}</small>
+                                </div>
+                                <div class="col-md-2 no-padding-left-right text-right icon">
+                                    <i class="fa {{item.icon}} font-white"></i>
+                                    <!-- <span class="label label-sm label-danger circle" style="background: #EF5B5B !important; font-size: 16px; padding: 6px 10px;">{{item.total}}</span> -->
+                                </div>
+                            </div>
+                            <div class="display-number">
+                                <small class="total">{{item.total}}</small>
+                                <!-- <small class="total"  style="visibility: {{item.hideTotal ? 'hidden' : 'inherit'}}">{{item.percent && item.percent !== 'N/A' ? item.percent + '%' : item.percent}}</small>
+                                        <small class="amount" ng-if="item.type === 'revenue'">
+                                            {{item.value_1 | currency}} VS {{item.value_2 | currency}}
+                                        </small>
+                                        <small class="amount" ng-if="item.type !== 'revenue'" >{{item.value_1 || 0}} VS {{item.value_2 || 0}}</small> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 overview-area">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 margin-top-5">
+                    <i class="icon-bar-chart font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Classes Status Statistic</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="EventPieChart" config="eventVm.eventPieChartConfig"
+                    style="margin: 0 auto; width: calc((100vw - 280px)/2);" ng-if="eventVm.tabIdx === 2"></highchart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 overview-area">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 margin-top-5">
+                    <i class="icon-bar-chart font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Notification Statistic
+                        (Email/SMS)</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="NotificationPieChart" config="eventVm.notificationPieChartConfig"
+                    style="margin: 0 auto; width: calc((100vw - 280px)/2);" ng-if="eventVm.tabIdx === 2"></highchart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  notification-pie-chart-area">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 margin-top-10">
+                        <select ui-select2 ng-model="eventVm.chooseStatesEventByCampaign" multiple
+                            ng-options="state.iso as state.name for (key, state) in eventVm.allStates"
+                            data-placeholder="All States" ng-change="eventVm.changeStateEventByCampaign();">
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 margin-top-10">
+                        <select ui-select2 ng-model="eventVm.chooseTerritoriesEventByCampaign" id="chooseTerritories"
+                            multiple
+                            ng-options="territory.id as territory.name for (key, territory) in eventVm.allTerritories"
+                            data-placeholder="All Territories" ng-change="eventVm.changeStateEventByCampaign();">
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 margin-top-10">
+                        <select ng-model="eventVm.chooseFacilitiesEventByCampaign"
+                            ui-select2="eventVm.select2OptionsFEventByCampaign" multiple id="chooseFacilities"
+                            data-placeholder="All Facilities" class="form-control"
+                            ng-change="eventVm.changeStateEventByCampaign();">
+                        </select>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 margin-top-10 text-right">
+                        <select ng-model="eventVm.criEventByCampaign.type" class="form-control" ng-disabled="true">
+                            <option value="All">All Types</option>
+                            <option ng-repeat="type in eventVm.eventTypes" value="{{type.value}}">{{type.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <select name="verifyStatus" ng-model="eventVm.criEventByCampaign.verifyStatus"
+                                class="form-control" required ng-change="eventVm.changeTypeEventByCampaign()">
+                                <option value="All">All Status</option>
+                                <option ng-repeat="stt in eventVm.eventVerifyStatus" value="{{stt.value}}"
+                                    ng-selected="stt.value == eventVm.cri.verifyStatus">{{stt.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <select ng-model="eventVm.requester" ui-select2="eventVm.select2OptionsEventByCampaign"
+                                id="filterRequester" class="form-control">
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid"
+                                ng-change="eventVm.changeStateEventByCampaign()"
+                                ng-model="eventVm.criEventByCampaign.keyword" placeholder="Search By Event">
+
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="right form-group margin-top-bottom-5" style="float:left;">
+                            <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
+                                ng-click="eventVm.changeStateEventByCampaign(true)">Filter</button>
+                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                                ng-click="eventVm.resetFilerEventByCampaign()">Reset</button>
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 margin-top-10">
+                        <list-paging ng-model="eventVm.pagingEventByCampaign"
+                            change-page="eventVm.changePageEventByCampaign" style="float: right;">
+                        </list-paging>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+            <div class="portlet-body" ng-if="eventVm.selectedCampaign">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr class="uppercase">
+                                <th class="width10 hidden-xs hidden-sm text-left"> Type </th>
+                                <th class="width15 hidden-xs hidden-sm text-left"> Name </th>
+                                <th class="width15 hidden-xs hidden-sm text-left"> Reps </th>
+                                <th class="width15 hidden-xs hidden-sm text-left"> Manager </th>
+                                <th class="width10 hidden-xs hidden-sm text-center"> Start Date </th>
+                                <th class="width10 hidden-xs hidden-sm text-center"> State</th>
+                                <th class="width15 hidden-xs hidden-sm text-center"> Facility</th>
+                                <th class="width10 hidden-xs hidden-sm text-center">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="event in eventVm.selectedCampaign.allEvents">
+                                <td class="hidden-md hidden-lg">
+
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">
+                                    {{eventVm.getType(event.type)}}</td>
+                                <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                    <i ng-if="event.status === 1" class="fa fa-play font-green-jungle"></i>
+                                    <i ng-if="event.status === 0" class="fa fa-stop font-red"></i>
+                                    <i ng-if="event.status === -1" class="fa fa-remove font-red"></i>
+                                    <a class="primary-link" target="_blank"
+                                        href="#/events/details?id={{event.$id}}">{{event.name}}</a>
+                                </td>
+                                <td ng-bind-html="eventVm.getRequesters(event.representativeAttended)">
+                                </td>
+                                <td ng-bind-html="eventVm.getRequesters(event.requester)"></td>
+                                <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                                    {{eventVm.getDateTime(event.startDate)}}
+                                </td>
+                                <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                                    {{eventVm.getState(event.state)}}
+                                </td>
+                                <td class="text-left" ng-bind-html="eventVm.getFacility(event.facilityId)">
+                                <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                                    <i class="fa  fa-hourglass-half font-yellow" ng-if="event.verifyStatus === 0"
+                                        alt="Status"></i>
+                                    <i class="fa fa-check font-green-jungle" ng-if="event.verifyStatus === 1"
+                                        alt="Status"></i>
+                                    <i class="fa fa-close font-red" ng-if="event.verifyStatus == -1" alt="Status"></i>
+                                </td>
+                            </tr>
+                            <tr ng-if="eventVm.events && eventVm.events.length === 0">
+                                <td class="hidden-xs hidden-sm" colspan="9">
+                                    <h5>No records</h5>
+                                </td>
+                                <td class="hidden-md hidden-lg">
+                                    <h5>No records</h5>
+                                </td>
+                            <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

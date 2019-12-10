@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PROFILE SIDEBAR -->
+        <div class="profile-sidebar">
+            <div class="portlet light profile-sidebar-portlet bordered">
+                <div class="profile-userpic text-center">
+                    <p ng-if="profileImage ===''" class="img-responsive" data-letters="{{dataLetterPic}}"></p>
+                    <img ng-if="profileImage !==''" src="{{profileImage}}" id="imgProfile" class="img-responsive" alt="profile-image">
+                </div>
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name" style="word-break: break-all; padding: 0px 10px;; ">{{user.email}}</div>
+                </div>
+                <div class="profile-usermenu">
+                    <ul class="nav padding-10">
+                        <li style="text-align: center;">
+                            <span class="mem-pro" ng-if="user.lastLoginDate && user.lastLoginDate !== ''">
+                                <i class="icon-user"></i> Last Login:
+                                <span class="bold">{{user.lastLoginDate | date: 'MM/dd/yyyy hh:mm a'}}</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- END BEGIN PROFILE SIDEBAR -->
+        <!-- BEGIN PROFILE CONTENT -->
+        <div class="profile-content">
+            <div class="portlet light bordered">
+                <div class="portlet-title tabbable-line">
+                    <div class="caption caption-md">
+                        <i class="icon-globe theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li ng-class="{'active' : tabIdx === 1 }">
+                            <a ng-click="tabIdx = 1; loadData()">Personal Info</a>
+                        </li>
+                        <li ng-class="{'active' : tabIdx === 7 }" ng-show="settings.layout.showSideBar">
+                            <a ng-click="tabIdx = 7; loadData()">Availability</a>
+                        </li>
+                        <li ng-class="{'active' : tabIdx === 6 }" ng-show="settings.layout.showSideBar">
+                            <a ng-click="tabIdx = 6; loadEmployeeLicense()">Career & Licenses</a>
+                        </li>
+                        <li ng-class="{'active' : tabIdx === 2 }" ng-show="settings.layout.showSideBar">
+                            <a ng-click="tabIdx = 2; loadData()">Change Avatar</a>
+                        </li>
+                        <li ng-class="{'active' : tabIdx === 3 }" ng-show="settings.layout.showSideBar">
+                            <a ng-click="tabIdx = 3; loadData()">Roles</a>
+                        </li>
+                        <li ng-class="{'active' : tabIdx === 4 }" ng-show="settings.layout.showSideBar">
+                            <a ng-click="tabIdx = 4; loadEmployeeHistory()">History</a>
+                        </li>
+                        <li ng-class="{'active' : tabIdx === 5 }" ng-show="settings.layout.showSideBar">
+                            <a ng-click="tabIdx = 5; initDashboardTab()">Dashboard</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="portlet-body">
+                    <div class="tab-content">
+                        <!-- EMPLOYEE INFO TAB -->
+                        <div class="tab-pane row" ng-class="{ 'active in': tabIdx === 1 }">
+                            <ng-include src="'app/employee/add_edit/_edit-employee-info.tpl.html'"></ng-include>
+                        </div>
+                        <!-- END EMPLOYEE INFO TAB -->
+                        <!-- Availability TAB -->
+                        <div class="tab-pane" ng-class="{ 'active in': tabIdx === 7 }">
+                            <ng-include src="'app/employee/calendar/e-scheduler-calendar.tpl.html'" ng-controller="ESchedulerCalendarCtrl as eCalendarVm"></ng-include>
+                        </div>
+                        <!-- END Availability TAB -->
+                        <!-- MY LICENSE TAB -->
+                        <div class="tab-pane" ng-class="{ 'active in': tabIdx === 6 }">
+                            <ng-include src="'app/employee/add_edit/_employee-license.tpl.html'" ng-controller="employeeLicenseController as employeeLicenseVm"></ng-include>
+                        </div>
+                        <!-- END MY LICENSE TAB -->
+                        <!-- CHANGE AVATAR TAB -->
+                        <div class="tab-pane" ng-class="{ 'active in': tabIdx === 2 }">
+                            <ng-include src="'app/employee/add_edit/_edit-change-profile-image.tpl.html'"></ng-include>
+                        </div>
+                        <!-- END CHANGE AVATAR TAB -->
+                        <!-- ROLE INFORMATION TAB -->
+                        <div class="tab-pane" ng-class="{ 'active in': tabIdx === 3}">
+                            <ng-include src="'app/employee/add_edit/_edit-role-info.tpl.html'"></ng-include>
+                        </div>
+                        <!-- END ROLE INFORMATION TAB -->
+                        <!-- EMPLOYEE HISTORY TAB -->
+                        <div class="tab-pane" ng-class="{ 'active in': tabIdx === 4 }">
+                            <ng-include src="'app/employee/add_edit/_employee-log-history.tpl.html'" ng-if="tabIdx === 4" ng-controller="employeeHistoryController as employeeHistoryVm"></ng-include>
+                        </div>
+                        <!-- EMPLOYEE HISTORY TAB -->
+                        <!-- MY DASHBOARD TAB -->
+                        <div class="tab-pane" ng-class="{ 'active in': tabIdx === 5 }">
+                            <ng-include src="'app/employee/add_edit/_edit-my-dashboard.tpl.html'"></ng-include>
+                        </div>
+                        <!-- END MY DASHBOARD TAB -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PROFILE CONTENT -->
+    </div>
+</div>
+<!-- END PAGE BASE CONTENT

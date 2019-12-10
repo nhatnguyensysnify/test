@@ -1,0 +1,126 @@
+<div class="row" id="media">
+    <div class="col-md-12">
+        <div class="portlet light portlet-fit">
+            <div class="portlet-title">
+                <div class="caption col-md-10">
+                    <!--<i class="icon-settings font-red"></i>
+                    <span class="caption-subject font-red sbold uppercase">Light Table 2</span>-->
+                    <div class="row">
+                        <div class="pull-left padding-top-5">
+                            <a><i class="icon-list padding-l-r-5 font-20 margin-top-5"></i></a>
+                            <a><i class="icon-grid padding-l-r-5 font-20 margin-top-5"></i></a>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="bs-select form-control" ng-model="mediaVm.filter">
+                                <option value="All">All media items</option>
+                                <option value="image">Images</option>
+                                <option value="video">Videos</option>
+                                <option value="file">Files</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="bs-select form-control" ng-model="mediaVm.filterDate">
+                                <option ng-repeat="date in mediaVm.filterDates" value="{{date.value}}">{{date.text}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 ">
+                            <button type="button" class="btn btn-default" ng-click="mediaVm.filterItems()">Filter</button>
+                        </div>
+                        <div class="col-md-2">
+                            <a href="#" ng-click="goTo('addMedia')" class="btn green-haze">Add New</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="inputs col-md-2 text-right padding-top-10">
+                    <div class="portlet-input input-small input-inline">
+                        <div class="input-icon right">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" placeholder="search..."  ng-model="mediaVm.keyword" placeholder="search..." ng-change="mediaVm.search(mediaVm.keyword)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption col-md-6">
+                    <!--<i class="icon-settings font-red"></i>
+                    <span class="caption-subject font-red sbold uppercase">Light Table 2</span>-->
+
+                    <div class="col-md-4 no-padding-right">
+                        <select class="bs-select form-control" id="select-action">
+                            <option value="0">Bulk Actions</option>
+                            <option value="delete">Delete Permanently</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1 no-padding-left">
+                        <button type="button" class="btn btn-default" ng-click="mediaVm.apply('select-file','select-action')">Apply</button>
+                    </div>
+                </div>
+                <!--Paging-->
+                <div class="actions padding-top-10">
+                    <!--<list-paging ng-model="mediaVm.paging" on-change="mediaVm.changePage()"></list-paging>-->
+                    <list-paging ng-model="mediaVm.paging" change-page="changePage"></list-paging>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr class="uppercase">
+                                <th>
+                                     <label class="mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" name="tnc" id="select-all-file" ng-click="mediaVm.selectAll('select-all-file','select-file')"/>
+                                        <span></span>
+                                    </label>
+                                </th>
+                                <th> File </th>
+                                <th> Type </th>
+                                <th> Author </th>
+                                <th>
+                                    Description
+                                </th>
+                                <th> Date </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in mediaVm.pagedItems[mediaVm.paging.currentPage]">
+                                <td>
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input type="checkbox" name="select-file" value="{{item.$id}}" full-path="{{item.fullPath}}"/>
+                                        <span></span>
+                                    </label> 
+                                </td>
+
+                                <td class="show-function width30">
+                                    <p>
+                                        <a class="primary-link" href="#/media/edit/{{item.$id}}">{{item.displayName}}</a>
+                                    </p>
+                                    <p class="functions">
+                                        <span><a href="#/media/edit/{{item.$id}}">Edit</a></span>
+                                        <span>|</span>
+                                        <span><a href="#" class="red" ng-click="mediaVm.delete(item)">Delete Permanently</a></span>
+                                        <span>|</span>
+                                        <span><a href="#" ng-click="mediaVm.view(item)">View</a></span>
+                                    </p>
+                                </td>
+                                <td>
+                                    {{item.fileType}}
+                                </td>
+                                <td> 
+                                    <a class="primary-link" href="#" ng-click="mediaVm.editUser(item.author)">{{item.author}}</a>
+                                </td>
+                                <td> {{item.description}} </td>
+                                <td>{{item.timestampCreated | date: 'MM/dd/yyyy'}}</td>    
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>

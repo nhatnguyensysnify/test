@@ -1,0 +1,103 @@
+<form class="form-body" role="form" id="editUserForm" name="editUserForm" novalidate ng-submit="saveEdit(editUserForm)">
+    <div class="form-group col-md-6" ng-class="{'has-error': (showInvalid && editUserForm.firstname.$error.required) || editUserForm.firstname.$error.pattern}">
+        <label class="control-label">First Name
+            <span class="required-field">*</span>
+        </label>
+        <input type="text" name="firstname" placeholder="First Name" class="form-control" required ng-pattern="nameRegx" ng-model="user.firstName" />
+        <label class="control-label required-field" ng-show="editUserForm.firstname.$error.pattern">*
+            This field dose not allow special characters</label>
+    </div>
+    <div class="form-group col-md-6" ng-class="{'has-error':(showInvalid && editUserForm.lastname.$error.required) || editUserForm.lastname.$error.pattern}">
+        <label class="control-label">Last Name
+            <span class="required-field">*</span>
+        </label>
+        <input type="text" name="lastname" placeholder="Last Name" class="form-control" required ng-pattern="nameRegx" ng-model="user.lastName" />
+        <label class="control-label required-field" ng-show="editUserForm.lastname.$error.pattern">*
+            This field dose not allow special characters</label>
+    </div>
+    <div class="form-group col-md-12">
+        <label>Display Name</label>
+        <input type="text" ng-model="user.displayName" placeholder="Display Name" class="form-control" />
+    </div>
+    <div class="form-group col-md-6" ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && editUserForm.address.$error.required)}">
+        <label class="control-label">Address </label>
+        <span class="required-field">*</span>
+        <input name="address" type="text" placeholder="Address" ng-model="user.address" class="form-control" required />
+    </div>
+    <div class="form-group col-md-6" ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && editUserForm.city.$error.required)}">
+        <label class="control-label">City </label>
+        <span class="required-field">*</span>
+        <input name="city" type="text" placeholder="City" ng-model="user.city" class="form-control" required />
+    </div>
+    <div class="form-group col-md-6" ng-class="{'has-error': !userPermission.isAdmin && showInvalid && editUserForm.state.$error.required}">
+        <label class="control-label">State </label>
+        <span class="required-field">*</span>
+        <select name="state" ng-model="user.state" class="form-control" required>
+            <option value="" disabled>State</option>
+            <option ng-repeat="state in states" value="{{state.value}}" ng-selected="state.value == user.state">
+                {{state.text}}</option>
+        </select>
+    </div>
+    <div class="form-group col-md-6" ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && editUserForm.zip.$error.required) || editUserForm.zip.$error.pattern}">
+        <label class="control-label">Zip </label>
+        <span class="required-field">*</span>
+        <input name="zip" type="text" placeholder="Zip Code" ng-model="user.zipCode" maxlength="5" ng-pattern="zipcodeRegx" ng-maxlength="5" class="form-control" required />
+    </div>
+    <div class="form-group col-md-6" ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && editUserForm.primaryphone.$error.required) || editUserForm.primaryphone.$error.server}">
+        <label class="control-label">Primary Phone</label>
+        <span class="required-field">*</span>
+        <input required type="tel" uiMaskPlaceholder type="phone" placeholder="Primary Phone" class="form-control" name="primaryphone" ng-keyup="EnalblePhoneForm(editUserForm)" ng-model="editEmployeeVm.Phone" ui-mask="999-999-9999" />
+        <br ng-if="editUserForm.primaryphone.$error.server">
+        <label class="control-label" ng-if="editUserForm.primaryphone.$error.server">*
+            {{e_msges.primaryphone}}</label>
+    </div>
+    <div class="form-group col-md-6" ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && editUserForm.notificationEmail.$error.required) || editUserForm.notificationEmail.$error.email}">
+        <label class="control-label">Notification Email</label>
+        <span class="required-field">*</span>
+        <input required type="email" name="notificationEmail" placeholder="Notification Email" class="form-control" ng-model="user.notificationEmail" />
+        <label class="control-label required-field" ng-show="editUserForm.notificationEmail.$error.email">This field
+            is not valid, the email is not formatted correctly</label>
+    </div>
+    <!-- <div class="form-group col-md-6" ng-if="isManager" ng-class="{'has-error': showInvalid && editUserForm.regional.$error.required}">
+        <label class="control-label">Regional <span class="required-field">*</span></label>
+        <select ng-model="user.regional" required name="regional" ui-select2="select2OptionsRegional" id="ChooseRegional"
+            class="form-control" data-placeholder="Choose a regional" ng-options="region.iso as region.name for (key, region) in regions">
+            <option value="">Choose Regional</option>
+        </select>
+    </div>
+    <div class="form-group col-md-6" ng-if="isManager" ng-class="{'has-error': showInvalid && editUserForm.territory.$error.required}">
+        <label class="control-label">Territories <span class="required-field">*</span></label>
+        <select ng-model="user.territories" required name="territory" multiple ui-select2="select2OptionsTerritory" id="ChooseTerritory"
+            class="form-control" data-placeholder="Choose Territories" ng-options="territory.id as territory.name for (key, territory) in territories">
+        </select>
+    </div> -->
+    <div class="form-group col-md-6" ng-if="hasManager" ng-class="{'has-error': showInvalid && editUserForm.myManager.$error.required}">
+        <label class="control-label">Manager <span class="required-field">*</span></label>
+        <select ng-model="editEmployeeVm.selectedManager" required name="myManager" multiple ui-select2="select2Options" id="ChooseManager" class="form-control" data-placeholder="Choose your manager">
+        </select>
+    </div>
+    <div class="form-group" ng-class="{'has-error': (showInvalid && editUserForm.representativeCode.$error.required) || editUserForm.representativeCode.$error.pattern, 'col-md-12': !hasManager, 'col-md-6' : hasManager}">
+        <label class="control-label">Representative Code
+            <span class="required-field">*</span>
+        </label>
+        <input type="text" required ng-pattern="nameRegx" placeholder="Representative Code" class="form-control" name="representativeCode" ng-model="user.repCode" />
+        <br>
+    </div>
+    <div class="form-group col-md-6">
+        <label class="mt-checkbox mt-checkbox-outline">
+            <input id="isAuthorized" type="checkbox" name="isauthorized" ng-model="user.isAuthorized" />
+            <span></span>
+        </label>
+        <label for="isAuthorized">Active</label>
+    </div>
+    <div class=" col-md-12">
+        <div class="margin-top-20">
+            <button class="btn green" ng-disabled="!userPermission.isAdmin && editUserForm.$invalid" type="submit">
+                Save Change
+            </button>
+            <button class="btn default " type="button" ng-click="cancel()" ng-disabled="!userPermission.isAdmin && editUserForm.$invalid">
+                Cancel
+            </button>
+        </div>
+    </div>
+</form>

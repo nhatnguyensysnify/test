@@ -1,0 +1,68 @@
+<div id="users" class="row">
+    <div class="col-md-6 text-left">
+
+    </div>
+    <div class="col-md-6 text-right">
+        <a class="btn blue sbold margin-top-bottom-5" href="#/notification-template/details">Add Template</a>
+    </div>
+    <div class="col-md-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-sm-12 col-md-8" style="display:inline-flex;">
+                        <div class="input-icon input-large right margin-top-bottom-5 margin-left-10">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="tplVm.cri.keyword" placeholder="search..." ng-change="tplVm.search(tplVm.cri.keyword)">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div class="right margin-top-bottom-5">
+                            <list-paging ng-model="tplVm.paging" change-page="tplVm.changePage" style="float: right;"></list-paging>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-striped table-hover">
+                        <thead class="flip-content">
+                            <tr class="uppercase">
+                                <th class="width15"> Name</th>
+                                <th class="width15"> Channel</th>
+                                <th class="width15"> Create Date</th>
+                                <th class="width15"> Create By</th>
+                                <th class="width15"> Modified Date</th>
+                                <th class="width15"> Modified By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="tpl in tplVm.pagedItems[tplVm.paging.currentPage]">
+                                <td class="show-function">
+                                    <a class="primary-link" href="#">{{tpl.name}}</a>
+                                    <p class="functions" style="font-style: italic">
+                                        <span ng-if="userPermission.isAdmin">
+                                            <a href="#" ng-click="tplVm.goEdit(tpl)" title="Detail">Edit</a>
+                                        </span>
+                                        <span ng-if="userPermission.isAdmin">|</span>
+                                        <span ng-if="userPermission.isAdmin">
+                                            <a href="#" title="delete" ng-click="tplVm.remove(tpl)">
+                                                Delete
+                                            </a>
+                                        </span>
+                                    </p>
+                                </td>
+                                <td class="uppercase">{{tpl.channel}}</td>
+                                <td>{{tpl.timestampCreated | date: 'MM/dd/yyyy @ h:mm a'}}</td>
+                                <td>{{tpl.authorName}}</td>
+                                <td>{{tpl.timestampModified | date: 'MM/dd/yyyy @ h:mm a'}}</td>
+                                <td>{{tpl.editorName}}</td>
+                            </tr>
+                            <tr ng-if="tplVm.pagedItems.length === 0">
+                                <td colspan="7"><strong>No records</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,5 @@
+<form enctype="multipart/form-data" ng-submit="mediaVm.uploadFiles(angular.element(mediaVm.file))" name="fileinfo" id="formFileinfo">
+  <label>File to stash:</label>
+  <input type="file" name="file" id="file" required ng-model="mediaVm.file" ngf-select="mediaVm.change(this)"/>
+  <input type="submit" value="Stash the file!" />
+</form>

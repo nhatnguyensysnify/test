@@ -1,0 +1,115 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">Select Employee</span>
+    </div>
+</div>
+<div class="modal-body" id="replace-manager-modal" style="min-height: 550px;">
+    <div class="portlet light">
+        <div class="portlet-title margin-top-5">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-top-5 text-left">
+                    <div class="inputs">
+                        <div class="portlet-input input-large input-inline">
+                            <div class="input-icon right">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control form-control-solid" ng-model="rVm.cri.keyword"
+                                    placeholder="search..." ng-change="rVm.search()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-top-5">
+                    <list-paging ng-model="rVm.paging" change-page="rVm.changePage" style="float:right; padding: 5px 0px;"></list-paging>
+                </div>
+            </div>
+        </div>
+        <div class="portlet-body" style="overflow-x:auto; height: calc(80vh - 140px);">
+            <div class="table-scrollable table-scrollable-borderless">
+                <table class="table table-striped table-hover">
+                    <thead class="flip-content">
+                        <tr class="uppercase">
+                            <th class="width100 text-center hidden-md hidden-lg">Employee Information</th>
+                            <th class="width15 hidden-xs hidden-sm"> Full Name </th>
+                            <th class="width10 hidden-xs hidden-sm"> UserName </th>
+                            <th class="width15 hidden-xs hidden-sm"> Manager </th>
+                            <th class="width15 hidden-xs hidden-sm"> Role </th>
+                            <th class="width5 hidden-xs hidden-sm text-center">Status</th>
+                            <th class="width10 hidden-xs hidden-sm text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in rVm.users">
+                            <td class="hidden-md hidden-lg">
+                                <table class="table table-striped">
+                                    <tbody>
+                                        <tr>
+                                            <td class="width35 text-left">Full Name: </td>
+                                            <td class="text-left"><span class="font-blue">{{item.firstName + ' ' +
+                                                    item.lastName}}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">UserName: </td>
+                                            <td class="text-left">
+                                                {{item.repCode}}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">Manager: </td>
+                                            <td class="text-left" ng-bind-html="item.manager"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">Role: </td>
+                                            <td class="text-left">{{rVm.getRoleText(item)}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left">Status: </td>
+                                            <td class="text-left">
+                                                <i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="width35 text-left"></td>
+                                            <td class="text-left">
+                                                <a href="javascript:;" class="btn btn-outline btn-circle btn-sm" style="width: 90px;"
+                                                    ng-click="rVm.selectedReplace(item)" ng-class="{'font-red': item.selected, 'primary' : !item.selected}">
+                                                    {{item.selected ? 'Selected' : 'Select'}}
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="hidden-xs hidden-sm"><a class="primary-link" href="#">{{item.firstName + ' ' +
+                                    item.lastName}}</a></td>
+                            <td class="hidden-xs hidden-sm">
+                                {{item.repCode}}
+                            </td>
+                            <td class="hidden-xs hidden-sm" ng-bind-html="item.manager"></td>
+                            <td class="hidden-xs hidden-sm">{{rVm.getRoleText(item)}}</td>
+                            <td class="hidden-xs hidden-sm text-center"><i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i></td>
+                            <td class="hidden-xs hidden-sm text-center">
+                                <a href="javascript:;" class="btn btn-outline btn-circle btn-sm" style="width: 90px;"
+                                    ng-click="rVm.selectedReplace(item)" ng-class="{'font-red': item.selected, 'primary' : !item.selected}">
+                                    {{item.selected ? 'Selected' : 'Select'}}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr ng-if="rVm.users.length === 0">
+                            <td class="hidden-xs hidden-sm" colspan="6">
+                                <h5>Do not have employees valid for replace!</h5>
+                            </td>
+                            <td class="hidden-md hidden-lg">
+                                <h5>Do not have employees valid for replace!</h5>
+                            </td>
+                        <tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn green" type="button" ng-click="rVm.save()">Replace</button>
+    <button class="btn dark btn-outline" type="button" ng-click="rVm.close()">Cancel</button>
+</div>

@@ -1,0 +1,90 @@
+<div class="row" id="etpl">
+    <p style="font-family: 'Roboto Condensed'; font-size: 17px; visibility: hidden;margin: 0px;">SummerNoteCheat</p>
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <form role="form" name="eTemplateForm" novalidate ng-submit="tplVm.saveEdit(eTemplateForm)">
+                    <div class="form-body">
+                        <div class="row">
+                            <label class="col-md-2 control-label">Name</label>
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error': (tplVm.showInvalid && eTemplateForm.name.$error.required) || eTemplateForm.name.$error.pattern}">
+                                    <input class="form-control" name="name" type="text" placeholder="Name" ng-model="tplVm.model.name" required ng-pattern="tplVm.nameRegx" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">Short Name</label>
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error': (tplVm.showInvalid && eTemplateForm.shortname.$error.required) || eTemplateForm.shortname.$error.pattern || eTemplateForm.shortname.$error.server}">
+                                    <input class="form-control" name="shortname" type="text" placeholder="Short Name" ng-model="tplVm.model.shortName" ng-keyup="tplVm.enalbleShortNameForm(eTemplateForm)" required ng-pattern="tplVm.nameRegx" />
+                                    <br ng-if="eTemplateForm.shortname.$error.server">
+                                    <label class="control-label" ng-if="eTemplateForm.shortname.$error.server">* {{tplVm.e_msges.shortname}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">Subject</label>
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error': (tplVm.showInvalid && eTemplateForm.subject.$error.required)}">
+                                    <input class="form-control" name="subject" type="text" placeholder="Subject" ng-model="tplVm.model.subject" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">Display Name</label>
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error': (tplVm.showInvalid && eTemplateForm.displayname.$error.required)}">
+                                    <input class="form-control" name="displayname" type="text" placeholder="Display Name" ng-model="tplVm.model.displayName" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">Channel</label>
+                            <div class="col-md-4">
+                                <div class="form-group" ng-class="{'has-error': tplVm.showInvalid && eTemplateForm.channel.$error.required}">
+                                    <select name="channel" ng-model="tplVm.model.channel" class="form-control" ng-disabled="isEdit" required>
+                                        <option value="" disabled >Please Select Channel</option>
+                                        <option ng-repeat="channel in tplVm.channels" value="{{channel.value}}" ng-selected="channel.value == tplVm.model.channel">{{channel.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">Content</label>
+                            <div class="col-md-10" ng-if="tplVm.model.channel === 'email' || tplVm.model.channel === ''">
+                                <div class="form-group">
+                                    <div class="" >
+                                        <summernote ng-if="initEditor" ng-model="tplVm.model.content" name="smartadmin-editor" config="options"></summernote>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" ng-if="tplVm.model.channel === 'sms'">
+                                <div class="form-group">
+                                    <div class="">
+                                        <textarea ng-model="tplVm.model.content" class="form-control" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 control-label">Available Tokens</label>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <div class="">
+                                        <textarea class="form-control" ng-model="tplVm.model.note" rows="5"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn default" ng-click="tplVm.cancel()">Cancel</button>
+                        <button type="submit" class="btn green">{{isEdit ? "Update" : "Add"}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

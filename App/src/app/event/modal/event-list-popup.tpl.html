@@ -1,0 +1,133 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">Select Event</span>
+        <button type="button" class="close" aria-hidden="true" ng-click="eventVm.close()"></button>
+    </div>
+    <br>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="portlet-title">
+        <div class="row">
+            <div class="col-sm-4 col-md-4">
+                <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                    <i class="icon-magnifier"></i>
+                    <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.keyword"
+                        placeholder="search..." ng-change="eventVm.search()">
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4">
+                <div class="right margin-top-bottom-5">
+                    <select name="eventType" ng-model="eventVm.cri.type" class="form-control" ng-change="eventVm.search()">
+                        <option value="All">All Types</option>
+                        <option ng-repeat="type in  eventVm.eventTypes" value="{{type.value}}" ng-selected="type.value == eventVm.cri.types">{{type.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                    <list-paging ng-model="eventVm.paging" change-page="eventVm.changePage" style="float: right;"></list-paging>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row">
+                <div class="col-sm-6 col-md-6">
+                      <label class="control-label required-field" ng-show="eventVm.showValid == true">* Please Choose Event</label>
+                </div>
+            </div> -->
+        <hr>
+        <div class="row" ng-if="eventVm.eventSelected">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-lg-12">
+                <label class="control-label"><strong>Selected: </strong></label>
+                <span class="badge badge-info margin-left-10" style="height: 30px; border-radius:20px !important; padding:10px;">
+                    {{eventVm.eventSelected.name}}<i class="fa fa-remove margin-left-10" ng-click="eventVm.removeSelectEvent()"
+                        style="cursor: pointer;"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body" style="overflow-x:auto; height: calc(75vh - 180px);">
+        <div class="table-scrollable table-scrollable-borderless">
+            <table class="table table-hover table-light">
+                <thead>
+                    <tr class="uppercase">
+                        <th class="width5 text-center">
+                        </th>
+                        <th class="width95 text-center hidden-md hidden-lg">Event Information</th>
+                        <th class="width25 hidden-xs hidden-sm"> Name </th>
+                        <th class="width10 hidden-xs hidden-sm text-center"> Type </th>
+                        <th class="width30 hidden-xs hidden-sm text-center"> Time</th>
+                        <th class="width10 hidden-xs hidden-sm text-center"> State </th>
+                        <th class="width20 hidden-xs hidden-sm text-center"> Facility </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in eventVm.events">
+                        <td class="text-center" style="vertical-align: middle;">
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" name="select-event" id="{{item.$id}}" value="{{item.$id}}" class="chk-event"
+                                    ng-checked="item.$id == eventVm.eventId" ng-click="eventVm.checkEvent(item)" />
+                                <span></span>
+                            </label>
+                        </td>
+                        <td class="hidden-md hidden-lg">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Name: </td>
+                                        <td>
+                                            <p style="margin: 0px; padding: 0px"><label title="{{item.name}}" for="{{item.$id}}">{{item.name}}</label></p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Type: </td>
+                                        <td>{{eventVm.getType(item.type)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Event Time: </td>
+                                        <td>
+                                            <span>From: {{eventVm.getDateTime(item.startDate)}}</span>s
+                                            <br ng-if="item.endDate">
+                                            <span ng-if="item.endDate">To: {{eventVm.getDateTime(item.endDate)}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>State: </td>
+                                        <td>{{eventVm.getState(item.state)}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Facility: </td>
+                                        <td ng-bind-html="eventVm.getFacility(item.facilityId)"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="hidden-xs hidden-sm " style="vertical-align: middle;">
+                            <p style="margin: 0px; padding: 0px"><label title="{{item.name}}" for="{{item.$id}}">{{item.name}}</label></p>
+                        </td>
+                        <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">{{eventVm.getType(item.type)}}</td>
+                        <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
+                            <span>From: {{eventVm.getDateTime(item.startDate)}}</span>
+                            <br ng-if="item.endDate">
+                            <span ng-if="item.endDate">To: {{eventVm.getDateTime(item.endDate)}}</span>
+                        </td>
+                        <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">{{eventVm.getState(item.state)}}</td>
+                        <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;" ng-bind-html="eventVm.getFacility(item.facilityId)"></td>
+                    </tr>
+                    <tr ng-if="eventVm.events && eventVm.events.length === 0">
+                        <td class="hidden-xs hidden-sm" colspan="5">
+                            <h5>No records</h5>
+                        </td>
+                        <td class="hidden-md hidden-lg">
+                            <h5>No records</h5>
+                        </td>
+                    <tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn blue-steel" type="button" ng-click="eventVm.selectEvent()">Save</button>
+    <button class="btn dark btn-outline" type="button" ng-click="eventVm.close()">Cancel</button>
+</div>

@@ -1,0 +1,176 @@
+
+<div class="row" id="permission">
+    <div class="col-md-12">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="ver-inline-menu tabbable margin-bottom-10" style="box-shadow: none;">
+                            <li ng-repeat="permission in permissionVm.permissions" ng-class="{ active: permissionVm.tabIdx === $index } " ng-click="permissionVm.tabIdx = $index; permissionVm.loadPermissionData(permission.$id)">
+                                <a data-toggle="tab" href="#tab_{{$index}}" aria-expanded="true" >
+                                    <i class="fa fa-briefcase"></i> <span>{{permission.name}} </span>
+                                </a>
+                                <span class="after"> </span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div id="tab_1" class="tab-pane" ng-class="{ active: permissionVm.tabIdx !== -1 }">
+                                <!-- <div class="portlet light sale-summary">
+                                    <div class=" profile-title border-bottom">
+                                        <div class="caption">
+                                            <span class="caption-subject font-blue-sharp bold uppercase">Users</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="table-scrollable table-scrollable-borderless">
+                                            <table class="table table-hover table-light">
+                                                <thead>
+                                                    <tr class="uppercase">
+                                                        <th class="width60"> User Name </th>
+                                                        <th class="width10 text-center"> Access </th>
+                                                        <th class="width10 text-center"> Modify </th>
+                                                        <th class="width10 text-center">&nbsp </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>All User</td>
+                                                        <td class="text-center">
+                                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" name="select-role" ng-model="objectDatas.permissions.all.access" checked="objectDatas.permissions.all.access"/>
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" name="select-role" ng-model="objectDatas.permissions.all.modify" checked="objectDatas.permissions.all.modify"/>
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="text-center">&nbsp </td>
+                                                    </tr>
+                                                    <tr ng-repeat="user in objectDatas.permissions.users">
+                                                        <td>{{user.name}}</td>
+                                                        <td class="text-center">
+                                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" name="select-role" ng-model="user.access" value="{{ user.access }}"/>
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" name="select-role" ng-model="user.modify" value="{{ user.modify }}"/>
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a href="#" class="badge badge-danger " title="remove" ng-click="permissionVm.removeUserPermission($index)">
+                                                                <i class="fa fa-times"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <form role="form" id="userRoleForm" name="userRoleForm" novalidate>
+                                                <div class="form-role col-md-12 no-padding-left-right" ng-class="{'has-error': (userPermissionValid && userRoleForm.username.$error.required)}">
+                                                    <div class="input-role">
+                                                        <select ui-select2 ng-model="objectDatas.userId" required id="user-permission"  data-placeholder="Choose User" class="form-control" name="username" ng-options="user.$id as user.email for user in permissionVm.users">
+                                                            <option value="">Choose User</option>
+                                                        </select>
+                                                        <span class="input-role-btn">
+                                                            <button class="btn blue" type="button" ng-click="permissionVm.addUserPermission(userRoleForm)">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="portlet light sale-summary">
+                                    <div class=" profile-title border-bottom">
+                                        <div class="caption">
+                                            <span class="caption-subject font-blue-sharp bold uppercase">Roles</span>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body">
+                                        <div class="table-scrollable table-scrollable-borderless">
+                                            <table class="table table-hover table-light">
+                                                <thead>
+                                                    <tr class="uppercase">
+                                                        <th class="width60"> Role Name </th>
+                                                        <th class="width10 text-center"> Access </th>
+                                                        <th class="width10 text-center" ng-if="objectDatas.permissionId !== 'ViewAllApplications' && objectDatas.permissionId !== 'ViewApplicationImages'"> Modify </th>
+                                                        <th class="width10 text-center">&nbsp </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="role in objectDatas.permissions.roles">
+                                                        <td>{{role.name}}</td>
+                                                        <td class="text-center">
+                                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" name="select-role" ng-model="role.access" value="{{ role.access }}"/>
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="text-center" ng-if="objectDatas.permissionId !== 'ViewAllApplications' && objectDatas.permissionId !== 'ViewApplicationImages'">
+                                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" name="select-role" ng-model="role.modify" value="{{ role.modify }}"/>
+                                                                <span></span>
+                                                            </label>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <a href="#" class="badge badge-danger " title="remove" ng-click="permissionVm.removeRolePermission($index)">
+                                                                <i class="fa fa-times"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <form role="form" id="rolePermissionForm" name="rolePermissionForm" novalidate>
+                                                <div class="form-role col-md-12 no-padding-left-right" ng-class="{'has-error': (rolePermissionValid && rolePermissionForm.role.$error.required)}">
+                                                    <div class="input-group">
+                                                        <select ui-select2 ng-model="objectDatas.roleId" required id="role-permission"  data-placeholder="Choose role" class="form-control" name="role" ng-options="role.$id as role.name for role in permissionVm.roles">
+                                                            <option value="">Choose role</option>
+                                                        </select>
+                                                        <span class="input-group-btn">
+                                                            <button class="btn blue" type="button" ng-click="permissionVm.addRolePermission(rolePermissionForm)">
+                                                                <i class="fa fa-plus"></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 text-right" ng-if="userPermission.modify">
+                                    <button class="btn green button-next next-step" type="button" ng-click="permissionVm.save()">
+                                        Save
+                                    </button>
+                                    <!-- <button class="btn blue button-next next-step" type="button" ng-click="openPermissionDetails(objectDatas.permissionId)">
+                                        View Detail
+                                    </button> -->
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appForm.facility.$error.required}">
+    <label class="col-md-4 control-label margin-top-25">Facility <span class="required-field">*</span></label>
+    <div class="col-md-8" ng-click="focusMe('facilityCode', false)" ng-class="{'form-check': mapping.facilityCode.selected}">
+        <a ng-if="applicationVm.model.isLocked" href="#">Select Facility</a>
+        <a ng-if="!applicationVm.model.isLocked" href="#" ng-click="applicationVm.showPopupFacilityList(applicationVm.model.state)">Select Facility</a>
+        <input type="text" ng-model="applicationVm.facilityTxt" required ng-disabled="true" class="form-control margin-top-5" name="facility" />
+        <label class="control-label required-field" ng-show="applicationVm.initPopup && (!applicationVm.model.state || applicationVm.model.state ==='')">* Please select state</label>
+        <label class="control-label font-yellow" ng-if="applicationVm.notBelongState">* Facility does not belong to {{applicationVm.getState(applicationVm.model.state)}}</label>
+    </div>
+    <!-- <div class="col-md-2"> 
+        <a ng-if="applicationVm.model.isLocked" href="#">Select Facility</a>
+        <a ng-if="!applicationVm.model.isLocked" href="#" ng-click="applicationVm.showPopupFacilityList(applicationVm.model.state)">Select Facility</a>
+    </div>-->
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">Promo Code</label>
+    <div class="col-md-8">
+        <input type="text" class="form-control" placeholder="Facility Promo Code" value="" ng-model="applicationVm.model.facilityCode" name="facilityCode" ng-click="focusMe('facilityCode', false)" ng-class="{'form-check': mapping.facilityCode.selected}" ng-disabled="applicationVm.model.isLocked  || (applicationVm.selectedRegionSettings.enable_promo_code === false)">
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appForm.event.$error.required}">
+    <label class="col-md-4 control-label margin-top-25">Event <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <a ng-if="applicationVm.model.isLocked" href="#">Select Event</a>
+        <a ng-if="!applicationVm.model.isLocked" href="#" ng-click="applicationVm.showPopupEventList(applicationVm.model.state, applicationVm.model.facilityId)">Select Event</a>
+        <input type="text" ng-model="applicationVm.eventTxt" ng-disabled="true" class="form-control margin-top-5" name="event" required/>
+        <label class="control-label required-field" ng-show="applicationVm.initSeclectEvent && (!applicationVm.model.state || applicationVm.model.state ==='')">* Please select state</label>
+        <label class="control-label required-field" ng-show="applicationVm.initSeclectEvent && (!applicationVm.model.facilityId || applicationVm.model.facilityId ==='')">* Please select facility</label>
+    </div>
+</div>
+<!--Signature-->
+<div class="form-group" ng-class="{'has-error': (mapping && !mapping.signature.valid) || (applicationVm.model.signature && appForm.dateSignature.$error.dateBefore)}">
+    <label class="col-md-4 control-label" for="signature">Signature</label>
+    <!-- <div class="col-md-1">
+        
+        <input name="signature" type="text" class="form-control " placeholder="Signature" ng-model="applicationVm.model.signature" ng-click="focusMe('signature', false)" ng-class="{'form-check': mapping.signature.selected}" ng-required="mapping.signature.required" ng-disabled="applicationVm.model.isLocked">
+    </div> -->
+    <div class="col-md-8">
+        <div class="mt-checkbox-list" style="padding-top: 8px;">
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input id="signature" type="checkbox" ng-model="applicationVm.model.signature" ng-click="focusMe('signature', false)" ng-class="{'form-check': mapping.signature.selected}" ng-disabled="applicationVm.model.isLocked">
+                <span></span>
+            </label>
+        </div>
+        <div class="input-icon">
+            <i class="fa fa-calendar"></i>
+            <input name="dateSignature" type="text" single-date-picker id="editAppdateSignature" date-before="applicationVm.expirationCard" date-or-equals="true" class="form-control" ng-model="applicationVm.model.signatureDate" ng-click="focusMe('dateSignature', false)" ng-class="{'form-check': mapping.dateSignature.selected}" ng-disabled="applicationVm.model.isLocked">
+        </div>
+        <label class="control-label required-field" ng-show="applicationVm.model.signature && appForm.dateSignature.$error.dateBefore">* Signature date must be before expiration date </label>
+        <!--<input type="text" class="form-control " placeholder="Date" >-->
+    </div>
+    <!--<script type="text/javascript">
+                                            $('.datepicker').datepicker({dateFormat:"MM/dd/yyyy"}).datepicker();
+                                        </script>-->
+</div>
+
+<div class="form-group" ng-if="applicationVm.model.regionCode == 'leo'">
+    <label class="col-md-4 control-label">Application Entered By</label>
+    <div class="col-md-8">
+        <input type="text" class="form-control" placeholder="Application Entered By" value="" ng-model="applicationVm.model.enteredBy" name="enteredBy" ng-click="focusMe('enteredBy', false)" ng-class="{'form-check': mapping.enteredBy.selected}" ng-disabled="applicationVm.model.isLocked">
+    </div>
+</div>
+<div class="form-group" ng-if="applicationVm.model.regionCode == 'leo'" ng-class="{'has-error': (applicationVm.showInvalid && appForm.officerCard.$error.required) || appForm.officerCard.$error.pattern}">
+    <label class="col-md-4 control-label">Officer Membership Card#<span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <input type="text" class="form-control" placeholder="Officer Membership Card" value="" ng-model="applicationVm.model.officerCard" name="officerCard" ng-click="focusMe('officerCard', false)" ng-class="{'form-check': mapping.officerCard.selected}" ng-disabled="applicationVm.model.isLocked" required>
+    </div>
+</div>
+<div class="form-group" ng-if="applicationVm.model.regionCode == 'leo'">
+    <label class="col-md-4 control-label" for="platinumPlus">Platinum Plus</label>
+    <div class="col-md-1">
+        <div class="mt-checkbox-list" style="padding-top: 8px;">
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input id="platinumPlus" type="checkbox" ng-model="applicationVm.model.platinumPlus" ng-click="focusMe('platinumPlus', false)" ng-class="{'form-check': mapping.platinumPlus.selected}" ng-disabled="applicationVm.model.isLocked">
+                <span></span>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="form-group" ng-if="applicationVm.model.regionCode == 'sec'">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-8">
+        <label class="mt-checkbox mt-checkbox-outline">
+            <input id="moneyCollected" type="checkbox" name="moneyCollected" ng-model="applicationVm.model.moneyCollected" ng-disabled="applicationVm.model.isLocked" />
+            <span></span>
+        </label>
+        <label for="moneyCollected" class="control-label">Money has been collected</label>
+    </div>
+</div>
+<div class="form-group" ng-if="applicationVm.model.regionCode == 'sec'">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-8">
+        <label class="mt-checkbox mt-checkbox-outline">
+            <input id="systemEntered" type="checkbox" name="systemEntered" ng-model="applicationVm.model.systemEntered" ng-disabled="applicationVm.model.isLocked" />
+            <span></span>
+        </label>
+        <label for="systemEntered" class="control-label">App has been entered into System</label>
+    </div>
+</div>
+<!-- <div class="form-group" ng-if="applicationVm.model.regionCode == 'nfa'">
+                                    <label class="col-md-4 control-label" for="platinumPlus">App has been entered into System</label>
+                                    <div class="col-md-1">
+                                        <div class="mt-checkbox-list" style="padding-top: 8px;">
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input id="systemEntered" type="checkbox" ng-model="applicationVm.model.systemEntered" ng-click="focusMe('systemEntered', false)" ng-class="{'form-check': mapping.systemEntered.selected}" ng-disabled="applicationVm.model.isLocked">
+                                                    <span></span>
+                                                </label>
+                                        </div>
+                                    </div>
+                                </div> -->
+<div class="form-group" ng-class="{'has-error': appForm.signature.invalid}" ng-if="applicationVm.model.regionCode == 'sec'">
+    <label class="col-md-4 control-label" for="enteredDate">Date app was entered</label>
+    <div class="col-md-7">
+        <div class="input-icon">
+            <i class="fa fa-calendar"></i>
+            <input name="enteredDate" type="text" single-date-picker id="editAppEnteredDate" class="form-control" ng-model="applicationVm.model.enteredDate" ng-click="focusMe('enteredDate', false)" ng-class="{'form-check': mapping.enteredDate.selected}" ng-disabled="applicationVm.model.isLocked">
+        </div>
+        <!--<input type="text" class="form-control " placeholder="Date" >-->
+    </div>
+    <!--<script type="text/javascript">
+                                            $('.datepicker').datepicker({dateFormat:"MM/dd/yyyy"}).datepicker();
+                                        </script>-->
+</div>
+<div class="form-group" ng-class="{'has-error': (mapping && !mapping.representation.valid) || (applicationVm.showInvalid && appForm.representation.$error.required)}">
+    <label class="col-md-4 control-label margin-top-10">Representative Code/Rep Code <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <a ng-if="applicationVm.model.isLocked" href="#">Select Rep</a>
+        <a ng-if="!applicationVm.model.isLocked" href="#" ng-click="applicationVm.showPopupEmployeeList()">Select Rep</a>
+        <input name="representation" type="text" class="form-control margin-top-5" placeholder="Representative Code" required ng-model="applicationVm.model.representativeCode" ng-click="focusMe('representation', false)" ng-class="{'form-check': mapping.representation.selected}" ng-disabled="applicationVm.model.isLocked">
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': (mapping && !mapping.representation.valid) || (applicationVm.showInvalid && appForm.saleRep.$error.required)}">
+    <label class="col-md-4 control-label">Sale Rep <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <input name="saleRep" type="text" class="form-control margin-bottom-5" required placeholder="Sale Rep" ng-model="applicationVm.model.saleRep" ng-click="focusMe('representation', false)" ng-class="{'form-check': mapping.representation.selected}" ng-disabled="applicationVm.model.isLocked">
+    </div>
+</div>
+<div class="form-group" ng-if="applicationVm.model.regionCode !== 'sec'" ng-class="{'has-error': (mapping && !mapping.appSource.valid) || (applicationVm.showInvalid && appForm.appSource.$error.required)}">
+    <input name="appSource" type="text" class="form-control" required style="visibility: hidden;" ng-model="applicationVm.accountSource">
+    <label class="col-md-4 control-label">Application Source
+        <!-- <span class="required-field" ng-show="mapping.appSource.required"> *</span> -->
+        <!-- <span class="required-field" > *</span> -->
+        <span class="required-field"> *</span>
+    </label>
+    <div class="col-md-8 app-source">
+        <div class="no-padding-left-right" ng-class="{'col-md-12': applicationVm.formW < 420, 'col-md-8': applicationVm.formW >= 420}">
+            <!-- <div class="mt-checkbox-list" ng-class="{'form-check': mapping.appSource.selected}"> -->
+            <div class="mt-checkbox-list">
+                <label class="mt-checkbox mt-checkbox-outline" title="Seminar/Workshop">
+                    <input type="radio" class="form-control" ng-model="applicationVm.accountSource"  value="Seminar" name="sourceSeminar" ng-disabled="applicationVm.model.isLocked" > Seminar/Workshop
+                    <span></span>
+                </label>
+                <label class="mt-checkbox mt-checkbox-outline" title="Gun Show/Event">
+                    <input type="radio" class="form-control" ng-model="applicationVm.accountSource"  value="Gun Show"  name="sourceGunShow" ng-disabled="applicationVm.model.isLocked" > Gun Show/Event
+                    <span></span>
+                </label>
+            </div>
+        </div>
+        <div class="no-padding-left-right"  ng-class="{'col-md-12': applicationVm.formW < 420, 'col-md-4': applicationVm.formW >= 420}">
+            <!-- <div class="mt-checkbox-list" ng-class="{'form-check': mapping.appSource.selected}"> -->
+            <div class="mt-checkbox-list">
+                <label class="mt-checkbox mt-checkbox-outline" title="Class">
+                    <input type="radio" class="form-control" ng-model="applicationVm.accountSource"  value="Class"  name="sourceClass"  ng-disabled="applicationVm.model.isLocked" > Class
+                    <span></span>
+                </label>
+                <label class="mt-checkbox mt-checkbox-outline" title="Other">
+                    <input type="radio" class="form-control" ng-model="applicationVm.accountSource"  value="Other"  name="sourceOther"  ng-disabled="applicationVm.model.isLocked" > Other
+                    <span></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group" ng-click="focusMe('appProcessSwiper', false)">
+    <label class="col-md-4 control-label">Application Processed on Field App<span class="required-field" ng-show="mapping.appProcessSwiper.required"> *</span></label>
+    <div class="col-md-4">
+        <div class="icheck-list" style="padding-top: 8px;" ng-class="{'form-check': mapping.appProcessSwiper.selected}">
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input type="radio" name="swiper-processed" ng-model="applicationVm.model.processOnSwiper" ng-disabled="applicationVm.model.isLocked" value="true"> Yes
+                <span></span>
+            </label>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="icheck-list" style="padding-top: 8px;" ng-class="{'form-check': mapping.appProcessSwiper.selected}">
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input type="radio" name="swiper-processed" ng-model="applicationVm.model.processOnSwiper" ng-disabled="applicationVm.model.isLocked" value="false"> No
+                <span></span>
+            </label>
+        </div>
+    </div>
+</div>

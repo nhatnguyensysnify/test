@@ -1,0 +1,32 @@
+<div id="forgot-password">
+    <form role="form" name="forgotPasswordForm" novalidate ng-submit="resetPassword(forgotPasswordForm)">
+        <div class="form-body">
+            <div class="form-group" ng-class="{'has-error': (showInvalid && forgotPasswordForm.email.$error.required) || (forgotPasswordForm.email.$error.pattern || forgotPasswordForm.email.$error.email) || showError}">
+                <div class="modal-header">
+                    <div class="caption caption-md">
+                        <span class="icon-globe theme-font hide"></span>
+                        <span class="caption-subject font-blue-madison bold uppercase">Reset Password</span>
+                    </div>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <label> Enter your e-mail address below to reset your password. </label>
+                    <br ng-show="showInvalid && forgotPasswordForm.email.$error.required">
+                    <label class="control-label" ng-show="showInvalid && forgotPasswordForm.email.$error.required">*
+                        This field is required</label>
+                    <br ng-show="forgotPasswordForm.email.$error.pattern || forgotPasswordForm.email.$error.email">
+                    <label class="control-label" ng-show="forgotPasswordForm.email.$error.pattern || forgotPasswordForm.email.$error.email">*
+                        This is not valid email</label>
+                    <label class="control-label" ng-show="showError">* {{errMessage}}</label>
+                    <input class="form-control placeholder-no-fix" type="email" autocomplete="off" placeholder="Email"
+                        name="email" ng-model="email" required ng-pattern="emailRegx" />
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Send</button>
+                <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

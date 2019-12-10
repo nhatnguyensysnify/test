@@ -1,0 +1,61 @@
+#media{
+	button.btn{
+        margin-left: -1px;
+        padding-bottom: 7px!important;
+    }
+    .table.table-light > tbody > tr > td .user-pic{
+            height: 60px!important;
+            width: auto;
+    }
+    .media-img{
+        width:70px!important
+    }
+}
+
+#Gallery-Content, #EditMedia{
+    .thumbnail-img,.thumbnail-file{
+        text-align: center;
+        img{
+            width: auto;
+            height: auto;
+        }
+    }
+    .selected{
+        border: 2px solid #36c6d3 !important;
+    }    
+    .thumbnail-file{
+        position: relative;
+        img{opacity: 0.2;}
+        font-size: 14px;
+        font-weight: bold;   
+        .name{
+            position: absolute;
+            position: absolute;
+            top: 30%;
+            text-align: center;
+            left: 0;
+            width: 100%;
+            word-break: break-all;
+            padding: 0 8px;
+        }
+        .type{
+            position: absolute;
+            top: 70%;
+            text-align: center;
+            width: 100%;
+            left: 0;
+        }
+    }
+        
+    
+}
+
+#EditMedia{
+    .file-info{
+        li a{
+           word-break: break-all;  
+        }
+        
+    }
+}
+

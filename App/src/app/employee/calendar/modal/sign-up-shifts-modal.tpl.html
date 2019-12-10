@@ -1,0 +1,97 @@
+<script id="signUpShiftsCalendar.html" type="text/ng-template">
+    <div ng-click="day.functionClick(day)" class="cal-month-day add-shift-cell {{day.inMonth ? day.cssClass : ''}} {{day.canAddShift && day.inMonth ? '' : 'can-not-add-shift'}} ">
+        <span class="pull-right" style=" margin-top: 5px; margin-right: 5px; " data-cal-date>{{day.label}}</span>
+    </div>
+</script>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+        ng-click="shiftModalVm.close()"></button>
+    <h4 class="modal-title" ng-bind-html="shiftModalVm.title"></h4>
+</div>
+<div class="modal-body event-dashboard-info" id="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="margin-top-10 margin-bottom-10 text-left">
+                                <p class="font-16 text-left  no-margin-top no-margin-bottom margin-right-10"
+                                    style=" display: inline-block; "><span
+                                        class="color-block available"></span>Available</p>
+                                <p class="font-16 text-left  no-margin-top no-margin-bottom margin-right-10"
+                                    style=" display: inline-block; "><span
+                                        class="color-block unavailable"></span>Unvailable</p>
+                                <p class="font-16 text-left no-margin-top no-margin-bottom margin-right-10"
+                                    style=" display: inline-block; "><span class="color-block"></span>Out of date range
+                                    allowed</p>
+                                <p class="font-16 text-left no-margin-top no-margin-bottom margin-right-10">
+                                    </span>Click on the cell to switch to Available or Unavailable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body" style="">
+                    <!-- <div class="row">
+                        <div class="{{shiftModalVm.viewDateSec ? 'col-md-6':'col-md-12'}} text-center">
+                            <strong
+                                class="font-blue-steel font-20 text-center">{{ shiftModalVm.viewDate | date:'MMMM yyyy'}}</strong>
+                        </div>
+                        <div class="col-md-6 text-center" ng-if="shiftModalVm.viewDateSec">
+                            <strong
+                                class="font-blue-steel font-20 text-center">{{shiftModalVm.viewDateSec | date:'MMMM yyyy'}}</strong>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class=" {{shiftModalVm.viewDateSec ? 'col-md-6':'col-md-8 col-md-offset-2'}} text-center">
+                            <div class="col-md-12 text-center">
+                                <strong class="font-blue-steel font-20 text-center">{{ shiftModalVm.viewDate | date:'MMMM yyyy'}}</strong>
+                            </div>
+                            <mwl-calendar events="shiftModalVm.events"
+                                start-date-can-add-shift="shiftModalVm.timestampStart"
+                                end-date-can-add-shift="shiftModalVm.timestampEnd"
+                                view-title="shiftModalVm.calendarTitle" view="shiftModalVm.calendarView"
+                                view-date="shiftModalVm.viewDate"
+                                custom-template-urls="{calendarMonthCell: 'signUpShiftsCalendar.html'}"
+                                cell-modifier="shiftModalVm.cellModifier(calendarCell)">
+                            </mwl-calendar>
+                        </div>
+                        <div class="col-md-6" ng-if="shiftModalVm.viewDateSec">
+                            <div class="col-md-12 text-center">
+                                <strong class="font-blue-steel font-20 text-center">{{ shiftModalVm.viewDateSec | date:'MMMM yyyy'}}</strong>
+                            </div>
+                            <mwl-calendar events="shiftModalVm.events"
+                                start-date-can-add-shift="shiftModalVm.timestampStart"
+                                end-date-can-add-shift="shiftModalVm.timestampEnd"
+                                view-title="shiftModalVm.calendarTitleSec" view="shiftModalVm.calendarView"
+                                view-date="shiftModalVm.viewDateSec"
+                                custom-template-urls="{calendarMonthCell: 'signUpShiftsCalendar.html'}"
+                                cell-modifier="shiftModalVm.cellModifier(calendarCell)">
+                            </mwl-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="col-sm-10 col-md-10 text-left">
+                <label class="mt-checkbox mt-checkbox-outline">
+                    <input type="checkbox" ng-model="shiftModalVm.isConfirmed">
+                    <span></span>
+                </label>
+                <label class="control-label">Upon submitting this schedule I am committing to my availability and
+                    understand any changes hereafter are subject to my Managers approval</label>
+            </div>
+            <div class="col-sm-2 col-md-2 text-right">
+                <button class="btn default" type="button" ng-click="shiftModalVm.close()">Close</button>
+                <button class="btn blue {{shiftModalVm.isConfirmed && !shiftModalVm.isSubmited?'':'disabled'}}"
+                    type="button" ng-click="$event.stopPropagation(); shiftModalVm.showConfirmShiftModal()">Submit</button>
+            </div>
+        </div>
+    </div>

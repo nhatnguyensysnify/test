@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 overview-area">
+        <div class="portlet light bordered" id="overviewReport">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="caption col-xs-4 col-sm-3 col-md-3 col-lg-3 margin-top-10">
+                        <i class=" icon-layers font-blue-steel"></i>
+                        <span class="caption-subject font-blue-steel bold uppercase">Summary</span>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" ng-repeat="item in eventVm.sectionOverview">
+                            <div class="dashboard-stat2 bordered" style="background-color: {{item.color}};">
+                                <div class="display">
+                                    <div class="col-md-10 no-padding-left-right number">
+                                        <small>{{item.title}}</small>
+                                    </div>
+                                    <div class="col-md-2 no-padding-left-right text-right icon">
+                                        <i class="fa {{item.icon}} font-white" ng-if="item.type !== 'revenue'"></i>
+                                        <span class="label label-sm label-danger circle" ng-if="item.type === 'revenue'" style="background: #EF5B5B !important; font-size: 16px; padding: 6px 10px;">{{item.total}}</span>
+                                    </div>
+                                </div>
+                                <div class="display-number">
+                                    <small class="total"  style="visibility: {{item.hideTotal ? 'hidden' : 'inherit'}}">{{item.percent && item.percent !== 'N/A' ? item.percent + '%' : item.percent}}</small>
+                                    <small class="amount" ng-if="item.type === 'revenue'">
+                                        {{item.value_1 | currency}} VS {{item.value_2 | currency}}
+                                    </small>
+                                    <small class="amount" ng-if="item.type !== 'revenue'" >{{item.value_1 || 0}} VS {{item.value_2 || 0}}</small>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 revenue-event-line-chart-area">
+        <div class="portlet light portlet-fit bordered min-height-520" id="revenueEventChart">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 margin-top-5">
+                    <i class=" icon-layers font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Event Revenue</span>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 margin-top-5">
+                    <select ng-model="eventVm.cri.interval" class="form-control" ng-change="eventVm.changeInterval();">
+                        <option ng-repeat="interval in eventVm.intervals" value="{{interval.value}}">{{interval.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="RevenueEventLineChart" config="eventVm.revenueChartConfig"  style="margin: 0 auto; width: calc(100vw - 250px);" ng-if="eventVm.tabIdx === 1"></highchart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  event-pie-chart-area">
+            <div class="portlet light portlet-fit bordered min-height-520" id="top10RegionRevenue">
+                <div class="portlet-title">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                        <i class=" icon-layers font-blue-steel"></i>
+                        <span class="caption-subject font-blue-steel bold uppercase">Top 10 States By Revenue</span>
+                    </div>
+                    <div class="hidden-xs col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                        <select class="form-control" style="visibility: hidden;" autocomplete="off">
+                            <option value="All">All States</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <highchart id="top10RegionRevenueChart" config="eventVm.top10RegionRevenueChartConfig" style="margin: 0 auto; width: calc((100vw - 280px)/2);" ng-if="eventVm.tabIdx === 1"></highchart>
+                </div>
+            </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  event-by-plan-type-pie-chart-area">
+        <div class="portlet light portlet-fit bordered min-height-520" id="top10TerritoryRevenue">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                    <i class=" icon-layers font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Top 10 Territories By Revenue</span>
+                </div>
+                <div class="hidden-xs col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                    <select class="form-control" style="visibility: hidden;" autocomplete="off">
+                        <option value="All">All States</option>
+                    </select>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="top10TerritoryRevenueChart" config="eventVm.top10TerritoryRevenueChartConfig" style="margin: 0 auto; width: calc((100vw - 280px)/2);" ng-if="eventVm.tabIdx === 1"></highchart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  event-pie-chart-area">
+        <div class="portlet light portlet-fit bordered min-height-520" id="eventChart">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                    <i class=" icon-layers font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Event By Type</span>
+                </div>
+                <div class="hidden-xs col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                    <select class="form-control" style="visibility: hidden;" autocomplete="off">
+                        <option value="All">All States</option>
+                    </select>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="EventPieChart" config="eventVm.eventPieChartConfig" style="margin: 0 auto; width: calc((100vw - 280px)/2);" ng-if="eventVm.tabIdx === 1"></highchart>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  event-by-plan-type-pie-chart-area">
+        <div class="portlet light portlet-fit bordered min-height-520" id="eventPlanTypeChart">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                    <i class=" icon-layers font-blue-steel"></i>
+                    <span class="caption-subject font-blue-steel bold uppercase">Event By Plan Type</span>
+                </div>
+                <div class="hidden-xs col-sm-6 col-md-6 col-lg-6 margin-top-5">
+                    <select class="form-control" style="visibility: hidden;" autocomplete="off">
+                        <option value="All">All States</option>
+                    </select>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="EventPieChartByPlanType" config="eventVm.eventPlanTypePieChartConfig" style="margin: 0 auto; width: calc((100vw - 280px)/2);" ng-if="eventVm.tabIdx === 1"></highchart>
+            </div>
+        </div>
+    </div>
+</div>

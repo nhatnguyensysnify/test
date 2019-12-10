@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">Sale Region</span>
+    </div>
+</div>
+<div class="modal-body" id="modal-body">
+    <form role="form" id="createForm" name="createForm" novalidate>
+        <div class="form-group col-md-12" ng-class="{'has-error': (vm.showInvalid && createForm.name.$error.required) || createForm.name.$error.pattern}">
+            <label class="control-label">Sale Region Name <span class="required-field">*</span></label>
+            <input type="text" name="name" placeholder="Name" class="form-control" required ng-pattern="vm.nameRegx" ng-model="vm.model.name" />
+            <label class="control-label" ng-show="createForm.name.$error.pattern">* This field does not allow special characters</label>
+        </div>
+        <div class="form-group col-md-12" ng-class="{'has-error': vm.showInvalid && createForm.state.$error.required}">
+            <label class="control-label">State</label>
+            <select ng-model="vm.selectedStates" name="state" multiple ui-select2="select2Options" id="ChooseState"
+                class="form-control" data-placeholder="Choose States" ng-options="state.iso as state.name for (key, state) in vm.states">
+                <option value="">Choose States</option>
+            </select>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn green" type="submit" ng-click="vm.save(createForm)">Save</button>
+    <button class="btn dark btn-outline" type="button" ng-click="vm.close()">Cancel</button>
+</div>

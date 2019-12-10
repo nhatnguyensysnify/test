@@ -1,0 +1,184 @@
+<div id="EventApplications" class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered ">
+            <div class="portlet-body">
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3 no-padding-right">
+                            <div class="input-icon margin-top-bottom-5">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control width100 form-control-solid" placeholder="search..."
+                                    ng-model="eventAppVm.cri.keyword" ng-change="eventAppVm.search()">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 no-padding-right">
+                            <div class="form-group margin-top-bottom-5">
+                                <select ng-model="eventAppVm.clients" ui-select2="eventAppVm.select2Options" id="ChooseClients"
+                                    class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 no-padding-right">
+                            <div class="form-group margin-top-bottom-5">
+                                <select class="form-control" ng-model="eventAppVm.cri.state">
+                                    <option value="All">All States</option>
+                                    <option ng-repeat="item in eventAppVm.appStatelist" value="{{item.iso}}">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 no-padding-right">
+                            <div class="form-group margin-top-bottom-5">
+                                <select class="form-control bs-select" ng-model="eventAppVm.cri.status">
+                                    <option ng-repeat="item in eventAppVm.appStatus" value="{{item.key}}">{{item.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5 no-padding-right">
+                            <div class="form-group margin-top-bottom-5" style="display:flex;">
+                                <date-range-report id="EventApplicationsRange" style="padding: 8px 14px !important;"
+                                    start="{{eventAppVm.cri.timestampStart}}" end="{{eventAppVm.cri.timestampEnd}}"
+                                    class="width100"></date-range-report>
+                                <label class="control-label margin-top-bottom-5 bold" style="padding: 3px 10px !important;">AS</label>
+                                <select class="form-control" ng-model="eventAppVm.reportDate" style="background: #e1e5ec">
+                                    <option ng-repeat="item in eventAppVm.reportDates" value="{{item.key}}">{{item.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 no-padding-right">
+                            <div class="form-group margin-top-bottom-5">
+                                <select class="form-control" ng-model="eventAppVm.cri.sort" style="background: #e1e5ec"
+                                    ng-change="eventAppVm.search()">
+                                    <option ng-repeat="item in eventAppVm.sortByData" value="{{item.key}}">{{item.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-2 no-padding-right">
+                            <div class="form-group margin-top-bottom-5">
+                                <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
+                                    ng-click="eventAppVm.search()">Filter</button>
+                                <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                                    ng-click="eventAppVm.reset()">Reset</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-3 text-right">
+                            <list-paging style="float:right" class="margin-top-bottom-5" ng-model="eventAppVm.paging"
+                                change-page="eventAppVm.changePage"></list-paging>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div class="table-scrollable table-scrollable-borderless">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr class="uppercase">
+                                    <th class="width100 text-center hidden-md hidden-lg">Application Information</th>
+                                    <th class="width20 hidden-xs hidden-sm"> Full Name </th>
+                                    <th class="width10 hidden-xs hidden-sm"> RepCode </th>
+                                    <th class="width10 hidden-xs hidden-sm"> Total </th>
+                                    <th class="width10 hidden-xs hidden-sm"> Status </th>
+                                    <th class="width10 hidden-xs hidden-sm"> Created Date</th>
+                                    <th class="width10 hidden-xs hidden-sm"> Created By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in eventAppVm.modelItems">
+                                    <td class="hidden-md hidden-lg">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td>Full Name: </td>
+                                                    <td>
+                                                        <a class="primary-link" href="#/membership/application/{{item.$id}}?tab={{item.status}}&status={{item.status}}&start={{eventAppVm.cri.timestampStart}}&end={{eventAppVm.cri.timestampEnd}}&page={{eventAppVm.paging.currentPage}}&author={{eventAppVm.cri.clients}}&state={{eventAppVm.cri.state}}&reportBy={{eventAppVm.reportDate}}&sortBy={{eventAppVm.cri.sort}}" target="_blank">
+                                                            {{item.primaryMember || item.secondaryMember || 'Unknown'}}
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>RepCode: </td>
+                                                    <td>{{item.representativeCode}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Total: </td>
+                                                    <td>{{item.total | currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Status: </td>
+                                                    <td>{{item.status === 4 ? 'Completed' : 'Billing Required'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Created Date: </td>
+                                                    <td>{{item.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Created By: </td>
+                                                    <td><a href="#/employees/edit/{{item.author}}/">{{item.authorName}}</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                        <p class=" margin-bottom-10">
+                                            <a class="primary-link"  href="#/membership/application/{{item.$id}}?tab={{item.status}}&status={{item.status}}&start={{eventAppVm.cri.timestampStart}}&end={{eventAppVm.cri.timestampEnd}}&page={{eventAppVm.paging.currentPage}}&author={{eventAppVm.cri.clients}}&state={{eventAppVm.cri.state}}&reportBy={{eventAppVm.reportDate}}&sortBy={{eventAppVm.cri.sort}}" target="_blank"> {{item.primaryMember || item.secondaryMember || 'Unknown'}}</a>
+                                        </p>
+                                        <p class="functions margin-bottom-5">
+                                            <span><a href="#/membership/application/{{item.$id}}?tab={{item.status}}&status={{item.status}}&start={{eventAppVm.cri.timestampStart}}&end={{eventAppVm.cri.timestampEnd}}&page={{eventAppVm.paging.currentPage}}&author={{eventAppVm.cri.clients}}&state={{eventAppVm.cri.state}}&reportBy={{eventAppVm.reportDate}}&sortBy={{eventAppVm.cri.sort}}" target="_blank">Details</a></span>
+                                        </p>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm">{{item.representativeCode}}</td>
+                                    <td class="hidden-xs hidden-sm">{{item.total | currency}}</td>
+                                    <td class="hidden-xs hidden-sm">{{eventAppVm.getStatusName(item.status)}}</td>
+                                    <td class="hidden-xs hidden-sm">{{item.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
+                                    <td class="hidden-xs hidden-sm"><a href="#/employees/edit/{{item.author}}/">{{item.authorName}}</a></td>
+                                </tr>
+                                <tr ng-if="eventAppVm.modelItems && eventAppVm.modelItems.length === 0">
+                                    <td class="hidden-xs hidden-sm" colspan="6">
+                                        <h5>No records</h5>
+                                    </td>
+                                    <td class="hidden-md hidden-lg">
+                                        <h5>No records</h5>
+                                    </td>
+                                <tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-12 text-left" style="padding-right:5px;">
+                            <div class="col-md-12 border-bottom" ng-class="{'bold' : item.status && item.status === 0, 'bg-grey bg-font-grey' : item.$id === itemSelected}"
+                                ng-repeat="item in modelItems">
+                                <div class="pull-left padding-l-r-5 " style="width:10%">
+                                    <span>
+                                        <i class="fa" ng-class="eventAppVm.getIconStatus(item)"></i>
+                                    </span>
+                                </div>
+                                <div class="pull-left padding-l-r-5" style="width:10%">
+                                    <a href="#" ng-click="eventAppVm.markPriority(item)">
+                                        <i class="fa" ng-class="eventAppVm.getStatusFlagIcon(item)"></i>
+                                    </a>
+                                </div>
+                                <div class="pull-left padding-l-r-5" style="width:80%" style="cursor:pointer;" ng-click="eventAppVm.edit(item)">
+                                    <div class="pull-left width100">
+                                        <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
+                                        <a class="font-grey-gallery" style="word-wrap: break-word;">{{item.primaryMember
+                                            || item.secondaryMember || ' '}}</a>
+                                    </div>
+                                    <div class="pull-left width100 font-11">
+                                        Method: {{eventAppVm.getStateName(item.state)}}
+                                    </div>
+                                    <div class="pull-left font-11 bold font-grey-gallery width100 text-left">
+                                        {{item.timestampCreated | date: 'MM/dd/yyyy @ h:mm a'}}
+                                    </div>
+                                    <div class="pull-left font-11 font-grey-silver width100 text-left" ng-if="item.isEdited">
+                                        <p class="edited-loading"><img src="./img/editing-loading.png" /></p>
+                                        <p class="edited-by font-blue-steel"><b>Being edited by: </b>{{item.editingBy}}</p>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

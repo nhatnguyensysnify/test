@@ -1,0 +1,132 @@
+<div id="events" class="row">
+    <div class="col-md-6 text-left">
+
+    </div>
+    <div class="col-md-6 text-right">
+        <a class="btn blue margin-top-bottom-5" href="#/events/details" ng-if="!allowAddUser">Add New</a>
+    </div>
+    <div class="col-md-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div class="form-group margin-top-bottom-5">
+                            <date-range-report id="EventRange" class="width100" event="true" start="{{eventVm.timestampStart}}" end="{{eventVm.timestampEnd}}" class="margin-top-bottom-5"></date-range-report>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" placeholder="Search By Name... ">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                        <div class="right form-group margin-top-bottom-5" style="float:left;">
+                            <button type="button" class="btn green-haze padding-l-r-20" style="float: left;">Filter</button>
+                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;" ng-click="eventVm.resetFiler()">Reset</button>
+                        </div>
+                        <!-- <div class="form-group margin-top-bottom-5">
+                                <select ui-select2 ng-model="eventVm.cri.facilityId" ng-options="item.$id as item.text for item in eventVm.allFacilities">
+                                </select>
+                            </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eventVm.cri.type" class="form-control" required ng-change="eventVm.search()">
+                                <option value="All">All Types</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eventVm.cri.status" class="form-control" required ng-change="eventVm.search()">
+                                <option value="All">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventDataEntered" ng-model="eventVm.cri.dataEntered" class="form-control" required ng-change="eventVm.search()" ng-options="item.val as item.text for item in eventVm.dataEnteredOpts" data-placeholder="Data Entered">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ng-model="eventVm.requester" ui-select2="eventVm.select2Options" id="filterRequester" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2"> -->
+                    <div class="col-xs-12">
+                        <div class="form-group margin-top-bottom-5">
+                            <list-paging ng-model="eventVm.paging" change-page="eventVm.changePage" style="float: right; padding: 10px 0px;"></list-paging>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr class="uppercase">
+                                <th class="width20 hidden-xs hidden-sm"> Name </th>
+                                <th class="width10 hidden-xs hidden-sm text-left"> Status </th>
+                                <th class="width10 hidden-xs hidden-sm text-left">Promo Code</th>
+                                <th class="width5 hidden-xs hidden-sm text-left"> Address</th>
+                                <th class="width15 hidden-xs hidden-sm text-left"> Owner </th>
+                                <th class="width15 hidden-xs hidden-sm text-left"> Created </th>
+                                <th class="width15 hidden-xs hidden-sm text-left"> Modified</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                    <i ng-if="item.status === 1" class="fa fa-play font-green-jungle"></i>
+                                    <i ng-if="item.status === 0" class="fa fa-stop font-red"></i>
+                                    <i ng-if="item.status === -1" class="fa fa-remove font-red"></i>
+                                    <a class="primary-link" href="#/events/details?id=">Double G Gun Sales</a>
+                                    <p class="functions">
+                                        <span><a href="#/events/details?id={{item.$id}}">Edit</a></span>
+                                        <span>|</span>
+                                        <span ng-if="item.status === 1">
+                                            <a href="#" ng-click="eventVm.restore(item, 0)" class="red">UnPublish</a> |
+                                            <a href="#" ng-click="eventVm.archived(item)" class="red">Archive</a>
+                                        </span>
+                                        <span ng-if="item.status === 0">
+                                            <a href="#" ng-click="eventVm.restore(item, 1)" class="red">Publish</a> |
+                                            <a href="#" ng-click="eventVm.archived(item)" class="red">Archive</a>
+                                        </span>
+                                        <span ng-if="item.status === -1">
+                                            <a href="#" ng-click="eventVm.restore(item, 1)" class="red">Publish</a> |
+                                            <a href="#" ng-click="eventVm.restore(item, 0)" class="red">UnPublish</a>
+                                        </span>
+                                    </p>
+                                </td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;"><i class="fa font-green-jungle"></i></td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">tlsldp</td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">506 Rosewood Street, Mnt. Pleasant, Texas</td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">Mark Glover</td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">Thu, Dec 13, 2018</td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">Thu, Dec 13, 2018</td>
+                            </tr>
+                            <tr ng-if="eventVm.events && eventVm.events.length === 0">
+                                <td class="hidden-xs hidden-sm" colspan="9">
+                                    <h5>No records</h5>
+                                </td>
+                                <td class="hidden-md hidden-lg">
+                                    <h5>No records</h5>
+                                </td>
+                                <tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,196 @@
+<div class="row" ng-if="!eventVm.runData && eventVm.loaded">
+    <div class="col-md-12 page-404 text-center">
+        <div class="number font-green"
+            style=" position: relative; top: 35px; display: inline-block; margin-top: 0; margin-bottom: 10px; color: #7bbbd6; text-align: right; letter-spacing: -10px; line-height: 128px; font-size: 128px; font-weight: 300; ">
+            404 </div>
+        <div class="details">
+            <h3>Oops! You're lost.</h3>
+            <p> We can not find the page you're looking for.
+                <br>
+        </div>
+    </div>
+</div>
+<div id="event-confirmation" class="row" ng-if="eventVm.runData">
+    <div class="col-md-12">
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class=" icon-layers font-green" style="color: #4a75b0 !important;"></i>
+                    <span class="caption-subject font-green bold uppercase" style="color: #4a75b0 !important;">Hi
+                        {{eventVm.currentUser.displayName}}</span>
+                    <div class="caption-desc font-grey-cascade"> </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="mt-element-list">
+                    <div class="mt-list-head list-default green-seagreen"
+                        style="background: #314d72!important;">
+                        <div class="list-head-title-container row">
+                            <div class="col-xs-12 col-sm-6 col-md-9 col-lg-9">
+                                <h3 class="list-title uppercase sbold" ng-if="eventVm.runData.source != 'SmartAdmin'">List of Classes will occur within {{eventVm.campaignType}} from {{eventVm.runData.dateString}}</h3>
+                                <h3 class="list-title uppercase sbold" ng-if="eventVm.runData.source == 'SmartAdmin'">List of Classes on {{eventVm.runData.dateString}}</h3>
+                                <div class="list-date" style="font-size: 15px;">This is a reminder that you need to
+                                    review and confirm these classes.</div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" style="text-align: right;">
+                                <span class="hidden-md">Proudly Sponsored by</span>
+                                <img alt="Texas Law Shield | Probate" class="c-mobile-logo"
+                                    src="https://probate-dev.web.app/assets-full/base/img/layout/logos/logo-3.png"
+                                    style="max-height: 60px;">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="mt-list-container list-default ext-1 group" style="padding-top: 0px !important;">
+                        <a ng-if="eventVm.eventsCompleted && eventVm.eventsCompleted.length" class="list-toggle-container" data-toggle="collapse" href="#completed" aria-expanded="true">
+                            <div class="list-toggle done uppercase"> Completed
+                                <span class="badge badge-default pull-left bg-white font-green bold margin-right-5">{{eventVm.eventsCompleted.length}}</span>
+                            </div>
+                        </a>
+                        <div ng-if="eventVm.eventsCompleted && eventVm.eventsCompleted.length" class="panel-collapse collapse in" id="completed">
+                            <div class="row" ng-repeat="item in eventVm.eventsCompleted" style="border-bottom: 1px solid; border-color: #e7ecf1; margin-right:0px; margin-left: 0px; padding-bottom: 10px;">
+                                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 margin-top-30 padding-left-30">
+                                        <label class="mt-radio font-green"> Confirm
+                                                <input type="radio" ng-value="1" name="radio-{{$index}}"
+                                                    ng-model="item.verifyStatus" ng-checked="true" disabled>
+                                                <span></span>
+                                            </label>
+                                            <label class="mt-radio font-red-flamingo"> Cancel
+                                                <input type="radio" ng-value="-1" name="radio-{{$index}}"
+                                                    ng-model="item.verifyStatus" disabled>
+                                                <span></span>
+                                            </label>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 padding-left-30">
+                                        <h3 class="uppercase bold">
+                                            <a style="word-wrap: break-word;" target="_blank"
+                                            href="#/events/details?id={{item.$id}}">{{item.name}}</a>
+                                        </h3>
+                                        <div class="row">
+                                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                                    <p style="margin: 2px 0 !important;"> <strong>Start Date: </strong>
+                                                        {{eventVm.getDateTime(item.startDate)}}</p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>State: </strong>
+                                                        {{eventVm.getState(item.state)}} </p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>Territory: </strong>
+                                                        {{eventVm.getTerritory(item.territory)}} </p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>Facility: </strong> <span
+                                                            ng-bind-html="eventVm.getFacility(item.facilityId)"></span> </p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>Address: </strong>
+                                                        {{item.mailingAddressTxt}} - <a target="_blank"
+                                                        href="{{'http://maps.google.com/?q=' + item.mailingAddressTxt}}">View Map</a></p>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">    
+                                                    <p style="margin: 2px 0 !important;"> <strong>Type: </strong>
+                                                        {{eventVm.getType(item.type)}} </p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>Plan Type: </strong>
+                                                        {{eventVm.getRegion(item)}} </p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>Manager: </strong><span
+                                                            ng-bind-html="eventVm.getRequester(item.requester)"> </span></p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>Area Manager: </strong><span
+                                                                ng-bind-html="eventVm.getRequester(item.areaManager)"> </span></p>
+                                                    <p style="margin: 2px 0 !important;"> <strong>Rep(s): </strong><span
+                                                        ng-bind-html="eventVm.getRequesters(item.representativeAttended)"> </span></p>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a ng-if="eventVm.events && eventVm.events.length" class="list-toggle-container" data-toggle="collapse" href="#pending" aria-expanded="true">
+                            <div class="list-toggle uppercase "> Pending
+                                <span 
+                                    class="badge badge-default pull-left bg-white font-dark bold margin-right-5">{{eventVm.events.length}}</span>
+                            </div>
+                        </a>
+                        <div class="panel-collapse collapse in" id="pending" aria-expanded="true" ng-if="eventVm.events && eventVm.events.length">
+                            <div class="row" ng-repeat="item in eventVm.events" style="border-bottom: 1px solid; border-color: #e7ecf1; margin-right:0px; margin-left: 0px; padding-bottom: 10px;">
+                                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2 margin-top-30 padding-left-30">
+                                    <label class="mt-radio font-green"> Confirm
+                                        <input type="radio" ng-value="1" name="radio-{{$index}}"
+                                            ng-model="item.submitVerifyStatus" ng-checked="true">
+                                        <span></span>
+                                    </label>
+                                    <label class="mt-radio font-red-flamingo"> Cancel
+                                        <input type="radio" ng-value="-1" name="radio-{{$index}}"
+                                            ng-model="item.submitVerifyStatus">
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 padding-left-30">
+                                    <h3 class="uppercase bold">
+                                        <a style="word-wrap: break-word;" target="_blank"
+                                        href="#/events/details?id={{item.$id}}">{{item.name}}</a>
+                                    </h3>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                            <p style="margin: 2px 0 !important;"> <strong>Start Date: </strong>
+                                                {{eventVm.getDateTime(item.startDate)}}</p>
+                                            <p style="margin: 2px 0 !important;"> <strong>State: </strong>
+                                                {{eventVm.getState(item.state)}} </p>
+                                            <p style="margin: 2px 0 !important;"> <strong>Territory: </strong>
+                                                {{eventVm.getTerritory(item.territory)}} </p>
+                                            <p style="margin: 2px 0 !important;"> <strong>Facility: </strong> <span
+                                                    ng-bind-html="eventVm.getFacility(item.facilityId)"></span> </p>
+                                            <p style="margin: 2px 0 !important;"> <strong>Address: </strong>
+                                                {{item.mailingAddressTxt}} - <a target="_blank"
+                                                href="{{'http://maps.google.com/?q=' + item.mailingAddressTxt}}">View Map</a></p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                            
+                                            <p style="margin: 2px 0 !important;"> <strong>Type: </strong>
+                                                {{eventVm.getType(item.type)}} </p>
+                                            <p style="margin: 2px 0 !important;"> <strong>Plan Type: </strong>
+                                                {{eventVm.getRegion(item)}} </p>
+                                            <p style="margin: 2px 0 !important;"> <strong>Manager: </strong><span
+                                                    ng-bind-html="eventVm.getRequester(item.requester)"> </span></p>
+                                            <p style="margin: 2px 0 !important;"> <strong>Area Manager: </strong><span
+                                                    ng-bind-html="eventVm.getRequester(item.areaManager)"> </span></p>
+                                            <p style="margin: 2px 0 !important;"> <strong>Rep(s): </strong><span
+                                                        ng-bind-html="eventVm.getRequesters(item.representativeAttended)"> </span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div ng-if="eventVm.events && eventVm.events.length">
+                    <form class="form-horizontal" name="verifyEmailForm"
+                        ng-submit="eventVm.showConfirmEvent(verifyEmailForm)">
+                        <div class="form-body">
+                            <div class="caption">
+                                <span class="caption-subject">Please input your PRIMARY Email in your profile to verify.</span>
+                            </div>
+                            <br>
+                            <div class="form-group"
+                                ng-class="{'has-error': (showInvalid && verifyEmailForm.email.$error.required) || (verifyEmailForm.email.$error.pattern || verifyEmailForm.email.$error.email)}">
+                                <div class="col-xs-12 col-sm-4 col-md-4 margin-top-10">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
+                                        <input type="email" class="form-control " name="email"
+                                            placeholder="Primary Email" ng-model="eventVm.verifyEmail" required
+                                            autocapitalize="off" ng-pattern="emailRegx">
+                                    </div>
+                                    <div>
+                                        <label class="control-label"
+                                            ng-show="verifyEmailForm.email.$error.pattern || verifyEmailForm.email.$error.email">*
+                                            This field is not valid, the email is not formatted correctly</label>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4 col-md-4 margin-top-10">
+                                    <button type="submit" class="btn blue"
+                                        style="background:  #4a75b0 !important;">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

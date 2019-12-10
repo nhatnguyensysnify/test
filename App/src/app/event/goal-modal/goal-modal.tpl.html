@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" ng-click="egmVm.close()"></button>
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">{{egmVm.isEdit ? 'Set Goal': 'Add Goal'}}</span>
+    </div>
+</div>
+<form name="goalForm" novalidate ng-submit="egmVm.save(goalForm)" class="instant-validate">
+	<div class="modal-body">
+		<!-- <form name="goalForm" novalidate> -->
+			<div class="row">
+		            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+		                <div class="form-group margin-top-bottom-5">
+		                	<input type="number" name="year" placeholder="Year" class="form-control" required ng-model="egmVm.model.y" type="number" ng-pattern="egmVm.numberRegx" ng-disabled="egmVm.isEdit" />
+		                </div>
+		            </div>
+		            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-class="{'error-required': goalForm.month.$error.required}">
+		                <div class="form-group margin-top-bottom-5">
+		                	<select ui-select2="egmVm.selec2Cfg" ng-model="egmVm.model.m" id="egmVmMonthSelect"  required ng-options="m.val as m.text for (key, m) in egmVm.months"
+	                            data-placeholder="Month" name="month" class="form-control">
+	                        </select>
+		                </div>
+		            </div>
+		            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3" ng-class="{'error-required': goalForm.region.$error.required}">
+		                <div class="form-group margin-top-bottom-5">
+		                    <select ui-select2="egmVm.selec2Cfg" ui-select2 ng-model="egmVm.model.r"  name="region" required ng-options="state.iso as state.name disable when state.disabled for (key, state) in egmVm.states"  data-placeholder="Region" class="form-control" id="egmVmStateSelect">
+		                    	<option></option>
+	                        </select>
+		                </div>
+		            </div>
+		            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+		                <div class="form-group margin-top-bottom-5">
+		                    <input class="form-control" name="plan" min="0" hard-cap="true" required ng-currency
+                            currency-symbol="$" type="text" ng-model="egmVm.model.plan" placeholder="Goal Revenue $0.00">
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		<!-- </form> -->
+	    
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn green" ng-click="egmVm.save(goalForm, true)" ng-if="!egmVm.isEdit">Save & Continue</button>
+	    <button type="submit" class="btn green">Save</button>
+	    <button type="button" class="btn default padding-l-r-20 margin-l-r-5" ng-click="egmVm.close()">Close</button>
+	</div>
+</form>

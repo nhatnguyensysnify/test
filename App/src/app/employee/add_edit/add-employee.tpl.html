@@ -1,0 +1,372 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN PROFILE CONTENT -->
+        <div class="profile-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title tabbable-line">
+                            <div class="caption caption-md">
+                                <!--<a href="#/permission/add" class="btn green-haze">Add New</a>-->
+                            </div>
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                                </li>
+                                <!-- <li>
+                                    <a href="#tab_1_2" data-toggle="tab">Change Avatar</a>
+                                </li>
+                                <li>
+                                    <a href="#tab_1_3" data-toggle="tab">Change Password</a>
+                                </li> 
+                                <li>
+                                    <a href="#tab_1_4" data-toggle="tab">Roles</a>
+                                </li> -->
+                            </ul>
+                        </div>
+                        <div class="portlet-body">
+                            <div class="tab-content">
+                                <!-- PERSONAL INFO TAB -->
+                                <div class="tab-pane active row" id="tab_1_1">
+                                    <form role="form" id="createUserForm" name="createUserForm" novalidate
+                                        ng-submit="create(createUserForm)">
+                                        <div class="form-group col-md-12"
+                                            ng-class="{'has-error': (showInvalid && createUserForm.email.$error.required) || (createUserForm.email.$error.pattern || createUserForm.email.$error.email)}">
+                                            <label class="control-label">Email <span
+                                                    class="required-field">*</span></label>
+                                            <input type="email" placeholder="Email" class="form-control" name="email"
+                                                ng-model="user.email" required autocapitalize="off"
+                                                ng-pattern="emailRegx" />
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.email.$error.required">* This field is required</label>-->
+                                            <label class="control-label"
+                                                ng-show="createUserForm.email.$error.pattern || createUserForm.email.$error.email">*
+                                                This field is not valid, the email is not formatted correctly</label>
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': (showInvalid && createUserForm.firstname.$error.required) || createUserForm.firstname.$error.pattern}">
+                                            <label class="control-label">First Name <span
+                                                    class="required-field">*</span></label>
+                                            <input type="text" name="firstname" placeholder="First Name"
+                                                class="form-control" required ng-pattern="nameRegx"
+                                                ng-model="user.firstName" />
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.firstname.$error.required">* This field is required</label>-->
+                                            <label class="control-label"
+                                                ng-show="createUserForm.firstname.$error.pattern">*
+                                                This field does not allow special characters</label>
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': (showInvalid && createUserForm.lastname.$error.required) || createUserForm.lastname.$error.pattern}"
+                                            }>
+                                            <label class="control-label">Last Name <span
+                                                    class="required-field">*</span></label>
+                                            <input type="text" name="lastname" placeholder="Last Name"
+                                                class="form-control" required ng-pattern="nameRegx"
+                                                ng-model="user.lastName" />
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.lastname.$error.required">* This field is required</label>-->
+                                            <label class="control-label"
+                                                ng-show="createUserForm.lastname.$error.pattern">*
+                                                This field does not allow special characters</label>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label">Display Name</label>
+                                            <input type="text" placeholder="Display Name" class="form-control" />
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': !userPermission.isAdmin && showInvalid && createUserForm.address.$error.required}">
+                                            <label class="control-label">Address </label>
+                                            <span class="required-field">*</span>
+                                            <input name="address" type="text" placeholder="Address"
+                                                ng-model="user.address" class="form-control" required />
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.address.$error.required">* This field is required</label>-->
+                                            <label class="control-label"
+                                                ng-show="createUserForm.address.$error.pattern">*
+                                                This field does not allow special characters</label>
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': !userPermission.isAdmin && showInvalid && createUserForm.city.$error.required}">
+                                            <label class="control-label">City </label>
+                                            <span class="required-field">*</span>
+                                            <input name="city" type="text" placeholder="City" ng-model="user.city"
+                                                class="form-control" required />
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.city.$error.required">* This field is required</label>-->
+                                            <label class="control-label" ng-show="createUserForm.city.$error.pattern">*
+                                                This field does not allow special characters</label>
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': !userPermission.isAdmin && showInvalid && createUserForm.state.$error.required}">
+                                            <label class="control-label">State </label>
+                                            <span class="required-field">*</span>
+                                            <select name="state" ng-model="user.state" class="form-control" required>
+                                                <option ng-repeat="state in states" value="{{state.value}}"
+                                                    ng-selected="state.value == user.state">{{state.text}}</option>
+                                                <option ng-value="''">Select State</option>
+                                            </select>
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.state.$error.required">* This field is required</label>-->
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && createUserForm.zip.$error.required) || createUserForm.zip.$error.pattern}">
+                                            <label class="control-label">Zip </label>
+                                            <span class="required-field">*</span>
+                                            <input name="zip" type="text" placeholder="Zip Code" ng-model="user.zipCode"
+                                                maxlength="5" ng-pattern="zipcodeRegx" ng-maxlength="5"
+                                                class="form-control" required>
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.zip.$error.required">* This field is required</label>-->
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && createUserForm.primaryphone.$error.required) || createUserForm.primaryphone.$error.server}">
+                                            <label class="control-label">Primary Phone</label>
+                                            <span class="required-field">*</span>
+                                            <input required type="tel" uiMaskPlaceholder type="phone"
+                                                placeholder="Primary Phone" class="form-control" name="primaryphone"
+                                                ng-model="user.primaryPhone" ui-mask="999-999-9999" />
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': (!userPermission.isAdmin && showInvalid && createUserForm.notificationEmail.$error.required) || createUserForm.notificationEmail.$error.email}">
+                                            <label class="control-label">Notification Email <span
+                                                    class="required-field">*</span></label>
+                                            <input type="email" placeholder="Notification Email"
+                                                class="form-control" name="notificationEmail"
+                                                ng-model="user.notificationEmail" required autocapitalize="off"
+                                                ng-pattern="emailRegx" />
+                                            <!--<label class="control-label" ng-show="showInvalid && createUserForm.email.$error.required">* This field is required</label>-->
+                                            <label class="control-label"
+                                                ng-show="createUserForm.notificationEmail.$error.email">*
+                                                This field is not valid, the email is not formatted correctly</label>
+                                        </div>
+                                        <!-- <div class="form-group col-md-6" ng-class="{'has-error': showInvalid && createUserForm.regional.$error.required}">
+                                            <label class="control-label">Regional <span class="required-field">*</span></label>
+                                            <select ng-model="user.regional" required name="regional"
+                                                ui-select2="select2OptionsRegional" id="ChooseRegional" class="form-control"
+                                                data-placeholder="Choose a regional" ng-options="region.iso as region.name for (key, region) in regions">
+                                                <option value="">Choose Regional</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6" ng-class="{'has-error': showInvalid && createUserForm.territory.$error.required}">
+                                            <label class="control-label">Territories <span class="required-field">*</span></label>
+                                            <select ng-model="user.territories" required name="territory"
+                                                multiple ui-select2="select2OptionsTerritory" id="ChooseTerritory" class="form-control"
+                                                data-placeholder="Choose Territories" ng-options="territory.id as territory.name for (key, territory) in territories">
+                                            </select>
+                                        </div> -->
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': showInvalid && createUserForm.myManager.$error.required}">
+                                            <label class="control-label">Manager <span
+                                                    class="required-field">*</span></label>
+                                            <select ng-model="addEmployeeVm.selectedManager" required name="myManager"
+                                                multiple ui-select2="select2Options" id="ChooseManager"
+                                                class="form-control" data-placeholder="Choose a Manager">
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6"
+                                            ng-class="{'has-error': (showInvalid && createUserForm.representativeCode.$error.required) || createUserForm.representativeCode.$error.pattern}">
+                                            <label class="control-label">Representative Code <span
+                                                    class="required-field">*</span></label>
+                                            <input type="text" required placeholder="Representative Code"
+                                                class="form-control" ng-pattern="nameRegx" name="representativeCode"
+                                                ng-model="user.repCode" />
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <div
+                                                ng-class="{'has-error': (showInvalid && createUserForm.password.$error.required) || createUserForm.password.$error.pattern}">
+                                                <label class="control-label">Password <span
+                                                        class="required-field">*</span></label>
+                                                <input name="password" type="text" placeholder="Password"
+                                                    class="form-control " ng-model="user.password" required
+                                                    ng-pattern="passwordRegx" />
+                                                <label class="control-label"
+                                                    ng-show="showInvalid && createUserForm.password.$error.required">*
+                                                    This field is required</label>
+                                                <label class="control-label"
+                                                    ng-show="createUserForm.password.$error.pattern">*
+                                                    Password must be 6-12 characters long and include at least one
+                                                    letter and one number. Passwords are case sensitive.</label>
+                                            </div>
+                                            <div>
+                                                <button type="button" ng-click="generatePassword()"
+                                                    class="btn btn-primary margin-top-25">Generate
+                                                    Password</button>
+                                            </div>
+                                        </div>
+                                        <div class=" col-md-12">
+                                            <div class="margin-top-20">
+                                                <button class="btn green grreen-haze" type="submit"
+                                                    ng-disabled="!userPermission.isAdmin && createUserForm.$invalid">
+                                                    Add
+                                                </button>
+                                                <button class="btn default" type="button" ng-click="cancel()">
+                                                    Cancel
+                                                </button>
+
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END PERSONAL INFO TAB -->
+                                <!-- CHANGE AVATAR TAB -->
+                                <div class="tab-pane" id="tab_1_2">
+
+                                    <form action="#" role="form">
+                                        <div class="form-group">
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail"
+                                                    style="width: 200px; height: 150px;">
+                                                    <img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image"
+                                                        alt="" />
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                                    style="max-width: 200px; max-height: 150px;">
+                                                </div>
+                                                <div>
+                                                    <span class="btn default btn-file">
+                                                        <span class="fileinput-new"> Select image </span>
+                                                        <span class="fileinput-exists"> Change </span>
+                                                        <input type="file" name="...">
+                                                    </span>
+                                                    <a href="javascript:;" class="btn default fileinput-exists"
+                                                        data-dismiss="fileinput"> Remove </a>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix margin-top-10">
+                                                <span class="label label-danger">NOTE! </span>
+                                                <span>Attached image thumbnail is supported in Latest Firefox, Chrome,
+                                                    Opera, Safari and Internet Explorer 10 only </span>
+                                            </div>
+                                        </div>
+                                        <div class="margin-top-10">
+                                            <a href="javascript:;" class="btn green"> Submit </a>
+                                            <a href="javascript:;" class="btn default"> Cancel </a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END CHANGE AVATAR TAB -->
+                                <!-- CHANGE PASSWORD TAB -->
+                                <div class="tab-pane" id="tab_1_3">
+                                    <form action="#">
+                                        <div class="form-group">
+                                            <label class="control-label">Current Password</label>
+                                            <input type="password" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">New Password</label>
+                                            <input type="password" class="form-control" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Re-type New Password</label>
+                                            <input type="password" class="form-control" />
+                                        </div>
+                                        <div class="margin-top-10">
+                                            <a href="javascript:;" class="btn green"> Change Password </a>
+                                            <a href="javascript:;" class="btn default"> Cancel </a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END CHANGE PASSWORD TAB -->
+                                <!-- PRIVACY SETTINGS TAB -->
+                                <div class="tab-pane" id="tab_1_4">
+                                    <div class="col-md-12 text-right margin-bottom-10">
+                                        <a href="#/permission/add" class="btn green-haze">Add New Role</a>
+                                    </div>
+                                    <form action="#">
+                                        <table class="table table-light table-hover">
+                                            <tr>
+                                                <td class="bold"> Subcriber </td>
+                                                <td>
+                                                    <div class="mt-radio-inline">
+                                                        Read Site
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#">
+                                                        <i class="fa fa-close font-red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold"> Contributor </td>
+                                                <td>
+                                                    <div class="mt-radio-inline">
+                                                        Read Site, Edit Posts, Delete Posts
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#">
+                                                        <i class="fa fa-close font-red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold"> Author </td>
+                                                <td>
+                                                    <div class="mt-radio-inline">
+                                                        Read Site, Edit Posts, Delete Posts, Publish Posts, Delete
+                                                        Published Posts, Edit Published Posts, Upload Files
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#">
+                                                        <i class="fa fa-close font-red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold"> Editor </td>
+                                                <td>
+                                                    <div class="mt-radio-inline">
+                                                        Read Site, Edit Posts,
+                                                        Delete Posts,
+                                                        Publish Posts,
+                                                        Delete Published Posts,
+                                                        Edit Published Posts,
+                                                        Upload Files,
+                                                        Publish Pages,
+                                                        Delete Pages,
+                                                        Edit Other's Posts & Pages,
+                                                        Delete Other's Posts & Pages,
+                                                        Read Private Pages,
+                                                        Edit Private Pages,
+                                                        Delete Private Pages,
+                                                        Manage Categories,
+                                                        Moderate Comments,
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#">
+                                                        <i class="fa fa-close font-red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bold"> Administrator </td>
+                                                <td>
+                                                    <div class="mt-radio-inline">
+                                                        Full permission
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#">
+                                                        <i class="fa fa-close font-red"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!--end profile-settings-->
+                                        <div class="margin-top-10">
+                                            <a href="javascript:;" class="btn red"> Save Changes </a>
+                                            <a href="javascript:;" class="btn default"> Cancel </a>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- END PRIVACY SETTINGS TAB -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PROFILE CONTENT -->
+    </div>
+    <div class="col-md-6">
+    </div>
+</div>
+<!-- END PAGE BASE CONTENT -->

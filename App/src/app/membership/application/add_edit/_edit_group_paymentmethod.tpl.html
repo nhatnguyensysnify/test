@@ -1,0 +1,190 @@
+<div class="portlet light no-margin-bottom">
+    <div class="portlet-title">
+        <div class="caption width100">
+            <i class="fa fa-credit-card-alt"></i>
+            <span class="caption-subject bold uppercase">Payment Method</span>
+        </div>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.paymentMethod.$error.required)}">
+    <label class="col-md-4 control-label">Payment Method <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <select name="paymentMethod" ng-disabled="applicationVm.previewMode" ng-model="applicationVm.model.paymentMethod" required class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-change="applicationVm.changePaymentMethod()">
+            <option ng-repeat="method in applicationVm.appPaymentMethodList" value="{{method.key}}">{{method.text}}</option>
+        </select>
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.paymentMethod.$error.required">* This field is required</label>-->
+    </div>
+</div>
+<!--Credit card Info-->
+<div ng-if="!applicationVm.model.paymentMethod || applicationVm.model.paymentMethod ==='' || applicationVm.model.paymentMethod == '0'">
+    <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && (appForm.creditCardHolderName.$error.required || appForm.creditCardHolderName.$error.pattern)}">
+        <label class="col-md-4 control-label">Holder Name <span class="required-field" ng-if="applicationVm.model.processPayment">*</span></label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Enter Holder Name" ng-model="applicationVm.model.creditCard.name" name="creditCardHolderName" ng-pattern="applicationVm.nameRegx" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked">
+            <label class="control-label" ng-show="appForm.creditCardHolderName.$error.pattern">* This field does not allow special characters</label>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error':(applicationVm.showInvalid && appForm.creditCardNumber.$error.required) || !!appForm.creditCardNumber.$error.mod10}">
+        <label class="col-md-4 control-label">Credit Card Number<span class="required-field" ng-if="applicationVm.model.processPayment"> *</span></label>
+        <div class="col-md-8">
+            <div class="input-group" ng-if="applicationVm.model.status != 8 && applicationVm.model.status != 4 && applicationVm.model.status != 3">
+                <input type="credit card" class="form-control" ng-class="{'form-check': mapping.creditCardNum.selected}" placeholder="Credit Card Number" value="" ng-model="applicationVm.model.creditCard.creditCardNumber" name="creditCardNumber" ng-click="focusMe('creditCardNum', false)" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked" autocomplete="off" ng-change="applicationVm.detechCardType(applicationVm.model.creditCard.type)">
+                <span class="input-group-addon" ng-click="focusMe('creditCardNum', false)">
+                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.creditCardNum.valid}"></i>
+                </span>
+            </div>
+            <div class="input-group" ng-if="applicationVm.model.status == 8 || applicationVm.model.status == 4 || applicationVm.model.status == 3">
+                <input type="text" class="form-control" ng-class="{'form-check': mapping.creditCardNum.selected}" placeholder="Credit Card Number" value="" ng-model="applicationVm.model.creditCard.creditCardNumber" name="creditCardNumber" ng-click="focusMe('creditCardNum', false)" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked">
+                <span class="input-group-addon" ng-click="focusMe('creditCardNum', false)">
+                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.creditCardNum.valid}"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">Type</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Enter Card Type" ng-model="applicationVm.model.creditCard.type" name="creditCardType" ng-disabled="applicationVm.model.isLocked">
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && applicationVm.model.processPayment && (appForm.cardExpMonth.$error.required || appForm.cardExpYear.$error.required || appForm.cardExpMonth.$error.pattern || appForm.cardExpYear.$error.pattern)}">
+        <label class="col-md-4 control-label">Expiration Date<span class="required-field" ng-if="applicationVm.model.processPayment"> *</span></label>
+        <div class="col-md-3 ">
+            <input type="text" class="form-control" placeholder="Month" value="" ng-model="applicationVm.model.creditCard.month" ui-mask="99" name="cardExpMonth" ng-pattern="applicationVm.monthRegx" ng-click="focusMe('expDate', false)" ng-class="{'form-check': mapping.expDate.selected}" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked">
+        </div>
+        <div class="col-md-3 no-padding-left">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Year" value="" ng-click="focusMe('expDate', false)" ng-class="{'form-check': mapping.expDate.selected}" ng-pattern="applicationVm.yearRegx" ng-model="applicationVm.model.creditCard.year" ui-mask="9999" name="cardExpYear" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked">
+                <span class="input-group-addon" ng-click="focusMe('expDate', false)">
+                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.expDate.valid && appForm.cardExpMonth.$error.required && appForm.cardExpYear.$error.required}"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && applicationVm.model.processPayment && (appForm.cvv.$error.required || appForm.$error.minlength || appForm.cvv.$error.pattern)}">
+        <label class="col-md-4 control-label">CVV<span class="required-field" ng-if="applicationVm.model.processPayment"> *</span></label>
+        <div class="col-md-4 ">
+            <div class="input-group" ng-if="applicationVm.model.status != 8 && applicationVm.model.status != 4 && applicationVm.model.status != 3">
+                <input name="cvv" type="text" minlength="3" maxlength="4" class="form-control" placeholder="CVV" value="" ng-model="applicationVm.model.creditCard.cvv" name="cvv" ng-click="focusMe('cvv', false)" ng-class="{'form-check': mapping.cvv.selected}" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked" ng-pattern="applicationVm.cvvRegx" />
+                <span class="input-group-addon" ng-click="focusMe('cvv', false)">
+                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.cvv.valid}"></i>
+                </span>
+            </div>
+            <div class="input-group" ng-if="applicationVm.model.status == 8 || applicationVm.model.status == 4 || applicationVm.model.status == 3">
+                <input name="cvv" type="text" class="form-control" placeholder="CVV" value="" ng-model="applicationVm.model.creditCard.cvv" name="cvv" ng-click="focusMe('cvv', false)" ng-class="{'form-check': mapping.cvv.selected}" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked" />
+                <span class="input-group-addon" ng-click="focusMe('cvv', false)">
+                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.cvv.valid}"></i>
+                </span>
+            </div>
+        </div>
+    </div> -->
+</div>
+<div ng-if="applicationVm.model.paymentMethod == '1'">
+    <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.cashInput.$error.required) || (appForm.cashInput.$error.pattern) || (appForm.cashInput.$error.match) || applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast}">
+        <label class="col-md-4 control-label">Cash Amount <span class="required-field">*</span></label>
+        <div class="col-md-8">
+            <!--<div class="input-inline">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-usd"></i>
+                                                        </span>-->
+            <input type="text" ng-currency currency-symbol="$" class="form-control " placeholder="9,999.99" ng-model="applicationVm.model.cashInput" cash-validate="{{applicationVm.model.total.totalAmount}}" name="cashInput" required autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+            <!--<label class="control-label" ng-show="appForm.cashInput.$error.match">* This is field not valid</label>-->
+            <!--<br ng-if="appForm.cashInput.$error.match && ((applicationVm.model.cashInput === '' &&  applicationVm.model.total.totalAmount !== 0) || !applicationVm.isEnoughtCast)">-->
+            <label style="text-align: left;" class="control-label" ng-show="appForm.cashInput.$error.match && (applicationVm.model.cashInput === '' &&  applicationVm.model.total.totalAmount !== 0) || !applicationVm.isEnoughtCast">* Sorry, cash input amount must be greater than or equal to total amount!</label>
+            <br ng-if="applicationVm.cashChange > 0 && appForm.cashInput.$error.match && (applicationVm.model.cashInput === '' &&  applicationVm.model.total.totalAmount !== 0) || !applicationVm.isEnoughtCast">
+            <label style="text-align: left;" class="control-label font-blue-steel" ng-show="applicationVm.cashChange > 0">* {{applicationVm.getCashOptionTxt(applicationVm.model)}} {{applicationVm.cashChange | currency}}</label>
+            <div class="icheck-list" style="padding-top: 8px;">
+                <label class="mt-checkbox mt-checkbox-outline">
+                    <input type="radio" ng-disabled="applicationVm.model.isLocked" name="cash-option" ng-model="applicationVm.model.cashOption" value="TakeCredit"> Take Credit
+                    <span></span>
+                </label>
+                <label class="mt-checkbox mt-checkbox-outline">
+                    <input type="radio" ng-disabled="applicationVm.model.isLocked" name="cash-option" ng-model="applicationVm.model.cashOption" value="Change"> Change
+                    <span></span>
+                </label>
+            </div>
+            <!--</div>
+                                                    <label class="control-label" ng-show="appForm.cashInput.$error.pattern">* This is not valid</label>
+                                                </div>-->
+        </div>
+    </div>
+    <!--<div class="form-group" ng-if="applicationVm.cashChange >= 0">
+                                        <label class="col-md-4 control-label">Cash Change</label>
+                                        <div class="col-md-8">
+                                              <input type="text" class="form-control" ng-currency currency-symbol="$"  ng-model="applicationVm.cashChange" name="cashchange" disabled autocomplete="off">
+                                        </div>
+                                    </div>-->
+</div>
+<div ng-if="applicationVm.model.paymentMethod == '2'">
+    <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && (appForm.routingNumber.$error.required  || appForm.accountNumber.$error.required)) || (appForm.routingNumber.$error.pattern || !appForm.routingNumber.$valid || appForm.accountNumber.$error.pattern || !appForm.accountNumber.$valid)}">
+        <label class="col-md-4 control-label">Routing Number / Account Number<span class="required-field" ng-if="applicationVm.model.processPayment">*</span></label>
+        <div class="col-md-4">
+            <input ng-if="applicationVm.model.status != 8 && applicationVm.model.status != 4 && applicationVm.model.status != 3" type="text" class="form-control " placeholder="Routing Number" ng-model="applicationVm.model.check.routingNumber" name="routingNumber" ng-required="applicationVm.model.processPayment" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-pattern="applicationVm.numberRegx" ng-maxlength="9">
+            <input ng-if="applicationVm.model.status == 8 ||applicationVm.model.status == 4 || applicationVm.model.status == 3" type="text" class="form-control " placeholder="Routing Number" ng-model="applicationVm.model.check.routingNumber" name="routingNumber" ng-required="applicationVm.model.processPayment" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+        </div>
+        <div class="col-md-4">
+            <input ng-if="applicationVm.model.status != 8 && applicationVm.model.status != 4 && applicationVm.model.status != 3" type="text" class="form-control" placeholder="Account Number" value="" ng-model="applicationVm.model.check.accountNumber" name="accountNumber" ng-required="applicationVm.model.processPayment" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-pattern="applicationVm.numberRegx" ng-maxlength="17">
+            <input ng-if="applicationVm.model.status == 8 || applicationVm.model.status == 4 || applicationVm.model.status == 3" type="text" class="form-control" placeholder="Account Number" value="" ng-model="applicationVm.model.check.accountNumber" name="accountNumber" ng-required="applicationVm.model.processPayment" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">Bank Type<span class="required-field" ng-if="applicationVm.model.processPayment">*</span></label>
+        <div class="icheck-list col-md-8" style="padding-top: 8px;">
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input type="radio" name="cash-option" ng-model="applicationVm.model.check.type" value="BusinessChecking"> BusinessChecking
+                <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input type="radio" name="cash-option" ng-model="applicationVm.model.check.type" value="Checking"> Checking
+                <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input type="radio" name="cash-option" ng-model="applicationVm.model.check.type" value="Saving"> Saving
+                <span></span>
+            </label>
+        </div>
+    </div>
+    <div class="form-group ">
+        <label class="col-md-4 control-label">Bank Name</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Enter Bank Name" ng-model="applicationVm.model.check.name" name="bankName">
+        </div>
+    </div>
+    <div class="form-group ">
+        <label class="col-md-4 control-label">Bank Full Name</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Enter Bank Full Name" ng-model="applicationVm.model.check.fullName" name="bankFullName">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">Bank Address <a href="javascript:void(0);" ng-click="bankAddressVerification.show = !bankAddressVerification.show"><i class="fa fa-map-signs" ng-class="[{'font-red-mint': bankAddressInvalid, 'font-green-meadow': !bankAddressInvalid}]" ng-class="!bankAddressInvalid"></i></a></label>
+        <div class="col-md-8">
+            <google-ac ng-show="bankAddressVerification.show" address="bankAddressVerification"></google-ac>
+            <input type="text" name="bankAddress" class="form-control" placeholder="Enter Bank Address" ng-keydown="applicationVm.bankAddressVerification()" ng-model="applicationVm.model.check.address">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">City</label>
+        <div class="col-md-3">
+            <input type="text" name="bankCity" class="form-control" ng-keydown="applicationVm.bankAddressVerification()" placeholder="Enter Bank City" ng-model="applicationVm.model.check.city">
+        </div>
+        <div class="col-md-3">
+            <select name="bankState" ng-model="applicationVm.model.check.state" ng-change="applicationVm.bankAddressVerification()" class="form-control" autocomplete="off">
+                <option value="" disabled>Choose State</option>
+                <option ng-repeat="state in applicationVm.allStates" value="{{state.value}}">{{state.text}}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input type="text" name="bankZipCode" class="form-control" ng-keydown="applicationVm.bankAddressVerification()" placeholder="Enter Bank Zip Code" ng-model="applicationVm.model.check.zipCode" ui-mask="99999">
+        </div>
+    </div>
+</div>
+<!--<div class="form-group" ng-class="{'has-error': mapping && !mapping.zip.valid || applicationVm.showInvalid && appForm.zipcode.$error.required}">
+    <label class="col-md-4 control-label">Zip Code</label>
+    <div class="col-md-4 ">
+        <div class="input-group">
+            <input name="zipcode" type="text" class="form-control" placeholder="Zip Code" value="" ng-model="applicationVm.model.creditCard.zipCode" name="zipCode" ui-mask="99999" ng-required="mapping.zip.valid" ng-disabled="applicationVm.model.isLocked"/>
+        </div>
+    </div>
+</div>-->

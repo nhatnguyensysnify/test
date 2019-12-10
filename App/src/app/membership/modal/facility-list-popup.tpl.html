@@ -1,0 +1,71 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">Select Facility</span>
+        <button type="button" class="close" aria-hidden="true" ng-click="close()"></button>
+    </div>
+    <br>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="portlet-title">
+        <div class="row">
+            <div class="col-sm-6 col-md-6">
+                <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                    <i class="icon-magnifier"></i>
+                    <input type="text" class="form-control form-control-solid" ng-model="keyword" placeholder="search..."
+                        ng-change="search(keyword)">
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                    <list-paging ng-model="paging" change-page="changePage" style="float: right;"></list-paging>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <label class="control-label required-field" ng-if="showValid == true">* Please choose Facility</label>
+                <label class="control-label required-field" ng-if="facilityInActive == true">* Please choose another Facility. This Facility is inactive.</label>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body" style="overflow-x:auto; height: calc(85vh - 180px);">
+        <!--<label class="control-label required-field margin-left-15" ng-show="showValid == true">* Please Select Facility</label>-->
+        <div class="table-scrollable table-scrollable-borderless">
+            <table class="table table-hover table-light">
+                <thead class="flip-content">
+                    <tr class="uppercase">
+                        <th class="width10">
+                        </th>
+                        <th class="width50"> Facility Name </th>
+                        <th class="width15"> Facility Code </th>
+                        <th class="width15"> Address </th>
+                        <th class="width10"> State </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in pagedItems[paging.currentPage]">
+                        <td>
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" name="select-facility" ng-disabled="item.isActive === false" id="{{item.$id}}" value="{{item.$id}}"
+                                    class="chk-facility" ng-checked="{{item.$id == facilityId}}" ng-click="checkFacility(item)" />
+                                <span></span>
+                            </label>
+                        </td>
+                        <td><label for="{{item.$id}}" style='{{item.isActive === false ? "text-decoration: line-through;" : ""}}'>{{item.name}}</label></td>
+                        <td><label for="{{item.$id}}" style='{{item.isActive === false ? "text-decoration: line-through;" : ""}}'>{{item.facility_promo_code}}</label></td>
+                        <td><label for="{{item.$id}}" style='{{item.isActive === false ? "text-decoration: line-through;" : ""}}'>{{item.address}}</label></td>
+                        <td><label for="{{item.$id}}" style='{{item.isActive === false ? "text-decoration: line-through;" : ""}}'>{{item.state_name}}</label></td>
+                    </tr>
+                    <tr ng-if="pagedItems.length === 0">
+                        <td class="hidden-xs hidden-sm" colspan="5">
+                            No Records.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn blue-steel" type="button" ng-click="selectFacility()">Select</button>
+    <button class="btn dark btn-outline" type="button" ng-click="close()">Cancel</button>
+</div>

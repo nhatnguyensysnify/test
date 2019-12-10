@@ -1,0 +1,26 @@
+<div id="EventDashboard" class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <ul class="nav nav-tabs">
+                    <li ng-class="{'active' : eventVm.tabIdx === 1 }">
+                        <a ng-click="eventVm.tabIdx = 1; " href="#tab_1_1" data-toggle="tab" aria-expanded="true"><i class="fa fa-dashboard"></i> Overview </a>
+                    </li>
+                    <li ng-class="{'active' : eventVm.tabIdx === 2 }">
+                        <a ng-click="eventVm.tabIdx = 2; eventVm.onSwitchTabs();" ng-if="eventVm.selectedCampaign" href="#tab_1_2" data-toggle="tab" aria-expanded="true"><i class="fa fa-paper-plane"></i> Campaign Details</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <!--Overview-->
+                    <div class="tab-pane" id="tab_1_1" ng-class="{ 'active in': eventVm.tabIdx == 1 }">
+                        <ng-include src="'app/event/dashboard/overview/_notification.tpl.html'"></ng-include>
+                    </div>
+                    <!--Notification-->
+                    <div class="tab-pane" id="tab_1_2" ng-class="{ 'active in': eventVm.tabIdx == 2 }">
+                        <ng-include src="'app/event/dashboard/confirmation/_campaign-detail.tpl.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

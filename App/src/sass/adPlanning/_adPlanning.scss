@@ -1,0 +1,165 @@
+#adPlanning{
+    .btn.green.fileinput-button{
+        display: inline;
+        top: 10px;
+        padding-top: 10px;
+        padding-bottom: 8px;
+    }
+    
+    .icon-btn {
+        height: 45px; 
+        min-width: 80px;
+        margin-top: 0px!important;
+        margin-bottom:10px!important;
+    }
+    .badge {
+        position: inherit;
+        display: inline-block;
+        font-family: "Open Sans",sans-serif;
+        font-weight: 600;
+        height: 20px;
+        margin: 0px 5px;
+        padding: 4px 9px;
+        top: -3px;
+        right: 0px;
+    }
+    .badge-icon{
+        width: 24px;
+        height: 24px;
+        font-size: 12px!important;
+        margin-right: 0;
+        line-height: 24px;
+        padding: 0;
+
+    }
+    .icon-btn > div {
+        margin-top: 0px; 
+    }
+    
+    .badge-text {
+        padding-top: 2px !important;
+    }
+    .input-icon.input-large.input-inline{
+        padding-top: 3px;
+        margin-right: 30px;
+    }
+
+    
+    .mt-element-step .current .mt-step-number {
+        font-size: 26px;
+        border-radius: 50% !important;
+        display: inline-block;
+        margin: auto;
+        padding: 9px;
+        margin-bottom: 5px;
+        border: 3px solid;
+        border-color: #e5e5e5;
+        position: relative;
+        z-index: 5;
+        height: 60px;
+        width: 60px;
+        text-align: center;
+    }
+
+    .mt-element-step .current .mt-step-number > i {
+        position: relative;
+        top: 50%;
+        transform: translateY(-120%);
+    }
+
+    .mt-element-step .current .mt-step-title {
+        position: relative;
+    }
+
+    .mt-element-step .current .mt-step-title:before {
+        content: '';
+        height: 3px;
+        width: 50%;
+        position: absolute;
+        background-color: #e5e5e5;
+        top: -32px;
+        right: 50%;
+        z-index: 4;
+        transform: translateY(-100%);
+    }
+
+    .mt-element-step .current .mt-step-title:after {
+        content: '';
+        height: 3px;
+        width: 50%;
+        position: absolute;
+        background-color: #e5e5e5;
+        top: -32px;
+        left: 50%;
+        z-index: 4;
+        transform: translateY(-100%);
+    }
+
+    .mt-element-step .current .error .mt-step-number {
+        color: #E7505A !important;
+        border-color: #E7505A !important;
+    }
+
+    .mt-element-step .current .error .mt-step-title, .mt-element-step .current .error .mt-step-content {
+        color: #E7505A !important;
+    }
+
+    .mt-element-step .current .error .mt-step-title:after, .mt-element-step .current .error .mt-step-title:before {
+        background-color: #E7505A;
+    }
+
+    .mt-element-card .mt-card-item {
+        height: 260px!important;
+        width: auto!important;
+    }
+
+    .mt-element-card  .mt-card-image {
+        max-height: 295px!important;
+    }
+      
+    .mt-element-overlay .mt-overlay-1 img.img-step3{
+        height: auto;
+    }    
+
+
+    .portfolio-content .btn {
+        padding: 0px 12px!important;
+    }
+
+
+    //.portfolio-content.portfolio-2 .cbp-l-filters-button .cbp-filter-item .cbp-filter-counter,
+    .cbp-l-filters-button .cbp-filter-item:hover .cbp-filter-counter {
+        bottom: 44px;
+        opacity: 1!important;
+        z-index:10!important;
+    }
+
+    .portfolio-1 .cbp .btn{
+        padding: 0px 12px!important
+    }
+    
+    .mt-overlay-4 {
+
+        .btn.btn-outline.default.active, .btn.btn-outline.default:active, .btn.btn-outline.default:active:focus, .btn.btn-outline.default:active:hover, .btn.btn-outline.default:focus, .btn.btn-outline.default:hover {
+            background-color: #e1e5ec;
+            border-color: #e1e5ec;
+            color: #666;
+        }
+        .btn.btn-outline.default {
+            color: #e1e5ec;
+            border-radius: 4px!important;
+            padding: 6px 10px!important;
+            font-size: 14px!important;
+        }
+    }
+    
+    .mt-element-overlay .mt-overlay-4 img {
+        width: auto;
+        max-height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    
+}

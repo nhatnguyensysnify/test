@@ -1,0 +1,12 @@
+@media (min-width: 768px) {
+	.set-goal-modal .modal-dialog {
+		width: 620px;
+	}
+}
+.instant-validate.ng-submitted {
+    .error-required {
+		.select2-selection{
+        	border-color: #e73d4a !important;
+		}
+	}
+}

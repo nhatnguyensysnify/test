@@ -1,0 +1,186 @@
+#users, #replace-manager-modal{
+    .table > tbody > tr > td{
+        vertical-align: middle !important;
+        .functions{
+            margin: 10px 0;
+        }
+    }
+
+
+}
+.role-sum{
+    .selected {
+        font-weight: bold;
+    }
+}
+.employee-pic{
+    margin: 0px !important;
+}
+.employee-pic:before{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+}
+.user-pic{
+    width: 30px;
+    height: 30px;
+}
+
+.form-upload-tracking{
+    td {
+        vertical-align: middle !important;
+        p{
+            margin: 0px;
+        }
+    }
+
+    .employee-history-tracking{
+        /* Styles go here */
+        .rotate{
+            -moz-transition: all 0.2s ease;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+        }
+
+        .rotate.down{
+            -ms-transform:rotate(90deg);
+            -moz-transform:rotate(90deg);
+            -webkit-transform:rotate(90deg);
+            transform:rotate(90deg);
+        }
+
+        .slide {
+            -moz-transition: all 0.2s ease;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+        }
+        .slide.open {
+            -webkit-transition: max-height 2s ease;
+            -moz-transition: max-height 2s ease;
+            transition: max-height 2s ease;
+            max-height: 400px;
+        }
+
+        td.child {
+            padding:0 !important;
+            border-top: 0px solid #ddd !important;
+        }
+
+        td.child.open {
+            padding:0 !important;
+            border-top: 1px solid #ddd !important;
+        }
+
+        td.child .div-tracking-info {
+            transition: all linear 0.1s !important;
+            -webkit-transition: all linear  0.1s !important;
+            //height: 165px;
+            //display: block;
+            display: contents;
+        }
+
+        .has-file-info{
+            //height: 600px !important;
+        }
+          
+        td.child div.ng-hide {
+           height: 0;
+        }
+        
+        .table.table-light > tbody > tr > td{
+            border-bottom: 0px !important;
+        }
+        .device-info{
+            margin-bottom: 0px !important;
+            //height: 165px;
+        }
+        .file-info{
+            margin-bottom: 0px !important;
+            //min-height: 435px;
+        }
+        .device-info, .file-info{
+            box-shadow: none !important;
+            .device-info-content, .file-info-content{
+                display: grid !important;
+                .mt-widget-3{
+                    border:none !important;
+                    color: white !important;
+                    .mt-body-actions-icons{
+                        .btn{
+                            cursor: default !important;
+                        }
+                    }
+                }
+            }
+        }
+        .tracking-info-active{
+            background-color: #eef1f5;
+        }
+        .tracking-info-action{
+            color: #555555;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-bottom-color: transparent;
+            cursor: default;
+            position: relative;
+            top: 3px;
+            padding: 10px;
+            z-index: 1;
+        }
+    }
+}
+.profile-dashboard{
+    .dashboard-stat2{
+        cursor: pointer;
+        padding: 15px !important;
+        .display-number{
+            display: block;
+            margin-top: 20px !important;
+            .amount, .total{
+                font-size: 24px !important;
+                color: white; 
+                font-weight: bold;
+            }
+            .amount{
+                float: right;
+            }
+        }
+        .display{
+            margin-bottom: 0px !important;
+            h3 {
+                color: white;    
+            }
+            
+            .number small{
+                font-size: 19px !important;
+                color: white;
+                font-weight: bold;
+            }
+            .icon i{
+                color: white;
+            }   
+        }
+    }
+}
+
+@media (min-width: 1200px){
+    .profile-dashboard{
+        .dashboard-stat2{
+        .display-number{
+            .amount, .total{
+                font-size: 20px !important;
+            }
+        }
+        .display{
+            .number small{
+                font-size: 16px !important;
+            }
+        }
+    }
+}
+}
+
+input[data-provide=datepicker]{
+    background-color: white!important;
+}

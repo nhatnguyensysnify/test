@@ -1,0 +1,86 @@
+<div id="EventDashboard" class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="portlet light bordered">
+                <div class="portlet-title no-padding-left-right">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                            <select ui-select2 ng-model="eventVm.chooseStates" multiple ng-options="state.iso as state.name for (key, state) in eventVm.allStates" data-placeholder="All States" ng-change="eventVm.changeState();">
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select ui-select2 ng-model="eventVm.chooseStates" multiple ng-options="state.iso as state.name for (key, state) in eventVm.allStates" data-placeholder="All Territories" ng-change="eventVm.changeState();">
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                    <select ui-select2 ng-model="eventVm.chooseStates" multiple ng-options="state.iso as state.name for (key, state) in eventVm.allStates" data-placeholder="All Facilities" ng-change="eventVm.changeState();">
+                                    </select>
+                                </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3 text-right">
+                            <date-range-report id="EventDateRange" position="left" ng-disabled="initPage" event="true" start="{{eventVm.timestampStart}}" end="{{eventVm.timestampEnd}}" style="position: relative;top: 0px;"></date-range-report>
+                            <div class="btn-group">
+                                <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"ng-disabled="initPage" title="Export CSV" href="#" style="position: relative;top: 0px;">
+                                    <i class="fa fa-download"></i>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                                    <li>
+                                        <a href="#" ng-click="eventVm.exportEventData()" >Event Export</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" ng-click="eventVm.exportD()">Event Summary Export</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-3">
+                            <select ng-model="eventVm.cri.type" class="form-control" ng-change="eventVm.changeType();">
+                                <option value="All">All Types</option>
+                                <option ng-repeat="type in eventVm.eventTypes" value="{{type.value}}">{{type.text}}</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                                <select ui-select2 ng-model="eventVm.chooseRegions" id="chooseRegions" ng-change="eventVm.changeState();" multiple
+                                    ng-options="region.id as region.guid for (key, region) in eventVm.allRegions"
+                                    data-placeholder="All Plan Types">
+                                </select>
+                            </div>
+                    </div>
+                </div>
+            <div class="portlet-body form">
+                <ul class="nav nav-tabs">
+                    <li ng-class="{'active' : eventVm.tabIdx === 1 }">
+                        <a ng-click="eventVm.tabIdx = 1;"><i class="fa fa-dashboard"></i> Overview </a>
+                    </li>
+                    <li ng-class="{'active' : eventVm.tabIdx === 2 }">
+                        <a ng-click="eventVm.tabIdx = 2; eventVm.onSwitchTabs();"><i class="fa fa-map"></i> States</a>
+                    </li>
+                    <li ng-class="{'active' : eventVm.tabIdx === 3 }">
+                        <a ng-click="eventVm.tabIdx = 3; eventVm.onSwitchTabs();"><i class="fa fa-check-square-o"></i> Events Completion</a>
+                    </li>
+                    <!-- <li ng-class="{'active' : eventVm.tabIdx === 4 }">
+                        <a ng-click="eventVm.tabIdx = 4;"><i class="fa fa-paper-plane"></i> Notification</a>
+                    </li> -->
+                </ul>
+                <div class="tab-content">
+                    <!--Overview-->
+                    <div class="tab-pane" id="tab_1_1" ng-class="{ 'active in': eventVm.tabIdx == 1 }">
+                        <ng-include src="'app/event/dashboard/overview/_overview.tpl.html'"></ng-include>
+                    </div>
+                    <!--States-->
+                    <div class="tab-pane" id="tab_1_2" ng-class="{ 'active in': eventVm.tabIdx == 2 }">
+                        <ng-include src="'app/event/dashboard/overview/_states.tpl.html'"></ng-include>
+                    </div>
+                     <!--Events Completion-->
+                     <div class="tab-pane" id="tab_1_3" ng-class="{ 'active in': eventVm.tabIdx == 3 }">
+                        <ng-include src="'app/event/dashboard/overview/_events-completion.tpl.html'"></ng-include>
+                    </div>
+                    <!--Notification-->
+                    <!-- <div class="tab-pane" id="tab_1_4" ng-class="{ 'active in': eventVm.tabIdx == 4 }">
+                        <ng-include src="'app/event/dashboard/overview/_notification.tpl.html'"></ng-include>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

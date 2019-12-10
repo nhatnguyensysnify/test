@@ -1,0 +1,90 @@
+<div id="add-app-ocr" style="min-height:500px;" ng-controller="eventUploadCtrl as eventUploadVm">
+    <div class="portlet light no-margin-bottom">
+        <div class="portlet-title">
+            <div class="caption col-md-4">
+                <i class="fa fa-star"></i>
+                <span class="caption-subject bold uppercase">Upload Applications</span>
+            </div>
+            <div class="col-md-8">
+                <a href="#/membership/list" style="margin: 0px; float:right" class="btn btn-primary" title="View Applications">View
+                    Applications</a>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <form class="form-horizontal" role="form" name="uploadForm" novalidate>
+                <div class="form-group" ng-class="{'has-error': (eventUploadVm.showInvalid && uploadForm.state.$error.required)}">
+                    <label class="col-md-4 control-label text-right">State</label>
+                    <div class="col-md-3">
+                        <input type="text" value="{{eventVm.getState(eventVm.model.state)}}" disabled class="form-control"
+                            name="state" />
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': (eventUploadVm.showInvalid && uploadForm.planType.$error.required)}">
+                    <label class="col-md-4 control-label text-right">Plan Type</label>
+                    <div class="col-md-3">
+                        <input type="text" value="{{eventVm.getRegion(eventVm.model.region)}}" disabled class="form-control"
+                            name="planType" />
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': eventUploadVm.showInvalid && uploadForm.facility.$error.required}">
+                    <label class="col-md-4 control-label">Facility</label>
+                    <div class="col-md-3">
+                        <input type="text" value="{{eventVm.facilityTxt}}" disabled class="form-control" name="facility" />
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': eventUploadVm.showInvalid && uploadForm.event.$error.required}">
+                    <label class="col-md-4 control-label">Event
+                    </label>
+                    <div class="col-md-3">
+                        <input type="text" value="{{eventVm.model.name}}" disabled class="form-control" name="event" />
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': eventUploadVm.showInvalid && uploadForm.repCode.$error.required}">
+                    <label class="col-md-4 control-label">Representative Code/Rep Code <span class="required-field">*</span></label>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="eventUploadVm.employeeSelected.repCode" required class="form-control"
+                            name="repCode" />
+                    </div>
+                    <div class="col-md-5 margin-top-10">
+                        <a href="#" ng-click="eventUploadVm.showPopupEmployeeList()">Select Rep</a>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': eventUploadVm.showInvalid && uploadForm.saleRep.$error.required}">
+                    <label class="col-md-4 control-label">Sale Rep <span class="required-field">*</span></label>
+                    <div class="col-md-3">
+                        <input type="text" ng-model="eventUploadVm.employeeSelected.saleRep" required class="form-control"
+                            name="saleRep" />
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="!uploadForm.$invalid">
+                    <div class="col-md-offset-2 col-md-7">
+                        <ng-dropzone class="dropzone dz-clickable" options="eventUploadVm.dzOptions" callbacks="eventUploadVm.dzCallbacks"
+                            methods="eventUploadVm.dz">
+                        </ng-dropzone>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+        <br>
+        <div class="portlet-title">
+            <div class="caption col-md-4">
+                <i class="fa fa-star"></i>
+                <span class="caption-subject bold uppercase">Upload Tracking</span>
+            </div>
+        </div>
+        <div class="portlet-body" ng-if="eventVm.ready">
+            <ng-include src="'app/employee/add_edit/_employee-log-history.tpl.html'" ng-controller="eventUploadHistoryCtrl as employeeHistoryVm"></ng-include>
+        </div>
+        <!-- <div class="portlet-title">
+            <div class="caption col-md-4">
+                <i class="fa fa-star"></i>
+                <span class="caption-subject bold uppercase">Applications</span>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <ng-include src="'app/event/add_edit/_event-applications.tpl.html'" ng-controller="eventApplicationsCtrl as eventAppVm"></ng-include>
+        </div> -->
+    </div>
+</div>

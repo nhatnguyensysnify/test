@@ -1,0 +1,527 @@
+<form id="eventForm" class="form-horizontal" role="form" name="eventForm" ng-submit="eventVm.saveEdit(eventForm)"
+    novalidate="novalidate">
+    <div class="form-body padding-top-0">
+        <div class="form-group">
+            <div class="col-md-4 padding-top-10">
+                <span class="title caption-subject font-blue-sharp bold uppercase">Event Information</span> 
+                <span ng-if="eventVm.model.type === 'classes'">
+                &nbsp;&nbsp;<a href="#" class="padding-10 badge badge-success" style="background-color: #c49f47 !important; height: auto !important;" ng-if="eventVm.model._verifyStatus == 0">Pending</a>
+                &nbsp;&nbsp;<a href="#" class="padding-10 badge badge-primary" style="height: auto !important;" ng-if="eventVm.model._verifyStatus == 1">Confirmed</a>
+                &nbsp;&nbsp;<a href="#" class="padding-10 badge badge-danger" style="height: auto !important;" ng-if="eventVm.model._verifyStatus == -1">Canceled</a>
+                <!-- &nbsp;&nbsp;<i class="fa fa-address-card" ng-class="{'font-red': !eventVm.model.appUploaded, 'font-green-jungle': eventVm.model.appUploaded}" ng-if="eventVm.model.appUploaded === true || eventVm.model.appUploaded===false"> --></i>
+                </span>
+            </div>
+            <div class="col-md-8 text-right">
+                <a ng-if="eventVm.isEdit" class="btn blue" ng-click="eventVm.showPopupTrackingActivities()">Tracking
+                    Activities</a>
+                <a ng-if="eventVm.isEdit && eventVm.model._verifyStatus !== -1 && eventVm.model._verifyStatus !== 1 && !eventVm.model.primaryTLSKey && eventVm.model.type === 'classes'" class="btn blue" ng-click="eventVm.showPopupSendNotification()">Send notification</a>
+                <a ng-if="eventVm.isEdit && eventVm.model.primaryTLSKey" class="btn blue" ng-click="eventVm.submitForceRefreshEventData()">Force Refresh Data</a>
+            </div>
+        </div>
+        <hr>
+        <div class="form-group  margin-top-20"
+            ng-class="{'has-error': (eventVm.showInvalid && eventForm.eventName.$error.required) || eventForm.eventName.$error.pattern}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Name
+                <span class="required-field" aria-required="true"> *</span>
+            </label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <input type="text" name="eventName" placeholder="Event Name" class="form-control" required
+                    ng-model="eventVm.model.name" />
+                <label class="control-label" ng-show="eventForm.eventName.$error.pattern">* This field does
+                    not allow special characters</label>
+            </div>
+        </div>
+        <div class="form-group  margin-top-20"
+            ng-class="{'has-error': eventVm.showInvalid && eventForm.startDate.$error.required}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Start Date
+                <span class="required-field" aria-required="true"> *</span>
+            </label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <div class="input-group date form_meridian_datetime" single-date-picker id="eventStartDate">
+                    <input type="text" class="form-control" ng-disabled="true" placeholder="mm/dd/yyyy" required
+                        name="startDate" ng-model="eventVm.startDate">
+                    <span class="input-group-btn input-group-addon no-padding">
+                        <button class="btn default date-set" type="button">
+                            <i class="fa fa-calendar" data-time-icon="icon-time"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- <rate-date-picker cls="margin-top-20" cls-label="col-xs-12 col-sm-4 col-md-4 col-lg-4" cls-control="col-xs-12 col-sm-6 col-md-4 col-lg-4"
+            require-start="true" hide-end="true" is-disable="true" ng-model="eventVm.model" ng-class="{'has-error': eventVm.showInvalid && eventForm.eventstartdatetime.$error.required}"></rate-date-picker> -->
+        <div class="form-group margin-top-20">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Description
+            </label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <textarea rows="5" ng-model="eventVm.model.description" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group margin-top-20"
+            ng-class="{'has-error': (eventVm.showInvalid && eventForm.appState.$error.required)}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">State <span class="required-field"
+                    aria-required="true"> *</span></label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <select name="appState" ng-model="eventVm.model.state" required
+                    ng-disabled="eventVm.model.appCount && eventVm.model.appCount > 0" class="form-control"
+                    autocomplete="off">
+                    <option value="" disabled>Choose State</option>
+                    <option ng-repeat="(key, state) in eventVm.allStates" data-id="{{state.id}}" value="{{state.iso}}">
+                        {{state.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group margin-top-20"
+            ng-class="{'has-error': (eventVm.showInvalid && eventForm.planType.$error.required)}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Plan Type <span class="required-field"
+                    aria-required="true"> *</span></label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <select name="planType" ng-model="eventVm.model.region"
+                    ng-disabled="eventVm.model.appCount && eventVm.model.appCount > 0" required class="form-control"
+                    autocomplete="off">
+                    <option value="" disabled>Choose Plan Type</option>
+                    <option ng-repeat="region in eventVm.regionGroups[eventVm.model.state]" data-code="{{region.code}}"
+                        value="{{region.id}}">{{region.guid}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group  margin-top-20"
+            ng-class="{'has-error': eventVm.showInvalid && eventForm.eventType.$error.required}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Event Type
+                <span class="required-field" aria-required="true"> * </span>
+            </label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <select name="eventType" ng-model="eventVm.model.type" class="form-control" required>
+                    <option value="">Choose Type</option>
+                    <option ng-repeat="type in  eventVm.eventTypes" value="{{type.value}}"
+                        ng-selected="type.value == eventVm.model.type">{{type.text}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group margin-top-20"
+            ng-class="{'has-error': eventVm.showInvalid && eventForm.facility.$error.required}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Facility <span class="required-field"
+                    aria-required="true"> *</span></label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <input type="text" ng-model="eventVm.facilityTxt" required ng-disabled="true" class="form-control"
+                    name="facility" />
+                <label class="control-label required-field"
+                    ng-show="eventVm.initPopup && (!eventVm.model.state || eventVm.model.state === '')"> * Please select
+                    state</label>
+                <label class="control-label font-yellow" ng-if="eventVm.notBelongState"> * Facility does not belong to
+                    {{eventVm.getState(eventVm.model.state)}}</label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 margin-top-10">
+                <a href="#" ng-click="eventVm.showPopupFacilityList(eventVm.model.state)">Select Facility</a>
+            </div>
+        </div>
+        <div class="form-group margin-top-20"
+            ng-class="{'has-error': (eventVm.showInvalid && eventForm.territory.$error.required)}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Territory <span class="required-field">
+                    *</span></label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <select ui-select2 name="territory" ng-model="eventVm.model.territory" class="form-control" required
+                    data-placeholder="Choose a territory"
+                    ng-options="item.id as item.name for item in eventVm.allTerritories">
+                    <option value="">Choose Territory</option>
+                </select>
+                <!-- <select name="territory" ng-model="eventVm.model.territory" class="form-control"
+                        autocomplete="off">
+                        <option value="" disabled>Choose Territory</option>
+                        <option ng-repeat="territory in eventVm.allTerritories" value="{{territory.id}}">{{territory.name}}</option>
+                    </select> -->
+            </div>
+        </div>
+        <div class="form-group margin-top-20"
+            ng-class="{'has-error': (eventVm.showInvalid && eventForm.requester.$error.required)}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Manager<span class="required"
+                    aria-required="true"> * </span></label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <!-- <select ui-select2="select2OptionsRequester" id="mySelect2" required name="requester" ng-model="eventVm.requesters" class="form-control" data-placeholder="Choose a requester">
+                    </select> -->
+                <select ng-model="eventVm.requesters" required name="requester" ui-select2="select2OptionsManager"
+                    multiple id="Manager" class="form-control" data-placeholder="Choose a requester">
+                </select>
+                <!-- <select ui-select2 required name="requester" ng-model="eventVm.requesters" class="form-control"
+                    data-placeholder="Choose a requester" ng-options="item.$id as (item.firstName + ' ' + item.lastName + ' (' + item.repCode + ')') for item in eventVm.allEmployees">
+                </select> -->
+            </div>
+        </div>
+        <div class="form-group margin-top-20"
+            ng-class="{'has-error': (eventVm.showInvalid && eventForm.areaManager.$error.required)}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Area Manager</label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <select ng-model="eventVm.areaManagers" name="areaManager" ui-select2="select2OptionsAreaManager"
+                    multiple id="AreaManager" class="form-control" data-placeholder="Choose a area manager">
+                </select>
+            </div>
+        </div>
+        <div class="form-group margin-top-20"
+            ng-class="{'has-error': (eventVm.showInvalid && eventForm.repAttendees.$error.required)}">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Representative <span class="required"
+                    aria-required="true"> * </span> </label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <select ng-model="eventVm.representativeAttended" required multiple
+                    ui-select2="select2OptionsRepresentative" name="repAttendees" id="Representative"
+                    data-placeholder="Choose representative" class="form-control">
+                </select>
+                <!-- <select ui-select2="select2OptionsRepresentative" name="repAttendees" id="Representative" ng-model="eventVm.representativeAttended"
+                        ng-options="item.$id as (item.firstName + ' ' + item.lastName + ' (' + item.repCode + ')') for item in eventVm.allEmployees"
+                        multiple class="form-control">
+                    </select> -->
+            </div>
+        </div>
+        <div class="form-group margin-top-20">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Is Published</label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <select name="status" class="form-control" autocomplete="off" ng-model="eventVm.model.status"
+                    ng-options="stt.value as stt.text for stt in eventVm.eventStatus"></select>
+            </div>
+        </div>
+        <div class="form-group margin-top-20" >
+                <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Status</label>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                    <select name="status" class="form-control" autocomplete="off" ng-model="eventVm.model.verifyStatus" ng-disabled="eventVm.model._verifyStatus == -1 || eventVm.model.type !== 'classes'"
+                        ng-options="stt.value as stt.text disable when stt.disabled for stt in eventVm.eventVerifyStatus">
+                        <option ng-disabled="eventVm.isEdit" value="">Empty</option>
+                    </select>
+                </div>
+            </div>
+        <!-- <div class="form-group margin-top-20">
+            <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Apps Uploaded</label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                <input type="text" name="appUploaded" placeholder="Event Name" class="form-control" disabled="" value="{{eventVm.model.appUploaded === true || eventVm.model.appUploaded === false?( eventVm.model.appUploaded?'Yes': 'No'): 'N/A'}}" />
+                
+            </div>
+        </div> -->
+        <!-- <div class="form-group margin-top-20">
+            <label for="active" class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4">Active</label>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 margin-top-5">
+                <label class="mt-checkbox mt-checkbox-outline">
+                    <input id="active" type="checkbox" name="active" ng-model="eventVm.model.isActive" />
+                    <span></span>
+                </label>
+            </div>
+        </div> -->
+
+        <hr>
+        <div class="caption">
+            <span class="caption-subject  bold uppercase">Data Manual Input</span>
+            <a href="#" class="padding-10 badge badge-success" ng-if="eventVm.model.dataEntered" style="height: auto !important;">Data Entered</a>
+            <a href="#" class="padding-10 badge badge-warning" ng-if="!eventVm.model.dataEntered" style="height: auto !important;">New</a>
+        </div>
+        <hr>
+        <div class="form-group margin-top-20">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6"
+                    ng-if="eventVm.showFieldsByType(eventVm.model.type)">
+                    Total Attendees
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                    ng-if="eventVm.showFieldsByType(eventVm.model.type)"
+                    ng-class="{'has-error': !eventForm.iptTotalAttendeesRegistered.$valid || eventForm.iptTotalAttendeesRegistered.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptTotalAttendeesRegistered"
+                        ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.iptTotalAttendeesRegistered" />
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6"
+                    ng-if="eventVm.showFieldsByType(eventVm.model.type)">
+                    Total Potential
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                    ng-if="eventVm.showFieldsByType(eventVm.model.type)"
+                    ng-class="{'has-error': !eventForm.iptTotalAttendees.$valid || eventForm.iptTotalAttendees.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptTotalAttendees"
+                        ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.iptTotalAttendees"
+                        ng-change="eventVm.autoChangeCloseRate(eventVm.model)" />
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    New Members
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                    ng-class="{'has-error': !eventForm.iptNewMember.$valid || eventForm.iptNewMember.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptNewMember"
+                        ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.iptNewMember"
+                        ng-change="eventVm.autoChangeCloseRate(eventVm.model)" />
+                </div>
+                <label class="control-label col-xs-12 col-sm-4 col-md-6 col-lg-6 margin-top-20">
+                    Total Revenue
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                    ng-class="{'has-error': !eventForm.iptTotalRevenue.$valid}">
+                    <div class="input-group">
+                        <span class="input-group-addon coupon-group-addon">
+                            $
+                        </span>
+                        <input class="form-control" name="iptTotalRevenue" min="0" hard-cap="true" ng-currency
+                            currency-symbol="$" type="text" ng-model="eventVm.model.iptTotalRevenue">
+                    </div>
+                </div>
+                <label class="control-label col-xs-12 col-sm-4 col-md-6 col-lg-6 margin-top-20"
+                    ng-if="eventVm.showFieldsByType(eventVm.model.type,'iptCloseRate')">
+                    Closing Rate
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                    ng-class="{'has-error': eventForm.iptCloseRate.$error.pattern || !eventForm.iptCloseRate.$valid}"
+                    ng-if="eventVm.showFieldsByType(eventVm.model.type,'iptCloseRate')">
+                    <div class="input-inline">
+                        <div class="input-group">
+                            <input class="form-control" name="iptCloseRate" ng-min="0" ng-max="10000" type="text"
+                                ng-pattern="eventVm.closingRateRegx" ng-model="eventVm.model.iptCloseRate">
+                            <span class="input-group-addon coupon-group-addon">
+                                %
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    A&E
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                    ng-class="{'has-error': !eventForm.iptAnE.$valid || eventForm.iptAnE.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptAnE"
+                        ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.iptAnE" />
+                    <div class="clearfix margin-top-10">
+                        <span class="label label-danger">NOTE!</span>
+                        <span class="font-blue-steel font-14">Number of Armed & Educated books used for upsell to annual</span>
+                    </div>
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    GSW
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                    ng-class="{'has-error': !eventForm.iptGSW.$valid || eventForm.iptGSW.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptGSW"
+                        ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.iptGSW" />
+                        <span class="label label-danger">NOTE!</span>
+                        <span class="font-blue-steel font-14">Number of GSW books used for upsell to annual</span>
+                </div>
+                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label class="control-label caption-subject font-blue-sharp bold uppercase col-xs-12 col-sm-6 col-md-6 col-lg-6">Estimation</span>
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    Est. Attendees
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.estAttendees.$valid || eventForm.estAttendees.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="estAttendees" ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.estAttendees" />
+                </div>
+                <label class="control-label col-xs-12 col-sm-4 col-md-6 col-lg-6 margin-top-20">
+                    Prospective Members
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.estProspectiveMember.$valid || eventForm.estProspectiveMember.$error.pattern }">
+                    <input class="form-control margin-top-12" type="number" name="estProspectiveMember" ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.estProspectiveMember" />
+                </div>
+                <label class="control-label col-xs-12 col-sm-4 col-md-6 col-lg-6 margin-top-20">
+                    Est. Revenue
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.estTotalRevenue.$valid}">
+                    <div class="input-group">
+                        <span class="input-group-addon coupon-group-addon">
+                        $
+                    </span>
+                        <input class="form-control" name="estTotalRevenue" min="0" hard-cap="true" ng-currency currency-symbol="$" type="text" ng-model="eventVm.model.estTotalRevenue">
+                    </div>
+                </div> -->
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <label class="control-label caption-subject font-blue-sharp bold uppercase  col-xs-12 col-sm-6 col-md-6 col-lg-6">Actual</label>
+                        </div> -->
+                <div class="row">
+                    <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                        Total Annual Members
+                    </label>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                        ng-class="{'has-error': !eventForm.iptTotalAnnualMember.$valid || eventForm.iptTotalAnnualMember.$error.pattern}">
+                        <input class="form-control margin-top-12" type="number" name="iptTotalAnnualMember"
+                            ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.iptTotalAnnualMember"
+                            ng-change="eventVm.autoChangeNewMember(eventVm.model)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                        Total Monthly Members
+                    </label>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                        ng-class="{'has-error': !eventForm.iptTotalMonthlyMember.$valid || eventForm.iptTotalMonthlyMember.$error.pattern}">
+                        <input class="form-control margin-top-12" type="number" name="iptTotalMonthlyMember"
+                            ng-pattern="eventVm.numberRegx" ng-model="eventVm.model.iptTotalMonthlyMember"
+                            ng-change="eventVm.autoChangeNewMember(eventVm.model)" />
+                    </div>
+                </div>
+                <div class="row" ng-repeat="addOn in eventVm.addOns" ng-if="addOn.show">
+                    <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                        {{addOn.label}}
+                    </label>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20"
+                        ng-class="{'has-error': !eventForm['{{addOn.$id}}'].$valid || eventForm.eventForm['{{addOn.$id}}'].$error.pattern}">
+                        <input class="form-control margin-top-12" type="number" name="{{addOn.$id}}"
+                            ng-pattern="eventVm.numberRegx" ng-model="eventVm.model[addOn.$id]" />
+                    </div>
+                </div>
+                <!-- <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    Multi State Protection
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.iptMultiState.$valid || eventForm.iptMultiState.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptMultiState" ng-pattern="eventVm.numberRegx"
+                        ng-model="eventVm.model.iptMultiState" />
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    Minor Children Protection
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.iptMinorChildren.$valid || eventForm.iptMinorChildren.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptMinorChildren" ng-pattern="eventVm.numberRegx"
+                        ng-model="eventVm.model.iptMinorChildren" />
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    Bail Bond/Expert Witness
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.iptBailBond.$valid || eventForm.iptBailBond.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptBailBond" ng-pattern="eventVm.numberRegx"
+                        ng-model="eventVm.model.iptBailBond" />
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    Hunter Shield
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.iptHunterShield.$valid || eventForm.iptHunterShield.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptHunterShield" ng-pattern="eventVm.numberRegx"
+                        ng-model="eventVm.model.iptHunterShield" />
+                </div>
+                <label class="control-label margin-top-20 col-xs-12 col-sm-4 col-md-6 col-lg-6">
+                    Gunowner Identity Theft Coverage
+                </label>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin-top-20" ng-class="{'has-error': !eventForm.iptGITC.$valid || eventForm.iptGITC.$error.pattern}">
+                    <input class="form-control margin-top-12" type="number" name="iptGITC" ng-pattern="eventVm.numberRegx"
+                        ng-model="eventVm.model.iptGITC" />
+                </div> -->
+            </div>
+        </div>
+        <hr>
+        <div class="caption"  ng-if="!eventVm.isEdit">
+            <span class="caption-subject bold uppercase">Address</span>&nbsp;
+            <!-- <button type="button" class="btn blue" ng-if="!eventVm.isEdit && eventVm.model.facilityId"
+            ng-click="eventVm.showModalAddEventAddress()">
+            <i ng-if="!eventVm.isEditedAddress" class="fa fa-plus"></i>
+            <i ng-if="eventVm.isEditedAddress" class="fa fa-edit"></i>
+            </button> -->
+        </div>
+        <hr  ng-if="!eventVm.isEdit">
+        <div class="form-group margin-top-20" ng-if="!eventVm.isEdit">
+            <div class="row ">
+                <div class="col-md-6">
+                    <div class="form-body padding-top-0">
+                        <div class="form-group margin-top-20 no-margin-right"
+                            ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.address.$error.required) || eventForm.address.$error.pattern}">
+                            <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">Address 1</label>
+                            <div class="col-xs-12 col-sm-6 col-md-9 col-lg-9 padding-right-10 ">
+                                <input type="text " name="address" placeholder="Address"
+                                    ng-disabled="!eventVm.model.facilityId" class="form-control"
+                                    ng-model="eventVm.mailingAddress.address " />
+                                <label class="control-label " ng-show="eventForm.address.$error.pattern ">*
+                                    This field does not allow special characters</label>
+                            </div>
+                        </div>
+                        <div class="form-group margin-top-20 no-margin-right"
+                            ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.address2.$error.required) || eventForm.address2.$error.pattern}">
+                            <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">Address 2</label>
+                            <div class="col-xs-12 col-sm-6 col-md-9 col-lg-9 padding-right-10 ">
+                                <input type="text " name="address2" placeholder="Address 2 "
+                                    ng-disabled="!eventVm.model.facilityId" class="form-control "
+                                    ng-model="eventVm.mailingAddress.address_2 " />
+                                <label class="control-label " ng-show="eventForm.address2.$error.pattern ">* This field
+                                    does not
+                                    allow special characters</label>
+                            </div>
+                        </div>
+                        <div class="form-group margin-top-20 no-margin-right"
+                            ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.city.$error.required) || eventForm.city.$error.pattern}">
+                            <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">City</label>
+                            <div class="col-xs-12 col-sm-6 col-md-9 col-lg-9 padding-right-10 ">
+                                <input type="text " name="city" placeholder="City"
+                                    ng-disabled="!eventVm.model.facilityId" class="form-control"
+                                    ng-model="eventVm.mailingAddress.city_name" />
+                                <label class="control-label " ng-show="eventForm.city.$error.pattern ">*
+                                    This field does not allow special characters</label>
+                            </div>
+                        </div>
+                        <div class="form-group margin-top-20 no-margin-right"
+                            ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.state.$error.required)}">
+                            <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">State</label>
+                            <div class="col-xs-12 col-sm-6 col-md-9 col-lg-9 padding-right-10 ">
+                                <select name="state" ng-model="eventVm.mailingAddress.state_code"
+                                    ng-disabled="!eventVm.model.facilityId" class="form-control">
+                                    <option value="">Choose State</option>
+                                    <option ng-repeat="(key, state) in eventVm.allStates" data-id="{{state.id}}"
+                                        value="{{state.iso}}">{{state.name}}</option>
+                                </select>
+                                <label class="control-label " ng-show="eventForm.state.$error.pattern ">*
+                                    This field does not allow special characters</label>
+                            </div>
+                        </div>
+                        <div class="form-group margin-top-20 no-margin-right"
+                            ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.zip.$error.required) || eventForm.zip.$error.pattern} ">
+                            <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">Zip Code</label>
+                            <div class="col-xs-12 col-sm-6 col-md-9 col-lg-9 padding-right-10 ">
+                                <input type="text " name="zip" placeholder="Zip Code "
+                                    ng-disabled="!eventVm.model.facilityId" class="form-control " maxlength="5"
+                                    ng-pattern="eventVm.zipcodeRegx" ng-maxlength="5"
+                                    ng-model="eventVm.mailingAddress.zip_code " />
+                                <label class="control-label " ng-if="eventForm.zip.$error.pattern ">* This
+                                    field does not allow special characters</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-if="eventVm.mailingAddress && eventVm.model.facilityId">
+                    <ng-map
+                        center="{{eventVm.mailingAddressTxt}}"
+                        zoom="15" pan-control="true" lazy-init="true" id="map-event-detail" map-type-control="false"
+                        zoom-control="true" zoom-control-options="{style:'SMALL'}">
+                        <marker ng-if="eventVm.map"
+                            position="{{eventVm.mailingAddressTxt}}"
+                            icon="{{eventVm.image}}" on-click="eventVm.showCustomMarker()">
+                        </marker>
+                        <custom-control ng-if="eventVm.map"
+                            style="z-index: 0; position: absolute; left: 10px !important; top: 10px !important;"
+                            id="home" position="TOP_LEFT" index="1" on-click="eventVm.directionMap()">
+                            <a target="_blank"
+                                href="{{'http://maps.google.com/?q=' + eventVm.mailingAddressTxt}}"
+                                style="color:#086db2;cursor:pointer;font-size: 14px;font-weight: bold;margin: 10px 0 0 10px;position: absolute;width: 70px;">View
+                                Map
+                            </a>
+                        </custom-control>
+                    </ng-map>
+                  
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="form-group margin-top-20">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <button type="button" class="btn green" ng-if="!eventVm.isEdit" ng-click="eventVm.save(eventForm)">Save
+                    & New</button>
+                <button type="button" class="btn green" ng-click="eventVm.save(eventForm, true)">{{!eventVm.isEdit
+                    ? 'Save' : 'Update'}}</button>
+                <button type="button" class="btn default" ng-click="eventVm.cancel()">Cancel</button>
+            </div>
+        </div>
+        <ng-include src="'app/event/add_edit/event-cash.tpl.html'" ng-if="eventVm.isEdit"
+            ng-controller="EventCashCtrl as eCashVm"></ng-include>
+        <div class="clearfix" ng-if="eventVm.isEdit"></div>
+        <hr ng-if="eventVm.isEdit">
+        <div class="caption" ng-if="eventVm.isEdit">
+            <span class="caption-subject font-blue-sharp bold uppercase">System Dashboard</span>
+        </div>
+        <hr ng-if="eventVm.isEdit">
+        <div class="form-group margin-top-20" ng-if="eventVm.isEdit">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 system-dashboard">
+                <highchart id="SystemDashboardChart" config="eventVm.systemChartConfig"></highchart>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 event-revenue">
+                <highchart id="EventRevenueChart" config="eventVm.eventRevenueChartConfig"></highchart>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 plan-addon-statistic">
+                <highchart id="PlanAddonStatisticChart" config="eventVm.planAddonStatisticChartConfig"></highchart>
+            </div>
+        </div>
+    </div>
+</form>

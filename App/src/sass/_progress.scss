@@ -1,0 +1,377 @@
+/***
+Customized Progress Bars
+***/
+.progress {
+    background-color: #f7f7f7;
+    background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9)!important;
+    background-repeat: repeat-x!important;
+    border-radius: 4px!important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset!important;
+    height: 20px!important;
+    margin-bottom: 20px!important;
+    overflow: hidden!important;
+    border: 0!important;
+  
+  filter: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none; }
+  .progress.progress-sm {
+    height: 12px; }
+  .page-md .progress {
+    text-indent: -99999px; }
+
+/* Custom colors */
+.progress-bar.white {
+  background: #ffffff !important;
+  color: #666 !important; }
+
+.progress-bar.default {
+  background: #e1e5ec !important;
+  color: #666 !important; }
+
+.progress-bar.dark {
+  background: #2f353b !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue {
+  background: #3598dc !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-madison {
+  background: #578ebe !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-chambray {
+  background: #2C3E50 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-ebonyclay {
+  background: #22313F !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-hoki {
+  background: #67809F !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-steel {
+  background: #4B77BE !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-soft {
+  background: #4c87b9 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-dark {
+  background: #5e738b !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.blue-sharp {
+  background: #5C9BD1 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green {
+  background: #32c5d2 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-meadow {
+  background: #1BBC9B !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-seagreen {
+  background: #1BA39C !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-turquoise {
+  background: #36D7B7 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-haze {
+  background: #44b6ae !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-jungle {
+  background: #26C281 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-soft {
+  background: #3faba4 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-dark {
+  background: #4DB3A2 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.green-sharp {
+  background: #2ab4c0 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.grey {
+  background: #E5E5E5 !important;
+  color: #333333 !important; }
+
+.progress-bar.grey-steel {
+  background: #e9edef !important;
+  color: #80898e !important; }
+
+.progress-bar.grey-cararra {
+  background: #fafafa !important;
+  color: #333333 !important; }
+
+.progress-bar.grey-gallery {
+  background: #555555 !important;
+  color: #ffffff !important; }
+
+.progress-bar.grey-cascade {
+  background: #95A5A6 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.grey-silver {
+  background: #BFBFBF !important;
+  color: #FAFCFB !important; }
+
+.progress-bar.grey-salsa {
+  background: #ACB5C3 !important;
+  color: #FAFCFB !important; }
+
+.progress-bar.grey-salt {
+  background: #bfcad1 !important;
+  color: #FAFCFB !important; }
+
+.progress-bar.grey-mint {
+  background: #525e64 !important;
+  color: #FFFFFF !important; }
+
+.progress-bar.red {
+  background: #e7505a !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-pink {
+  background: #E08283 !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-sunglo {
+  background: #E26A6A !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-intense {
+  background: #e35b5a !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-thunderbird {
+  background: #D91E18 !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-flamingo {
+  background: #EF4836 !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-soft {
+  background: #d05454 !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-haze {
+  background: #f36a5a !important;
+  color: #ffffff !important; }
+
+.progress-bar.red-mint {
+  background: #e43a45 !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow {
+  background: #c49f47 !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-gold {
+  background: #E87E04 !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-casablanca {
+  background: #f2784b !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-crusta {
+  background: #f3c200 !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-lemon {
+  background: #F7CA18 !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-saffron {
+  background: #F4D03F !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-soft {
+  background: #c8d046 !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-haze {
+  background: #c5bf66 !important;
+  color: #ffffff !important; }
+
+.progress-bar.yellow-mint {
+  background: #c5b96b !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple {
+  background: #8E44AD !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-plum {
+  background: #8775a7 !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-medium {
+  background: #BF55EC !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-studio {
+  background: #8E44AD !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-wisteria {
+  background: #9B59B6 !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-seance {
+  background: #9A12B3 !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-intense {
+  background: #8775a7 !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-sharp {
+  background: #796799 !important;
+  color: #ffffff !important; }
+
+.progress-bar.purple-soft {
+  background: #8877a9 !important;
+  color: #ffffff !important; }
+
+
+/***
+Bootstrap Wizard
+***/
+.form-wizard .progress {
+  margin-bottom: 30px; }
+
+.form-wizard .steps {
+  padding: 10px 0;
+  margin-bottom: 15px;
+  background-color: #fff;
+  background-image: none;
+  filter: none;
+  border: 0px;
+  box-shadow: none; }
+  .form-wizard .steps > li > a.step {
+    background-color: #fff;
+    background-image: none;
+    filter: none;
+    border: 0px;
+    box-shadow: none; }
+    .form-wizard .steps > li > a.step:hover {
+      background: none; }
+    .form-wizard .steps > li > a.step > .number {
+      background-color: #eee;
+      display: inline-block;
+      text-align: center !important;
+      font-size: 16px;
+      font-weight: 300;
+      padding: 11px 15px 13px 15px;
+      margin-right: 10px;
+      height: 45px;
+      width: 45px;
+      -webkit-border-radius: 50% !important;
+      -moz-border-radius: 50% !important;
+      border-radius: 50% !important; }
+    .form-wizard .steps > li > a.step > .desc {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 300; }
+      .form-wizard .steps > li > a.step > .desc > i {
+        display: none; }
+  .form-wizard .steps > li.active > a.step .number {
+    background-color: #36c6d3;
+    color: #fff; }
+  .form-wizard .steps > li.active > a.step .desc {
+    color: #333; }
+  .form-wizard .steps > li.done > a.step .number {
+    background-color: #F1C40F;
+    color: #fff; }
+  .form-wizard .steps > li.done > a.step .desc {
+    color: #333; }
+    .form-wizard .steps > li.done > a.step .desc i {
+      font-size: 12px;
+      font-weight: normal;
+      color: #999;
+      display: inline-block; }
+
+@media (min-width: 768px) and (max-width: 1200px) {
+  /* 768px & 1200px */
+  .form-wizard .step .desc {
+    margin-top: 10px;
+    display: block; } }
+
+@media (max-width: 768px) {
+  /* 768px */
+  .form-wizard .steps > li > a {
+    text-align: left; } }
+
+
+.com { color: #93a1a1; }
+.lit { color: #195f91; }
+.pun, .opn, .clo { color: #93a1a1; }
+.fun { color: #dc322f; }
+.str, .atv { color: #D14; }
+.kwd, .prettyprint .tag { color: #1e347b; }
+.typ, .atn, .dec, .var { color: teal; }
+.pln { color: #48484c; }
+
+.prettyprint {
+  padding: 8px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+.prettyprint.linenums {
+  -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+     -moz-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+          box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+}
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+  margin: 0 0 0 33px; /* IE indents via margin-left */
+}
+ol.linenums li {
+  padding-left: 12px;
+  color: #bebec5;
+  line-height: 20px;
+  text-shadow: 0 1px 0 #fff;
+}
+
+
+.progress.active .bar {
+    animation: 2s linear 0s normal none infinite running progress-bar-stripes;
+}
+.progress-striped .bar {
+    background-color: #149bdf;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+}
+.progress .bar {
+    background-color: #0e90d2;
+    /*background-image: linear-gradient(to bottom, #149bdf, #0480be);*/
+    background-repeat: repeat-x;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+    box-sizing: border-box;
+    color: #fff;
+    float: left;
+    font-size: 12px;
+    height: 100%;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    transition: width 0.6s ease 0s;
+    width: 0;
+}

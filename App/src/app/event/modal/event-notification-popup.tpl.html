@@ -1,0 +1,49 @@
+<form id="eventForm" class="form-horizontal" role="form" name="eventForm">
+    <div class="modal-header">
+        <div class="caption caption-md">
+            <i class="icon-globe theme-font hide"></i>
+            <span class="caption-subject font-blue-madison bold uppercase">Event Notification</span>
+            <button type="button" class="close" aria-hidden="true" ng-click="eventVm.close()"></button>
+        </div>
+        <br>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="portlet-title">
+            <div class="row">
+            </div>
+        </div>
+        <div class="portlet-body" style="overflow-x:auto;">
+                <div class="row no-margin">
+                    <div class="col-md-12">
+                        <div class="form-body padding-top-0">
+                            <legend style="font-size: 14px;">Please select the channel you want to notify:</legend>
+                            <div class="form-group margin-top-20 no-margin-right"
+                                ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.address.$error.required) || eventForm.address.$error.pattern}">
+                                <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 padding-right-10 ">
+                                    <label class="mt-checkbox mt-checkbox-outline">
+                                        <input id="processpayment" type="checkbox" ng-model="eventVm.emailChecked" checked="checked" name="processpayment" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="">
+                                        <span></span>
+                                    </label>
+                                    <label for="processpayment" class="control-label">Email</label>
+                                </div>
+                            </div>
+                            <div class="form-group margin-top-20 no-margin-right"
+                                ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.address2.$error.required) || eventForm.address2.$error.pattern}">
+                                <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 padding-right-10 ">
+                                        <label class="mt-checkbox mt-checkbox-outline">
+                                                <input id="processpayment" type="checkbox" ng-model="eventVm.smsChecked" checked="checked" name="processpayment" class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false" style="">
+                                                <span></span>
+                                            </label>
+                                            <label for="processpayment" class="control-label">SMS</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn blue-steel" type="button" ng-disabled="eventForm.$invalid" ng-click="eventVm.sendNotification()">Send</button>
+        <button class="btn dark btn-outline" type="button" ng-click="eventVm.close()">Cancel</button>
+    </div>
+</form>

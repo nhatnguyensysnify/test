@@ -1,0 +1,98 @@
+<div class="modal-header">
+        <div class="caption caption-md">
+            <i class="icon-globe theme-font hide"></i>
+            <span class="caption-subject font-blue-madison bold uppercase">Tracking Activities</span>
+            <button type="button" class="close"aria-hidden="true" ng-click="eTrackingVm.close()"></button>
+        </div>
+        <br>
+    </div>
+    <div class="modal-body" id="modal-body" style="overflow-x:auto; height: calc(95vh - 140px);">
+       <div class="portlet-body">
+            <div class="timeline" ng-if="eTrackingVm.dataModel.length > 0">
+                <div class="timeline-item" ng-repeat="item in eTrackingVm.dataModel">
+                    <div class="timeline-badge">
+                        <div class="timeline-icon">
+                            <div class="time font-blue-madison">
+                                {{item.timestampString || formatTrackingTime(item.$id)}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-body">
+                        <div class="timeline-body-arrow"></div>
+                        <div class="timeline-body-head">
+                            <div class="timeline-body-head-caption">
+                                <a href="javascript:;" class="timeline-body-title font-blue-madison">{{eTrackingVm.titleText[item.action]}}</a>
+                            </div>
+                            <span class="timeline-body-time font-grey-cascade" style="float:right;">Modified By: <a href="#" ng-click="goToEmployee(item.modifiedBy)"><strong>{{item.modifiedBy}}</strong></a></span>
+                        </div>
+                        <div class="timeline-body-content">
+                            <div class="row">
+                                <div class="form-group col-md-12" ng-if="item.message !== '' && item.message !== undefinded">
+                                    <label class="control-label">
+                                        Message: {{item.message}}
+                                    </label>
+                                </div>
+                                <div class="form-group changed-field" ng-repeat="field in item.fields" ng-class="{'col-xs-12 col-sm-6 col-md-6': field.field !== 'name' && field.field !== 'description' && field.field !== 'representativeAttended', 'col-xs-12 col-sm-12 col-md-12': field.field === 'name' || field.field === 'description' || field.field === 'representativeAttended'}">
+                                    <label class="control-label text-capitalize">
+                                      {{eTrackingVm.fieldText[field.field] || field.field}}:
+                                    </label>
+                                    <span class="font-yellow-gold" ng-if="field.field !== 'name' && field.field !== 'description' && field.field !== 'representativeAttended' && field.field !== 'requester'  && field.field !== 'areaManager' && field.field !== 'startDate' && field.field !== 'endDate' && field.field !== 'state' && field.field !== 'region' && field.field !== 'type' && field.field !== 'facilityId' && field.field !== 'territory' && field.field !== 'sysTotalRevenue' && field.field !== 'iptTotalRevenue' && field.field !== 'estTotalRevenue' && field.field !== 'sysCloseRate' && field.field !== 'iptCloseRate' && field.field !== 'status' && field.field !== 'verifyStatus'"><strong><strike>{{field.old}}</strike> - {{field.new}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'startDate' || field.field === 'endDate'"><strong><strike>{{field.old | date: 'MM/dd/yyyy hh:mm a'}}</strike> - {{field.new | date: 'MM/dd/yyyy hh:mm a'}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'facilityId'"><strong><strike>{{eTrackingVm.getFacility(field.old)}}</strike> - {{eTrackingVm.getFacility(field.new)}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'state'"><strong><strike>{{eTrackingVm.getState(field.old)}}</strike> - {{eTrackingVm.getState(field.new)}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'region'"><strong><strike>{{eTrackingVm.getRegion(field.oldState, field.old)}}</strike> - {{eTrackingVm.getRegion(field.newState, field.new)}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'type'"><strong><strike>{{eTrackingVm.getType(field.old)}}</strike> - {{eTrackingVm.getType(field.new)}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'territory'"><strong><strike>{{eTrackingVm.getTerritory(field.old)}}</strike> - {{eTrackingVm.getTerritory(field.new)}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'status'"><strong><strike>{{eTrackingVm.getStatus(field.old)}}</strike> - {{eTrackingVm.getStatus(field.new)}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'verifyStatus'"><strong><strike>{{eTrackingVm.getVerifyStatus(field.old)}}</strike> - {{eTrackingVm.getVerifyStatus(field.new)}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'sysTotalRevenue' || field.field === 'iptTotalRevenue' || field.field === 'estTotalRevenue'"><strong><strike>{{field.old | currency}}</strike> - {{field.new | currency}}</strong></span>
+                                    <span class="font-yellow-gold" ng-if="field.field === 'sysCloseRate' || field.field === 'iptCloseRate'"><strong><strike>{{field.old}}%</strike> - {{field.new}}%</strong></span>
+                                    <p class="font-yellow-gold" ng-if="field.field === 'name' || field.field === 'description'" title="{{field.old}}"><strong><strike>{{field.old}}</strike></strong></p>
+                                    <p class="font-yellow-gold" ng-if="field.field === 'name' || field.field === 'description'" title="{{field.new}}"><strong>{{field.new}}</strong></p>
+                                    <p class="font-yellow-gold" ng-if="field.field === 'representativeAttended' || field.field === 'requester' || field.field === 'areaManager'" title="{{getRequesterInfo(field.old)}}"><strong><strike>{{getRequesterInfo(field.old)}}</strike></strong></p>
+                                    <p class="font-yellow-gold" ng-if="field.field === 'representativeAttended' || field.field === 'requester' || field.field === 'areaManager'" title="{{getRequesterInfo(field.new)}}"><strong>{{getRequesterInfo(field.new)}}</strong></p>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label class="control-label">
+                                        Source: 
+                                    </label>
+                                    <span class="font-green-jungle">{{item.from || 'App'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-body-footer">
+                            <p>
+                                <label class="control-label" ng-if="item.deviceInfo && item.deviceInfo.os">
+                                    OS:
+                                    <span class="font-blue-madison"><strong>{{item.deviceInfo && item.deviceInfo.os}}</strong></span>
+                                </label>
+                                <label class="control-label" ng-if="item.deviceInfo && item.deviceInfo.osVersion">
+                                    OS Version:
+                                    <span class="font-blue-madison"><strong>{{item.deviceInfo && item.deviceInfo.osVersion}}</strong></span>
+                                </label>
+                                <label class="control-label" ng-if="item.deviceInfo && item.deviceInfo.deviceName">
+                                    Device Name:
+                                    <span class="font-blue-madison"><strong>{{item.deviceInfo && item.deviceInfo.deviceName}}</strong></span>
+                                </label>
+                                <label class="control-label" ng-if="item.deviceInfo && item.deviceInfo.buildVersion">
+                                    Build Version:
+                                    <span class="font-blue-madison"><strong>{{item.deviceInfo && item.deviceInfo.buildVersion}}</strong></span>
+                                </label>
+                                <label class="control-label" ng-if="item.deviceInfo && item.deviceInfo.appVersion">
+                                        App Version:
+                                    <span class="font-blue-madison"><strong>{{item.deviceInfo && item.deviceInfo.appVersion}}</strong></span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="no-result font-grey-cascade" ng-if="eTrackingVm.dataModel.length == 0">
+                No records
+            </div>
+       </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn dark btn-outline" type="button" ng-click="eTrackingVm.close()">Cancel</button>
+    </div>
+    

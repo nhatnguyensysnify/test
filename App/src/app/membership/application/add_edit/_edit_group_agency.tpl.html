@@ -1,0 +1,24 @@
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid &&  appForm.agencyName.$error.pattern}" ng-if="applicationVm.model.regionCode =='leo'">
+    <label class="col-md-4 control-label">Active/Retiring Agency Name</label>
+    <div class="col-md-8">
+        <input name="agencyName" type="text" class="form-control" placeholder="Enter Agency Name" ng-click="focusMe('agencyName', false)" ng-class="{'form-check': mapping.agencyName.selected}" ng-model="applicationVm.model.agencyName" ng-pattern="applicationVm.nameRegx"
+            ng-disabled="applicationVm.model.isLocked">
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.priMemberFirstname.$error.required">* This field is required</label>-->
+        <label class="control-label" ng-show="appForm.agencyName.$error.pattern">* This field does not allow special characters</label>
+    </div>
+</div>
+
+<div class="form-group" ng-if="applicationVm.model.regionCode =='leo'">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-3">
+        <input name="agencyCity" type="text" class="form-control" placeholder="City" ng-click="focusMe('agencyCity', false)" ng-class="{'form-check': mapping.agencyCity.selected}" ng-model="applicationVm.model.agencyCity" ng-disabled="applicationVm.model.isLocked"
+            ng-keydown="applicationVm.addressVerification()">
+    </div>
+    <div class="col-md-3 no-padding-left" ng-class="{'has-error': appForm.agencyState.$error.pattern}">
+        <select name="agencyState" ng-pattern="applicationVm.stateRegx" ng-model="applicationVm.model.agencyState" class="form-control" ng-click="focusMe('state', false)" ng-class="{'form-check': mapping.agencyState.selected}" autocomplete="off" ng-disabled="applicationVm.model.isLocked"
+            ng-change="applicationVm.addressVerification()">
+            <option value="" disabled>State</option>
+            <option ng-repeat="state in applicationVm.allStates" value="{{state.value}}">{{state.text}}</option>
+        </select>
+    </div>
+</div>

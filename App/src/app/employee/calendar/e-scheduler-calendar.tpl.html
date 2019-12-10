@@ -1,0 +1,293 @@
+<script id="customMonthCell.html" type="text/ng-template">
+    <div class="cal-month-day {{day.cssClass}} {{day.isToday && day.inMonth ? 'cal-day-today': ''}}
+    {{!day.inMonth? 'cal-day-outmonth': 'cal-day-inmonth'}}">
+        <span class="pull-right" data-cal-date ng-bind="day.label">
+      </span>
+        <div style="position: absolute; top: 50px; width: 100%; " ng-if="day.events && day.events.length > 0">
+            <div class="row no-margin">
+                <!-- <a href="javascript:;" class="col-md-12">  {{day.events[0].value}}</a> -->
+                <div ng-repeat="eventItem in day.events" ng-show="!(eventItem.activities == 0 && eventItem.typeRow === 'event')" class="col-xs-12 col-sm-12 col-md-12" style=" padding-top: 3px; ">
+                    <span class="badge badge-danger" ng-if="eventItem.showBadge" style="
+                position: absolute;
+                z-index: 9999;
+                left: 6px;
+                top: -2px;
+                width: 18px;
+            ">!</span>
+                    <a href="javascript:;" class="col-xs-12 col-sm-12 col-md-12 {{eventItem.monthCssClass}}" ng-click="vm.onEventClick({calendarEvent:eventItem})">
+                        <span ng-if="eventItem.icon" ng-bind-html="eventItem.icon | calendarTrustAsHtml"></span> {{eventItem.titleMonth}}
+                    </a>
+                </div>
+            </div>
+            <!-- <small style="position: absolute; bottom: 10px; left: 5px;font-size: 1.2em; font-weight: 400; opacity: .5;">
+         {{day.events[0].value}}
+      </small> -->
+            <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <i class="glyphicon glyphicon-chevron-up"></i> <i class="fa fa-chevron-up"></i> </div>
+
+        </div>
+</script>
+<script id="customMonthCellEmployeeCalendar.html" type="text/ng-template">
+    <div class="cal-month-day {{day.cssClass}} 
+    {{!day.inMonth? 'cal-day-outmonth': 'cal-day-inmonth'}} {{ day.events[0].classShift }}">
+        <span class="pull-right" data-cal-date ng-bind="day.label">
+
+      </span>
+        <span ng-if="day.inMonth" class="pull-right availability-container" data-cal-date style="">
+        <div ng-if="day.events[0].canEditShift" class="pull-left btn-container">
+            <i ng-if="day.events[0].statusShift == 1" ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-ban icon-cancel"></i>
+            <i ng-if="day.events[0].statusShift == 0" ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-plus icon-add"></i>
+        </div>
+        <!-- <a href="javascript:;" ng-if="day.events && day.events.length> 0 && day.events[0].colorShift" ng-click="$event.stopPropagation(); day.events[0].editShift(day)" class="pull-left event row-percent-event-item" ng-style="{backgroundColor: day.events[0].colorShift}" ng-mousedown="$event.stopPropagation()" ng-mouseenter="vm.highlightEvent(event, true)" ng-mouseleave="vm.highlightEvent(event, false)" tooltip-append-to-body="true" 
+            uib-tooltip-html="day.events[0].txtShift | calendarTrustAsHtml"
+            tooltip-placement="left" tooltip-append-to-body="true"> </a> -->
+      </span>
+        <div style="position: absolute; top: 50px; width: 100%; padding: 0 5px; " ng-if="day.events && day.events.length > 0">
+            <div class="row no-margin hidden-xs hidden-sm hidden-md">
+                <div class="col-xs-12 col-sm-12 col-md-6 no-padding-right text-left">
+                    <a href="javascript:;" class="row-percent-event-item">Activity</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2 no-padding text-left">
+                    <a href="javascript:;" class="row-percent-event-item">#</a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 no-padding-left text-right">
+                    <a href="javascript:;" class="row-percent-event-item">$ </a>
+                </div>
+            </div>
+            <!-- <a href="javascript:;" class="col-md-12">  {{day.events[0].value}}</a> -->
+            <div class="row no-margin margin-top-5 {{eventItem.monthCssClass}} event-row hidden-xs hidden-sm hidden-md" ng-repeat="eventItem in day.events" ng-click="vm.onEventClick({calendarEvent:eventItem})">
+                <a class="col-xs-12 col-sm-12 col-md-12 no-padding">
+                    <span class="col-xs-12 col-sm-12 col-md-6 no-padding-right text-left force-line">
+                     {{eventItem.property}}
+                    </span>
+                    <span class="col-xs-12 col-sm-12 col-md-2 no-padding text-left">
+                    {{eventItem.activities}}
+                </span>
+                    <span class="col-xs-12 col-sm-12 col-md-4 no-padding-left text-right">
+                    {{eventItem.sumTotalRevenue | currency}}
+                </span>
+                </a>
+            </div>
+
+            <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <i class="glyphicon glyphicon-chevron-up"></i> <i class="fa fa-chevron-up"></i> </div>
+
+        </div>
+</script>
+<div id="events" class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 text-left page-head">
+        <div class="page-title">
+            <h1>
+
+            </h1>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+        <!-- <button class="btn blue margin-top-bottom-5" ng-click="eCalendarVm.showShiftsModal()">Add Shift</button>
+        <button class="btn blue margin-top-bottom-5" >Publish {{eCalendarVm.calendarView}} <span class="badge badge-danger"> 2 </span></button> -->
+        <!-- <button class="btn blue margin-top-bottom-5" ng-click="eCalendarVm.showSignUpShiftCalendar()">Add Availability</button> -->
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group margin-top-bottom-5">
+                            <date-range-report id="EventRange" class="width100" event="true"
+                                start="{{eCalendarVm.timestampStart}}" end="{{eCalendarVm.timestampEnd}}"
+                                class="margin-top-bottom-5"></date-range-report>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eCalendarVm.cri.keyword"
+                                ng-change="eCalendarVm.searchKeyword()"
+                                placeholder="Search By Name, Money Order, Member... ">
+                        </div>
+                    </div> -->
+                    <div class="col-xs-7 col-sm-5 col-md-5 col-lg-3">
+                        <div class="right form-group margin-top-bottom-5" style="float:left;">
+                            <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
+                                ng-click="eCalendarVm.searchCalendar(true)">Filter</button>
+                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                                ng-click="eCalendarVm.resetFiler()">Reset</button>
+                        </div>
+                        <!-- <div class="form-group margin-top-bottom-5">
+                                <select ui-select2 ng-model="eCalendarVm.cri.facilityId" ng-options="item.$id as item.text for item in eCalendarVm.allFacilities">
+                                </select>
+                            </div> -->
+                    </div>
+                    <div class="col-xs-1 col-sm-3 col-md-3 col-lg-5 text-right no-padding">
+                        <button class="btn blue margin-top-bottom-5"
+                            ng-if="eCalendarVm.isCanAddAvailability && eCalendarVm.userId === eCalendarVm.currentUid"
+                            ng-click="eCalendarVm.showSignUpShiftCalendar()">Add Availability</button>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eCalendarVm.cri.type" class="form-control" required
+                                ng-change="eCalendarVm.searchCalendar()">
+                                <option value="All">All Types</option>
+                                <option ng-repeat="type in  eCalendarVm.eventTypes" value="{{type.value}}"
+                                    ng-selected="type.value == eCalendarVm.cri.types">{{type.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eCalendarVm.cri.status" class="form-control" required
+                                ng-change="eCalendarVm.searchCalendar()">
+                                <option value="All">All Events Status</option>
+                                <option ng-repeat="stt in  eCalendarVm.eventStatus" value="{{stt.value}}"
+                                    ng-selected="stt.value == eCalendarVm.cri.status" ng-show="stt.value != 0">{{stt.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select ui-select2 ng-model="eCalendarVm.chooseRegions" id="chooseRegions" multiple
+                                ng-options="region.id as region.guid for (key, region) in eCalendarVm.allRegions"
+                                data-placeholder="All Plan Types">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ng-model="eCalendarVm.chooseFacilities" ui-select2="eCalendarVm.select2OptionsF"
+                                multiple id="chooseFacilities" data-placeholder="All Facilities" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                            <div class="form-group margin-top-bottom-5">
+                                <select ng-model="eCalendarVm.requester" ui-select2="eCalendarVm.select2Options"
+                                    id="filterRequester" class="form-control">
+                                </select>
+                            </div>
+                        </div> -->
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ui-select2 ng-model="eCalendarVm.chooseStates" id="chooseState" multiple
+                                ng-options="state.iso as state.name for (key, state) in eCalendarVm.allStates"
+                                data-placeholder="All States">
+                            </select>
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select ui-select2 ng-model="eCalendarVm.chooseTerritories" id="chooseTerritories" multiple
+                                ng-options="territory.id as territory.name for (key, territory) in eCalendarVm.allTerritories"
+                                data-placeholder="All Territories">
+                            </select>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-10"
+                            ng-if="eCalendarVm.calendarView != 'timelineView' && !userPermission.isRep">
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input id="resourceAvailability" type="checkbox" ng-model="eCalendarVm.resourceAvailability"
+                                    ng-change="eCalendarVm.onChangeResourceAvailability()" name="resourceAvailability" />
+                                <span></span>
+                            </label>
+                            <label for="resourceAvailability" class="control-label">Resource Availability</label>
+                        </div>
+                    </div>
+                </div> -->
+                    <!-- <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eCalendarVm.cri.moneyOrder"
+                                placeholder="Search By Money Order... ">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eCalendarVm.cri.memKeyword"  placeholder="Search By Member">
+                        </div>
+                    </div>
+                </div> -->
+
+                </div>
+                <div class="portlet-body">
+                    <h2 class="text-center">
+                        {{ eCalendarVm.calendarView != 'timelineView'? eCalendarVm.getMonthText() :'Events Timeline' }}
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-8 text-left">
+                            <div class="btn-group" ng-show="eCalendarVm.calendarView != 'timelineView'">
+
+                                <button class="btn btn-primary" mwl-date-modifier date="eCalendarVm.viewDate"
+                                    decrement="eCalendarVm.calendarView"
+                                    ng-click="eCalendarVm.cellIsOpen = false; eCalendarVm.onChangeCalendarView();">
+                                    Previous
+                                </button>
+                                <button class="btn btn-default" mwl-date-modifier date="eCalendarVm.viewDate"
+                                    set-to-today
+                                    ng-click="eCalendarVm.cellIsOpen = false; eCalendarVm.onChangeCalendarView();">
+                                    Current
+                                </button>
+                                <button class="btn btn-primary" mwl-date-modifier date="eCalendarVm.viewDate"
+                                    increment="eCalendarVm.calendarView"
+                                    ng-click="eCalendarVm.cellIsOpen = false; eCalendarVm.onChangeCalendarView();">
+                                    Next
+                                </button>
+                            </div>
+                        </div>
+
+                        <br class="visible-xs visible-sm">
+
+                        <div class="col-md-4 text-right">
+
+                            <div class="btn-group">
+                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'year'" ng-click="eCalendarVm.cellIsOpen = false">Year</label> -->
+                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'week'"
+                                ng-click="eCalendarVm.cellIsOpen = false; eCalendarVm.onChangeCalendarView()">Week</label> -->
+                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'month'"
+                                ng-click="eCalendarVm.onChangeCalendarView()">Month</label>
+                            <label class="btn btn-primary" ng-model="eCalendarVm.calendarView"
+                                uib-btn-radio="'timelineView'" ng-click="eCalendarVm.cellIsOpen = false">Events</label> -->
+                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'day'" ng-click="eCalendarVm.cellIsOpen = false">Day</label> -->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <br>
+                    <div class="row" ng-if="eCalendarVm.calendarView != 'timelineView' && !eCalendarVm.isLoading">
+                        <div ng-repeat="eventsByState in eCalendarVm.eventsByStates" class="margin-top-20">
+                            <h3 ng-if="(eCalendarVm.calendarView != 'week' || !eventsByState.eventsCalendar || eventsByState.eventsCalendar.length == 0) && (eCalendarVm.cri.state.indexOf(eventsByState.iso) > -1 || (eCalendarVm.cri.state == '' && eventsByState.iso == 'US') )"
+                                class="margin-top-50" ng-class="{'text-center':eCalendarVm.calendarView == 'month'}">
+                                <!-- <a style=" font-weight: bold; ">{{eCalendarVm.getState(eventsByState.iso)}}</a>  -->
+                                <span ng-if="eventsByState.eventsCalendar.length == 0">: No records</span>
+                            </h3>
+                            <mwl-calendar
+                                ng-if="(eCalendarVm.cri.state.indexOf(eventsByState.iso) > -1  || (eCalendarVm.cri.state == '' && eventsByState.iso == 'US'))"
+                                events="eventsByState.eventsCalendar" view="eCalendarVm.calendarView"
+                                view-title="eCalendarVm.calendarTitle" view-date="eCalendarVm.viewDate"
+                                on-event-click="eCalendarVm.eventClicked(calendarEvent)"
+                                on-event-times-changed="eCalendarVm.eventTimesChanged(calendarEvent); calendarEvent.startsAt = calendarNewEventStart; calendarEvent.endsAt = calendarNewEventEnd"
+                                cell-modifier="eCalendarVm.modifyCell(calendarCell)" cell-auto-open-disabled="eCalendarVm.cellAutoOpenDisabled"
+                                custom-template-urls="{calendarMonthCell: eCalendarVm.resourceAvailability? 'customMonthCell.html' :'customMonthCellEmployeeCalendar.html' }"
+                                on-view-change-click="eCalendarVm.viewChangeClicked(calendarNextView)"
+                                on-timespan-click="eCalendarVm.timespanClicked(calendarDate, calendarCell)"
+                                ng-class="{'week-mode':eCalendarVm.calendarView == 'week'}">
+                            </mwl-calendar>
+                        </div>
+
+                        <!-- cell-is-open="eCalendarVm.cellIsOpen" day-view-start="06:00" day-view-end="22:59" day-view-split="30" -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

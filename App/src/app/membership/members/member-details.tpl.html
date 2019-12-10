@@ -1,0 +1,612 @@
+<div id="membership" class="row">
+    <div class="text-right">
+        <a href="#" ng-if="membershipVm.applicationModel.status == 8 || (membershipVm.applicationModel.status >= 3 && membershipVm.membership && membershipVm.membership.accountId)" class="btn btn-primary" ng-click="refreshStatus()">Refresh</a>
+        <a href="#" class="btn blue margin-top-bottom-5" title="View Application" ng-click="goToApplication()">View Application</a>
+        <a href="#" ng-if="[4,8].indexOf(membershipVm.applicationModel.status) > -1" class="btn btn-warning" ng-click="cancelAccount()">Cancel Account</a>
+    </div>
+    <!-- BEGIN PROFILE SIDEBAR -->
+    <div class="profile-sidebar">
+        <!-- PORTLET MAIN -->
+        <div class="portlet light profile-sidebar-portlet bordered">
+            <!-- SIDEBAR USERPIC -->
+            <div class="profile-userpic text-center">
+                <p class="img-responsive" data-letters="{{membershipVm.dataLetterPic}}"></p>
+            </div>
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name"> {{membershipVm.primaryMember.firstName}} {{membershipVm.primaryMember.lastName}} </div>
+            </div>
+            <!-- END SIDEBAR USER TITLE -->
+            <!-- SIDEBAR BUTTONS -->
+            <div class="profile-userbuttons">
+                <button type="button" class="btn btn-circle green btn-sm" disabled> {{membershipVm.applicationModel.status == 8 ? "Billing Required": "Active"}}</button>
+            </div>
+            <!-- END SIDEBAR BUTTONS -->
+            <!-- SIDEBAR MENU -->
+            <div class="profile-usermenu">
+                <ul class="nav">
+                    <li>
+                        <span class="mem-pro">
+                            <i class="icon-user"></i> Account ID: <span class="bold">{{membershipVm.membership.accountId}}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="icon-user"></i> Primary Member ID: <span class="bold">{{membershipVm.primaryMember.memberId}}</span>
+                        </span>
+                    </li>
+                    <li ng-if="membershipVm.isSeccondMem == true">
+                        <span class="mem-pro">
+                            <i class="icon-user"></i> Secondary Member ID: <span class="bold">{{membershipVm.secondMember.memberId}}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-barcode"></i> Facility: <span class="bold">{{membershipVm.applicationModel.facilityCode || ''}}</span> ({{facilityName || ''}})
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-id-badge"></i> Rep Code: <span class="bold">{{membershipVm.applicationModel.representativeCode || ''}}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-id-badge"></i> Sale Rep: <span class="bold">{{membershipVm.saleRep || ''}}</span>
+                        </span>
+                    </li>
+                    <!-- <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-barcode"></i> Facility: <span class="bold">{{membershipVm.applicationModel.facilityCode || ''}}</span> ({{facilityName || ''}})
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-id-badge "></i> RepCode: <span class="bold">{{repCode || membershipVm.applicationModel.representativeCode || ''}}</span>
+                        </span>
+                    </li> -->
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-usd"></i> Total: <span class="bold">{{membershipVm.applicationModel.total && membershipVm.applicationModel.total.totalAmount ? membershipVm.applicationModel.total.totalAmount : 0 | currency }}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-location-arrow"></i> State: <span class="bold">{{getState(membershipVm.applicationModel.state)}}</span>
+                        </span>
+                    </li>
+                    <li ng-if="membershipVm.applicationModel.eventId && _.trim(membershipVm.applicationModel.eventId) !== ''">
+                        <span class="mem-pro">
+                            <i class="fa fa-calendar-check-o"></i> Event: <span class="bold">{{membershipVm.applicationModel.eventName}}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-registered"></i> Registration Date: <span class="bold">{{membershipVm.membership.timestampCreated | date: 'MM/dd/yyyy'}}</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="mem-pro">
+                            <i class="fa fa-registered"></i> Signature Date: <span class="bold">{{membershipVm.applicationModel.timestampSignatured | date: 'MM/dd/yyyy'}}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- END MENU -->
+        </div>
+        <!-- END PORTLET MAIN -->
+    </div>
+    <!-- END BEGIN PROFILE SIDEBAR -->
+    <!-- BEGIN PROFILE CONTENT -->
+    <div class="profile-content">
+        <div class="portlet light bordered" style="padding: 10px;">
+            <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                    <i class="icon-globe theme-font hide"></i>
+                    <span class="caption-subject font-blue-madison bold uppercase">Profile Information</span>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab_1_1" data-toggle="tab">Personal Info</a>
+                    </li>
+                    <li>
+                        <a href="#tab_1_3" data-toggle="tab">Payment</a>
+                    </li>
+                    <li>
+                        <a href="#tab_1_4" data-toggle="tab">Plan Details</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="portlet-body">
+                <div class="tab-content">
+                    <!-- PERSONAL INFO TAB -->
+                    <div class="tab-pane active" id="tab_1_1">
+                        <div class="portlet-body form">
+                            <div class="form-group has-error" ng-if="membershipVm.applicationModel.overwrite == true">
+                                <label class="col-md-12 bold control-label" style="text-align:center !important;"><span class="required-field">* Error Message: </span>{{membershipVm.applicationModel.errorMessage || 'Membership Overwrite'}}</label>
+                            </div>
+                            <form role="form" id="editMemberForm" name="editMemberForm" class="form-horizontal" novalidate ng-submit="saveEdit(editMemberForm)">
+                                <div class="form-body">
+                                    <!--Primary Member-->
+                                    <div class="portlet light no-margin-bottom" style="padding: 10px;">
+                                        <div class="portlet-title">
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                <i class="fa fa-user"></i>
+                                                <span class="caption-subject bold uppercase">Primary Member</span>
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">
+                                        <label class="col-md-4 control-label">Account ID</label>
+                                        <div class="col-md-8">
+                                            <input type="text" name="accountId" class="form-control" placeholder="Account ID" ng-model="membershipVm.primaryMember.accountId">
+                                        </div>
+                                    </div>-->
+                                    <div class="form-group margin-top-10">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Member ID</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8">
+                                            <input type="text" name="primemberid" class="form-control" placeholder="Enter Member ID" ng-model="membershipVm.primaryMember.memberId" maxlength="9" disabled>
+                                            <!--<label class="control-label" ng-show="showInvalid && editMemberForm.primemberid.$error.required">* This field is required</label>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">First Name</label>
+                                        <div class="col-xs-4 col-sm-2 col-md-2 margin-top-5">
+                                            <input type="text" name="primemberidprefix" class="form-control" placeholder="Prefix" ng-model="membershipVm.primaryMember.prefix" disabled>
+                                        </div>
+                                        <div class="col-xs-8 col-sm-6 col-md-6 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.firstname.$error.pattern}">
+                                            <input type="text" name="firstname" class="form-control" placeholder="Enter First Name" ng-pattern="nameRegx" ng-model="membershipVm.primaryMember.firstName" disabled>
+                                            <label class="control-label" ng-show="editMemberForm.firstname.$error.pattern">* This field dose not allow special characters</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Last Name</label>
+                                        <div class="col-xs-8 col-sm-6 col-md-6 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.lastname.$error.pattern}">
+                                            <input type="text" name="lastname" class="form-control" ng-pattern="nameRegx" placeholder="Enter Last Name" ng-model="membershipVm.primaryMember.lastName" disabled>
+                                            <label class="control-label" ng-show="editMemberForm.lastname.$error.pattern">* This field dose not allow special characters</label>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-2 col-md-2 margin-top-5">
+                                            <input type="text" name="primemberidsuffix" class="form-control" placeholder="Suffix" ng-model="membershipVm.primaryMember.suffix" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Email Address</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5" ng-class="{'has-error': showInvalid && (editMemberForm.email.$error.pattern || editMemberForm.email.$error.email)}">
+                                            <input type="email" placeholder="Enter Email Address" class="form-control" name="email" ng-model="membershipVm.primaryMember.email" autocapitalize="off" ng-pattern="emailRegx" disabled/>
+                                            <label class="control-label" ng-show="editMemberForm.email.$error.pattern || editMemberForm.email.$error.email">* This is not valid</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Mobile Phone</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.primaryphone.$error.server}">
+                                            <input type="tel" uiMaskPlaceholder type="phone" placeholder="Primary Phone" class="form-control" name="primaryphone" ng-model="membershipVm.primaryMember.phone" ui-mask="(999) 999-9999" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 no-padding-right control-label margin-top-5">Mailing Address</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <input name="address" type="text" placeholder="Enter Mailing Address" ng-model="membershipVm.primaryMember.mailingAddress.address" class="form-control" disabled/>
+                                            <label class="control-label" ng-show="editMemberForm.address.$error.pattern">* This field dose not allow special characters</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="hidden-xs col-sm-4 col-md-4 col-lg-4 margin-top-5"></label>
+                                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-top-5">
+                                            <input name="city" type="text" placeholder="City" ng-model="membershipVm.primaryMember.mailingAddress.city" class="form-control" ng-pattern="addressRegx" disabled/>
+                                            <!--<label class="control-label" ng-show="editMemberForm.city.$error.pattern">* This field dose not allow special characters</label>-->
+                                        </div>
+                                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-top-5">
+                                            <select name="state" ng-model="membershipVm.primaryMember.mailingAddress.state" class="form-control" placeholder="State" disabled>
+                                                <option value="" disabled >State</option>
+                                                <option ng-repeat="state in states" value="{{state.iso}}">{{state.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.zip.$error.pattern}">
+                                            <input name="zip" type="text" placeholder="Zip Code" ng-model="membershipVm.primaryMember.mailingAddress.zipCode" maxlength="5" ng-pattern="zipcodeRegx" ng-maxlength="5" class="form-control" ui-mask="99999" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group hidden-lg hidden-md hidden-sm">
+                                        <div class="col-xs-6 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.zip.$error.pattern}">
+                                            <input name="zip" type="text" placeholder="Zip Code" ng-model="membershipVm.primaryMember.mailingAddress.zipCode" maxlength="5" ng-pattern="zipcodeRegx" ng-maxlength="5" class="form-control" ui-mask="99999" disabled/>
+                                        </div>
+                                    </div>
+                                    <!--Secondary Member-->
+                                    <div class="portlet light no-margin-bottom" style="padding: 10px;" ng-if="membershipVm.isSeccondMem == true">
+                                        <div class="portlet-title">
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                                <i class="fa fa-user"></i>
+                                                <span class="caption-subject bold uppercase">Secondary Member</span>
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="membershipVm.isSeccondMem == true">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Member ID</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.smemberid.$error.pattern}">
+                                            <input type="text" name="smemberid" class="form-control" placeholder="Enter Member ID" ng-model="membershipVm.secondMember.memberId" maxlength="9" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" ng-if="membershipVm.isSeccondMem == true">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">First Name</label>
+                                        <div class="col-xs-4 col-sm-2 col-md-2 margin-top-5">
+                                            <input type="text" name="smemberprefix" class="form-control" placeholder="Prefix" ng-model="membershipVm.secondMember.prefix" disabled>
+                                        </div>
+                                        <div class="col-xs-8 col-sm-6 col-md-6 margin-top-5" ng-class="{'has-error': (showInvalid && editMemberForm.sfirstname.$error.required) || editMemberForm.sfirstname.$error.pattern}">
+                                            <input type="text" name="sfirstname" class="form-control" placeholder="Enter First Name" ng-pattern="nameRegx" ng-model="membershipVm.secondMember.firstName" disabled>
+                                            <label class="control-label" ng-show="showInvalid && editMemberForm.sfirstname.$error.required">* This field is required</label>
+                                            <label class="control-label" ng-show="editMemberForm.sfirstname.$error.pattern">* This field dose not allow special characters</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="membershipVm.isSeccondMem == true">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Last Name</label>
+                                        <div class="col-xs-8 col-sm-6 col-md-6 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.llastname.$error.pattern}">
+                                            <input type="text" name="slastname" class="form-control" ng-pattern="nameRegx" placeholder="Enter Last Name" ng-model="membershipVm.secondMember.lastName" disabled>
+                                            <label class="control-label" ng-show="editMemberForm.slastname.$error.pattern">* This field dose not allow special characters</label>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-2 col-md-2 margin-top-5">
+                                            <input type="text" name="smembersuffix" class="form-control" placeholder="Suffix" ng-model="membershipVm.secondMember.suffix" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="membershipVm.isSeccondMem == true">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Email Address</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5" ng-class="{'has-error': showInvalid && (editMemberForm.semail.$error.pattern || editMemberForm.semail.$error.email)}">
+                                            <input type="email" placeholder="Enter Email Address" class="form-control" name="semail" ng-model="membershipVm.secondMember.email" autocapitalize="off" ng-pattern="emailRegx" disabled/>
+                                            <label class="control-label" ng-show="editMemberForm.semail.$error.pattern || editMemberForm.semail.$error.email">* This is not valid</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" ng-if="membershipVm.isSeccondMem == true">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Mobile Phone</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5" ng-class="{'has-error': showInvalid && editMemberForm.sprimaryphone.$error.server}">
+                                            <input type="tel" uiMaskPlaceholder type="phone" placeholder="Secondary Phone" class="form-control" name="sprimaryphone" ng-model="membershipVm.secondMember.phone" ui-mask="(999) 999-9999" disabled/>
+                                            <label class="control-label" ng-show="showInvalid && editMemberForm.sprimaryphone.$error.required">* This field is required</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-offset-6 col-md-6">
+                                            <button type="button" class="btn default">Back</button>
+                                            <button type="submit" class="btn green" ng-disabled="editMemberForm.$invalid">Save</button>
+                                            <button type="button" class="btn default" ng-click="cancel()">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </form>
+                        </div>
+                    </div>
+                    <!-- PAYMENT TAB -->
+                    <div class="tab-pane" id="tab_1_3">
+                        <div class="portlet-body form">
+                            <form class="form-horizontal" ng-submit="savePayment(paymentForm)" name="paymentForm" role="form" novalidate>
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Payment Method <span class="required-field">*</span></label>
+                                    <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                        <select name="paymentMethod" ng-model="membershipVm.applicationModel.paymentMethod" required class="form-control" autocomplete="off" disabled>
+                                                <option ng-repeat="method in appPaymentMethodList" value="{{method.key}}">{{method.text}}</option>
+                                            </select>
+                                    </div>
+                                </div>
+                                <div ng-if="!membershipVm.applicationModel.paymentMethod || membershipVm.applicationModel.paymentMethod ==='' || membershipVm.applicationModel.paymentMethod == '0'">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Holder Name<span class="required-field"> *</span></label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Holder Name" value="" ng-model="membershipVm.applicationModel.creditCard.name" name="holderName" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Credit Card Number<span class="required-field"> *</span></label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <div class="input-group">
+                                                <input type="credit card" class="form-control" placeholder="Credit Card Number" value="" ng-model="membershipVm.applicationModel.creditCard.creditCardNumber" name="creditCardNumber" disabled>
+                                                <span class="input-group-addon" ng-click="focusMe('creditCardNum', false)">
+                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Credit Card Type</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <div class="input-group">
+                                                <input type="credit card" class="form-control" placeholder="Credit Card Number" value="" ng-model="membershipVm.applicationModel.creditCard.type" name="creditCardType" disabled>
+                                                <span class="input-group-addon" ng-click="focusMe('creditCardType', false)">
+                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Expiration Date<span class="required-field"> *</span></label>
+                                        <div class="col-xs-6 col-sm-4 col-md-4 margin-top-5">
+                                            <input type="text" class="form-control" placeholder="Month" value="" ng-model="membershipVm.applicationModel.creditCard.month" ui-mask="99" name="cardExpMonth" ng-pattern="applicationVm.monthRegx" disabled>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-4 col-md-4 margin-top-5">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Year" value="" ng-model="membershipVm.applicationModel.creditCard.year" ui-mask="9999" name="cardExpYear" disabled>
+                                                <span class="input-group-addon">
+                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label class="col-xs-4 col-sm-4 col-md-4 control-label margin-top-5">CVV<span class="required-field"> *</span></label>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 margin-top-5">
+                                            <div class="input-group">
+                                                <input name="cvv" type="text" minlength="3" maxlength="4" class="form-control" placeholder="CVV" value="" ng-model="membershipVm.applicationModel.creditCard.cvv" name="cvv" disabled/>
+                                                <span class="input-group-addon">
+                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div ng-if="membershipVm.applicationModel.paymentMethod == '1'">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Cash Amount <span class="required-field">*</span></label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <div class="input-inline">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <i class="fa fa-usd"></i>
+                                                        </span>
+                                                    <input type="text" class="form-control" ng-currency currency-symbol="$" placeholder="99999" ng-model="membershipVm.applicationModel.cashInput" name="cashInput" disabled autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">{{getCashOptionTxt(membershipVm.applicationModel)}}</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <div class="input-inline">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                            <i class="fa fa-usd"></i>
+                                                        </span>
+                                                    <input type="text" class="form-control" ng-currency currency-symbol="$" placeholder="99999" ng-model="cashChange" name="cashChange" disabled autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Cash Option</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <div class="icheck-list" style="padding-top: 8px;">
+                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="radio" name="cash-option" disabled ng-model="membershipVm.applicationModel.cashOption" value="TakeCredit"> Take Credit
+                                                        <span></span>
+                                                    </label>
+                                                <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="radio" name="cash-option" disabled ng-model="membershipVm.applicationModel.cashOption" value="Change"> Change
+                                                        <span></span>
+                                                    </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div ng-if="membershipVm.applicationModel.paymentMethod == '2'">
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Routing Number / Account Number<span class="required-field">*</span></label>
+                                        <div class="col-xs-6 col-sm-4 col-md-4 margin-top-5">
+                                            <input type="text" class="form-control " placeholder="Routing Number" ng-model="membershipVm.applicationModel.check.routingNumber" name="routingNumber" disabled autocomplete="off">
+                                        </div>
+                                        <div class="col-xs-6 col-sm-4 col-md-4 margin-top-5">
+                                            <input type="text" class="form-control" placeholder="Account Number" value="" ng-model="membershipVm.applicationModel.check.accountNumber" name="accountNumber" disabled autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Bank Type<span class="required-field">*</span></label>
+                                        <div class="icheck-list col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="radio" disabled name="cash-option" ng-model="membershipVm.applicationModel.check.type" value="BusinessChecking"> BusinessChecking
+                                                        <span></span>
+                                                    </label>
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="radio" disabled name="cash-option" ng-model="membershipVm.applicationModel.check.type" value="Checking"> Checking
+                                                        <span></span>
+                                                    </label>
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="radio" disabled name="cash-option" ng-model="membershipVm.applicationModel.check.type" value="Saving"> Saving
+                                                        <span></span>
+                                                    </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Bank Name</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <input type="text" class="form-control" disabled placeholder="Enter Bank Name" ng-model="membershipVm.applicationModel.check.name" name="bankName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Bank Full Name</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <input type="text" class="form-control" disabled placeholder="Enter Bank Full Name" ng-model="membershipVm.applicationModel.check.fullName" name="bankFullName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Bank Address</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <input type="text" disabled name="bankAddress" class="form-control" placeholder="Enter Bank Address" ng-model="membershipVm.applicationModel.check.address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="hidden-xs col-sm-4 col-md-4 col-lg-4 control-label margin-top-5">City</label>
+                                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-top-5">
+                                            <input type="text" name="bankCity" disabled class="form-control" placeholder="Enter Bank City" ng-model="membershipVm.applicationModel.check.city">
+                                        </div>
+                                        <div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 margin-top-5">
+                                            <select name="bankState" disabled ng-model="membershipVm.applicationModel.check.state" class="form-control" autocomplete="off">
+                                                        <option value="" disabled >Choose State</option>
+                                                        <option ng-repeat="state in states" value="{{state.iso}}">{{state.name}}</option>
+                                                    </select>
+                                        </div>
+                                        <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 margin-top-5">
+                                            <input type="text" name="bankZipCode" disabled class="form-control" placeholder="Enter Bank Zip Code" ng-model="membershipVm.applicationModel.check.zipCode" ui-mask="99999">
+                                        </div>
+                                    </div>
+                                    <div class="form-group hidden-lg hidden-md hidden-sm">
+                                        <div class="col-xs-6 margin-top-5">
+                                            <input type="text" name="bankZipCode" disabled class="form-control" placeholder="Enter Bank Zip Code" ng-model="membershipVm.applicationModel.check.zipCode" ui-mask="99999">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END CHANGE PAYMENT TAB -->
+                    <!-- PLAN TAB -->
+                    <div class="tab-pane" id="tab_1_4">
+                        <div class="portlet-body form">
+                            <form action="#" class="form-horizontal">
+                                <div class="form-body">
+                                    <div class="portlet light no-margin-bottom">
+                                        <div class="portlet-title">
+                                            <div class="caption width100">
+                                                <i class="fa fa-user"></i>
+                                                <span class="caption-subject bold uppercase">Primary Member</span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group margin-top-5" ng-if="selectedRegion">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Plan Type</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <select class="form-control bs-select" disabled>
+                                                    <option value="{{selectedRegion.id}}">{{selectedRegion.guid}}</option>
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group margin-top-5">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Plan</label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <select class="form-control bs-select" disabled>
+                                                    <option value="{{membershipVm.applicationModel.selectedPlans.key}}">{{membershipVm.applicationModel.selectedPlans ? (membershipVm.applicationModel.selectedPlans.name + ' ' + (membershipVm.applicationModel.selectedPlans.recurring_price |currency)) : 'Select plans'}}</option>
+                                                </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group pri-app-plans" ng-repeat="(key, addon) in membershipVm.applicationModel.selectedAddOns">
+                                        <div class="col-xs-12 col-sm-offset-4 col-sm-8 col-md-offset-4 col-md-8 margin-top-5">
+                                            <div class="mt-checkbox-inline">
+                                                <label ng-show="addon.cycle_id == '2'" class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="checkbox" id="inlineCheckbox21" value="{{addon.key}}" ng-disabled="true" name="priAddon" checked> {{addon.rate_name}} + {{addon.recurring_price | currency}}/month
+                                                        <span></span>
+                                                    </label>
+                                                <label ng-show="addon.cycle_id == '1'" class="mt-checkbox mt-checkbox-outline">
+                                                        <input type="checkbox" id="inlineCheckbox21" value="{{addon.key}}" ng-disabled="true" name="priAddon" checked> {{addon.rate_name}} + {{addon.recurring_price | currency}}/year
+                                                        <span></span>
+                                                    </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="hidden-xs col-sm-4 col-md-4 control-label margin-top-5"></label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input id="freeSetupFee" type="checkbox" name="freeSetupFee" ng-model="membershipVm.applicationModel.waivedSetupFee" disabled />
+                                                    <span></span>
+                                                </label>
+                                            <label for="freeSetupFee" class="control-label">Waived Setup Fee.</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="hidden-xs col-sm-4 col-md-4 control-label margin-top-5"></label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input id="processpayment" type="checkbox" name="processpayment" ng-model="membershipVm.applicationModel.processPayment" disabled />
+                                                    <span></span>
+                                                </label>
+                                            <label for="processpayment" class="control-label">Process Payment</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="hidden-xs col-sm-4 col-md-4 control-label margin-top-5"></label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <label class="mt-checkbox mt-checkbox-outline">
+                                                    <input id="paymentOverwrite" type="checkbox" name="paymentOverwrite" ng-model="membershipVm.applicationModel.paymentOverwrite" disabled />
+                                                    <span></span>
+                                                </label>
+                                            <label for="paymentOverwrite" class="control-label">Payment Overwrite</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-12 col-sm-4 col-md-4 control-label margin-top-5">Setup Fee <span class="required-field">*</span></label>
+                                        <div class="col-xs-12 col-sm-8 col-md-8 margin-top-5">
+                                            <div class="input-inline">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                                <i class="fa fa-usd"></i>
+                                                            </span>
+                                                    <input disabled type="text" ng-class="{'not-setup-fee' : membershipVm.applicationModel.waivedSetupFee}" class="form-control" ng-currency currency-symbol="$" placeholder="9,999.99" ng-model="membershipVm.applicationModel.total.setupFee" name="setupFee">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="portlet light no-margin-bottom row" ng-if="userPermission.isAccessPermission && membershipVm.currentFiles !== null">
+                                        <div class="portlet-title">
+                                            <div class="caption col-xs-9 col-sm-9 col-md-9">
+                                                <i class="fa fa-user"></i>
+                                                <span class="caption-subject bold uppercase">Application Processed</span>
+                                            </div>
+                                            <div class="caption col-xs-3 col-sm-3 col-md-3 text-right">
+                                                <button type="button" class="btn btn-primary" ng-click="dowloadApplicationImage()">Download</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--Secondary Member-->
+                                    <!--<div ng-show="secPlanKey !==''">
+                                                <div class="portlet light no-margin-bottom">
+                                                    <div class="portlet-title">
+                                                        <div class="caption width100">
+                                                            <i class="fa fa-user"></i>
+                                                            <span class="caption-subject bold uppercase">Secondary Member</span>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="small">Add a second member plan amd save $22.80 when you pay annually. Must live in same household.</div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 control-label">Core Plans</label>
+                                                    <div class="col-md-8"> 
+                                                        <select class="form-control bs-select" ng-model="secPlanKey" ng-options="key as itemPlan.name + ' + ' + (itemPlan.recurring_price |currency) for (key, itemPlan) in statePlans" disabled>
+                                                            <option value="" disabled>No Core Plans</option>
+                                                        </select> 
+                                                        <div class="small">plus a ${{planSetupPrice}} member startup fee.</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group sec-app-plans" ng-repeat="(key, addon) in secStateAddons">
+                                                    <div class="col-md-offset-4 col-md-8">
+                                                        <div class="mt-checkbox-inline">
+                                                            <label ng-show="addon.cycle_id == '2'" class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" id="inlineCheckbox21" value="{{addon.key}}" ng-disabled="true" name="secStateProtection" ng-checked="checkSecAddon(addon.key) == true"> {{addon.rate_name}} + {{addon.recurring_price || currency}}/month
+                                                                <span></span>
+                                                            </label>
+                                                            <label ng-show="addon.cycle_id == '1'" class="mt-checkbox mt-checkbox-outline">
+                                                                <input type="checkbox" id="inlineCheckbox21" value="{{addon.key}}" ng-disabled="true" name="secStateProtection" ng-checked="checkSecAddon(addon.key) == true"> {{addon.rate_name}} + {{addon.recurring_price || currency}}/year
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>-->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- END  PLAN TAB -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END PROFILE CONTENT -->
+</div>

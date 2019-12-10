@@ -1,0 +1,29 @@
+<!--Add Product Modal-->
+<div class="modal-header">
+    <button type="button" class="close" ng-click="dismiss()"></button>
+    <h4 class="modal-title">Permission Details</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal form-bordered" role="form" name="permissionDetailForm" novalidate>
+        <div class="form-group col-md-12" ng-class="{'has-error': (permissionVm.showInvalid && permissionDetailForm.permissionName.$error.required) || permissionDetailForm.permissionName.$error.pattern}">
+            <label class="col-md-3 no-padding-right control-label">Name <span class="required-field">*</span></label>
+            <div class="col-md-9 no-padding-right">
+                <input type="text" name="permissionName" placeholder="Permission Name" class="form-control" required ng-pattern="permissionVm.nameRegx" ng-model="permissionVm.model.name"/>
+                <label class="control-label" ng-show="permissionVm.showInvalid && permissionDetailForm.permissionName.$error.required">* This field is required</label>
+                <label class="control-label" ng-show="permissionDetailForm.permissionName.$error.pattern">* This field does not allow special characters</label>
+            </div>
+        </div> 
+        <div class="form-group col-md-12" ng-class="{'has-error': (permissionVm.showInvalid && permissionDetailForm.permissionIndex.$error.required) || permissionDetailForm.permissionIndex.$error.pattern}">
+            <label class="col-md-3 no-padding-right control-label">Index <span class="required-field">*</span></label>
+            <div class="col-md-9 no-padding-right">
+                <input type="text" name="permissionIndex" placeholder="Index Number" class="form-control" required ng-pattern="permissionVm.numberRegx" ng-model="permissionVm.model.index"/>
+                <label class="control-label" ng-show="permissionVm.showInvalid && permissionDetailForm.permissionIndex.$error.required">* This field is required</label>
+                <label class="control-label" ng-show="permissionDetailForm.permissionIndex.$error.pattern">* This field does not allow letters</label>
+            </div>
+        </div> 
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn dark btn-outline" ng-click="permissionVm.save(permissionDetailForm)">Save</button>
+    <button type="button" class="btn dark btn-outline" ng-click="dismiss()">Close</button>
+</div>

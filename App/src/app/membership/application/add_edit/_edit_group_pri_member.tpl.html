@@ -1,0 +1,113 @@
+<div class="portlet light no-margin-bottom">
+    <div class="portlet-title">
+        <div class="caption width100">
+            <i class="fa fa-user"></i>
+            <span class="caption-subject bold uppercase">Primary Member</span>
+        </div>
+    </div>
+</div>
+<ng-include src="'app/membership/application/add_edit/_edit_group_program.tpl.html'"></ng-include>
+<!-- <ng-inclue src="'app/membership/application/add_edit/_edit_group_facility.html'"> -->
+<div class="form-group" ng-class="{'has-error': appForm.priMemberId.$error.pattern}">
+    <label class="col-md-4 control-label">Member ID</label>
+    <div class="col-md-8">
+        <input type="text" class="form-control" placeholder="Member ID" value="" ng-model="applicationVm.memberModel.priMember.memberId" name="priMemberId" ng-click="focusMe('memberId', false)" ng-class="{'form-check': mapping.memberId.selected}" ng-disabled="applicationVm.model.isLocked" maxlength="9" ng-pattern="applicationVm.memberIDRegx">
+        <label class="control-label" ng-show="appForm.priMemberId.$error.pattern">* This field does not allow special characters</label>
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.priMemberId.$error.required">* This field is required</label>-->
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">Prefix</label>
+    <div class="col-md-8">
+        <select name="priMemberPrefix" ng-model="applicationVm.memberModel.priMember.prefix" class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+            <option value=""></option>
+            <option ng-repeat="item in applicationVm.prefixList" data-id="{{item.id}}" value="{{item.code}}">{{item.code}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && (appForm.priMemberFirstname.$error.required || appForm.priMemberFirstname.$error.pattern)}">
+    <label class="col-md-4 control-label">First Name<span class="required-field"> *</span></label>
+    <div class="col-md-8">
+        <input name="priMemberFirstname" type="text" class="form-control" placeholder="Enter First Name" ng-click="focusMe('firstname', false)" ng-class="{'form-check': mapping.firstname.selected}" ng-model="applicationVm.memberModel.priMember.firstName" ng-pattern="applicationVm.nameRegx" ng-disabled="applicationVm.model.isLocked" required>
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.priMemberFirstname.$error.required">* This field is required</label>-->
+        <label class="control-label" ng-show="appForm.priMemberFirstname.$error.pattern">* This field does not allow special characters</label>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && (appForm.priMemberLastname.$error.required || appForm.priMemberLastname.$error.pattern)}">
+    <label class="col-md-4 control-label">Last Name<span class="required-field"> *</span></label>
+    <div class="col-md-8">
+        <input type="text" class="form-control " placeholder="Enter Last Name" ng-click="focusMe('lastname', false)" ng-class="{'form-check': mapping.lastname.selected}" ng-model="applicationVm.memberModel.priMember.lastName" name="priMemberLastname" ng-pattern="applicationVm.nameRegx" ng-disabled="applicationVm.model.isLocked" required>
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.priMemberLastname.$error.required">* This field is required</label>-->
+        <label class="control-label" ng-show="appForm.priMemberLastname.$error.pattern">* This field does not allow special characters</label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">Suffix</label>
+    <div class="col-md-8">
+        <select name="priMemberSuffix" ng-model="applicationVm.memberModel.priMember.suffix" class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+            <option value=""></option>
+            <option ng-repeat="item in applicationVm.suffixList" data-id="{{item.id}}" value="{{item.code}}">{{item.code}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.priMemberEmail.$invalid)}">
+    <label class="col-md-4 control-label">Email Address <span class="required-field"> *</span></label>
+    <div class="col-md-8">
+        <input type="email" class="form-control" placeholder="Enter Email Address" required ng-click="focusMe('email', false)" ng-class="{'form-check': mapping.email.selected}" ng-model="applicationVm.memberModel.priMember.email" name="priMemberEmail" ng-pattern="applicationVm.emailRegx" autocapitalize="off" ng-disabled="applicationVm.model.isLocked">
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.priMemberEmail.$error.required">* This field is required</label>-->
+        <label class="control-label" ng-show="appForm.priMemberEmail.$error.pattern || appForm.priMemberEmail.$error.email">* This is not valid</label>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && (appForm.priMemberPhone.$error.required || appForm.priMemberPhone.$error.mask)}">
+    <label class="col-md-4 control-label">Mobile Phone</label>
+    <div class="col-md-8">
+        <input type="text" class="form-control" placeholder="Enter Phone" ng-click="focusMe('phone', false)" ng-class="{'form-check': mapping.phone.selected}" ng-model="applicationVm.memberModel.priMember.phone" ui-mask="(999) 999-9999" name="priMemberPhone" ng-disabled="applicationVm.model.isLocked">
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.priMemberPhone.$error.required">* This field is required</label>-->
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appForm.mailingAddress.$error.required}">
+    <label class="col-md-4 control-label">
+        Mailing Address <span class="required-field"> *</span>
+        <a href="javascript:void(0);" ng-click="addressVerification.show = !addressVerification.show"><i class="fa fa-map-signs" ng-class="[{'font-red-mint': addressInvalid, 'font-green-meadow': !addressInvalid}]" ng-class="!addressInvalid"></i></a>
+    </label>
+    <div class="col-md-8">
+        <google-ac ng-show="addressVerification.show" address="addressVerification"></google-ac>
+        <input name="mailingAddress" required type="text" class="form-control" placeholder="Enter Mailing Address" ng-click="focusMe('mailingAddress', false)" ng-class="{'form-check': mapping.mailingAddress.selected}" ng-model="applicationVm.memberModel.priMember.mailingAddress.address" ng-disabled="applicationVm.model.isLocked" ng-keydown="applicationVm.addressVerification()">
+    </div>
+</div>
+<div class="form-group" ng-if="toggleImagePnl || applicationVm.model.status !== 1 || userPermission.isAccessPermission === false">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-3" ng-class="{'has-error': applicationVm.showInvalid && appForm.city.$error.required}">
+        <input name="city" type="text" class="form-control" required placeholder="City" ng-click="focusMe('city', false)" ng-class="{'form-check': mapping.city.selected}" ng-model="applicationVm.memberModel.priMember.mailingAddress.city" ng-disabled="applicationVm.model.isLocked" ng-keydown="applicationVm.addressVerification()">
+    </div>
+    <div class="col-md-3 no-padding-left" ng-class="{'has-error': (applicationVm.showInvalid && appForm.memberState.$error.required) || appForm.memberState.$error.pattern}">
+        <select name="memberState" required ng-pattern="applicationVm.stateRegx" ng-model="applicationVm.memberModel.priMember.mailingAddress.state" class="form-control" ng-click="focusMe('state', false)" ng-class="{'form-check': mapping.state.selected}" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-change="applicationVm.addressVerification()">
+            <option value="" disabled>State</option>
+            <option ng-repeat="state in applicationVm.allStates" value="{{state.value}}">{{state.text}}</option>
+        </select>
+    </div>
+    <div class="col-md-2 no-padding-left" ng-class="{'has-error': applicationVm.showInvalid && appForm.zip.$error.required}">
+        <input name="zip" type="text" required class="form-control" placeholder="Zip" ng-click="focusMe('zip', false)" ng-class="{'form-check': mapping.zip.selected}" ng-model="applicationVm.memberModel.priMember.mailingAddress.zipCode" ui-mask="99999" ng-disabled="applicationVm.model.isLocked" ng-keydown="applicationVm.addressVerification()">
+    </div>
+</div>
+<div class="form-group" ng-if="!toggleImagePnl && applicationVm.model.status == 1 && userPermission.isAccessPermission == true || isCreate">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-8" ng-class="{'has-error': applicationVm.showInvalid && appForm.city.$error.required}">
+        <input name="city" type="text" class="form-control" required placeholder="City" ng-click="focusMe('city', false)" ng-class="{'form-check': mapping.city.selected}" ng-model="applicationVm.memberModel.priMember.mailingAddress.city" ng-disabled="applicationVm.model.isLocked" ng-keydown="applicationVm.addressVerification()">
+    </div>
+</div>
+<div class="form-group" ng-if="!toggleImagePnl && applicationVm.model.status == 1 && userPermission.isAccessPermission == true || isCreate">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-8 " ng-class="{'has-error': (applicationVm.showInvalid && appForm.memberState.$error.required) || appForm.memberState.$error.pattern}">
+        <select name="memberState" required ng-pattern="applicationVm.stateRegx" ng-model="applicationVm.memberModel.priMember.mailingAddress.state" class="form-control" ng-click="focusMe('state', false)" ng-class="{'form-check': mapping.state.selected}" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-change="applicationVm.addressVerification()">
+            <option value="" disabled>State</option>
+            <option ng-repeat="state in applicationVm.allStates" value="{{state.value}}">{{state.text}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group" ng-if="!toggleImagePnl && applicationVm.model.status == 1 && userPermission.isAccessPermission == true || isCreate">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-8" ng-class="{'has-error': applicationVm.showInvalid && appForm.zip.$error.required}">
+        <input name="zip" type="text" required class="form-control" placeholder="Zip" ng-click="focusMe('zip', false)" ng-class="{'form-check': mapping.zip.selected}" ng-model="applicationVm.memberModel.priMember.mailingAddress.zipCode" ui-mask="99999" ng-disabled="applicationVm.model.isLocked" ng-keydown="applicationVm.addressVerification()">
+    </div>
+</div>

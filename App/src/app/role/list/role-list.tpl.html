@@ -1,0 +1,93 @@
+<div class="row" id="roles">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" ng-if="!roleVm.isAdd">
+        <div class="portlet light bordered">
+            <div class="portlet-title tabbable-line">
+                <div class="caption">
+                    <span class="caption-subject">{{roleVm.formTitle}} </span>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                <form role="form" name="roleForm" novalidate ng-submit="roleVm.save()">
+                    <div class="form-body">
+                        <div class="form-group" ng-class="{'has-error': (roleVm.showInvalid && roleForm.name.$error.required) || roleForm.name.$error.pattern}">
+                            <label class="control-label">Name <span class="required-field">*</span></label>
+                            <input class="form-control" type="text" placeholder="Enter name here" ng-model="roleVm.model.name"
+                                required ng-pattern="roleVm.nameRegx" name="name" />
+                            <!-- <small>The name is how it appears on your site.</small> -->
+                            <label class="control-label" ng-show="roleVm.showInvalid && roleForm.name.$error.required">*
+                                This field is required</label>
+                            <label class="control-label" ng-show="roleForm.name.$error.pattern">* This field dose not
+                                allow special characters</label>
+                        </div>
+                        <div class="form-group last">
+                            <label class="control-label">Description</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="wysihtml5 form-control" rows="10" ng-model="roleVm.model.description"></textarea>
+                                    <!-- <small>The description is not prominent by default; however, some themes may show
+                                        it.</small> -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group" ng-class="{'has-error': (roleVm.showInvalid && roleForm.name.$error.required) || roleForm.name.$error.pattern}">
+                            <label class="control-label">Number <span class="required-field">*</span></label>
+                            <input class="form-control" type="number" placeholder="Enter number here" ng-model="roleVm.model.number" required name="rolenumber"/>
+                            <label class="control-label" ng-show="roleVm.showInvalid && roleForm.rolenumber.$error.required">* This field is required</label>
+                        </div> -->
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn green" ng-disabled="roleForm.$invalid">Save</button>
+                        <button type="button" class="btn default" ng-show="!roleVm.isAdd" ng-click="roleVm.cancel()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12" ng-class="{'col-md-12 col-lg-12': roleVm.isAdd, 'col-md-8 col-lg-8': !roleVm.isAdd}">
+        <!-- BEGIN BORDERED TABLE PORTLET-->
+        <div class="portlet light portlet-fit bordered">
+            <div class="portlet-title">
+                <div class="caption ">
+                    <div class="inputs">
+                        <div class="portlet-input input-large input-inline">
+                            <div class="input-icon right">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control form-control-solid" ng-model="roleVm.cri.keyword"
+                                    placeholder="search..." ng-change="roleVm.search()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="actions margin-top-5">
+                    <list-paging ng-model="roleVm.paging" change-page="changePage"></list-paging>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable table-scrollable-borderless">
+                    <table class="table table-hover table-light">
+                        <thead>
+                            <tr class="uppercase">
+                                <th class="width40"> Name </th>
+                                <th class="width60"> description </th>
+                                <!-- <th> Number </th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in roleVm.pagedItems[roleVm.paging.currentPage]">
+                                <td>
+                                    <a class="primary-link" href="#/role/list/{{item.$id}}">{{item.name}}</a>
+                                </td>
+                                <td>{{item.description}}</td>
+                                <!-- <td>
+                                    {{item.number}}
+                                </td> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <!-- END BORDERED TABLE PORTLET-->
+    </div>
+</div>

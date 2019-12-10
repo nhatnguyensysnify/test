@@ -1,0 +1,55 @@
+<form id="eventForm" class="form-horizontal" role="form" name="eventForm">
+    <div class="modal-header">
+        <div class="caption caption-md">
+            <i class="icon-globe theme-font hide"></i>
+            <span class="caption-subject font-blue-madison bold uppercase">{{vm.eventTypeName}}</span>
+            <button type="button" class="close" aria-hidden="true" ng-click="vm.close()"></button>
+        </div>
+        <br>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="portlet-title">
+            <div class="row">
+            </div>
+        </div>
+        <div class="portlet-body" style="overflow-x:auto;">
+            <div class="row no-margin">
+                <div class="col-md-12">
+                    <div class="form-body padding-top-0">
+                        <legend style="font-size: 14px;">Please select the option you want to refresh:</legend>
+                        <div class="form-group margin-top-20 no-margin-right">
+                            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 padding-right-10 ">
+                                <label class="mt-radio">
+                                    <input id="syncChecked" ng-value="0" type="radio" ng-model="vm.valueSelected"
+                                        checked="checked" name="syncChecked"
+                                        class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false"
+                                        style="">
+                                    <span></span>
+                                </label>
+                                <label for="syncChecked" class="control-label">Last 30 days</label>
+                            </div>
+                        </div>
+                        <div class="form-group margin-top-20 no-margin-right"
+                            >
+                            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 padding-right-10 ">
+                                <label class="mt-radio">
+                                    <input id="forceRefreshChecked" ng-value="1" type="radio" ng-model="vm.valueSelected"
+                                        name="forceRefreshChecked"
+                                        class="ng-pristine ng-untouched ng-valid ng-not-empty" aria-invalid="false"
+                                        style="">
+                                    <span></span>
+                                </label>
+                                <label for="forceRefreshChecked" class="control-label">Refresh All</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn blue-steel" type="button" ng-disabled="eventForm.$invalid"
+            ng-click="vm.submit()">Send</button>
+        <button class="btn dark btn-outline" type="button" ng-click="vm.close()">Cancel</button>
+    </div>
+</form>

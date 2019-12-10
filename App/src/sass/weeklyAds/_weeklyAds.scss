@@ -1,0 +1,173 @@
+#weeklyAds{
+	font-family: "Roboto Condensed", sans-serif;
+
+    .c-layout-sidebar-content {
+         overflow: hidden;
+         .tab-content{
+            p{
+                margin-top: 0px;
+            }
+         }
+    }
+    .c-layout-sidebar-content.c-align-left {
+            padding: 30px 40px 30px 0; 
+    }
+    .c-layout-sidebar-content.c-align-right {
+            padding: 30px 0px 30px 40px; 
+    }   
+    
+   
+    .c-layout-sidebar-menu {
+        width: 270px;
+        border-top: 0;
+        margin: 30px 0 40px 0;
+    }
+    .c-layout-sidebar-menu.c-align-left {
+          float: left; 
+    }
+    .c-layout-sidebar-menu.c-align-right {
+      float: right; 
+    }
+
+    .c-theme-border {
+        border-color: #32c5d2 !important;
+    }
+    
+    .c-content-title-3 {
+        margin-bottom: 20px;
+        padding-left: 20px;
+        border-left: 4px solid #88909a;
+    }
+
+    .c-content-ver-nav 
+    {
+        .c-menu {
+            margin: 0;
+            padding: 0;
+
+            li {
+                list-style: none;
+                padding: 7px 0;
+                border-bottom: 1px solid #f2f2f2;
+
+                a {
+                    font-weight: 400;
+                    font-size: 17px;
+                }
+            }
+            li:before {
+                color: #5c6873;
+                content: "\f105";
+                font-family: FontAwesome;
+                font-weight: 100;
+                width: 12px;
+                height: 12px;
+                font-size: 14px;
+                float: left;
+                margin: 2px 5px 0 0;
+            }
+            .c-arrow-dot{
+                li:before {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 8px;
+                    margin: 9px 12px 0 0;
+                    content: '';
+                    opacity: 0.6;
+                    filter: alphaopacity=60;
+                    background: #5c6873;
+                }
+                .c-square{
+                    li:before {
+                        border-radius: 0;
+                    }
+                }
+            }
+            .c-theme{
+                li:before {
+                    color: #32c5d2;
+                }
+                .c-arrow-dot{
+                    li:before {
+                        background: #32c5d2;
+                    }
+                }
+            }
+        }
+    }
+    .c-font-uppercase {
+        text-transform: uppercase;
+    }
+    
+    .c-bg-white {
+        background-color: #FFFFFF !important;
+    }
+    
+    a:active, a:hover, a:focus,
+    button:active, button:hover, button:focus {
+        color: #32c5d2;
+    }
+    a:focus, a:hover, a:active,
+    button:focus, button:hover, button:active {
+        outline: none !important;
+        text-decoration: none;
+    }
+    a {
+        color: #3f444a;
+    }
+
+    .tabs-left button {
+        //color: #3f444a;
+        background-color: transparent;
+    }
+
+    .tabs-left.nav-tabs {
+        border-right: 0px solid #ddd;
+        li {
+            border-right: 1px solid #eee;
+            a {
+                text-transform: uppercase;
+            }
+            button{
+                text-transform: uppercase;
+                //margin-bottom: 3px;
+                display: block;
+                margin-right: -1px;
+                width: 100%;
+                text-align: left;
+            }
+        }
+        li:hover{
+            background-color: #eee;
+            display: block;
+        }
+        li.active{
+            border-right: 0px solid #ddd!important;
+            button, button:hover, button:focus{
+                -webkit-border-radius: 0px 0 0 0px;
+                -moz-border-radius: 0px 0 0 0px;
+                -ms-border-radius: 0px 0 0 0px;
+                -o-border-radius: 0px 0 0 0px;
+                border-radius: 0px 0 0 0px;
+                border-color: #ddd transparent #ddd #ddd;
+            }
+        }
+    } 
+     
+    .nav-tabs > li > button {
+        font-size: 14px;
+        -webkit-border-radius: 0px 0px 0 0;
+        -moz-border-radius: 0px 0px 0 0;
+        -ms-border-radius: 0px 0px 0 0;
+        -o-border-radius: 0px 0px 0 0;
+        border-radius: 0px 0px 0 0;
+        line-height: 1.42857;
+        border: 1px solid transparent;
+    }
+    .nav > li > button {
+        position: relative;
+        padding: 10px 15px;
+    }
+    
+}
+

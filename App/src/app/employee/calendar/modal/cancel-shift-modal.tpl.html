@@ -1,0 +1,28 @@
+<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="back()"></button>
+        <h4 class="modal-title caption-subject font-blue-madison bold uppercase" ng-bind-html="title">
+        </h4>
+    </div>
+    
+    <div class="modal-body event-dashboard-info" id="modal-body" style="padding-top:0px;padding-bottom:0px">
+        <div class="row col-sm-12 form-group margin-top-5">
+            <p class="no-margin">
+                Are you sure you want to cancel today? Please submit your reason!
+            </p>
+        </div>
+        <div class="row col-sm-12 form-group">
+            <textarea ng-model="reason" minlength="3" class="form-control" placeholder="Cancellation Reason"
+                style="resize: none;" rows="3"></textarea>
+        </div>
+    
+        <div class="row col-sm-12 form-group">
+            <p class="no-margin">NOTE: Your avaibility will be pending and an email will be sent to your manager.
+            </p>
+        </div>
+    </div>
+    
+    <div class="modal-footer" style="clear:both">
+        <button class="btn default" style="margin-right:5px" type="button" ng-click="back()">Back</button>
+        <button ng-disabled="reason.length<3" class="btn btn-danger" style="margin-right:5px" type="button"
+            ng-click="submit()">Submit</button>
+    </div>

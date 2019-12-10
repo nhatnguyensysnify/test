@@ -1,0 +1,73 @@
+<div class="row" id="saleRegion">
+    <div class="col-md-6 text-left">
+    </div>
+    <div class="col-md-6 text-right">
+        <a href="#" class="btn blue btn-outline sbold margin-top-bottom-5" ng-click="sRegionVm.openModalAddSaleRegion()">Add New</a>
+    </div>
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-body row">
+                <ul class="sale-region-item">
+                    <!-- Level 1-->
+                    <li class="region-item" ng-repeat="item in sRegionVm.data" ng-class="{'open': item.isSelected}">
+                        <span class="arrow" ng-if="item.states" ng-click="item.isSelected = !item.isSelected" ng-class="{open: item.isSelected}"></span>
+                        <div class="item-content row">
+                            <div class="item-info">
+                                <p class="name font-blue-steel sbold">
+                                    <span>{{item.name}}</span>
+                                </p>
+                            </div>
+                            <div class="action-tools">
+                                <a href="#" class="badge badge-warning" ng-click="sRegionVm.openModalAddSaleRegion(item)" title="add">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a href="#" class="badge badge-danger" ng-click="sRegionVm.remove(item, item.$id)" title="delete">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Level 2-->
+                        <ul class="sale-region-state"  ng-if="item.states" ng-class="{'display': item.isSelected}">
+                            <li class="region-item" ng-repeat="(sKey, state) in item.states" ng-class="{'open': state.isSelected}">
+                                <span class="arrow" ng-click="state.isSelected = !state.isSelected" ng-class="{open: state.isSelected}"></span>
+                                <div class="item-content row">
+                                    <div class="item-info">
+                                        <p class="name font-blue-steel sbold">
+                                            <span>{{state.name}}</span>
+                                        </p>
+                                    </div>
+                                    <div class="action-tools">
+                                        <a href="#" class="badge badge-warning" ng-click="sRegionVm.openModalAddTerritory(item, sKey)"title="add">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
+                                        <a href="#" class="badge badge-danger" ng-click="sRegionVm.remove(state, item.$id, sKey)" title="delete">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Level 3-->
+                                <ul class="sale-region-territory" ng-if="state.territories" ng-class="{'display': state.isSelected}">
+                                    <li class="region-item" ng-repeat="(tKey, territory) in state.territories" ng-class="{'open': territory.isSelected}">
+                                        <span class="arrow"></span>
+                                        <div class="item-content row">
+                                            <div class="item-info">
+                                                <p class="name font-blue-steel sbold">
+                                                    <span>{{territory.name}}</span>
+                                                </p>
+                                            </div>
+                                            <div class="action-tools" ng-if="territory.id !== 'all'">
+                                                <a href="#" class="badge badge-danger" ng-click="sRegionVm.remove(territory, item.$id, sKey, tKey)" title="delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

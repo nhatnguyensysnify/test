@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">Add User To Role</span>
+    </div>
+</div>
+<div class="modal-body" id="modal-body">
+    <table class="table table-light table-hover">            
+        <tr ng-repeat="item in roles">
+            <td>
+                <label class="mt-checkbox mt-checkbox-outline">
+                    <input type="checkbox" id="{{item.$id}}" name="chk-user-role" value="{{item.$id}}" ng-checked="{{item.checked}}"/> 
+                    <span></span>
+                </label>
+            </td>
+            <td class="bold"><label for="{{item.$id}}">{{item.name}}</label></td>
+            <td >{{item.permissionstxt}}
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn blue-steel" type="button" ng-click="addUserToRole()">Add</button>
+    <button class="btn dark btn-outline" type="button" ng-click="close()">Cancel</button>
+</div>

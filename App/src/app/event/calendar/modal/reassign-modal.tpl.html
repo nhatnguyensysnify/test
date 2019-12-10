@@ -1,0 +1,129 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <span class="caption-subject font-blue-madison bold uppercase">Replace
+            {{employee.displayName}}({{employee.repCode}}) with
+        </span>
+        <button type="button" class="close" aria-hidden="true" ng-click="close()"></button>
+
+        <div ng-if="events" class="margin-top-10">{{events.length>0?"Events :":"No event"}}</div>
+        <div ng-repeat="e in events">
+            {{$index+1}}. <a ng-href="{{e.href}}" target="_blank" class="font-blue-madison ng-binding">{{e.name}}</a> -
+            {{eventVm.getType(e.type)}} - <span ng-bind-html="eventVm.getFacility(e.facilityId)"></span>
+            <i class="fa fa-database font-green-jungle"
+                ng-style="{visibility: e.dataEntered === true ? 'visible': 'hidden'}"></i>
+            <i class="fa fa-cloud-upload font-green-jungle"
+                ng-style="{visibility: e.appUploaded === true ? 'visible': 'hidden'}"></i>
+        </div>
+    </div>
+    <br>
+</div>
+
+<div class="modal-body" id="modal-body">
+    <div class="portlet-title">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                    <i class="icon-magnifier"></i>
+                    <input type="text" class="form-control form-control-solid" ng-model="cri.keyword"
+                        placeholder="search..." ng-change="search()">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                    <list-paging ng-model="paging" change-page="changePage" style="float: right;"></list-paging>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="employeeSelected">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label class="control-label"><strong>Selected: </strong></label>
+                <span class="badge badge-info margin-left-10"
+                    style="height: 30px; border-radius:20px !important; padding:10px;">
+                    {{employeeSelected.firstName + ' ' + employeeSelected.lastName }}<i
+                        class="fa fa-remove margin-left-10" ng-click="removeSelectEmployee()"
+                        style="cursor: pointer;"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body" style="overflow-x:auto; max-height: calc(70vh - 250px);">
+        <div class="table-scrollable table-scrollable-borderless">
+            <table class="table table-hover table-light">
+                <thead class="flip-content">
+                    <tr class="uppercase">
+                        <th class="width5 text-center"></th>
+                        <th class="width90 text-center hidden-md hidden-lg">Employee Information</th>
+                        <th class="width35 hidden-xs hidden-sm"> Name </th>
+                        <th class="width15 hidden-xs hidden-sm"> Rep Code </th>
+                        <th class="width15 hidden-xs hidden-sm"> UserName </th>
+                        <th class="width30 hidden-xs hidden-sm"> Email </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in employees">
+                        <td class="text-center" style="vertical-align: middle;">
+                            <label class="mt-radio mt-radio-outline">
+                                <input type="radio" name="select-employee" id="{{item.$id}}" value="{{item.$id}}"
+                                    class="chk-employee"
+                                    ng-disabled="(repAssigned == null && item.$id == employeeId) || item.$id == repAssigned"
+                                    ng-click="checkEmployee(item)" />
+                                <span></span>
+                            </label>
+                        </td>
+                        <td class="hidden-md hidden-lg">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td class="width35 text-left">Name: </td>
+                                        <td class="text-left"><label for="{{item.$id}}" style="word-break: break-all;"
+                                                class="font-blue">{{item.firstName + ' ' +item.lastName}}</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width35 text-left">Rep Code: </td>
+                                        <td class="text-left">
+                                            <label for="{{item.$id}}">{{item.repCode}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width35 text-left">UserName: </td>
+                                        <td class="text-left">
+                                            <label for="{{item.$id}}">{{item.repCode}}</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="width35 text-left">Email: </td>
+                                        <td class="text-left">
+                                            <label style="word-break: break-all;"
+                                                for="{{item.$id}}">{{item.email}}</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="hidden-xs hidden-sm"><label for="{{item.$id}}">{{item.firstName + ' ' +
+                                    item.lastName}}</label>
+                        <td class="hidden-xs hidden-sm"><label for="{{item.$id}}">{{item.repCode}}</label></td>
+                        <td class="hidden-xs hidden-sm"><label for="{{item.$id}}">{{item.repCode}}</label></td>
+                        <td class="hidden-xs hidden-sm"> <label style="word-break: break-all;"
+                                for="{{item.$id}}">{{item.email}}</label>
+                        </td>
+                    </tr>
+                    <tr ng-if="employees && employees.length === 0">
+                        <td class="hidden-xs hidden-sm" colspan="5">
+                            <h5>No records</h5>
+                        </td>
+                        <td class="hidden-md hidden-lg">
+                            <h5>No records</h5>
+                        </td>
+                    <tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn default" type="button" ng-click="close()">Back</button>
+    <button class="btn blue-steel" type="button" ng-disabled="employeeSelected==null"
+        ng-click="selectEmployee()">Re-assign</button>
+</div>

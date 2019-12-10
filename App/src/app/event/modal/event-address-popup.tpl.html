@@ -1,0 +1,89 @@
+<form id="eventForm" class="form-horizontal" role="form" name="eventForm">
+    <div class="modal-header">
+        <div class="caption caption-md">
+            <i class="icon-globe theme-font hide"></i>
+            <span class="caption-subject font-blue-madison bold uppercase">Event Address</span>
+            <button type="button" class="close" aria-hidden="true" ng-click="eventVm.close()"></button>
+        </div>
+        <br>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <div class="portlet-title">
+            <div class="row">
+            </div>
+        </div>
+        <div class="portlet-body" style="overflow-x:auto;">
+                <div class="row no-margin">
+                    <div class="col-md-12">
+                        <div class="form-body padding-top-0">
+                            <div class="form-group margin-top-20 no-margin-right"
+                                ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.address.$error.required) || eventForm.address.$error.pattern}">
+                                <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">Address 1</label>
+                                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 padding-right-10 ">
+                                    <input type="text " name="address" placeholder="Address"
+                                        class="form-control"
+                                        ng-model="eventVm.mailingAddress.address " />
+                                    <label class="control-label " ng-show="eventForm.address.$error.pattern ">*
+                                        This field does not allow special characters</label>
+                                </div>
+                            </div>
+                            <div class="form-group margin-top-20 no-margin-right"
+                                ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.address2.$error.required) || eventForm.address2.$error.pattern}">
+                                <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">Address 2</label>
+                                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 padding-right-10 ">
+                                    <input type="text " name="address2" placeholder="Address 2 "
+                                        class="form-control "
+                                        ng-model="eventVm.mailingAddress.address_2 " />
+                                    <label class="control-label " ng-show="eventForm.address2.$error.pattern ">* This
+                                        field
+                                        does not
+                                        allow special characters</label>
+                                </div>
+                            </div>
+                            <div class="form-group margin-top-20 no-margin-right"
+                                ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.city.$error.required) || eventForm.city.$error.pattern}">
+                                <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">City</label>
+                                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 padding-right-10 ">
+                                    <input type="text " name="city" placeholder="City"
+                                        class="form-control"
+                                        ng-model="eventVm.mailingAddress.city_name" />
+                                    <label class="control-label " ng-show="eventForm.city.$error.pattern ">*
+                                        This field does not allow special characters</label>
+                                </div>
+                            </div>
+                            <div class="form-group margin-top-20 no-margin-right"
+                                ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.state.$error.required)}">
+                                <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">State</label>
+                                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 padding-right-10 ">
+                                    <select name="state" ng-model="eventVm.mailingAddress.state_code"
+                                        class="form-control">
+                                        <option value="">Choose State</option>
+                                        <option ng-repeat="(key, state) in eventVm.allStates" data-id="{{state.id}}"
+                                            value="{{state.iso}}">{{state.name}}</option>
+                                    </select>
+                                    <label class="control-label " ng-show="eventForm.state.$error.pattern ">*
+                                        This field does not allow special characters</label>
+                                </div>
+                            </div>
+                            <div class="form-group margin-top-20 no-margin-right"
+                                ng-class="{ 'has-error': (eventVm.showInvalid && eventForm.zip.$error.required) || eventForm.zip.$error.pattern} ">
+                                <label class="control-label col-xs-12 col-sm-4 col-md-3 col-lg-3 ">Zip Code</label>
+                                <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 padding-right-10 ">
+                                    <input type="text " name="zip" placeholder="Zip Code "
+                                        class="form-control " maxlength="5" 
+                                        ng-pattern="eventVm.zipcodeRegx" ng-maxlength="5"
+                                        ng-model="eventVm.mailingAddress.zip_code " />
+                                    <label class="control-label " ng-if="eventForm.zip.$error.pattern ">* This
+                                        field does not allow special characters</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn blue-steel" type="button" ng-disabled="eventForm.$invalid" ng-click="eventVm.selectAddress()">Save</button>
+        <button class="btn dark btn-outline" type="button" ng-click="eventVm.close()">Cancel</button>
+    </div>
+</form>

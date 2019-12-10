@@ -1,0 +1,67 @@
+<!-- <div class="portlet light no-margin-bottom">
+    <div class="portlet-title">
+        <div class="caption width100">
+            <i class="fa fa-user"></i>
+            <span class="caption-subject bold uppercase">Program</span>
+        </div>
+    </div>
+</div> -->
+<div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.numberAdults.$error.required)}" ng-if="applicationVm.model.regionCode !== 'nfa' && applicationVm.model.regionCode !== 'sec'">
+    <label class="col-md-4 control-label">Number Of Adults <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <select name="numberAdults" ng-model="applicationVm.model.numberOfAdults" required class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+            <option value="" disabled>Select Number</option>
+            <option ng-repeat="num in applicationVm.appNumAdultsList" value="{{num.key}}">{{num.text}}</option>
+        </select>
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.numberAdults.$error.required">* This field is required</label>-->
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.cycle.$error.required)}">
+    <label class="col-md-4 control-label">Cycle <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <select name="cycle" ng-model="applicationVm.model.cycle" required class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+            <option value="" disabled>Select Cycle</option>
+            <option ng-repeat="cycle in applicationVm.appCycleList" value="{{cycle.key}}">{{cycle.text}}</option>
+        </select>
+        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.cycle.$error.required">* This field is required</label>-->
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appForm.corePlan.$error.required}">
+    <label class="col-md-4 control-label">Plan<span class="required-field"> *</span></label>
+    <div class="col-md-8" ng-click="focusMe('corePlanMonthly', false)" ng-class="{'form-check': mapping.corePlanMonthly.selected}">
+        <select class="form-control bs-select" name="corePlan" ng-disabled="applicationVm.model.isLocked || !applicationVm.isEnableSelectPlan" required autocomplete="off" ng-model="applicationVm.model.selectedPlans.key" ng-options="key as itemPlan.name + ' + ' + (itemPlan.recurring_price |currency) for (key, itemPlan) in applicationVm.statePlans" ng-change="selectPriPlan(applicationVm.model.selectedPlans.key)" ng-disabled="applicationVm.model.isLocked">
+            <option value="">Select Plans</option>
+        </select>
+    </div>
+</div>
+<div class="form-group pri-app-plans" ng-repeat="(key, addon) in applicationVm.stateAddons">
+    <div class="col-md-4 text-right">
+        <div class="mt-checkbox-inline no-padding-bottom">
+            <label ng-show="addon.cycle_id == '2'" class="mt-checkbox mt-checkbox-outline">
+                <input type="checkbox" id="pri2-{{key}}" value="{{addon.key}}" name="priAddon" ng-checked="applicationVm.checkPriAddon(addon.key) == true" ng-disabled="applicationVm.model.isLocked">
+                <span></span>
+            </label>
+            <label ng-show="addon.cycle_id == '1'" class="mt-checkbox mt-checkbox-outline">
+                <input type="checkbox" id="pri1-{{key}}" value="{{addon.key}}" name="priAddon" ng-checked="applicationVm.checkPriAddon(addon.key) == true" ng-disabled="applicationVm.model.isLocked">
+                <span></span>
+            </label>
+        </div>
+    </div>
+    <label for="pri2-{{key}}" class="col-md-8 control-label text-left" ng-show="addon.cycle_id == '2'">{{addon.rate_name}} + {{addon.recurring_price | currency}}/month</label>
+    <label for="pri1-{{key}}" class="col-md-8 control-label text-left" ng-show="addon.cycle_id == '1'">{{addon.rate_name}} + {{addon.recurring_price | currency}}/year</label>
+</div>
+<div class="form-group" ng-if="applicationVm.model.regionCode=='leo'" ng-class="{'has-error': applicationVm.showInvalid && appForm.activeRetiredLeo.$error.required}">
+    <label class="col-md-4 control-label">Active/Retired LEO <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <div class="icheck-list" style="padding-top: 8px;">
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input type="radio" name="activeRetiredLeo" ng-model="applicationVm.model.activeRetiredLEO" value="active" required disabled> Active LEO
+                <span></span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-outline">
+                <input type="radio" name="activeRetiredLeo" ng-model="applicationVm.model.activeRetiredLEO" value="retired" required disabled> Retired LEO
+                <span></span>
+            </label>
+        </div>
+    </div>
+</div>

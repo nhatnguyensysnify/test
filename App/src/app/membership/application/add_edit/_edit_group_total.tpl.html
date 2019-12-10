@@ -1,0 +1,71 @@
+<div class="portlet light no-margin-bottom">
+    <div class="portlet-title">
+        <div class="caption width100">
+            <i class="fa fa-usd"></i>
+            <span class="caption-subject bold uppercase">Total</span>
+        </div>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && (appForm.priMemTotal.$error.required || appForm.priMemTotal.$error.pattern)}">
+    <label class="col-md-4 control-label">Sub Total Amount <span class="required-field" >*</span></label>
+    <div class="col-md-8">
+        <div class="input-inline">
+            <div class="input-group">
+                <span class="input-group-addon">
+                                                    <i class="fa fa-usd"></i>
+                                                </span>
+                <input name="priMemTotal" type="text" class="form-control " ng-currency currency-symbol="$" placeholder="9,999.99" ng-model="applicationVm.model.total.subTotalAmount" ng-click="focusMe('priMemTotal', false)" ng-class="{'form-check': mapping.priMemTotal.selected}" required ng-disabled="true">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-5">
+        <label class="mt-checkbox mt-checkbox-outline">
+            <input id="freeSetupFee" type="checkbox" ng-change="applicationVm.waivedSetupFee(applicationVm.model.waivedSetupFee)" name="freeSetupFee" ng-model="applicationVm.model.waivedSetupFee" ng-disabled="applicationVm.model.isLocked || (applicationVm.selectedRegionSettings.enable_waived_setup_fee === false)" />
+            <span></span>
+        </label>
+        <label for="freeSetupFee" class="control-label">Waived Setup Fee.</label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-5">
+        <label class="mt-checkbox mt-checkbox-outline">
+            <input id="processpayment" type="checkbox" name="processpayment" ng-model="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked || applicationVm.model.paymentMethod == '1'" />
+            <span></span>
+        </label>
+        <label for="processpayment" class="control-label">Process Payment</label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label"></label>
+    <div class="col-md-5">
+        <label class="mt-checkbox mt-checkbox-outline">
+            <input id="bilingow" type="checkbox" name="paymentoverwrite" ng-model="applicationVm.model.paymentOverwrite" ng-disabled="applicationVm.model.isLocked" />
+            <span></span>
+        </label>
+        <label for="bilingow" class="control-label">Payment Overwrite</label>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-md-4 control-label">Setup Fee <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <div class="input-inline">
+            <div class="input-group">
+                <span class="input-group-addon">
+                                                        <i class="fa fa-usd"></i>
+                                                    </span>
+                <input disabled type="text" ng-class="{'not-setup-fee' : applicationVm.model.waivedSetupFee}" class="form-control" ng-currency currency-symbol="$" placeholder="9,999.99" ng-model="applicationVm.model.total.setupFee" name="setupFee">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && (appForm.totalAmount.$error.required || appForm.totalAmount.$error.pattern)}">
+    <label class="col-md-4 control-label">Total Amount <span class="required-field">*</span></label>
+    <div class="col-md-8">
+        <input name="totalAmount" type="text" ng-currency currency-symbol="$" class="form-control " placeholder="9,999.99" ng-model="applicationVm.model.total.totalAmount" ng-click="focusMe('totalAmount', false)" ng-class="{'form-check': mapping.totalAmount.selected}" required ng-disabled="applicationVm.model.isLocked">
+    </div>
+</div>
+<hr />

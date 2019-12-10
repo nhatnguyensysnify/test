@@ -1,0 +1,364 @@
+<div class="profile-info form-upload-tracking">
+    <div class="portlet-light">
+        <div class="portlet-title padding-bottom-10">
+            <div class="row">
+                <!-- <div class="caption caption-md col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                    <i class="icon-globe theme-font hide"></i>
+                    <span class="caption-subject font-blue-madison bold uppercase">Availability</span>
+                </div> -->
+                <div class="caption caption-md col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <i class="icon-globe theme-font hide"></i>
+                    <span class="caption-subject font-blue-madison bold uppercase">Career</span>
+                </div>
+            </div>
+        </div>
+        <form class="portlet-body" style="width: 100%;" name="availsForm" novalidate ng-submit="saveExtraInfo()">
+            <div class="row">
+                <!-- <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 margin-top-5">
+                    <div class="form-group col-md-12" ng-repeat="(key,value) in dayOfWeek">
+                        <label class="control-label col-xs-5 col-sm-5 col-md-4 col-lg-4 margin-top-5">{{value}}</label>
+                        <div class="col-xs-7 col-sm-7 col-md-8 col-lg-8">
+                            <select class="bs-select form-control " name="{{'avails_'+key}}"
+                                ng-model="employeeLicenseVm.avails[key]" id="action-list">
+                                <option ng-repeat="(key,value) in avails" ng-value="{{key}}">{{value}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-5 no-padding-l-r">
+                    <div class="form-group col-md-6 no-padding-l-r">
+                        <label class="control-label col-xs-5 col-sm-5 col-md-4 col-lg-4 margin-top-5">Type of Hire</label>
+                        <div class="col-xs-7 col-sm-7 col-md-8 col-lg-8">
+                            <select class="bs-select form-control" id="action-list"
+                                ng-model="employeeLicenseVm.career.typeOfHire">
+                                <option value="" disabled>---Please Choose Type---</option>
+                                <option ng-repeat="hire in hireTypes" value="{{hire.value}}"
+                                    ng-selected="hire.value == employeeLicenseVm.career.typeOfHire">{{hire.text}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 no-padding-l-r">
+                        <label class="control-label col-xs-5 col-sm-5 col-md-4 col-lg-4 margin-top-5">Date of Hire</label>
+                        <div class="col-xs-7 col-sm-7 col-md-8 col-lg-8">
+                            <div class="input-icon">
+                                <i class="fa fa-calendar"></i>
+                                <input name="dateOfHire" type="text" single-date-picker id="dateOfHire"
+                                    date-or-equals="true" class="form-control"
+                                    ng-model="employeeLicenseVm.career.dateOfHire" placeholder="mm/dd/yyyy">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 no-padding-l-r">
+                        <label class="control-label col-xs-5 col-sm-5 col-md-4 col-lg-4 margin-top-5">Working
+                            States</label>
+                        <div class="col-xs-7 col-sm-7 col-md-8 col-lg-8">
+                            <select ui-select2 ng-model="employeeLicenseVm.career.selectedStates" id="chooseStates"
+                                multiple
+                                ng-options="state.iso as state.name for (key, state) in employeeLicenseVm.loadedStates"
+                                data-placeholder="States">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6 no-padding-l-r">
+                        <label class="control-label col-xs-5 col-sm-5 col-md-4 col-lg-4 margin-top-5">Working
+                            Territories</label>
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                            <select ui-select2 ng-model="employeeLicenseVm.career.selectedTerritories" name="territory"
+                                multiple
+                                ng-options="territory.id as territory.name for (key, territory) in employeeLicenseVm.loadedTerritories"
+                                id="ChooseTerritories" data-placeholder="Territories">
+                            </select>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="margin-top-20 col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <button class="btn green" type="submit">
+                        Save Changes
+                    </button>
+                    <button class="btn default " type="button" ng-click="cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+        <hr />
+        <div class="portlet-light">
+            <div class="portlet-title padding-bottom-10">
+                <!-- <div class="caption">
+                        <span class="caption-subject font-blue-sharp bold uppercase">
+                            Availability
+                        </span>
+                    </div> -->
+                <div class="row">
+                    <div class="caption caption-md col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                        <i class="icon-globe theme-font hide"></i>
+                        <span class="caption-subject font-blue-madison bold uppercase">Licenses</span>
+                    </div>
+                    <div class="col-md-6  col-lg-6 text-right">
+                        <div class="btn-group">
+                            <button class="btn blue" ng-disabled="editIndex===-1" ng-click="employeeLicenseVm.add()">
+                                Add New
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body" style="width: 100%;">
+
+                <div class="table-responsive employee-history-tracking">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <th class="text-center width10" style="vertical-align: middle;"> State </th>
+                            <th class="text-center width8" style="vertical-align: middle;"> Issue Date </th>
+                            <th class="text-center width10" style="vertical-align: middle;"> License Type </th>
+                            <th class="text-center width10" style="vertical-align: middle;"> License Number </th>
+                            <th class="text-center width8" style="vertical-align: middle;"> Expiration Date </th>
+                            <th class="text-center width10" style="vertical-align: middle;"> Appointed </th>
+                            <th class="text-center width8" style="vertical-align: middle;"> Last Modified Date </th>
+                            <th class="text-center width5" style="vertical-align: middle;"> Actions </th>
+                        </thead>
+                        <tbody>
+                            <!-- new License -->
+                            <tr ng-if="editIndex===-1" class="tracking-info-active">
+                                <td class="width10" ng-class="{'has-error': $check.errors.issueState && submitted}">
+                                    <select class="form-control no-animate" ng-model="editModel.issueState"
+                                        name="newLics_state"
+                                        ng-change="$check.errors.issueState=err.required(editModel.issueState)"
+                                        ng-init="$check.touched.issueState=false;$check.errors.issueState=err.required(editModel.issueState)"
+                                        ng-focus="$check.touched.issueState=true">
+                                        <option ng-repeat="(key,value) in licenseState" ng-value="key">{{value}}
+                                        </option>
+                                        <option hidden ng-value="''">Select State</option>
+                                    </select>
+                                </td>
+                                <td class="width8 bold" ng-class="{'has-error': $check.errors.issueDate && submitted}">
+                                    <!-- <i class="fa fa-calendar"></i> -->
+                                    <input type="text" data-provide="datepicker"
+                                        class="form-control text-center bold font-green-jungle"
+                                        ng-model="editModel.issueDate" placeholder="mm/dd/yyyy"
+                                        ng-change="$check.errors.issueDate=err.required(editModel.issueDate)"
+                                        ng-init="$check.touched.issueDate=false;$check.errors.issueDate=err.required(editModel.issueDate)"
+                                        ng-focus="$check.touched.issueDate=true" readonly>
+                                </td>
+                                <td class="width10 text-left" ng-class="{'has-error': $check.errors.type && submitted}">
+                                    <select class="form-control no-animate" ng-model="editModel.type"
+                                        ng-change="$check.errors.type=err.required(editModel.type)"
+                                        ng-init="$check.touched.type=false;$check.errors.type=err.required(editModel.type)"
+                                        ng-focus="$check.touched.type=true">
+                                        <option ng-repeat="(key,value) in licenseType" ng-value="{{key}}">{{value}}
+                                        </option>
+                                        <option hidden ng-value="''">Select Type</option>
+                                    </select>
+                                </td>
+                                <td class="width10 text-left"
+                                    ng-class="{'has-error': $check.errors.number && submitted}">
+                                    <input type="text" class="form-control no-animate font-blue-madison"
+                                        placeholder="License Number" ng-model="editModel.number"
+                                        ng-change="$check.errors.number=err.number(editModel.number)"
+                                        ng-init="$check.touched.number=false;$check.errors.number=err.number(editModel.number)"
+                                        ng-focus="$check.touched.number=true" />
+                                    <!-- required && minlength=2 -->
+                                    <!-- <div ng-if="$check.touched.number && $check.errors.number">ERR</div> -->
+                                </td>
+                                <td class="width8" ng-class="{'has-error': $check.errors.expirationDate && submitted}">
+                                    <!-- <i class=" fa fa-calendar"></i> -->
+                                    <input type="text" data-provide="datepicker"
+                                        class="form-control text-center font-red" ng-model="editModel.expirationDate"
+                                        placeholder="mm/dd/yyyy"
+                                        ng-change="$check.errors.expirationDate=err.required(editModel.expirationDate)"
+                                        ng-init="$check.touched.expirationDate=false;$check.errors.expirationDate=err.required(editModel.expirationDate)"
+                                        ng-focus="$check.touched.expirationDate=true" readonly>
+                                </td>
+                                <td class="width10" ng-class="{'has-error': $check.errors.appointed && submitted}">
+                                    <select ng-if="isAdmin" class="form-control no-animate"
+                                        ng-model="editModel.appointed"
+                                        ng-change="$check.errors.appointed=err.required(editModel.appointed)"
+                                        ng-init="$check.touched.appointed=false;$check.errors.appointed=err.required(editModel.appointed)"
+                                        ng-focus="$check.touched.appointed=true">
+                                        <option ng-repeat="(key,value) in appointed" ng-value="{{key}}">{{value}}
+                                        </option>
+                                        <option hidden ng-value="''">Select Appointed</option>
+                                    </select>
+                                    <p ng-if="!isAdmin">{{appointed[editModel.appointed]}}</p>
+                                </td>
+                                <td class="width8">
+                                    <!-- <i class="fa fa-calendar"></i> -->
+                                    <p class="text-center">{{editModel.timestampModified}}</p>
+                                </td>
+                                <td class="width5 text-center">
+                                    <a href="#" class="btn btn-icon-only no-animate"
+                                        ng-click="employeeLicenseVm.save(err.invalid($check.errors))">
+                                        <i class="fa fa-floppy-o"></i></a>
+                                    <a href="#" class="btn btn-icon-only gray no-animate"
+                                        ng-click="employeeLicenseVm.cancel()"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+
+                            <!-- show Licenses before edit -->
+                            <tr ng-repeat="r in employeeLicenseVm.licsView track by r.id" ng-show="$index<editIndex">
+                                <ng-container ng-if="editIndex !== $index">
+                                    <td class="width10">
+                                        <p>{{r.issueState}}</p>
+                                    </td>
+
+                                    <td class="width8 text-center">
+                                        <p class="bold font-green-jungle">{{r.issueDate}}</p>
+                                    </td>
+
+                                    <td class="width10 text-left">
+                                        <p class="" ng-click="">{{r.type}}</p>
+                                    </td>
+
+                                    <td class="width10 text-left">
+                                        <p class="font-blue-madison" ng-click="">{{r.number}}</p>
+                                    </td>
+
+                                    <td class="width8 text-center">
+                                        <p class="font-red">{{r.expirationDate}}</p>
+                                    </td>
+
+                                    <td class="width10">
+                                        <p>{{r.appointed}}</p>
+                                    </td>
+
+                                    <td class="width8 text-center">
+                                        <p class="">{{r.timestampModified}}</p>
+                                    </td>
+
+                                    <td class="width5 text-center">
+                                        <a href="#" class="btn btn-icon-only no-animate" ng-show="editIndex !== $index"
+                                            ng-click="employeeLicenseVm.edit($index)"><i class="fa fa-edit"></i></a>
+                                        <a href="#" class="btn btn-icon-only red no-animate"
+                                            ng-show="editIndex !== $index"
+                                            ng-click="employeeLicenseVm.remove($index)"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </ng-container>
+                            </tr>
+
+                            <!-- edit Licenses copy of new License -->
+                            <tr ng-if="editIndex !== null && editIndex > -1" class="tracking-info-active">
+                                <td class="width10" ng-class="{'has-error': $check.errors.issueState && submitted}">
+                                    <select class="form-control no-animate" ng-model="editModel.issueState"
+                                        name="newLics_state"
+                                        ng-change="$check.errors.issueState=err.required(editModel.issueState)"
+                                        ng-init="$check.touched.issueState=false;$check.errors.issueState=err.required(editModel.issueState)"
+                                        ng-focus="$check.touched.issueState=true">
+                                        <option ng-repeat="(key,value) in licenseState" ng-value="key">{{value}}
+                                        </option>
+                                        <option hidden ng-value="''">Select State</option>
+                                    </select>
+                                </td>
+                                <td class="width8 bold" ng-class="{'has-error': $check.errors.issueDate && submitted}">
+                                    <!-- <i class="fa fa-calendar"></i> -->
+                                    <input type="text" data-provide="datepicker"
+                                        class="form-control text-center bold font-green-jungle"
+                                        ng-model="editModel.issueDate" placeholder="mm/dd/yyyy"
+                                        ng-change="$check.errors.issueDate=err.required(editModel.issueDate)"
+                                        ng-init="$check.touched.issueDate=false;$check.errors.issueDate=err.required(editModel.issueDate)"
+                                        ng-focus="$check.touched.issueDate=true" readonly>
+                                </td>
+                                <td class="width10 text-left" ng-class="{'has-error': $check.errors.type && submitted}">
+                                    <select class="form-control no-animate" ng-model="editModel.type"
+                                        ng-change="$check.errors.type=err.required(editModel.type)"
+                                        ng-init="$check.touched.type=false;$check.errors.type=err.required(editModel.type)"
+                                        ng-focus="$check.touched.type=true">
+                                        <option ng-repeat="(key,value) in licenseType" ng-value="{{key}}">{{value}}
+                                        </option>
+                                        <option hidden ng-value="''">Select Type</option>
+                                    </select>
+                                </td>
+                                <td class="width10 text-left"
+                                    ng-class="{'has-error': $check.errors.number && submitted}">
+                                    <input type="text" class="form-control no-animate font-blue-madison"
+                                        placeholder="License Number" ng-model="editModel.number"
+                                        ng-change="$check.errors.number=err.number(editModel.number)"
+                                        ng-init="$check.touched.number=false;$check.errors.number=err.number(editModel.number)"
+                                        ng-focus="$check.touched.number=true" />
+                                    <!-- required && minlength=2 -->
+                                    <!-- <div ng-if="$check.touched.number && $check.errors.number">ERR</div> -->
+                                </td>
+                                <td class="width8" ng-class="{'has-error': $check.errors.expirationDate && submitted}">
+                                    <!-- <i class=" fa fa-calendar"></i> -->
+                                    <input type="text" data-provide="datepicker"
+                                        class="form-control text-center font-red" ng-model="editModel.expirationDate"
+                                        placeholder="mm/dd/yyyy"
+                                        ng-change="$check.errors.expirationDate=err.required(editModel.expirationDate)"
+                                        ng-init="$check.touched.expirationDate=false;$check.errors.expirationDate=err.required(editModel.expirationDate)"
+                                        ng-focus="$check.touched.expirationDate=true" readonly>
+                                </td>
+                                <td class="width10" ng-class="{'has-error': $check.errors.appointed && submitted}">
+                                    <select ng-if="isAdmin" class="form-control no-animate"
+                                        ng-model="editModel.appointed"
+                                        ng-change="$check.errors.appointed=err.required(editModel.appointed)"
+                                        ng-init="$check.touched.appointed=false;$check.errors.appointed=err.required(editModel.appointed)"
+                                        ng-focus="$check.touched.appointed=true">
+                                        <option ng-repeat="(key,value) in appointed" ng-value="{{key}}">{{value}}
+                                        </option>
+                                        <option hidden ng-value="''">Select Appointed</option>
+                                    </select>
+                                    <p ng-if="!isAdmin">{{appointed[editModel.appointed]}}</p>
+                                </td>
+                                <td class="width8">
+                                    <p class="text-center">{{editModel.timestampModified}}</p>
+                                </td>
+                                <td class="width5 text-center">
+                                    <a href="#" class="btn btn-icon-only no-animate"
+                                        ng-click="employeeLicenseVm.save(err.invalid($check.errors))">
+                                        <i class="fa fa-floppy-o"></i></a>
+                                    <a href="#" class="btn btn-icon-only gray no-animate"
+                                        ng-click="employeeLicenseVm.cancel()"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+
+                            <!-- show Licenses after edit -->
+                            <tr ng-repeat="r in employeeLicenseVm.licsView track by r.id"
+                                ng-show="$index>(editIndex===null?-1:editIndex)">
+                                <ng-container ng-if="editIndex !== $index">
+                                    <td class="width10">
+                                        <p>{{r.issueState}}</p>
+                                    </td>
+
+                                    <td class="width8 text-center">
+                                        <p class="bold font-green-jungle">{{r.issueDate}}</p>
+                                    </td>
+
+                                    <td class="width10 text-left">
+                                        <p class="" ng-click="">{{r.type}}</p>
+                                    </td>
+
+                                    <td class="width10 text-left">
+                                        <p class="font-blue-madison" ng-click="">{{r.number}}</p>
+                                    </td>
+
+                                    <td class="width8 text-center">
+                                        <p class="font-red">{{r.expirationDate}}</p>
+                                    </td>
+
+                                    <td class="width10">
+                                        <p>{{r.appointed}}</p>
+                                    </td>
+
+                                    <td class="width8 text-center">
+                                        <p class="">{{r.timestampModified}}</p>
+                                    </td>
+
+                                    <td class="width5 text-center">
+                                        <a href="#" class="btn btn-icon-only no-animate" ng-show="editIndex !== $index"
+                                            ng-click="employeeLicenseVm.edit($index)"><i class="fa fa-edit"></i></a>
+                                        <a href="#" class="btn btn-icon-only red no-animate"
+                                            ng-show="editIndex !== $index"
+                                            ng-click="employeeLicenseVm.remove($index)"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>

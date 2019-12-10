@@ -1,0 +1,30 @@
+<div class="portlet light bordered tasks-widget" id="tlsapidatacache">
+    <div class="portlet-title">
+        <div class="caption">
+            Management TLS API Data
+        </div>
+        <div class="actions">
+            <!-- <div class="form-group">
+                <div class="col-md-12 btn default "  ng-click="vm.refreshAllCache()">
+                    Data as {{vm.lastedCacheTimeTxt}} &nbsp
+                    <a href="#">
+                        <i class="fa fa-refresh"> </i>
+                    </a>
+                </div>
+            </div> -->
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-sm-3 text-center padding-top-bottom-10 " ng-repeat="item in vm.caches">
+                <button type="button" class="icon-btn font-blue" ng-click="vm.refreshCache(item) && !item.isProcessing"
+                    ng-disabled="item.isProcessing" ng-class="item.isProcessing ? 'icon-btn font-red' : 'icon-btn font-blue'">
+                    <i class="fa fa-refresh"></i>
+                    <div ng-class="item.isProcessing ? 'font-red' : 'font-blue'" class="margin-left-5 margin-right-5"> {{item.name}} </div>
+                </button>
+                <p class="font-blue-steel padding-top-10">Data As {{item.timestampModified | date: 'MM/dd/yyyy
+                    hh:mm:ss'}}</p>
+            </div>
+        </div>
+    </div>
+</div>

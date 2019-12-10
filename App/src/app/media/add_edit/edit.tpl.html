@@ -1,0 +1,103 @@
+<div class="row" id="EditMedia">
+    
+    <div class="col-md-8">
+        <div class="portlet light bordered">
+
+            <div class="portlet-body form">
+                <form role="form" name="editMediaForm" novalidate  ng-submit="mediaVm.update(editMediaForm)">
+                    <div class="form-body">
+                        <div class="form-group" ng-class="{'has-error': editMediaForm.filename.$error.required}">
+                            <label>Display Name</label>
+                            <input class="form-control" type="text" ng-model="mediaVm.model.displayName" name="filename" required n/>
+                            <br>
+                            <label class="control-label" ng-show="editMediaForm.filename.$error.required">* This field is required</label>
+                        </div>
+                        <div class="form-group" ng-if="mediaVm.type === 'image'">
+                            <label>Permalink:</label>
+                            <br>
+                            <p class="form-control-static">http://localhost:3000/img/avatar4/ </p>
+                            <br>
+                            <div class="thumbnail thumbnail-img" style="max-width: 200px; max-height: 200px;">
+                                <img ng-src="{{mediaVm.model.downloadUrl}}" alt="">
+                            </div>
+                            <div class="margin-top-20">
+                                <a type="submit" class="btn default" href="#/media/editImage">Edit Image</a>
+                            </div>
+                        </div>
+                         <div class="form-group" ng-if="mediaVm.type === 'video'">
+                            <label>Permalink:</label>
+                            <p class="form-control-static"> http://localhost:3000/img/avatar4/ </p>
+                            <div>
+                                <iframe width="420" height="315" controls autoplay="false"
+                                src="{{mediaVm.videoLink}}">
+                                </iframe>
+                            </div>
+                        </div>
+                         <div class="form-group" ng-if="mediaVm.type === 'text' || mediaVm.type === 'application'">
+                            <label>Permalink:</label>
+                            <p class="form-control-static"> http://localhost:3000/img/avatar4/ </p>
+                            <div class="thumbnail thumbnail-file" style="max-width: 200px; max-height: 200px;">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/smartapp-79daf.appspot.com/o/images%2Ffile-icon.png?alt=media&token=d5cb6112-f821-482d-b7e3-303830a99227" alt="">
+                                <div class="name">
+                                    <span>{{mediaVm.model.fileName}}</span>
+                                </div>
+                                <div class="type">
+                                    <span>{{mediaVm.model.fileType}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Caption</label>
+                            <textarea class="form-control" rows="3" ng-model="mediaVm.model.caption"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label> Alternative Text</label>
+                            <input class="form-control" type="text" ng-model="mediaVm.model.alternativeText"/>
+                        </div>
+                        <div class="form-group last">
+                            <label class="control-label ">Description</label>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <textarea class="wysihtml5 form-control" rows="6"  ng-model="mediaVm.model.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn blue">Update</button>
+                        <button type="button" class="btn red" ng-click="mediaVm.delete(mediaVm.model)">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="text-right portlet light bordered">
+            <a href="#/media/add" class="btn green-haze">Add New</a>
+        </div>
+
+        <!-- BEGIN UNORDERED LISTS PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-save"></i>Save
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse"> </a>
+                </div>
+            </div>
+            <div class="portlet-body line-space-25">
+                <ul class="list-unstyled file-info">
+                    <li><i class="fa fa-calendar"></i> Uploaded on: <span class="bold">{{mediaVm.model.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss'}}</span></li>
+                    <li>File URL: <a href="{{mediaVm.model.downloadUrl}}" target="_blank">{{mediaVm.model.downloadUrl}}</a></li>
+                    <li>File Name: <span class="bold"> {{mediaVm.model.fileName}}</span></li>
+                    <li>File Type: <span class="bold"> {{mediaVm.model.fileType}}</span></li>
+                    <li>File Size: <span class="bold"> {{mediaVm.fileSize}}</span></li>
+                    <!-- <li>Dimensions: <span class="bold">41 x 41</span></li> -->
+                </ul>
+            </div>
+        </div>
+        <!-- END UNORDERED LISTS PORTLET-->
+       
+    </div>
+</div>

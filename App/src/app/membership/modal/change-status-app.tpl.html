@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">Change Status</span>
+    </div>
+</div>
+<div class="modal-body" id="modal-body">
+    <select class="bs-select form-control" ng-model="applicationSttVm.newStatus">
+        <option ng-repeat="item in applicationSttVm.status" ng-if="item.key >=0" value="{{item.key}}">{{item.value}}</option>
+    </select>
+</div>
+<div class="modal-footer">
+    <button class="btn blue-steel" type="button" ng-click="applicationSttVm.changeStatus()">Change</button>
+    <button class="btn dark btn-outline" type="button" ng-click="applicationSttVm.close()">Cancel</button>
+</div>

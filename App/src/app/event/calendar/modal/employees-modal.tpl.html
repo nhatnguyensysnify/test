@@ -1,0 +1,267 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+        ng-click="eventModalVm.close()"></button>
+    <h4 class="modal-title" ng-bind-html="eventModalVm.title"></h4>
+</div>
+
+<div class="modal-body event-dashboard-info" id="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7">
+                            <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                                <i class="icon-magnifier"></i>
+                                <input type="text" class="form-control form-control-solid"
+                                    ng-model="eventModalVm.cri.keyword" ng-change="eventModalVm.search()"
+                                    placeholder=" search...">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-7 col-md-5 col-lg-4">
+                            <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                                <list-paging ng-model="eventModalVm.paging" change-page="eventModalVm.changePage"
+                                    style="float: right;">
+                                </list-paging>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-5 col-md-1 col-lg-1">
+                            <div class="btn-group form-group margin-top-bottom-5" style="float:right;"
+                                ng-if="eventModalVm.typeModal == 'reps_unavailable'">
+                                <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle"
+                                    data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
+                                    ng-disabled="initPage" title="Export CSV" href="#"
+                                    style="position: relative;top: 0px;">
+                                    <i class="fa fa-download"></i>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                                    <li>
+                                        <a href="#" ng-click="eventModalVm.exportRepsUnavailable()">Reps
+                                            Unavailable Export</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body" style="overflow-x:auto; height: calc(80vh - 180px);">
+                    <div ng-if="!emp || emp.length == 0">No Records</div>
+                    <div ng-if="emp && emp.length > 0" class="table-scrollable table-scrollable-borderless">
+                        <table ng-if="eventModalVm.typeModal != 'reps_unavailable'"
+                            class="table table-hover table-light">
+                            <thead class="flip-content">
+                                <tr class="uppercase">
+                                    <th class="width90 text-center hidden-md hidden-lg">Employee Information</th>
+                                    <th class="width2 hidden-xs hidden-sm"> Name </th>
+                                    <th class="width2 hidden-xs hidden-sm"> Rep Code </th>
+                                    <th class="width4 hidden-xs hidden-sm"> Email </th>
+                                    <th class="width5 hidden-xs hidden-sm"> Manager </th>
+                                    <th class="width2 hidden-xs hidden-sm"
+                                        ng-if="eventModalVm.typeModal == 'cancellation_request'"> Replaced With </th>
+                                    <th class="width5 hidden-xs hidden-sm"
+                                        ng-if="eventModalVm.typeModal == 'cancellation_request' || eventModalVm.typeModal == 'reps_unavailable_add_availability'">
+                                        Actions </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in emp">
+                                    <td class="hidden-md hidden-lg">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="width15 text-left">Name: </td>
+                                                    <td class="text-left"></td>
+                                                    <td class="text-left hidden-xs hidden-sm">
+                                                        <i ng-if="item.replaceWith" class="fa fa-refresh"
+                                                            aria-hidden="true"></i>
+                                                        <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
+                                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+                                                        <a ng-if="$parent.userPermission.isAdmin"
+                                                            href="#/employees/edit/{{item.$id}}/"
+                                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width15 text-left">Rep Code: </td>
+                                                    <td class="text-left">
+                                                        <label>{{item.repCode}}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width15 text-left">Email: </td>
+                                                    <td class="text-left">
+                                                        <label style="word-break: break-all;">{{item.email}}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width15 text-left">Manager: </td>
+                                                    <td class="text-left" ng-bind-html="item.manager"></td>
+                                                </tr>
+                                                <tr ng-if="eventModalVm.typeModal == 'cancellation_request'">
+                                                    <td class="width15 text-left">Replaced with: </td>
+                                                    <td class="text-left"
+                                                        ng-bind-html="eventVm.getRequesters(item.repAssigned)"></td>
+                                                </tr>
+                                                <tr ng-if="eventModalVm.typeModal == 'cancellation_request'">
+                                                    <td class="width15 text-left">Actions: </td>
+                                                    <td class="text-left"><a href="javascript:;"
+                                                            ng-click="eventModalVm.editShift()"><i
+                                                                class="fa fa-edit"></i></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm">
+                                        <i ng-if="item.replaceWith" class="fa fa-refresh" aria-hidden="true"></i>
+                                        <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
+                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+                                        <a ng-if="$parent.userPermission.isAdmin" href="#/employees/edit/{{item.$id}}/"
+                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+
+                                    </td>
+                                    <td class="hidden-xs hidden-sm"><label for="{{item.$id}}">{{item.repCode}}</label>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm"> <label style="word-break: break-all;"
+                                            for="{{item.$id}}">{{item.email}}</label>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm" ng-bind-html="item.manager"></td>
+                                    <td class="hidden-xs hidden-sm"
+                                        ng-if="eventModalVm.typeModal == 'cancellation_request'"
+                                        ng-bind-html="eventVm.getRequesters(item.repAssigned)">
+                                    </td>
+                                    <td class="hidden-xs hidden-sm"
+                                        ng-if="eventModalVm.typeModal == 'cancellation_request'">
+                                        <a href="javascript:;" ng-if="!item.repAssigned"
+                                            ng-click="eventModalVm.reassign(item,$index)"><i
+                                                class="fa fa-edit"></i>&nbsp;Re-assign</a>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm"
+                                        ng-if="eventModalVm.typeModal == 'reps_unavailable_add_availability'">
+                                        <a href="javascript:;"
+                                            ng-click="eventModalVm.showConfirmAddAvailability(item,$index)"><i
+                                                class="fa fa-plus"></i>&nbsp;Set Availability</a>
+                                    </td>
+                                </tr>
+                                <tr ng-if="employeeModalVm.employees && employeeModalVm.employees.length === 0">
+                                    <td class="hidden-xs hidden-sm" colspan="5">
+                                        <h5>No records</h5>
+                                    </td>
+                                    <td class="hidden-md hidden-lg">
+                                        <h5>No records</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table ng-if="eventModalVm.typeModal == 'reps_unavailable'"
+                            class="table table-hover table-light">
+                            <thead class="flip-content">
+                                <tr class="uppercase">
+                                    <th class="width2"></th>
+                                    <th class="width90 text-center hidden-md hidden-lg">Employee Information</th>
+                                    <th class="width20 hidden-xs hidden-sm"> Name </th>
+                                    <th class="width20 hidden-xs hidden-sm"> Rep Code </th>
+                                    <th class="width20 hidden-xs hidden-sm"> Email </th>
+                                    <th class="width20 hidden-xs hidden-sm"> Manager </th>
+                                    <th class="width30 hidden-xs hidden-sm"> Availability Source </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr ng-repeat="item in emp">
+                                    <td>
+                                        <label class="mt-checkbox mt-checkbox-outline">
+                                            <input type="checkbox" ng-model="repsNotify[item.uid]"
+                                                ng-click="onCheckRep(item)" />
+                                            <span></span>
+                                        </label></th>
+                                    </td>
+                                    <td class="hidden-md hidden-lg">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="width15 text-left">Name: </td>
+                                                    <td class="text-left"></td>
+                                                    <td class="text-left hidden-xs hidden-sm">
+                                                        <i ng-if="item.replaceWith" class="fa fa-refresh"
+                                                            aria-hidden="true"></i>
+                                                        <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
+                                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+                                                        <a ng-if="$parent.userPermission.isAdmin"
+                                                            href="#/employees/edit/{{item.$id}}/"
+                                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width15 text-left">Rep Code: </td>
+                                                    <td class="text-left">
+                                                        <label>{{item.repCode}}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width15 text-left">Email: </td>
+                                                    <td class="text-left">
+                                                        <label style="word-break: break-all;">{{item.email}}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width15 text-left">Manager: </td>
+                                                    <td class="text-left" ng-bind-html="item.manager"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width15 text-left">Availability Source: </td>
+                                                    <td class="text-left">
+                                                        <label style="word-break: break-all;">{{item.sourceTxt}}</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+
+                                    <td class="hidden-xs hidden-sm">
+                                        <i ng-if="item.replaceWith" class="fa fa-refresh" aria-hidden="true"></i>
+                                        <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
+                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+                                        <a ng-if="$parent.userPermission.isAdmin" href="#/employees/edit/{{item.$id}}/"
+                                            target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
+
+                                    </td>
+                                    <td class="hidden-xs hidden-sm"><label
+                                            for="{{item.repCode}}">{{item.repCode}}</label>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm"> <label style="word-break: break-all;"
+                                            for="{{item.email}}">{{item.email}}</label>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm" ng-bind-html="item.manager"></td>
+                                    </td>
+                                    <td class="hidden-xs hidden-sm"><label
+                                            for="{{item.sourceTxt}}">{{item.sourceTxt}}</label>
+                                    </td>
+                                </tr>
+                                <tr ng-if="employeeModalVm.employees && employeeModalVm.employees.length === 0">
+                                    <td class="hidden-xs hidden-sm" colspan="5">
+                                        <h5>No records</h5>
+                                    </td>
+                                    <td class="hidden-md hidden-lg">
+                                        <h5>No records</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn default" type="button" ng-click="eventModalVm.close()">Close</button>
+    <button ng-if="eventModalVm.typeModal == 'reps_unavailable'" class="btn blue-steel" type="button"
+        ng-click="notifyAll()">Notify All</button>
+    <button ng-if="eventModalVm.typeModal == 'reps_unavailable'" class="btn blue-steel" type="button"
+        ng-click="notify()" ng-disabled="!canNotify">Notify</button>
+</div>

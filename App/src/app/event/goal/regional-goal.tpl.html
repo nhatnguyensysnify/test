@@ -1,0 +1,295 @@
+<div class="row" id="event-goal">
+    <div class="col-sm-12 col-md-12">
+        <div class="portlet light bordered">
+            <div class="portlet-body form">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"><i class="fa fa-map"></i> Regions </a>
+                    </li>
+                    <!-- <li>
+                        <a href="#tab_1_2" data-toggle="tab" aria-expanded="true"><i class="fa fa-bar-chart"></i> Dashboard</a>
+                    </li> -->
+                </ul>
+                <div class="tab-content">
+                    <!--Infomation-->
+                    <div class="tab-pane active" id="tab_1_1">
+                        <div class="col-md-6 text-left">
+
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <!-- <a class="btn blue margin-top-bottom-5" href="#add_goal" data-toggle="modal">New Goal</a> -->
+                            <a class="btn blue margin-top-bottom-5" ng-click="egVm.showGoalModal()" ng-if="userPermission.modify">New Goal</a>
+                        </div>
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 col-md-2 ">
+                                        <div class="form-group margin-top-bottom-5">
+                                            <input type="number" name="year" placeholder="Year" class="form-control" required ng-model="egVm.cri.year" type="number" ng-pattern="egVm.numberRegx"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-2">
+                                        <div class="form-group margin-top-bottom-5">
+                                            <select ui-select2 ng-model="egVm.cri.month"  ng-options="m.val as m.text for (key, m) in egVm.months"
+                                                data-placeholder="Month" class="form-control" id="egVmMonthFilter">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3">
+                                        <div class="input-icon margin-top-bottom-5">
+                                            <!-- <i class="icon-magnifier"></i>
+                                            <input type="text" class="form-control" placeholder="Search By Name... " aria-invalid="false"> -->
+                                            <select ui-select2 ng-model="egVm.cri.regions" multiple ng-options="state.iso as state.name for (key, state) in egVm.states" data-placeholder="All Regions" id="egVmRegionsFilter">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3">
+                                        <div class="right form-group margin-top-bottom-5" style="float:left;">
+                                            <button type="button" class="btn green-haze padding-l-r-20" style="float: left;" ng-click="egVm.search()">Filter</button>
+                                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;" ng-click="egVm.reset()">Reset</button>
+                                        </div>
+                                        <!-- <div class="form-group margin-top-bottom-5">
+                                                <select ui-select2="select2Options" ng-model="eventVm.cri.facility" ng-options="item.$id as item.text for item in eventVm.allFacilities">
+                                                </select>
+                                            </div> -->
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <div class="" style="float: right; padding: 10px 0px;" aria-invalid="false">
+                                                <div class="col-md-12 col-xs-12 items-info dataTables_paginate paging_bootstrap_extended" id="Paging">
+                                                    <div class="padding-l-r-10 padding-top-5" id="datatable_products_info" role="status" aria-live="polite"><label><span class="ng-binding" style="font-weight: bold; font-size: 15px;"> Total {{egVm.result.items.length}} regions</span> </label></div>
+                                                    <!-- <div class="pagination-panel"><a href="#" class="btn btn-sm default prev disabled"><i class="fa fa-angle-left"></i></a><input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini ng-pristine ng-untouched ng-valid ng-not-empty"
+                                                            maxlenght="5" style="text-align:center; margin: 0 5px;" aria-invalid="false"><a href="#" class="btn btn-sm default next"><i class="fa fa-angle-right"></i></a><span class="pagination-panel-total padding-top-5 ng-binding"> of  2 page(s)</span></div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                 <div class="table-scrollable table-scrollable-borderless">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr class="uppercase">
+                                                <th class="width100 text-center hidden-md hidden-lg">Region Information</th>
+                                                <th class="width10 hidden-xs hidden-sm"> Region </th>
+                                                <th class="width10 hidden-xs hidden-sm text-right">Prev Goal</th>
+                                                <th class="width10 hidden-xs hidden-sm text-right">Prev Revenue</th>
+                                                <th class="width10 hidden-xs hidden-sm text-right"> Current Goal </th>
+                                                <th class="width10 hidden-xs hidden-sm text-right"> Total Revenue</th>
+                                                <th class="width10 hidden-xs hidden-sm text-right"> Progress</th>
+                                                <th class="width15  hidden-xs hidden-sm text-left">Last Modifed</th>
+                                                <th class="width15  hidden-xs hidden-sm text-left">Modified By</th>
+                                                <th class="width10  hidden-xs hidden-sm text-center" ng-if="userPermission.modify">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in egVm.result.items">
+                                                <td class="hidden-md hidden-lg">
+                                                     <table class="table table-striped">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="width120">Region</td> 
+                                                                <td>{{item.region}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="width120">Prev Goal</td> 
+                                                                <td>{{item.prevPlan | currency}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="width120">Prev Revenue</td> 
+                                                                <td>{{item.prevRevenue | currency}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="width120">Current Goal</td> 
+                                                                <td>{{item.plan | currency}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="width120">Total Revenue</td> 
+                                                                <td>{{item.revenue | currency}}
+                                                                    <i class="fa fa-check-square font-green-jungle" ng-if="item.progress.status == 'met'"></i>
+                                                                    <i class="fa fa-spinner font-yellow-crusta" ng-if="item.progress.status == 'warning'"></i>
+                                                                    <i class="fa fa-close font-red" ng-if="item.progress.status == 'alert'"></i>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="width120">Progress</td> 
+                                                                <td><span ng-class="{'font-green-jungle':item.progress.status == 'met', 'font-yellow-crusta':  item.progress.status == 'warning','font-red':  item.progress.status == 'alert'}">{{item.progress.progress}}%</span></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="width120">Last Modifed</td> 
+                                                                <td>{{item.timestampString}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="width120">Modified By</td> 
+                                                                <td>{{item.modifiedBy.display}}</td>
+                                                            </tr>
+                                                            <tr ng-if="userPermission.modify">
+                                                                <td class="width120">Action</td> 
+                                                                <td><a class="btn btn-icon-only blue" href="#" ng-click="egVm.edit(item)"><i class="fa fa-edit"></i></a></td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                     </table>
+                                                </td>
+                                                <td class="hidden-xs hidden-sm show-function">
+                                                    {{item.region}}
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding">{{item.prevPlan | currency}}</td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding">{{item.prevRevenue | currency}}
+                                                    <i class="fa fa-check-square font-green-jungle" ng-if="item.prevRevenue >= item.prevPlan"></i>
+                                                    <i class="fa fa-close font-red" ng-if="item.prevRevenue < item.prevPlan"></i>
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" >{{item.plan | currency}} </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" >{{item.revenue | currency}}
+                                                    <i class="fa fa-check-square font-green-jungle" ng-if="item.progress.status == 'met'"></i>
+                                                    <i class="fa fa-spinner font-yellow-crusta" ng-if="item.progress.status == 'warning'"></i>
+                                                    <i class="fa fa-close font-red" ng-if="item.progress.status == 'alert'"></i>
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" ><span ng-class="{'font-green-jungle':item.progress.status == 'met', 'font-yellow-crusta':  item.progress.status == 'warning','font-red':  item.progress.status == 'alert'}">{{item.progress.progress}}%</span></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding">{{item.timestampString}}</td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding">{{item.modifiedBy.display}}</td>
+                                                <td class="hidden-xs hidden-sm text-center ng-binding" ng-if="userPermission.modify">
+                                                    <a class="btn btn-icon-only blue" href="#" ng-click="egVm.edit(item)"><i class="fa fa-edit"></i></a>
+                                                    <a class="btn btn-icon-only red" href="#" ng-click="egVm.delete(item)"><i class="fa fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="egVm.result.items && egVm.result.items.length === 0">
+                                                <td class="hidden-xs hidden-sm" colspan="8">
+                                                    <h5>No records</h5>
+                                                </td>
+                                                <td class="hidden-md hidden-lg">
+                                                    <h5>No records</h5>
+                                                </td>
+                                            <tr>
+                                        </tbody>
+                                    </table>
+                                 </div>
+                                <!-- old code -->
+                                <!-- <div class="table-scrollable table-scrollable-borderless">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr class="uppercase">
+                                                <th class="width100 text-center hidden-md hidden-lg">Region Information</th>
+                                                <th class="width10 hidden-xs hidden-sm"> Region </th>
+                                                <th class="width10 hidden-xs hidden-sm text-right">Prev Goal</th>
+                                                <th class="width10 hidden-xs hidden-sm text-right">Prev Revenue</th>
+                                                <th class="width10 hidden-xs hidden-sm text-right"> Current Goal </th>
+                                                <th class="width10 hidden-xs hidden-sm text-right"> Total Revenue</th>
+                                                <th class="width10 hidden-xs hidden-sm text-right"> Progress</th>
+                                                <th class="width15  hidden-xs hidden-sm text-left">Last Modifed</th>
+                                                <th class="width20  hidden-xs hidden-sm text-left">Modified By</th>
+                                                <th class="width5  hidden-xs hidden-sm text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="ng-scope" style="">
+                                                <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                                    Alabama
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$17,500.00</td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$17,500.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$19,000.00 </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$16,500.00 <i class="fa fa-spinner font-yellow-crusta" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-yellow-crusta">86.84%</span></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/02/2018 9:25 (CST)</td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Lan Nguyenn (lnguyen)</td>
+                                                <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
+                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                </td>
+                                            </tr>
+                                            <tr class="ng-scope" style="">
+                                                <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                                    Arizona
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$30,000.00</td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$31,000.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$33,000.00 </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$24,000.00 <i class="fa fa-spinner font-red" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-red">72.21%</span></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/01/2018 7:00 (CST)</td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Lan Nguyen (lnguyen)</td>
+                                                <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
+                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                </td>
+                                            </tr>
+                                            <tr class="ng-scope" style="">
+                                                <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                                    Arkansas
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$12,500.00</td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$12,600.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$14,000.00 </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$13,200.00 <i class="fa fa-spinner font-yellow-crusta" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-yellow-crusta">94.28%</span></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/02/2018 9:30 (CST)</td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Lan Nguyen (lnguyen)</td>
+                                                <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
+                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                </td>
+                                            </tr>
+                                            <tr class="ng-scope" style="">
+                                                <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                                    Colorado
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$45,500.00</td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$40,500.00 <i class="fa fa-close font-red" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$42,000.00 </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span>$46,000.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></span></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-green-jungle">109.00%</span></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/02/2018 9:29 (CST)</td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Jamie Edmonds (jedmonds)</td>
+                                                <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
+                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                </td>
+                                            </tr>
+                                            <tr class="ng-scope" style="">
+                                                <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
+                                                    ...
+                                                </td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;"></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;"></td>
+                                                <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div> -->
+                                <!-- end old code -->
+                            </div>
+                        </div>
+                    </div>
+                    <!--Upload Application-->
+                    <!-- <div class="tab-pane" id="tab_1_2">
+                        <div class="portlet light bordered">
+                            <div class="portlet-body form">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-1">
+                                        <div class="form-group margin-top-bottom-5">
+                                            <select name="" class="form-control ng-pristine ng-valid ng-not-empty ng-touched">
+                                                        <option value="All" selected="selected">2018</option>
+                                                    </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-1">
+                                        <div class="form-group margin-top-bottom-5">
+                                            <select name="" class="form-control ng-pristine ng-valid ng-not-empty ng-touched">
+                                                        <option value="All" selected="selected">October</option>
+                                                    </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <img style="max-width: 100%;" src="https://firebasestorage.googleapis.com/v0/b/qc-texaslawshield.appspot.com/o/Screen%20Shot%202018-10-26%20at%204.57.38%20PM.png?alt=media&token=bb9d08fa-d2c6-4af3-a82d-8c9ee451ab97" />
+                                <img style="max-width: 100%;" src="https://firebasestorage.googleapis.com/v0/b/qc-texaslawshield.appspot.com/o/Screen%20Shot%202018-10-26%20at%205.17.10%20PM.png?alt=media&token=f6af82ab-bcb5-476d-ac38-c8ec794158c2" />
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

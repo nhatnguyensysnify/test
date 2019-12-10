@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 revenue-event-line-chart-area">
+        <div class="portlet light portlet-fit bordered min-height-520" id="saleByRegionChart">
+            <div class="portlet-title">
+                <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+                    <div class="form-group margin-top-bottom-5">
+                        <i class=" icon-layers font-blue-steel"></i>
+                        <span class="caption-subject font-blue-steel bold uppercase">Sales By States</span>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                    <div class="form-group margin-top-bottom-5">
+                        <input type="number" name="year" placeholder="Year" class="form-control" required ng-model="eventVm.cri_goal.year" type="number" ng-pattern="eventVm.numberRegx"/>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                    <div class="form-group margin-top-bottom-5">
+                        <select ui-select2 ng-model="eventVm.cri_goal.month"  ng-options="m.val as m.text for (key, m) in eventVm.months"
+                            data-placeholder="Month" class="form-control" id="eventVmMonthFilter">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <highchart id="saleByRegionChart" config="eventVm.saleByRegionChartConfig" style="height:{{eventVm.heightStatesTab}}px; margin: 0 auto; width: calc(100vw - 250px);" ng-if="eventVm.tabIdx === 2"></highchart>
+            </div>
+        </div>
+    </div>
+</div>

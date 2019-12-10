@@ -1,0 +1,124 @@
+<div class="modal-body" id="modal-body" style="padding: 0px;">
+    <div class="portlet light" style="padding: 0px;">
+        <div class="portlet-title tabbable-line">
+            <ul class="nav nav-tabs width100">
+                <li class="active" ng-if="!galleryVm.isFeatured">
+                    <a href="#tab_1_1" data-toggle="tab" ng-click="galleryVm.getAllItems()">All</a>
+                </li>
+                <li>
+                    <a href="#tab_1_2" data-toggle="tab" ng-click="galleryVm.getImages()">Images</a>
+                </li>
+                <li ng-if="!galleryVm.isFeatured">
+                    <a href="#tab_1_3" data-toggle="tab" ng-click="galleryVm.getFiles()">Files</a>
+                </li>
+                <li class="pull-right">
+                    <a href="#tab_1_4" data-toggle="tab" class="btn green-haze" ng-click="galleryVm.uploadFileTab()">Upload Files</a>
+                </li>
+                <li class="pull-right">
+                    <a href="#tab_1_5" data-toggle="tab" class="btn green-haze" ng-click="galleryVm.uploadFileTab()">Insert from URL</a>
+                </li>
+                <!--
+         <li>
+             <a href="#tab_1_4" data-toggle="tab">Roles</a>
+         </li> -->
+            </ul>
+        </div>
+        <div class="portlet-body" style="padding: 15px;">
+            <div class="tab-content" id="Gallery-Content">
+                <!-- All MEDIA TAB -->
+                <div class="tab-pane active" id="tab_1_1">
+                    
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6 col-md-3" ng-repeat="item in galleryVm.modelItems" style="height: 250px;">
+                            <div ng-if="galleryVm.checkIsImg(item.type)" class="thumbnail thumbnail-img" style="width: 100%; max-height: 250px;" ng-click="galleryVm.selectFile(this,item)" ng-class="{'selected' : galleryVm.isSelected(item)}">
+                                <img ng-src="{{item.downloadUrl}}" alt="" style="max-width: 100%; max-height: 230px;">
+                            </div>
+                            <div ng-if="!galleryVm.checkIsImg(item.type)" class="thumbnail thumbnail-file" style="max-width: 190px; max-height: 190px;" ng-click="galleryVm.selectFile(this,item)" ng-class="{'selected' : galleryVm.isSelected(item)}">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/smartapp-79daf.appspot.com/o/images%2Ffile-icon.png?alt=media&token=d5cb6112-f821-482d-b7e3-303830a99227" alt="" style="max-width: 180px; min-height: 180px;">
+                                <div class="name">
+                                    <span>{{item.fileName}}</span>
+                                </div>
+                                <div class="type">
+                                    <span>{{item.fileType}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END MEDIA INFO TAB -->
+                <!-- IMAGES TAB -->
+                <div class="tab-pane" id="tab_1_2">                                   
+                    <div class="row">
+                        <div class="col-sm-4 col-xs-6 col-md-3" ng-repeat="item in galleryVm.modelItems" style="height: 250px;">
+                            <div class="thumbnail thumbnail-img" style="width: 100%; max-height: 250px;" ng-click="galleryVm.selectFile(this,item)" ng-class="{'selected' : galleryVm.isSelected(item)}">
+                                <img ng-src="{{item.downloadUrl}}" alt="" style="max-width: 100%; max-height: 230px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END IMAGES TAB -->
+                <!-- FILES TAB -->
+                <div class="tab-pane" id="tab_1_3">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-3" ng-repeat="item in galleryVm.modelItems">
+                            <div class="thumbnail thumbnail-file" style="max-width: 190px; max-height: 190px;" ng-click="galleryVm.selectFile(this,item)" ng-class="{'selected' : galleryVm.isSelected(item)}">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/smartapp-79daf.appspot.com/o/images%2Ffile-icon.png?alt=media&token=d5cb6112-f821-482d-b7e3-303830a99227" alt="" style="max-width: 180px; min-height: 180px;">
+                                <div class="name">
+                                    <span>{{item.fileName}}</span>
+                                </div>
+                                <div class="type">
+                                    <span>{{item.fileType}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <!-- END FILES TAB -->
+                <!-- Upload Files TAB -->
+                 <div class="tab-pane" id="tab_1_4">
+                     <!-- BEGIN PAGE BASE CONTENT -->
+                     <div class="row">
+                        <div class="col-md-12">
+                            <form action="http://localhost:3000/#/media/uploadfiles" ng-sumbit="galleryVm.add()" class="dropzone dropzone-file-area" id="form-dropzone" style="width: 100%">
+                                <h3 class="sbold">Drop files here or click to upload</h3>
+                                <p> This is just a demo dropzone. Selected files are not actually uploaded. </p>
+                            </form>
+                        </div>
+                    </div>
+                     <!-- END PAGE BASE CONTENT -->
+                </div> 
+                <!-- END Upload Files TAB -->
+                <!-- Insert from URL  TAB-->
+                <div class="tab-pane" id="tab_1_5">
+                    <div class="progress progress-striped active" id="upload-progess" style="display: none;">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+                        </div>
+                    </div>
+                    <form role="form" lpformnum="2" name="uploadUrlFrom" novalidate ng-submit="galleryVm.uploadViaUrl(uploadUrlFrom)">
+                        <div class="form-body">
+                            <div class="form-group" ng-class="{'has-error': (galleryVm.showInvalid && uploadUrlFrom.url.$error.required) || uploadUrlFrom.url.$error.pattern}">
+                                <input type="text" placeholder="http://" class="form-control" name="url" ng-model="galleryVm.urlUpload" required ng-pattern="galleryVm.urlUploadRegx">
+                                <label class="control-label" ng-show="galleryVm.showInvalid && uploadUrlFrom.url.$error.required">* Please fill out this field</label>
+                                <label class="control-label" ng-show="uploadUrlFrom.url.$error.pattern">* This field is not valid</label>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn blue">
+                                    Upload
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <!-- END Insert from URL TAB-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="galleryVm.insert()" ng-show="!galleryVm.uploadTab">Insert</button>
+    <button class="btn btn-warning" type="button" ng-click="galleryVm.close()">Cancel</button>
+</div>

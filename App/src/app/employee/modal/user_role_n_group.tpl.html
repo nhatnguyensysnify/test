@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">{{uVm.mode === 'role' ? 'Select Roles' : 'Select Groups'}}</span>
+    </div>
+</div>
+<div class="modal-body" id="modal-body" style="height: 550px;">
+    <list-paging ng-model="uVm.paging" change-page="uVm.changePage" style="float: right; margin-bottom: 10px;"></list-paging>
+    <table class="table table-light table-hover" s>            
+        <tr ng-repeat="item in uVm.pagedItems[uVm.paging.currentPage]" ng-if="uVm.pagedItems.length > 0">
+            <td class="bold width35 text-left">{{item.name}}</td>
+            <td class="width55 text-left">
+                {{item.description}}
+            </td>
+            <td class="width10 text-center">
+                <a href="javascript:;" class="btn btn-outline btn-circle btn-sm" style="width: 90px;" ng-click="uVm.addRoleNGroup(item)" ng-class="{'font-red': item.selected, 'primary' : !item.selected}">
+                     {{item.selected ? 'Selected' : 'Select'}} 
+                </a>
+            </td>
+        </tr>
+        <tr ng-if="uVm.pagedItems.length == 0"> 
+            <td colspan="3">No records</td>
+        </tr>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn green" type="button" ng-click="uVm.save()">Save</button>
+    <button class="btn dark btn-outline" type="button" ng-click="uVm.close()">Cancel</button>
+</div>

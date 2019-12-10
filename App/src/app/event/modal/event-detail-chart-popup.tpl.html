@@ -1,0 +1,232 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="eventChartVm.close()"></button>
+    <h4 class="modal-title" ng-bind-html="eventChartVm.title"></h4>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="input-icon right margin-top-bottom-5 margin-left-10">
+                                <list-paging ng-model="eventChartVm.paging" change-page="eventChartVm.changePage" style="float: right;"></list-paging>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body" style="overflow-x:auto; height: calc(80vh - 140px);">
+                    <div class="table-scrollable table-scrollable-borderless event-completion">
+                        <table class="table table-hover table-light dataTable">
+                            <thead>
+                                <tr>
+                                    <th class="width15 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('firstName'); eventChartVm.sort.field='firstName'">
+                                        <p>
+                                            Full Name
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'firstName'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('facilityCode'); eventChartVm.sort.field='facilityCode'">
+                                        <p>
+                                            Facility Code
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'facilityCode'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <!-- <th class="width20 text-center cursor-pointer hidden-xs hidden-sm"  ng-click="eventChartVm.toggleSort('firstName'); eventChartVm.sort.field='planName'">
+                                        <p >
+                                            Plans/Addons
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'planName'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th> -->
+                                    <th class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('representativeCode'); eventChartVm.sort.field='representativeCode'">
+                                        <p>
+                                            Sale Rep
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'representativeCode'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width5 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('state'); eventChartVm.sort.field='state'">
+                                        <p>
+                                            State
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'state'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('planType'); eventChartVm.sort.field='planType'">
+                                        <p>
+                                            Plan Type
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'planType'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('status'); eventChartVm.sort.field='status'">
+                                        <p>
+                                            Status
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'status'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width5 text-right cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('totalAmount'); eventChartVm.sort.field='totalAmount'">
+                                        <p>
+                                            Total
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'totalAmount'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('timestampSignatured'); eventChartVm.sort.field='timestampSignatured'">
+                                        <p>
+                                            Signature Date
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'timestampSignatured'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('eventName'); eventChartVm.sort.field='eventName'">
+                                        <p>
+                                            Event
+                                            <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'eventName'">
+                                                <span ng-show="!eventChartVm.sort.desc"><i class="fa  fa-sort-asc"></i></span>
+                                                <span ng-show="eventChartVm.sort.desc"><i class="fa fa-sort-desc"></i></span>
+                                            </span>
+                                        </p>
+                                    </th>
+                                    <th class="width100 text-center cursor-pointer hidden-md hidden-lg">
+                                        <p>
+                                            Information
+                                        </p>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in eventChartVm.items">
+                                    <td class="text-left hidden-xs hidden-sm "><a href="#" ng-click="goTo(item)">{{getFullName(item)}}</a></td>
+                                    <td class="text-left hidden-xs hidden-sm ">{{item.facilityName}} (<strong>{{item.facilityCode}}</strong>)</td>
+                                    <!-- <td class="text-center hidden-xs hidden-sm">
+                                    <table class="table no-border">
+                                        <tbody>
+                                            <tr>
+                                                <td class="width25 text-left">Plans: </td>
+                                                <td class="text-left">
+                                                    {{item.planName}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="width25 text-left">Addons: </td>
+                                                <td class="text-left" ng-bind-html="item.addons">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td> -->
+                                    <td class="text-left hidden-xs hidden-sm ">{{item.saleRep || item.employeeName ||
+                                        ''}}
+                                        (<strong>{{item.representativeCode}}</strong>)</td>
+                                    <td class="text-center hidden-xs hidden-sm ">{{item.state}}</td>
+                                    <td class="text-center hidden-xs hidden-sm ">{{item.planType}}</td>
+                                    <td class="text-center hidden-xs hidden-sm ">{{eventChartVm.getAppStatus(item.status)}}</td>
+                                    <td class="text-right hidden-xs hidden-sm ">{{item.totalAmount | currency}}</td>
+                                    <td class="text-center hidden-xs hidden-sm ">{{item.timestampSignatured | date:
+                                        'MM/dd/yyyy'}}</td>
+                                    <td class="text-left hidden-xs hidden-sm ">{{eventVm.model.name}}</td>
+                                    <td class="width100 text-center hidden-md hidden-lg">
+                                        <table class="table table-striped">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="width30 text-left">Full Name: </td>
+                                                    <td class="text-left">
+                                                        <a href="#" ng-click="goTo(item)">{{getFullName(item)}}</a>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">Facility Code: </td>
+                                                    <td class="text-left">
+                                                        {{item.facilityName}} (<strong>{{item.facilityCode}}</strong>)
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="width30 text-left">Plans: </td>
+                                                    <td class="text-left">{{item.planName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">Addons: </td>
+                                                    <td class="text-left" ng-bind-html="item.addons"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">Representative Code: </td>
+                                                    <td class="text-left">{{item.saleRep || item.employeeName || ''}} (<strong>{{item.representativeCode}}</strong>)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">State </td>
+                                                    <td class="text-left">
+                                                        {{item.state}} 
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                        <td class="width30 text-left">Plan Type </td>
+                                                        <td class="text-left">
+                                                            {{item.planType}} 
+                                                        </td>
+                                                    </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">Status</td>
+                                                    <td class="text-left">
+                                                        {{eventChartVm.getAppStatus(item.status)}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">Total: </td>
+                                                    <td class="text-right">{{item.totalAmount | currency}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">Signature Date: </td>
+                                                    <td class="text-left">{{item.timestampSignatured | date:
+                                                        'MM/dd/yyyy'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="width30 text-left">Event: </td>
+                                                    <td class="text-left">{{eventVm.model.name}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr ng-if="eventChartVm.items && eventChartVm.items.length === 0">
+                                    <td class="hidden-xs hidden-sm" colspan="9">
+                                        <h5>No records</h5>
+                                    </td>
+                                    <td class="hidden-md hidden-lg">
+                                        <h5>No records</h5>
+                                    </td>
+                                <tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn dark btn-outline" type="button" ng-click="eventChartVm.close()">Close</button>
+</div>

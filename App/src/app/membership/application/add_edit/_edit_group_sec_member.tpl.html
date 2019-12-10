@@ -1,0 +1,72 @@
+<div ng-if="applicationVm.model.numberOfAdults == '2'">
+    <div class="portlet light no-margin-bottom">
+        <div class="portlet-title">
+            <div class="caption width100">
+                <i class="fa fa-user"></i>
+                <span class="caption-subject bold uppercase">Secondary Member</span>
+            </div>
+        </div>
+        <!--<div class="small">Add a second member plan and save $22.80 when you pay annually. Must live in same household.</div>-->
+    </div>
+    <div class="form-group" ng-class="{'has-error': appForm.secMemberId.$error.pattern}">
+        <label class="col-md-4 control-label">Member ID</label>
+        <div class="col-md-8">
+            <input type="text" class="form-control " placeholder="Member ID" ng-model="applicationVm.memberModel.secMember.memberId" name="secMemberId" ng-click="focusMe('secMemberId', false)" ng-class="{'form-check': mapping.secMemberId.selected}" ng-disabled="applicationVm.model.isLocked" maxlength="9" ng-pattern="applicationVm.memberIDRegx">
+            <label class="control-label" ng-show="appForm.secMemberId.$error.pattern">* This field does not allow special characters</label>
+            <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.secMemberId.$error.required">* This field is required</label>-->
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">Prefix</label>
+        <div class="col-md-8">
+            <select name="secMemberPrefix" ng-model="applicationVm.memberModel.secMember.prefix" class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+                <option value=""></option>
+                <option ng-repeat="item in applicationVm.prefixList" data-id="{{item.id}}" value="{{item.code}}">{{item.code}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.secMemberFirstName.$error.required) || appForm.secMemberFirstName.$error.pattern}">
+        <label class="col-md-4 control-label">First Name <span class="required-field"> *</span></label>
+        <div class="col-md-8">
+            <input type="text" class="form-control" required placeholder="Enter First Name" ng-click="focusMe('secFirstName', false)" ng-class="{'form-check': mapping.secFirstName.selected}" ng-model="applicationVm.memberModel.secMember.firstName" name="secMemberFirstName" ng-pattern="applicationVm.nameRegx" ng-disabled="applicationVm.model.isLocked">
+            <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.secMemberFirstName.$error.required">* This field is required</label>-->
+            <label class="control-label" ng-show="appForm.secMemberFirstName.$error.pattern">* This field does not allow special characters</label>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.secMemberLastName.$error.required) || appForm.secMemberLastName.$error.pattern}">
+        <label class="col-md-4 control-label">Last Name <span class="required-field"> *</span></label>
+        <div class="col-md-8">
+            <input type="text" class="form-control " placeholder="Enter Last Name" required ng-click="focusMe('secLastName', false)" ng-class="{'form-check': mapping.secLastName.selected}" ng-model="applicationVm.memberModel.secMember.lastName" name="secMemberLastName" ng-pattern="applicationVm.nameRegx" ng-disabled="applicationVm.model.isLocked">
+            <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.secMemberLastName.$error.required">* This field is required</label>-->
+            <label class="control-label" ng-show="appForm.secMemberLastName.$error.pattern">* This field does not allow special characters</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-4 control-label">Suffix</label>
+        <div class="col-md-8">
+            <select name="secMemberSuffix" ng-model="applicationVm.memberModel.secMember.suffix" class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked">
+                <option value=""></option>
+                <option ng-repeat="item in applicationVm.suffixList" data-id="{{item.id}}" value="{{item.code}}">{{item.code}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.secMemberEmail.$invalid)}">
+        <label class="col-md-4 control-label">Email Address <span class="required-field"> *</span></label>
+        <div class="col-md-8">
+            <input type="email" class="form-control" placeholder="Enter Email Address" required ng-click="focusMe('secEmail', false)" ng-class="{'form-check': mapping.secEmail.selected}" ng-model="applicationVm.memberModel.secMember.email" name="secMemberEmail" ng-pattern="applicationVm.emailRegx" autocapitalize="off" ng-disabled="applicationVm.model.isLocked" />
+            <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.secMemberEmail.$error.required">* This field is required</label>-->
+            <label class="control-label" ng-show="appForm.secMemberEmail.$error.pattern || appForm.secMemberEmail.$error.email">* This is not valid</label>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appForm.secMemberPhone.$error.mask}">
+        <label class="col-md-4 control-label">Mobile Phone</label>
+        <div class="col-md-8 ">
+            <div class="input-group">
+                <input name="secPhone" type="text" class="form-control" placeholder="Enter Phone" ng-click="focusMe('secPhone', false)" ng-class="{'form-check': mapping.secPhone.selected}" ng-model="applicationVm.memberModel.secMember.phone" ui-mask="(999) 999-9999" ng-disabled="applicationVm.model.isLocked" />
+                <span class="input-group-addon" ng-click="focusMe('secPhone', false)">
+                    <i class="fa fa-check font-green-meadow"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-hidden="true" ng-click="close()"></button>
+    <div class="caption caption-md">
+        <i class="icon-globe theme-font hide"></i>
+        <span class="caption-subject font-blue-madison bold uppercase">{{reportType.toLowerCase()}}</span>
+    </div>
+</div>
+<div class="modal-body" id="modal-body" style="overflow-x:auto; height: calc(90vh - 140px);">
+    <table class="table table-light table-hover">
+        <thead>
+            <tr>
+                <th class="width100 text-center hidden-md hidden-lg">Application Information</th>
+                <th class="width25 hidden-xs hidden-sm"> Primary Member</th>
+                <th class="width15 text-center hidden-xs hidden-sm"> Method</th>
+                <th class="width15 text-center hidden-xs hidden-sm"> Status</th>
+                <th class="width15 text-center hidden-xs hidden-sm"> Plan Type</th>
+                <th class="width15 text-center hidden-xs hidden-sm"> Created Date</th>
+                <th class="width15 text-center hidden-xs hidden-sm"> Signature Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in reportData">
+                <td class="hidden-md hidden-lg">
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td class="width35">Primary Member: </td>
+                                <td>
+                                    <a href="#" ng-click="goTo(item)">{{getPriMemberName(item)}}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="width35">Method: </td>
+                                <td>
+                                    {{getMethod(item.method)}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="width35">Status: </td>
+                                <td>{{getStatus(item.status)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="width35">Plan Type: </td>
+                                <td>{{getRegion(item.state, item.region)}}</td>
+                            </tr>
+                            <tr>
+                                <td class="width35">Created Date: </td>
+                                <td>{{item.timestampCreated | date: 'MM/dd/yyyy @ h:mm a'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="width35">Signature Date: </td>
+                                <td>{{item.timestampSignatured | date: 'MM/dd/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="hidden-xs hidden-sm"><a href="#" ng-click="goTo(item)">{{getPriMemberName(item)}}</a></td>
+                <td class="text-center hidden-xs hidden-sm"> {{getMethod(item.method)}}</td>
+                <td class="text-center hidden-xs hidden-sm"> {{getStatus(item.status)}}</td>
+                <td class="text-center hidden-xs hidden-sm"> {{getRegion(item.state, item.region)}}</td>
+                <td class="text-center hidden-xs hidden-sm"> {{item.timestampCreated | date: 'MM/dd/yyyy @ h:mm
+                    a'}}</td>
+                <td class="text-center hidden-xs hidden-sm"> {{item.timestampSignatured | date: 'MM/dd/yyyy'}}</td>
+            </tr>
+            <tr ng-if="reportData.length === 0">
+                <td class="hidden-xs hidden-sm" colspan="5">
+                    No Records.
+                </td>
+                <td class="hidden-md hidden-lg">
+                    No Records.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal-footer">
+    <button class="btn dark btn-outline" type="button" ng-click="close()">Close</button>
+</div>

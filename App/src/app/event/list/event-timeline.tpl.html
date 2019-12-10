@@ -1,0 +1,360 @@
+<div id="events" class="row">
+    <div class="col-md-6 text-left">
+
+    </div>
+    <div class="col-md-6 text-right">
+        <a class="btn blue margin-top-bottom-5" href="#/events/details" ng-if="!allowAddUser">Add New</a>
+    </div>
+    <div class="col-md-12">
+        <div class="portlet light ">
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div class="form-group margin-top-bottom-5">
+                            <date-range-report id="EventRange" class="width100" event="true"
+                                start="{{eventVm.timestampStart}}" end="{{eventVm.timestampEnd}}"
+                                class="margin-top-bottom-5"></date-range-report>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.keyword"
+                                ng-change="eventVm.searchKeyword()"
+                                placeholder="Search By Name, Money Order, Member... ">
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="right form-group margin-top-bottom-5" style="float:left;">
+                            <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
+                                ng-click="eventVm.search(true)">Filter</button>
+                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
+                                ng-click="eventVm.resetFiler()">Reset</button>
+                        </div>
+                        <!-- <div class="form-group margin-top-bottom-5">
+                                <select ui-select2 ng-model="eventVm.cri.facilityId" ng-options="item.$id as item.text for item in eventVm.allFacilities">
+                                </select>
+                            </div> -->
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
+                        <div class="btn-group form-group margin-top-bottom-5" style="float:right;">
+                            <!-- <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"ng-disabled="initPage" title="Export CSV" href="#" style="position: relative;top: 0px;">
+                                <i class="fa fa-download"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" style="left: -140px;">
+                                <li>
+                                    <a href="#" ng-click="eventVm.exportEventData()" >Event Export</a>
+                                </li>
+                                <li>
+                                    <a href="#" ng-click="eventVm.exportD()">Event Summary Export</a>
+                                </li>
+                            </ul> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-title">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eventVm.cri.type" class="form-control" required
+                                ng-change="eventVm.search()">
+                                <option value="All">All Types</option>
+                                <option ng-repeat="type in  eventVm.eventTypes" value="{{type.value}}"
+                                    ng-selected="type.value == eventVm.cri.types">{{type.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select name="eventType" ng-model="eventVm.cri.status" class="form-control" required
+                                ng-change="eventVm.search()">
+                                <option value="All">All Status</option>
+                                <option ng-repeat="stt in  eventVm.eventStatus" value="{{stt.value}}"
+                                    ng-selected="stt.value == eventVm.cri.status">{{stt.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ng-model="eventVm.requester" ui-select2="eventVm.select2Options"
+                                id="filterRequester" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select ui-select2 ng-model="eventVm.chooseRegions" id="chooseRegions" multiple
+                                ng-options="region.id as region.guid for (key, region) in eventVm.allRegions"
+                                data-placeholder="All Plan Types">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ng-model="eventVm.chooseFacilities" ui-select2="eventVm.select2OptionsF" multiple
+                                id="chooseFacilities" data-placeholder="All Facilities" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="form-group margin-top-bottom-5">
+                            <select ui-select2 ng-model="eventVm.chooseState" id="chooseState"
+                                ng-options="state.iso as state.name for (key, state) in eventVm.allStates"
+                                data-placeholder="All States">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-bottom-5">
+                            <select ui-select2 ng-model="eventVm.chooseTerritories" id="chooseTerritories" multiple
+                                ng-options="territory.id as territory.name for (key, territory) in eventVm.allTerritories"
+                                data-placeholder="All Territories">
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="right margin-top-10">
+
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input id="processpayment" type="checkbox" name="processpayment" />
+                                <span></span>
+                            </label>
+                            <label for="processpayment" class="control-label">Resource Availability</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.moneyOrder"
+                                placeholder="Search By Money Order... ">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                        <div class="input-icon margin-top-bottom-5">
+                            <i class="icon-magnifier"></i>
+                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.memKeyword"  placeholder="Search By Member">
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+            <div class="portlet-body">
+                <div class="mt-timeline-2">
+                    <div class="mt-timeline-line border-grey-steel"></div>
+                    <ul class="mt-container">
+                        <li class="mt-item">
+                            <div class="mt-timeline-icon bg-red bg-font-red border-grey-steel">
+                                <!-- <i class="icon-home"></i> -->
+                                <p style=" top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); font-size: 14px; position: relative; display: inline-block; text-align: center; ">01/14/2019 </p>
+                            </div>
+                            <div class="mt-timeline-content">
+                                <div class="mt-content-container">
+                                    <div class="mt-title">
+                                        <h3 class="mt-content-title">Event - Vinh</h3>
+                                    </div>
+                                    <div class="mt-author">
+                                        <!-- <div class="mt-avatar">
+                                                <img src="../assets/pages/media/users/avatar80_2.jpg">
+                                            </div> -->
+                                        <div class="mt-author-name">
+                                            <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                        </div>
+                                        <!-- <div class="mt-author-notes font-grey-mint">01/14/2019</div> -->
+                                    </div>
+                                    <div class="mt-content border-grey-salt">
+                                        <p>Facility: GA Seminar (GASEMINAR)</p>
+                                        <p>New Members: 1000</p>
+                                        <p>Total Revenue: $20,000.00</p>
+                                        <p>Closing Rate: 225.23%</p>
+                                        <p>Representative: vinh dang (DEVADMIN);Lan Nguyen (lnguyen)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mt-item">
+                            <div class="mt-timeline-icon bg-blue bg-font-blue border-grey-steel">
+                                <!-- <i class="icon-plane"></i> -->
+                                <p style=" top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); font-size: 14px; position: relative; display: inline-block; text-align: center; ">01/14/2019 </p>
+                            </div>
+                            <div class="mt-timeline-content">
+                                <div class="mt-content-container bg-white border-grey-steel">
+                                    <div class="mt-title">
+                                        <h3 class="mt-content-title">Sending Shipment</h3>
+                                    </div>
+                                    <div class="mt-author">
+                                        <!-- <div class="mt-avatar">
+                                                <img src="../assets/pages/media/users/avatar80_3.jpg">
+                                            </div> -->
+                                        <div class="mt-author-name">
+                                            <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                        </div>
+                                        <div class="mt-author-notes font-grey-mint">01/14/2019</div>
+                                    </div>
+                                    <div class="mt-content border-grey-steel">
+                                        <p>Facility: GA Seminar (GASEMINAR)</p>
+                                        <p>New Members: 1000</p>
+                                        <p>Total Revenue: $20,000.00</p>
+                                        <p>Closing Rate: 225.23%</p>
+                                        <p>Representative: vinh dang (DEVADMIN);Lan Nguyen (lnguyen)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mt-item">
+                            <div class="mt-timeline-icon bg-green-turquoise bg-font-green-turquoise border-grey-steel">
+                                <!-- <i class="icon-calendar"></i> -->
+                                <p style=" top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); font-size: 14px; position: relative; display: inline-block; text-align: center; ">01/14/2019 </p>
+                            </div>
+                            <div class="mt-timeline-content">
+                                <div class="mt-content-container">
+                                    <div class="mt-title">
+                                        <h3 class="mt-content-title">Timeline Received</h3>
+                                    </div>
+                                    <div class="mt-author">
+                                        <!-- <div class="mt-avatar">
+                                                <img src="../assets/pages/media/users/avatar80_2.jpg">
+                                            </div> -->
+                                        <div class="mt-author-name">
+                                            <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                        </div>
+                                        <div class="mt-author-notes font-grey-mint">01/14/2019</div>
+                                    </div>
+                                    <div class="mt-content border-grey-salt">
+                                        <p>Facility: GA Seminar (GASEMINAR)</p>
+                                        <p>New Members: 1000</p>
+                                        <p>Total Revenue: $20,000.00</p>
+                                        <p>Closing Rate: 225.23%</p>
+                                        <p>Representative: vinh dang (DEVADMIN);Lan Nguyen (lnguyen)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mt-item">
+                            <div class="mt-timeline-icon bg-purple-medium bg-font-purple-medium border-grey-steel">
+                                <!-- <i class="icon-heart"></i> -->
+                                <p style=" top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); font-size: 14px; position: relative; display: inline-block; text-align: center; ">01/14/2019 </p>
+                            </div>
+                            <div class="mt-timeline-content">
+                                <div class="mt-content-container bg-white border-grey-steel">
+                                    <div class="mt-title">
+                                        <h3 class="mt-content-title">Event Success</h3>
+                                    </div>
+                                    <div class="mt-author">
+                                        <!-- <div class="mt-avatar">
+                                                <img src="../assets/pages/media/users/avatar80_1.jpg">
+                                            </div> -->
+                                        <div class="mt-author-name">
+                                            <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                        </div>
+                                        <div class="mt-author-notes font-grey-mint">01/14/2019</div>
+                                    </div>
+                                    <div class="mt-content border-grey-steel">
+                                        <p>Facility: GA Seminar (GASEMINAR)</p>
+                                        <p>New Members: 1000</p>
+                                        <p>Total Revenue: $20,000.00</p>
+                                        <p>Closing Rate: 225.23%</p>
+                                        <p>Representative: vinh dang (DEVADMIN);Lan Nguyen (lnguyen)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mt-item">
+                            <div class="mt-timeline-icon bg-blue-steel bg-font-blue-steel border-grey-steel">
+                                <!-- <i class="icon-call-in"></i> -->
+                                <p style=" top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); font-size: 14px; position: relative; display: inline-block; text-align: center; ">01/14/2019 </p>
+                            </div>
+                            <div class="mt-timeline-content">
+                                <div class="mt-content-container">
+                                    <div class="mt-title">
+                                        <h3 class="mt-content-title">Conference Call</h3>
+                                    </div>
+                                    <div class="mt-author">
+                                        <!-- <div class="mt-avatar">
+                                                <img src="../assets/pages/media/users/avatar80_1.jpg">
+                                            </div> -->
+                                        <div class="mt-author-name">
+                                            <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                        </div>
+                                        <div class="mt-author-notes font-grey-mint">01/14/2019</div>
+                                    </div>
+                                    <div class="mt-content border-grey-salt">
+                                        <p>Facility: GA Seminar (GASEMINAR)</p>
+                                        <p>New Members: 1000</p>
+                                        <p>Total Revenue: $20,000.00</p>
+                                        <p>Closing Rate: 225.23%</p>
+                                        <p>Representative: vinh dang (DEVADMIN);Lan Nguyen (lnguyen)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mt-item">
+                            <div class="mt-timeline-icon bg-green-jungle bg-font-green-jungle border-grey-steel">
+                                <!-- <i class="icon-call-out"></i> -->
+                                <p style=" top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); font-size: 14px; position: relative; display: inline-block; text-align: center; ">01/14/2019 </p>
+                            </div>
+                            <div class="mt-timeline-content">
+                                <div class="mt-content-container bg-white border-grey-steel">
+                                    <div class="mt-title">
+                                        <h3 class="mt-content-title">Conference Decision</h3>
+                                    </div>
+                                    <div class="mt-author">
+                                        <!-- <div class="mt-avatar">
+                                                <img src="../assets/pages/media/users/avatar80_5.jpg">
+                                            </div> -->
+                                        <div class="mt-author-name">
+                                            <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                        </div>
+                                        <div class="mt-author-notes font-grey-mint">01/14/2019</div>
+                                    </div>
+                                    <div class="mt-content border-grey-steel">
+                                        <p>Facility: GA Seminar (GASEMINAR)</p>
+                                        <p>New Members: 1000</p>
+                                        <p>Total Revenue: $20,000.00</p>
+                                        <p>Closing Rate: 225.23%</p>
+                                        <p>Representative: vinh dang (DEVADMIN);Lan Nguyen (lnguyen)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mt-item">
+                            <div class="mt-timeline-icon bg-blue-chambray bg-font-blue-chambray border-grey-steel">
+                                <!-- <i class="icon-bubbles"></i> -->
+                                <p style=" top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%); font-size: 14px; position: relative; display: inline-block; text-align: center; ">01/14/2019 </p>
+                            </div>
+                            <div class="mt-timeline-content">
+                                <div class="mt-content-container">
+                                    <div class="mt-title">
+                                        <h3 class="mt-content-title">Conference Post Mortem</h3>
+                                    </div>
+                                    <div class="mt-author">
+                                        <!-- <div class="mt-avatar">
+                                                <img src="../assets/pages/media/users/avatar80_1.jpg">
+                                            </div> -->
+                                        <div class="mt-author-name">
+                                            <a href="javascript:;" class="font-blue-madison">Classes</a>
+                                        </div>
+                                        <div class="mt-author-notes font-grey-mint">01/14/2019</div>
+                                    </div>
+                                    <div class="mt-content border-grey-salt">
+                                        <p>Facility: GA Seminar (GASEMINAR)</p>
+                                        <p>New Members: 1000</p>
+                                        <p>Total Revenue: $20,000.00</p>
+                                        <p>Closing Rate: 225.23%</p>
+                                        <p>Representative: vinh dang (DEVADMIN);Lan Nguyen (lnguyen)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

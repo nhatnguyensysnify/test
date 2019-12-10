@@ -1,0 +1,60 @@
+<div class="col-md-12 text-right margin-bottom-10">
+    <a href="#" class="btn blue" ng-if="userPermission && userPermission.isAdmin && !isEditProfile" ng-click="openModalAddRole()">Select
+        Role</a>
+</div>
+<div class="table-scrollable">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th class="width35 text-left"> Role Name </th>
+                <th class="width55 text-left"> Description </th>
+                <!-- <th class="width10 text-center">&nbsp</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="uRole in userRoles">
+                <td class="width35 text-left"> {{uRole.name}} </td>
+                <td class="width55 text-left"> {{uRole.description}} </td>
+                <!-- <td class="width10 text-center">
+                    <a href="javascript:;" ng-if="userPermission && userPermission.isAdmin && !isEditProfile"
+                        class="btn btn-outline btn-circle dark btn-sm red" ng-click="removeOutRoles($index, uRole)">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </td> -->
+            </tr>
+            <tr ng-if="userRoles.length === 0">
+                <td colspan="2">User does not have any role assigned</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- <div class="col-md-12 text-right margin-bottom-10">
+            <a href="#" class="btn blue" ng-click="showPopupAddUserToRole()">Add Role</a>
+        </div>
+        <form role="form" id="changeUserRoles" name="changeUserRoles" novalidate ng-submit="saveChangeRole()">
+            <table class="table table-light table-hover">
+                <tr ng-repeat="item in userRoles" ng-if="userRoles.length > 0">
+                    <td class="bold">{{item.name}}</td>
+                    <td>
+                        {{item.permissionstxt}}
+                    </td>
+                    <td>
+                        <a href="#" ng-click="removeRole($index)">
+                            <i class="fa fa-close font-red"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-if="userRoles.length == 0">
+                    <td>User does not have any roles assigned</td>
+                </tr>
+            </table>
+            <div class="margin-top-10">
+                <button class="btn green" type="submit">
+                    Save Change
+                </button>
+                <button class="btn default" type="button" ng-click="cancelChangeUserRoles()">
+                    Cancel
+                </button>
+
+            </div>
+        </form> -->

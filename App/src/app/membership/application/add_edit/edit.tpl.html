@@ -1,0 +1,248 @@
+<div id="edit-web-app" class="col-md-10 border-left no-margin-left no-margin-right " style="min-height:500px;">
+    <!-- New Web Form-->
+    <div class="portlet light bordered" ng-class="{'hidden': settings.webForm == false}">
+        <div class="portlet-title">
+            <div class="col-md-4 text-left">
+                <div class="caption-subject font-dark sbold uppercase">Member Name: <span class="green">{{applicationVm.getMemberName(applicationVm.memberModel)}}</span></div>
+            </div>
+            <div class="col-md-3 text-center">
+                <span class="caption-subject font-dark sbold uppercase">
+                    Status: <a href="#" title="Warning ! " ng-click="applicationVm.popupChangeStatus(applicationVm.model)"> {{applicationVm.getAppStatus(applicationVm.model.status)}}
+                    <i class="fa blue" ng-class="applicationVm.getIconStatus(applicationVm.model)"></i>
+                    <i class="fa fa-lock blue" ng-show="applicationVm.model.isLocked === true"></i>
+                    </a>
+                    <br>
+                    <a href="#" ng-click="applicationVm.showPopupTrackingActivities()"> Tracking Activities
+                        <i class="fa blue fa-info-circle"></i>
+                    </a>
+                </span>
+            </div>
+            <div class="col-md-4 text-left">
+                <div class="caption-subject font-dark sbold uppercase">Last Modified By: <span class="green">{{applicationVm.getStaffName(applicationVm.model)}}</span></div>
+                <div class="caption-subject font-dark sbold uppercase">Last Modified Date: <span class="green">{{(applicationVm.model.timestampModified || applicationVm.model.timestampCreated) | date: 'MM/dd/yyyy @ h:mm a'}}</span></div>
+            </div>
+            <div class="col-md-1 text-left">
+                <button ng-if="applicationVm.model.status == 8 || (applicationVm.model.status >= 3 && applicationVm.memberModel && applicationVm.memberModel.accountId)" type="button" class="btn btn-primary" ng-click="applicationVm.refreshStatus()">Refresh</button>
+            </div>
+        </div>
+        <!--Line Step-->
+        <div class="portlet-title">
+            <div class="mt-element-step">
+                <div class="row step-line">
+                    <div class="col-md-2 col-md-offset-1 mt-step-col first" ng-class="{error: applicationVm.model.status == 0, done: applicationVm.model.status == 1 || applicationVm.model.status == 2 || applicationVm.model.status == 3 || applicationVm.model.status == 4 || applicationVm.model.status == 5 || applicationVm.model.status == 6 || applicationVm.model.status == 7 || applicationVm.model.status == 8}">
+                        <div class="mt-step-number bg-white">
+                            <i class="fa fa-file-o"></i>
+                        </div>
+                        <div class="mt-step-title uppercase font-grey-cascade">New</div>
+                    </div>
+                    <div class="col-md-2 mt-step-col gray" ng-class="{error: applicationVm.model.status == 1, done: applicationVm.model.status == 2 || applicationVm.model.status == 3 || applicationVm.model.status == 4 || applicationVm.model.status == 5 || applicationVm.model.status == 6 || applicationVm.model.status == 7 || applicationVm.model.status == 8}">
+                        <div class="mt-step-number bg-white">
+                            <i class="fa fa-spinner"></i>
+                        </div>
+                        <div class="mt-step-title uppercase font-grey-cascade">Processing</div>
+                    </div>
+                    <div class="col-md-2 mt-step-col gray" ng-class="{error: applicationVm.model.status == 2, done: applicationVm.model.status == 3 || applicationVm.model.status == 4 || applicationVm.model.status == 5 || applicationVm.model.status == 6 || applicationVm.model.status == 7 || applicationVm.model.status == 8}">
+                        <div class="mt-step-number bg-white">
+                            <i class="fa fa-check-square-o"></i>
+                        </div>
+                        <div class="mt-step-title uppercase font-grey-cascade">Verified</div>
+                    </div>
+                    <div class="col-md-2 mt-step-col gray" ng-class="{error: applicationVm.model.status == 3 || applicationVm.model.status == 5 || applicationVm.model.status == 6 || applicationVm.model.status == 7, done: applicationVm.model.status == 4 || applicationVm.model.status == 5 || applicationVm.model.status == 6 || applicationVm.model.status == 7 || applicationVm.model.status == 8}">
+                        <div class="mt-step-number bg-white">
+                            <i class="fa fa-hourglass-half"></i>
+                        </div>
+                        <div class="mt-step-title uppercase font-grey-cascade">Pending</div>
+                    </div>
+                    <div class="col-md-2 mt-step-col gray last" ng-class="{done: applicationVm.model.status == 4 || applicationVm.model.status == 8}">
+                        <div class="mt-step-number bg-white">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <div class="mt-step-title uppercase font-grey-cascade">Member</div>
+                    </div>
+                    <!--<div class="col-md-2 mt-step-col last">
+                        <div class="mt-step-number bg-white">
+                            <i class="fa fa-user-times"></i>
+                        </div>
+                        <div class="mt-step-title uppercase font-grey-cascade">Expired</div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <!--form content-->
+        <div class="portlet-body form">
+            <!--<form class="form-horizontal" role="form" name="appForm" novalidate>-->
+            <div class="form-body " id="application-content">
+                <div class="row">
+                    <form class="form-horizontal" role="form" name="appForm" novalidate>
+                        <div id="application_form" class="col-sm-12 left overflow-application" ng-class="{'col-md-4': !toggleImagePnl && (applicationVm.model.status == 1 || applicationVm.model.status == 7) && userPermission.isAccessPermission == true, 'col-md-12': (applicationVm.model.status != 1 && applicationVm.model.status != 7), 'col-md-9': toggleImagePnl && (applicationVm.model.status == 1 || applicationVm.model.status == 7) && userPermission.isAccessPermission == true}">
+                            <div class="form-body">
+                                <div class="form-group font-yellow-crusta" ng-if="_.trim(indicatorMsgErr) !== ''">
+                                    <label class="col-md-12 bold control-label font-16" style="text-align:center !important;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>{{indicatorMsgErr}}</label>
+                                </div>
+                                <div class="form-group font-yellow-crusta" ng-if="applicationVm.model.submitting">
+                                    <label class="col-md-12 bold control-label font-14" style="text-align:center !important;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>This application is submitted.</label>
+                                </div>
+                                <div class="form-group has-error" ng-if="applicationVm.errMsg && _.trim(applicationVm.errMsg) !== '' && applicationVm.model.status !== 4">
+                                    <label class="col-md-12 bold control-label" style="text-align:center !important;"><span class="required-field">* Error Message: </span>{{applicationVm.errMsg}}</label>
+                                </div>
+                                <!--State-->
+                                <div class="portlet light no-margin-bottom">
+                                    <div class="portlet-title">
+                                        <div class="caption width100">
+                                            <i class="fa fa-star"></i>
+                                            <span class="caption-subject bold uppercase">Select Program</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.appState.$error.required)}">
+                                    <label class="col-md-4 control-label">State <span class="required-field">*</span></label>
+                                    <div class="col-md-8">
+                                        <select name="appState" ng-model="applicationVm.model.state" required class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-change="applicationVm.changeState()">
+                                                <option value="" disabled >State</option>
+                                                <option ng-repeat="state in applicationVm.appStatelist" data-id="{{state.id}}" value="{{state.iso}}">{{state.name}}</option>
+                                            </select>
+                                        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.state.$error.required">* This field is required</label>-->
+                                    </div>
+                                </div>
+                                <!-- Regions -->
+                                <div class="form-group" ng-class="{'has-error': (applicationVm.showInvalid && appForm.appState.$error.required)}">
+                                    <label class="col-md-4 control-label">Plan Type <span class="required-field">*</span></label>
+                                    <div class="col-md-8">
+                                        <select name="appRegion" ng-model="applicationVm.model.region" required class="form-control" autocomplete="off" ng-disabled="applicationVm.model.isLocked" ng-change="applicationVm.changeRegion()">
+                                                <option value="" disabled >Plan Type</option>
+                                                <option ng-repeat="region in applicationVm.regionGroups[applicationVm.model.state]" data-code="{{region.code}}" value="{{region.id}}">{{region.guid}}</option>
+                                            </select>
+                                        <!--<label class="control-label" ng-show="applicationVm.showInvalid && appForm.state.$error.required">* This field is required</label>-->
+                                    </div>
+                                </div>
+                                <!--Payment Method-->
+
+                                <ng-include src="'app/membership/application/add_edit/_edit_group_paymentmethod.tpl.html'" ng-if="applicationVm.model.regionCode == 'standard'"></ng-include>
+                                
+                                <!--Primary Member-->
+                                <ng-include src="'app/membership/application/add_edit/_edit_group_pri_member.tpl.html'"></ng-include>
+                                <ng-include src="'app/membership/application/add_edit/_edit_group_agency.tpl.html'" ng-if="applicationVm.model.regionCode=='leo'"></ng-include>
+                                <div class="form-group" ng-if="applicationVm.model.regionCode == 'nfa' || applicationVm.model.regionCode == 'sec'" ng-class="{'has-error': applicationVm.showInvalid && appForm.officerRegistration.$error.required}">
+                                    <label class="col-md-4 control-label">Private Security Officer Registration#<span class="required-field">*</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" placeholder="Private Security Officer Registration" value="" ng-model="applicationVm.model.officerRegistration" name="officerRegistration" ng-click="focusMe('officerRegistration', false)" ng-class="{'form-check': mapping.officerRegistration.selected}" ng-disabled="applicationVm.model.isLocked"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <!--Secondary Member-->
+                                <ng-include src="'app/membership/application/add_edit/_edit_group_sec_member.tpl.html'"></ng-include>
+
+                                <ng-include src="'app/membership/application/add_edit/_edit_group_paymentmethod.tpl.html'" ng-if="applicationVm.model.regionCode !== 'standard'"></ng-include>
+
+                                <ng-include src="'app/membership/application/add_edit/_edit_group_total.tpl.html'"></ng-include>
+                                
+                                <ng-include src="'app/membership/application/add_edit/_edit_group_sign_fac_extra.tpl.html'"></ng-include>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div id="application_image" class="col-sm-12 right" ng-class="{ 'col-md-8': !toggleImagePnl && (applicationVm.model.status == 1 || applicationVm.model.status == 7) && userPermission.isAccessPermission == true, 'col-md-3': toggleImagePnl }" ng-if="(applicationVm.model.status == 1 || applicationVm.model.status == 7) && userPermission.isAccessPermission == true">
+                        <ul class="nav nav-tabs">
+                            <li>
+                                <a href="javascript:void(0);" ng-click="toggleImagePnlFunc()"><i class="fa fa-chevron-left" ng-class="{ 'fa-chevron-right': !toggleImagePnl }"></i></a>
+                            </li>
+
+                            <li ng-show="!itemFile.isDeleted || itemFile.isDeleted == false" ng-class="{active: (applicationVm.activeFileUploadTab == false && itemFile.isSelected === true && applicationVm.tabFileId < 0) || itemFile.id == applicationVm.tabFileId}" ng-repeat="(key, itemFile) in applicationVm.model.physicalFiles  | filter: filesFilter"
+                                ng-click="applicationVm.activeFileTab(itemFile)">
+                                <a href="#tab_{{itemFile.id}}" data-toggle="tab"><i class="fa fa-check" ng-show="itemFile.isSelected === true"></i> Version {{$index + 1}} </a>
+                            </li>
+                            <li ng-class="{active: applicationVm.activeFileUploadTab === true}" ng-click="applicationVm.activeUploadFileTab()" id="li-tab-upload-file">
+                                <a href="#tab_upload_file" data-toggle="tab"> Upload File </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" style="zoom: 75%;">
+                            <!--versions-->
+                            <div class="tab-pane no-scroll fade in" ng-show="!itemFile.isDeleted || itemFile.isDeleted == false" id="tab_{{itemFile.id}}" ng-class="{active: (applicationVm.activeFileUploadTab == false && itemFile.isSelected == true && applicationVm.tabFileId < 0) || itemFile.id == applicationVm.tabFileId}"
+                                ng-repeat="(key, itemFile) in applicationVm.model.physicalFiles">
+                                <div class="row">
+                                    <div class="col-md-8" padding-bottom-10 ng-show="itemFile.status == 3 && itemFile.status != 2">
+                                        <span>Processed at</span><span class="bold"> {{itemFile.processedAt | date : "MM/dd/yyyy @ h:mm a "}} CST</span>
+                                        <span style="display: inline-block; margin-left: 30px;">
+                                                <button type="button" class="btn btn-primary" ng-click="applicationVm.processFile(key, itemFile)">Reprocess</button>
+                                        </span>
+                                    </div>
+                                    <div class="padding-bottom-10 text-right" ng-class="itemFile.status == 3 && itemFile.status != 2 ? 'col-md-4' : 'col-md-12'">
+                                        <button type="button" class="btn btn-primary margin-l-r-10" ng-click="applicationVm.showPopupOriginalImage(itemFile)"><i class="fa fa-picture-o"></i>Original Image</button>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="bold">Status: {{applicationVm.getFileStatus(itemFile.status, itemFile)}} </span>
+                                        <span ng-show="itemFile.status == 0" style="display: inline-block; margin-left: 30px;">
+                                                <button type="button" class="btn btn-primary" ng-click="applicationVm.processFile(key, itemFile)">Process</button>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 text-right">
+                                        <button type="button" ng-show="itemFile.status == 3" class="btn blue margin-l-r-10" ng-click="applicationVm.openPreviewModal(itemFile, $index)"> <i class="fa fa-search"></i> Preview </button>
+                                        <!--<button ng-show="!itemFile.isSelected && itemFile.status == 3" type="button" class="btn btn-success margin-l-r-10" ng-click="applicationVm.selectFile(itemFile)"> Select </button>-->
+                                        <!--<button ng-show="itemFile.isSelected == true" type="button" class="btn btn-success margin-l-r-10" disabled> <i class="fa fa-check"></i> Selected </button>-->
+                                        <button type="button" class="btn red margin-l-r-10" ng-click="applicationVm.recycleFile(key, itemFile)"> <i class="fa fa-times"></i> Delete</button>
+                                    </div>
+                                </div>
+                                <div class="row">&nbsp;</div>
+                                <div class="form-application overflow-application application-app-img" id="application-img-{{$index}}" style="background-image:url();" ng-init="applicationVm.getAppImage(itemFile,$index)">
+                                    <canvas id="canvas-img-{{$index}}"></canvas>
+                                    <span class="input-group" ng-repeat="m in markers" ng-style="{'top': m.pos.top, 'left': m.pos.left, 'width': m.size.width, 'height': m.size.height}" ng-click="focusMe(m.map, false)" ng-class="{'form-check ': mapping[m.map].selected}">
+                                            <span class="checkmark">
+                                                <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': !mapping[m.map].valid}"></i>
+                                            </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade in" id="tab_upload_file" ng-class="{active: applicationVm.activeFileUploadTab === true}">
+                                <div class="modal-content">
+                                    <div class="text-center" ng-click="applicationVm.activeEditApp()">
+                                        <ng-dropzone class="dropzone dz-clickable" options="applicationVm.dzOptions" callbacks="applicationVm.dzCallbacks">
+                                        </ng-dropzone>
+                                        <!-- <form action="http://localhost:3000/#/media/uploadfiles" class="dropzone dropzone-file-area" id="form-dropzone" style="width: 100%;">
+                                            <h3 class="sbold">Drop files here or click to upload</h3>
+                                            <p> This is just a demo dropzone. Selected files are not actually uploaded. </p>
+                                            <div>
+                                                <button type="button" name="clearFiles" class="btn blue" ng-click="applicationVm.clearUploadedFiles()">Clear Files</button>
+                                            </div>
+                                        </form> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions" ng-show="applicationVm.model.state !==''">
+                <div class="row">
+                    <div class="col-md-offset-5 col-md-7">
+                        <!-- New Status -->
+                        <button ng-if="applicationVm.model.status == 0" type="button" class="btn blue" ng-click="applicationVm.process()" ng-disabled="appForm.$invalid || applicationVm.model.facilityId == '0'">Process</button>
+
+                        <!-- Processing Status -->
+                        <!--button ng-if="applicationVm.model.status == 1 && applicationVm.model.physicalFiles.length > 0" type="button" class="btn blue">Process OCR</button-->
+                        <button ng-if="applicationVm.model.status == 1 || applicationVm.model.status == 7" type="button" class="btn green" ng-click="applicationVm.justSave()">Save</button>
+                        <button ng-if="applicationVm.model.status == 1 || applicationVm.model.status == 7" type="button" class="btn green" ng-click="applicationVm.verify()" ng-disabled="appForm.$invalid || (applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast))">Verify</button>
+
+                        <!-- Processed Status -->
+                        <button ng-if="applicationVm.model.status == 2 || applicationVm.model.status == 3 || applicationVm.model.status == 5 || applicationVm.model.status == 6" type="button" class="btn blue" ng-click="applicationVm.unLock()">Unlock</button>
+                        <button ng-if="applicationVm.model.status == 2" ng-class="{'btn-summitting': applicationVm.submitting}" type="button" class="btn green" ng-disabled="appForm.$invalid || applicationVm.submitting || applicationVm.model.submitting" ng-click="applicationVm.submit()"><i ng-if="applicationVm.submitting" class="fa fa-submitting"></i>Submit</button>
+
+                        <button ng-if="[3,5,7].indexOf(applicationVm.model.status) > -1" type="button" class="btn green" ng-click="applicationVm.membershipOverwrite()" ng-disabled="appForm.$invalid || (applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast))">Membership Overwrite</button>
+
+                        <button ng-if="[4,8].indexOf(applicationVm.model.status) > -1" type="button" class="btn btn-warning" ng-click="applicationVm.cancelAccount()" ng-disabled="appForm.$invalid || (applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast))">Cancel Account</button>
+
+                        <!-- Pending Status -->
+                        <!--button ng-if="applicationVm.model.status == 3 || applicationVm.model.status == 5 || applicationVm.model.status == 6 || applicationVm.model.status == 7" type="button" class="btn green">Unlock</button-->
+
+                        <!-- Approved Status -->
+                        <button ng-if="applicationVm.model.status == 8 || applicationVm.model.status == 4" type="button" class="btn green" ng-click="applicationVm.viewMember()">View Member</button>
+
+                        <button type="button" id="cancel-app" class="btn default" ng-click="applicationVm.cancel()">Reload</button>
+                        <button type="button" class="btn green" ng-click="applicationVm.showPopupOriginalImage(applicationVm.currentFiles)" ng-if="userPermission.isAccessPermission && applicationVm.currentFiles !== null">View Image</button>
+                    </div>
+                </div>
+            </div>
+            <!--</form>-->
+        </div>
+    </div>
+</div>

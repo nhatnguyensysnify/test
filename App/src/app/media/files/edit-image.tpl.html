@@ -1,0 +1,78 @@
+<div class="portlet light portlet-fit bordered">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="icon-settings font-red"></i>
+            <span class="caption-subject font-red sbold uppercase">Editable Form</span>
+        </div>
+        <div class="actions">
+            <div data-toggle="buttons" class="btn-group btn-group-devided">
+                
+                <a href="#/media/add" class="btn btn-transparent red btn-outline btn-circle btn-sm active">Save</a>
+                <a href="#/media/add" class="btn btn-transparent red btn-outline btn-circle btn-sm">Save As</a>
+                
+            </div>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-7 col-sm-12 responsive-1024">
+                <img src="../img/image2.jpg" id="demo2" alt="Jcrop Example" class="img-responsive" />
+            </div>
+            <div class="col-md-5 col-sm-12 responsive-1024">
+                <h4>Cropped Image Details:</h4>
+                <form id="coords" class="coords form-inline" onsubmit="return false;" action="#">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>
+                                <label class="control-label">X1</label>
+                            </td>
+                            <td>
+                                <input type="text" id="x1" name="x1" class="form-control btn-sm" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label">Y1</label>
+                            </td>
+                            <td>
+                                <input type="text" id="y1" name="y1" class="form-control btn-sm" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label">X2</label>
+                            </td>
+                            <td>
+                                <input type="text" id="x2" name="x2" class="form-control btn-sm" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label">Y2</label>
+                            </td>
+                            <td>
+                                <input type="text" id="y2" name="y2" class="form-control btn-sm" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label">Width</label>
+                            </td>
+                            <td>
+                                <input type="text" id="w" name="w" class="form-control btn-sm" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="control-label">Height</label>
+                            </td>
+                            <td>
+                                <input type="text" id="h" name="h" class="form-control btn-sm" />
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
