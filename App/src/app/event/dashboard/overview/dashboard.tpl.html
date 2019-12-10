@@ -19,7 +19,7 @@
                             <date-range-report id="EventDateRange" position="left" ng-disabled="initPage" event="true" start="{{eventVm.timestampStart}}" end="{{eventVm.timestampEnd}}" style="position: relative;top: 0px;"></date-range-report>
                             <div class="btn-group">
                                 <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"ng-disabled="initPage" title="Export CSV" href="#" style="position: relative;top: 0px;">
-                                    <i class="fa fa-download"></i>
+                                    <span class="fa fa-download"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu" style="left: -140px;">
                                     <li>
@@ -50,13 +50,13 @@
             <div class="portlet-body form">
                 <ul class="nav nav-tabs">
                     <li ng-class="{'active' : eventVm.tabIdx === 1 }">
-                        <a ng-click="eventVm.tabIdx = 1;"><i class="fa fa-dashboard"></i> Overview </a>
+                        <a ng-click="eventVm.tabIdx = 1;"><span class="fa fa-dashboard"></span> Overview </a>
                     </li>
                     <li ng-class="{'active' : eventVm.tabIdx === 2 }">
-                        <a ng-click="eventVm.tabIdx = 2; eventVm.onSwitchTabs();"><i class="fa fa-map"></i> States</a>
+                        <a ng-click="eventVm.tabIdx = 2; eventVm.onSwitchTabs();"><span class="fa fa-map"></span> States</a>
                     </li>
                     <li ng-class="{'active' : eventVm.tabIdx === 3 }">
-                        <a ng-click="eventVm.tabIdx = 3; eventVm.onSwitchTabs();"><i class="fa fa-check-square-o"></i> Events Completion</a>
+                        <a ng-click="eventVm.tabIdx = 3; eventVm.onSwitchTabs();"><span class="fa fa-check-square-o"></span> Events Completion</a>
                     </li>
                     <!-- <li ng-class="{'active' : eventVm.tabIdx === 4 }">
                         <a ng-click="eventVm.tabIdx = 4;"><i class="fa fa-paper-plane"></i> Notification</a>

@@ -107,7 +107,7 @@
                     <div class="col-xs-12" ng-class="{'col-sm-6 col-md-4 col-lg-3': cri.licenseExp, 'col-sm-12 col-md-4 col-lg-6': !cri.licenseExp}">
                         <div class="btn-group form-group margin-top-bottom-5" style="float:right;">
                             <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV" href="#" style="position: relative;top: 0px;">
-                                <i class="fa fa-download"></i>
+                                <span class="fa fa-download"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu" style="left: -140px;">
                                 <li>
@@ -250,13 +250,13 @@
                                         <tr>
                                             <td class="width35 text-left">Status: </td>
                                             <td class="text-left">
-                                                <i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i>
+                                                <span class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="width35 text-left"></td>
                                             <td class="text-left">
-                                                <a href="#" ng-click="showManagerInfo(item)" data-toggle="tooltip" title="Show Manager Hierarchy"><i class="fa fa-info-circle"></i></a>
+                                                <a href="#" ng-click="showManagerInfo(item)" data-toggle="tooltip" title="Show Manager Hierarchy"><span class="fa fa-info-circle"></span></a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -293,7 +293,7 @@
                             <td class="hidden-xs hidden-sm">
                                 {{item.timestampActivity?(item.timestampActivity | date: 'MM/dd/yyyy hh:mm a'):""}}
                             </td>
-                            <td class="hidden-xs hidden-sm text-center"><i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i>
+                            <td class="hidden-xs hidden-sm text-center"><span class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></span>
                             </td>
                             <td class="hidden-xs hidden-sm text-center"><a href="#" data-toggle="tooltip" title="Show Manager Hierarchy" ng-click="showManagerInfo(item)"><i
                                         class="fa fa-info-circle"></i></a></td>

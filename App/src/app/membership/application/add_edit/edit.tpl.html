@@ -55,7 +55,7 @@
                     </div>
                     <div class="col-md-2 mt-step-col gray last" ng-class="{done: applicationVm.model.status == 4 || applicationVm.model.status == 8}">
                         <div class="mt-step-number bg-white">
-                            <i class="fa fa-user"></i>
+                            <span class="fa fa-user"></span>
                         </div>
                         <div class="mt-step-title uppercase font-grey-cascade">Member</div>
                     </div>
@@ -89,7 +89,7 @@
                                 <div class="portlet light no-margin-bottom">
                                     <div class="portlet-title">
                                         <div class="caption width100">
-                                            <i class="fa fa-star"></i>
+                                            <span class="fa fa-star"></span>
                                             <span class="caption-subject bold uppercase">Select Program</span>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@
                                         <button type="button" ng-show="itemFile.status == 3" class="btn blue margin-l-r-10" ng-click="applicationVm.openPreviewModal(itemFile, $index)"> <i class="fa fa-search"></i> Preview </button>
                                         <!--<button ng-show="!itemFile.isSelected && itemFile.status == 3" type="button" class="btn btn-success margin-l-r-10" ng-click="applicationVm.selectFile(itemFile)"> Select </button>-->
                                         <!--<button ng-show="itemFile.isSelected == true" type="button" class="btn btn-success margin-l-r-10" disabled> <i class="fa fa-check"></i> Selected </button>-->
-                                        <button type="button" class="btn red margin-l-r-10" ng-click="applicationVm.recycleFile(key, itemFile)"> <i class="fa fa-times"></i> Delete</button>
+                                        <button type="button" class="btn red margin-l-r-10" ng-click="applicationVm.recycleFile(key, itemFile)"> <span class="fa fa-times"></span> Delete</button>
                                     </div>
                                 </div>
                                 <div class="row">&nbsp;</div>

@@ -107,6 +107,7 @@
                                         appUtils.hideLoading();
                                         $scope.errMessage = 'Your UserName is empty. Please contact admin.';
                                         $scope.showError = true;
+                                        $timeout(angular.noop);
                                         return;
                                     }
                                     if (!res) {
@@ -139,6 +140,7 @@
                                             //$scope.errMessage = 'User ' + user.email + ' has been existed. Please contact with MCM Admin';
                                             $scope.errMessage = "Unable to log in user, please contact your administrator";
                                             $scope.showError = true;
+                                            $timeout(angular.noop);
                                         });
                                     } else {
                                         // external user exists in firebase.
@@ -151,12 +153,14 @@
                                 appUtils.hideLoading();
                                 $scope.errMessage = profile.data.message;
                                 $scope.showError = true;
+                                $timeout(angular.noop);
                             }
                         }, function () {
                             $scope.loading = false;
                             appUtils.hideLoading();
                             $scope.errMessage = 'Can\'t get user profile!';
                             $scope.showError = true;
+                            $timeout(angular.noop);
                         });
                     } else {
                         //Login External False
@@ -164,7 +168,16 @@
                         appUtils.hideLoading();
                         $scope.errMessage = resLogin.data.message;
                         $scope.showError = true;
+                        $timeout(angular.noop);
+
                     }
+                }, (error) => {
+                    console.log(error);
+                    $scope.loading = false;
+                    appUtils.hideLoading();
+                    $scope.errMessage = error;
+                    $scope.showError = true;
+                    $timeout(angular.noop);
                 });
             }
         }

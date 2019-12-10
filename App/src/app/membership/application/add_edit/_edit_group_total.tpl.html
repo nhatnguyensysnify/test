@@ -1,7 +1,7 @@
 <div class="portlet light no-margin-bottom">
     <div class="portlet-title">
         <div class="caption width100">
-            <i class="fa fa-usd"></i>
+            <span class="fa fa-usd"></span>
             <span class="caption-subject bold uppercase">Total</span>
         </div>
     </div>
@@ -12,7 +12,7 @@
         <div class="input-inline">
             <div class="input-group">
                 <span class="input-group-addon">
-                                                    <i class="fa fa-usd"></i>
+                                                    <span class="fa fa-usd"></span>
                                                 </span>
                 <input name="priMemTotal" type="text" class="form-control " ng-currency currency-symbol="$" placeholder="9,999.99" ng-model="applicationVm.model.total.subTotalAmount" ng-click="focusMe('priMemTotal', false)" ng-class="{'form-check': mapping.priMemTotal.selected}" required ng-disabled="true">
             </div>
@@ -55,7 +55,7 @@
         <div class="input-inline">
             <div class="input-group">
                 <span class="input-group-addon">
-                                                        <i class="fa fa-usd"></i>
+                                                        <span class="fa fa-usd"></span>
                                                     </span>
                 <input disabled type="text" ng-class="{'not-setup-fee' : applicationVm.model.waivedSetupFee}" class="form-control" ng-currency currency-symbol="$" placeholder="9,999.99" ng-model="applicationVm.model.total.setupFee" name="setupFee">
             </div>

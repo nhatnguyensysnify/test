@@ -43,7 +43,7 @@
             </label>
         </div>
         <div class="input-icon">
-            <i class="fa fa-calendar"></i>
+            <span class="fa fa-calendar"></span>
             <input name="dateSignature" type="text" single-date-picker id="editAppdateSignature" date-before="applicationVm.expirationCard" date-or-equals="true" class="form-control" ng-model="applicationVm.model.signatureDate" ng-click="focusMe('dateSignature', false)" ng-class="{'form-check': mapping.dateSignature.selected}" ng-disabled="applicationVm.model.isLocked">
         </div>
         <label class="control-label required-field" ng-show="applicationVm.model.signature && appForm.dateSignature.$error.dateBefore">* Signature date must be before expiration date </label>
@@ -112,7 +112,7 @@
     <label class="col-md-4 control-label" for="enteredDate">Date app was entered</label>
     <div class="col-md-7">
         <div class="input-icon">
-            <i class="fa fa-calendar"></i>
+            <span class="fa fa-calendar"></span>
             <input name="enteredDate" type="text" single-date-picker id="editAppEnteredDate" class="form-control" ng-model="applicationVm.model.enteredDate" ng-click="focusMe('enteredDate', false)" ng-class="{'form-check': mapping.enteredDate.selected}" ng-disabled="applicationVm.model.isLocked">
         </div>
         <!--<input type="text" class="form-control " placeholder="Date" >-->

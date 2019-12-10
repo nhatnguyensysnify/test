@@ -25,19 +25,19 @@
 		 						'</div>',
 		 						'<div class="col-xs-12 col-sm-4 col-md-3 no-padding-left-right  action-tools">',
 		 							'<a href="#" ng-show="!cate.isEdit" title="edit" ng-click="showEditTool(cate)" class="padding-5 badge badge-primary" >',
-	                                '<i class="fa fa-edit"></i>',
+	                                '<span class="fa fa-edit"></span>',
 		                            '</a>',
 		                             '<a href="#" ng-show="cate.isEdit" title="save" ng-click="saveEdit(cate)" class="padding-5 badge badge-success">',
-                                        '<i class="fa fa-save"></i>',
+                                        '<span class="fa fa-save"></span>',
                                     '</a>',
 		                            '<a href="#" class="padding-5 badge badge-warning" title="add"  ng-if="!hideAddChild" ng-click="addChild(cate)">',
-		                                '<i class="fa fa-code-fork "></i>',
+		                                '<span class="fa fa-code-fork "></span>',
 		                            '</a>',
 		                            '<a ng-show="!cate.isEdit" href="#" class="padding-5 badge badge-danger" title="delete" ng-click="remove(cate)">',
-		                                '<i class="fa fa-trash"></i>',
+		                                '<span class="fa fa-trash"></span>',
 		                            '</a>',
 									'<a ng-show="cate.isEdit" href="#" class="padding-5 badge badge-danger" title="cancel" ng-click="cancel(cate)">',
-		                                '<i class="fa  fa-undo"></i>',
+		                                '<span class="fa  fa-undo"></span>',
 		                            '</a>',
 		 						'</div>',
 		 					'</div><br>',
@@ -109,10 +109,10 @@
 							      
 							                                    '<div class="col-xs-12 col-sm-4 col-md-3 no-padding-left-right action-tools">' +
 							                                        '<a href="#" class="padding-5 badge badge-success" title="create" ng-click="createChild(createChildForm)">'+
-							                                            '<i class="fa fa-save"></i>'+
+							                                            '<span class="fa fa-save"></span>'+
 							                                        '</a>'+
 							                                        '<a href="#" class="padding-5 badge badge-danger" title="cancel" ng-click="cancelCreateChild()">'+
-							                                            '<i class="fa fa-close"></i>'+
+							                                            '<span class="fa fa-close"></span>'+
 							                                        '</a>'+
 							                                    '</div>' +
 							                                '</div>' +

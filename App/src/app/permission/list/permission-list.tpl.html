@@ -8,7 +8,7 @@
                         <ul class="ver-inline-menu tabbable margin-bottom-10" style="box-shadow: none;">
                             <li ng-repeat="permission in permissionVm.permissions" ng-class="{ active: permissionVm.tabIdx === $index } " ng-click="permissionVm.tabIdx = $index; permissionVm.loadPermissionData(permission.$id)">
                                 <a data-toggle="tab" href="#tab_{{$index}}" aria-expanded="true" >
-                                    <i class="fa fa-briefcase"></i> <span>{{permission.name}} </span>
+                                    <span class="fa fa-briefcase"></span> <span>{{permission.name}} </span>
                                 </a>
                                 <span class="after"> </span>
                             </li>
@@ -67,7 +67,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <a href="#" class="badge badge-danger " title="remove" ng-click="permissionVm.removeUserPermission($index)">
-                                                                <i class="fa fa-times"></i>
+                                                                <span class="fa fa-times"></span>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -85,7 +85,7 @@
                                                         </select>
                                                         <span class="input-role-btn">
                                                             <button class="btn blue" type="button" ng-click="permissionVm.addUserPermission(userRoleForm)">
-                                                                <i class="fa fa-plus"></i>
+                                                                <span class="fa fa-plus"></span>
                                                             </button>
                                                         </span>
                                                     </div>
@@ -129,7 +129,7 @@
                                                         </td>
                                                         <td class="text-center">
                                                             <a href="#" class="badge badge-danger " title="remove" ng-click="permissionVm.removeRolePermission($index)">
-                                                                <i class="fa fa-times"></i>
+                                                                <span class="fa fa-times"></span>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -147,7 +147,7 @@
                                                         </select>
                                                         <span class="input-group-btn">
                                                             <button class="btn blue" type="button" ng-click="permissionVm.addRolePermission(rolePermissionForm)">
-                                                                <i class="fa fa-plus"></i>
+                                                                <span class="fa fa-plus"></span>
                                                             </button>
                                                         </span>
                                                     </div>

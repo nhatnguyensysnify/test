@@ -18,7 +18,7 @@
                                         <small>{{item.title}}</small>
                                     </div>
                                     <div class="col-md-2 no-padding-left-right text-right icon">
-                                        <i class="fa {{item.icon}} font-white" ng-if="item.type !== 'revenue'"></i>
+                                        <span class="fa {{item.icon}} font-white" ng-if="item.type !== 'revenue'"></span>
                                         <span class="label label-sm label-danger circle" ng-if="item.type === 'revenue'" style="background: #EF5B5B !important; font-size: 16px; padding: 6px 10px;">{{item.total}}</span>
                                     </div>
                                 </div>

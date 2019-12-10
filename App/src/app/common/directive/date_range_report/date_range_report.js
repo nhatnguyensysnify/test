@@ -5,7 +5,7 @@
             restrict: 'AE',
             replace: true,
             template: ['<div class="btn default">',
-                '<i class="fa fa-calendar"></i> &nbsp;',
+                '<span class="fa fa-calendar"></span> &nbsp;',
                 '<span> </span>',
                 '<b class="fa fa-angle-down"></b>',
                 '</div>'

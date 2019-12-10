@@ -1,7 +1,7 @@
 <div class="portlet light no-margin-bottom">
     <div class="portlet-title">
         <div class="caption width100">
-            <i class="fa fa-credit-card-alt"></i>
+            <span class="fa fa-credit-card-alt"></span>
             <span class="caption-subject bold uppercase">Payment Method</span>
         </div>
     </div>
@@ -30,13 +30,13 @@
             <div class="input-group" ng-if="applicationVm.model.status != 8 && applicationVm.model.status != 4 && applicationVm.model.status != 3">
                 <input type="credit card" class="form-control" ng-class="{'form-check': mapping.creditCardNum.selected}" placeholder="Credit Card Number" value="" ng-model="applicationVm.model.creditCard.creditCardNumber" name="creditCardNumber" ng-click="focusMe('creditCardNum', false)" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked" autocomplete="off" ng-change="applicationVm.detechCardType(applicationVm.model.creditCard.type)">
                 <span class="input-group-addon" ng-click="focusMe('creditCardNum', false)">
-                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.creditCardNum.valid}"></i>
+                    <span class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.creditCardNum.valid}"></span>
                 </span>
             </div>
             <div class="input-group" ng-if="applicationVm.model.status == 8 || applicationVm.model.status == 4 || applicationVm.model.status == 3">
                 <input type="text" class="form-control" ng-class="{'form-check': mapping.creditCardNum.selected}" placeholder="Credit Card Number" value="" ng-model="applicationVm.model.creditCard.creditCardNumber" name="creditCardNumber" ng-click="focusMe('creditCardNum', false)" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked">
                 <span class="input-group-addon" ng-click="focusMe('creditCardNum', false)">
-                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.creditCardNum.valid}"></i>
+                    <span class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.creditCardNum.valid}"></span>
                 </span>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Year" value="" ng-click="focusMe('expDate', false)" ng-class="{'form-check': mapping.expDate.selected}" ng-pattern="applicationVm.yearRegx" ng-model="applicationVm.model.creditCard.year" ui-mask="9999" name="cardExpYear" ng-required="applicationVm.model.processPayment" ng-disabled="applicationVm.model.isLocked">
                 <span class="input-group-addon" ng-click="focusMe('expDate', false)">
-                    <i class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.expDate.valid && appForm.cardExpMonth.$error.required && appForm.cardExpYear.$error.required}"></i>
+                    <span class="fa fa-check font-green-meadow" ng-class="{'font-red-pink': mapping && !mapping.expDate.valid && appForm.cardExpMonth.$error.required && appForm.cardExpYear.$error.required}"></span>
                 </span>
             </div>
         </div>

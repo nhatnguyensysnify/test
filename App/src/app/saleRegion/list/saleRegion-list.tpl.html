@@ -19,10 +19,10 @@
                             </div>
                             <div class="action-tools">
                                 <a href="#" class="badge badge-warning" ng-click="sRegionVm.openModalAddSaleRegion(item)" title="add">
-                                    <i class="fa fa-plus"></i>
+                                    <span class="fa fa-plus"></span>
                                 </a>
                                 <a href="#" class="badge badge-danger" ng-click="sRegionVm.remove(item, item.$id)" title="delete">
-                                    <i class="fa fa-trash"></i>
+                                    <span class="fa fa-trash"></span>
                                 </a>
                             </div>
                         </div>
@@ -38,10 +38,10 @@
                                     </div>
                                     <div class="action-tools">
                                         <a href="#" class="badge badge-warning" ng-click="sRegionVm.openModalAddTerritory(item, sKey)"title="add">
-                                            <i class="fa fa-plus"></i>
+                                            <span class="fa fa-plus"></span>
                                         </a>
                                         <a href="#" class="badge badge-danger" ng-click="sRegionVm.remove(state, item.$id, sKey)" title="delete">
-                                            <i class="fa fa-trash"></i>
+                                            <span class="fa fa-trash"></span>
                                         </a>
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="action-tools" ng-if="territory.id !== 'all'">
                                                 <a href="#" class="badge badge-danger" ng-click="sRegionVm.remove(territory, item.$id, sKey, tKey)" title="delete">
-                                                    <i class="fa fa-trash"></i>
+                                                    <span class="fa fa-trash"></span>
                                                 </a>
                                             </div>
                                         </div>

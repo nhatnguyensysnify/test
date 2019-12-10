@@ -5,7 +5,7 @@
     <span class="caption-subject font-blue-sharp bold uppercase">
     	Cash Collected 
     	<a class="btn btn-circle btn-icon-only btn-default margin-left-10 margin-top-10" title="Export Excel" href="#" ng-click="eCashVm.exportExcel()" style="position: relative;top: 0px;">
-            <i class="fa fa-download"></i>
+            <span class="fa fa-download"></span>
         </a></span>
 </div>
 <div class="form-group  margin-top-20 row">
@@ -84,10 +84,10 @@
 						<span>{{((eventVm.model.fees || 0) + (item.amount || 0))|currency}}</span>
 					</td> -->
 					<td >
-						<a href="#" class="btn btn-icon-only no-animate" ng-show="!item.editing" ng-click="eCashVm.edit(item, $index)"><i class="fa fa-edit"></i></a>
-						<a href="#" class="btn btn-icon-only no-animate" ng-show="item.editing" ng-click="eCashVm.save(item)"><i class="fa fa-floppy-o"></i></a>
-						<a href="#" class="btn btn-icon-only gray no-animate" ng-show="item.editing && item.timestampCreated" ng-click="eCashVm.cancel(item)"><i class="fa fa-times"></i></a>
-						<a href="#" class="btn btn-icon-only red no-animate" ng-show="!item.editing || !item.timestampCreated" ng-click="eCashVm.remove(item, $index)"><i class="fa fa-trash"></i></a>
+						<a href="#" class="btn btn-icon-only no-animate" ng-show="!item.editing" ng-click="eCashVm.edit(item, $index)"><span class="fa fa-edit"></span></a>
+						<a href="#" class="btn btn-icon-only no-animate" ng-show="item.editing" ng-click="eCashVm.save(item)"><span class="fa fa-floppy-o"></ispan></a>
+						<a href="#" class="btn btn-icon-only gray no-animate" ng-show="item.editing && item.timestampCreated" ng-click="eCashVm.cancel(item)"><span class="fa fa-times"></span></a>
+						<a href="#" class="btn btn-icon-only red no-animate" ng-show="!item.editing || !item.timestampCreated" ng-click="eCashVm.remove(item, $index)"><span class="fa fa-trash"></span></a>
 					</td>
 				</tr>
 			</tbody>

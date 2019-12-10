@@ -80,7 +80,7 @@
                             </td>
                             <td class="width5  text-center">
                                 <a href="javascript:;" ng-class="{'tracking-info-action': employeeHistoryVm.trackingDetails === $index}" ng-click="employeeHistoryVm.setShowTrackingDetail($index, item)">
-                                    <i class="fa fa-info-circle padding-5 font-dark font-16"></i>
+                                    <span class="fa fa-info-circle padding-5 font-dark font-16"></span>
                                 </a>
                             </td>
                         </tr>
@@ -90,7 +90,7 @@
                                     <div class="portlet light bordered device-info">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i> Information
+                                                <span class="fa fa-info-circle" aria-hidden="true"></span> Information
                                             </div>
                                         </div>
                                         <div class="portlet-body device-info-content">
@@ -148,7 +148,7 @@
                                     <div class="portlet light bordered file-info" ng-if="item.fileInfo">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i>Upload Details
+                                                <span class="fa fa-info-circle" aria-hidden="true"></span>Upload Details
                                             </div>
                                         </div>
                                         <div class="portlet-body file-info-content">
@@ -208,10 +208,10 @@
                                         </div>
                                         <div class="portlet-title">
                                             <div class="caption" ng-click="employeeHistoryVm.refresh(item, $index)">
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i>Applications
+                                                <span class="fa fa-info-circle" aria-hidden="true"></span>Applications
                                             </div>
                                             <div class="actions" style="padding: 10px 0px;">
-                                                <i class="fa fa-refresh font-green-jungle bold font-14" aria-hidden="true" ng-click="employeeHistoryVm.refresh(item, $index)"></i>
+                                                <span class="fa fa-refresh font-green-jungle bold font-14" aria-hidden="true" ng-click="employeeHistoryVm.refresh(item, $index)"></span>
                                             </div>
                                         </div>
                                         <div class="portlet-body file-info-content" ng-if="item.fileInfo && item.fileInfo.applicationData">
@@ -269,7 +269,7 @@
                                     <div class="portlet light bordered file-info" ng-if="item.diffValue && (item.action === 'updateProfile' || item.action === 'updateLicense' || item.action === 'updateAvailability')">
                                         <div class="portlet-title">
                                             <div class="caption">
-                                                <i class="fa fa-info-circle" aria-hidden="true"></i>Update Details
+                                                <span class="fa fa-info-circle" aria-hidden="true"></span>Update Details
                                             </div>
                                         </div>
                                         <div class="portlet-body">

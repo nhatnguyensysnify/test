@@ -4,10 +4,10 @@
             <div class="portlet-body form">
                 <ul class="nav nav-tabs">
                     <li ng-class="{'active' : eventVm.tabIdx === 1 }">
-                        <a ng-click="eventVm.tabIdx = 1; " href="#tab_1_1" data-toggle="tab" aria-expanded="true"><i class="fa fa-dashboard"></i> Overview </a>
+                        <a ng-click="eventVm.tabIdx = 1; " href="#tab_1_1" data-toggle="tab" aria-expanded="true"><span class="fa fa-dashboard"></span> Overview </a>
                     </li>
                     <li ng-class="{'active' : eventVm.tabIdx === 2 }">
-                        <a ng-click="eventVm.tabIdx = 2; eventVm.onSwitchTabs();" ng-if="eventVm.selectedCampaign" href="#tab_1_2" data-toggle="tab" aria-expanded="true"><i class="fa fa-paper-plane"></i> Campaign Details</a>
+                        <a ng-click="eventVm.tabIdx = 2; eventVm.onSwitchTabs();" ng-if="eventVm.selectedCampaign" href="#tab_1_2" data-toggle="tab" aria-expanded="true"><span class="fa fa-paper-plane"></span> Campaign Details</a>
                     </li>
                 </ul>
                 <div class="tab-content">

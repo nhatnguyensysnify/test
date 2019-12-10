@@ -65,7 +65,7 @@
                                         <tr>
                                             <td class="width35 text-left">Status: </td>
                                             <td class="text-left">
-                                                <i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i>
+                                                <span class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -87,7 +87,7 @@
                             </td>
                             <td class="hidden-xs hidden-sm" ng-bind-html="item.manager"></td>
                             <td class="hidden-xs hidden-sm">{{rVm.getRoleText(item)}}</td>
-                            <td class="hidden-xs hidden-sm text-center"><i class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></i></td>
+                            <td class="hidden-xs hidden-sm text-center"><span class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></span></td>
                             <td class="hidden-xs hidden-sm text-center">
                                 <a href="javascript:;" class="btn btn-outline btn-circle btn-sm" style="width: 90px;"
                                     ng-click="rVm.selectedReplace(item)" ng-class="{'font-red': item.selected, 'primary' : !item.selected}">

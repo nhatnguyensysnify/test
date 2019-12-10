@@ -574,7 +574,7 @@
         function showManagerInfo(item) {
             return getManagerInfo(item).then(function (managerText) {
                 var dialog = bootbox.dialog({
-                    title: '<i class="fa fa-info-circle margin-right-10"></i>' + item.firstName + ' ' +
+                    title: '<span class="fa fa-info-circle margin-right-10"></span>' + item.firstName + ' ' +
                         item.lastName + ' Manager Information',
                     message: managerText,
                     buttons: {

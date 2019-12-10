@@ -9,10 +9,10 @@
         <div ng-repeat="e in events">
             {{$index+1}}. <a ng-href="{{e.href}}" target="_blank" class="font-blue-madison ng-binding">{{e.name}}</a> -
             {{eventVm.getType(e.type)}} - <span ng-bind-html="eventVm.getFacility(e.facilityId)"></span>
-            <i class="fa fa-database font-green-jungle"
-                ng-style="{visibility: e.dataEntered === true ? 'visible': 'hidden'}"></i>
-            <i class="fa fa-cloud-upload font-green-jungle"
-                ng-style="{visibility: e.appUploaded === true ? 'visible': 'hidden'}"></i>
+            <span class="fa fa-database font-green-jungle"
+                ng-style="{visibility: e.dataEntered === true ? 'visible': 'hidden'}"></span>
+            <span class="fa fa-cloud-upload font-green-jungle"
+                ng-style="{visibility: e.appUploaded === true ? 'visible': 'hidden'}"></span>
         </div>
     </div>
     <br>

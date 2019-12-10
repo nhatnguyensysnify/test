@@ -4,15 +4,15 @@
             <div class="portlet-body form">
                 <ul class="nav nav-tabs">
                     <li ng-class="{'active' : eventVm.tabIdx === 1 }">
-                        <a ng-click="eventVm.tabIdx = 1;"><i class="fa fa-info-circle"></i>Details </a>
+                        <a ng-click="eventVm.tabIdx = 1;"><span class="fa fa-info-circle"></span>Details </a>
                     </li>
                     <li ng-class="{'active' : eventVm.tabIdx === 2 }"
                         ng-if="eventVm.ready && eventVm.isEdit && eventVm.model.status === 1 && !eventVm.model.primaryTLSKey">
-                        <a ng-click="eventVm.tabIdx = 2; eventVm.loadEventUploadHistory()"><i class="fa fa-upload"></i>
+                        <a ng-click="eventVm.tabIdx = 2; eventVm.loadEventUploadHistory()"><span class="fa fa-upload"></span>
                             Upload Applications</a>
                     </li>
                     <li ng-class="{'active' : eventVm.tabIdx === 3 }" ng-if="eventVm.ready && eventVm.isEdit">
-                        <a ng-click="eventVm.tabIdx = 3; eventVm.initMap()"><i class="fa fa-map"></i> Address </a>
+                        <a ng-click="eventVm.tabIdx = 3; eventVm.initMap()"><span class="fa fa-map"></span> Address </a>
                     </li>
                 </ul>
                 <div class="tab-content">

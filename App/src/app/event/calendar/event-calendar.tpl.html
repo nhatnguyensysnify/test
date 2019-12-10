@@ -43,7 +43,7 @@
       <!-- <small style="position: absolute; bottom: 10px; left: 5px;font-size: 1.2em; font-weight: 400; opacity: .5;">
          {{day.events[0].value}}
       </small> -->
-      <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <i class="glyphicon glyphicon-chevron-up"></i> <i class="fa fa-chevron-up"></i> </div>
+      <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <i class="glyphicon glyphicon-chevron-up"></i> <span class="fa fa-chevron-up"></span> </div>
   
     </div>
   </script>
@@ -90,7 +90,7 @@
         </a>
        </div>
       
-      <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <i class="glyphicon glyphicon-chevron-up"></i> <i class="fa fa-chevron-up"></i> </div>
+      <div class="cal-day-tick ng-hide" ng-show="dayIndex === vm.openDayIndex &amp;&amp; (vm.cellAutoOpenDisabled || vm.view[vm.openDayIndex].events.length > 0) &amp;&amp; !vm.slideBoxDisabled" aria-hidden="true"> <span class="glyphicon glyphicon-chevron-up"></span> <span class="fa fa-chevron-up"></span> </div>
   
     </div>
   </script>
@@ -144,7 +144,7 @@
                             <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown"
                                 data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV"
                                 href="#" style="position: relative;top: 0px;">
-                                <i class="fa fa-download"></i>
+                                <span class="fa fa-download"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu" style="left: -140px;">
                                 <li>
@@ -361,10 +361,10 @@
                                                 {{eventItem.state}} - <span
                                                     ng-bind-html="eventVm.getRequesters(eventItem.representativeAttended)"></span>
                                                 - <span ng-bind-html="eventVm.getFacility(eventItem.facilityId)"></span>
-                                                <i class="fa fa-database font-green-jungle"
-                                                    ng-style="{visibility: eventItem.dataEntered === true ? 'visible': 'hidden'}"></i>
-                                                <i class="fa fa-cloud-upload font-green-jungle"
-                                                    ng-style="{visibility: eventItem.appUploaded === true ? 'visible': 'hidden'}"></i>
+                                                <span class="fa fa-database font-green-jungle"
+                                                    ng-style="{visibility: eventItem.dataEntered === true ? 'visible': 'hidden'}"></span>
+                                                <span class="fa fa-cloud-upload font-green-jungle"
+                                                    ng-style="{visibility: eventItem.appUploaded === true ? 'visible': 'hidden'}"></span>
                                             </p>
 
                                         </div>
@@ -382,10 +382,10 @@
                                                 {{eventItem.state}} - <span
                                                     ng-bind-html="eventVm.getRequesters(eventItem.representativeAttended)"></span>
                                                 - <span ng-bind-html="eventVm.getFacility(eventItem.facilityId)"></span>
-                                                <i class="fa fa-database font-green-jungle"
-                                                    ng-style="{visibility: eventItem.dataEntered === true ? 'visible': 'hidden'}"></i>
-                                                <i class="fa fa-cloud-upload font-green-jungle"
-                                                    ng-style="{visibility: eventItem.appUploaded === true ? 'visible': 'hidden'}"></i>
+                                                <span class="fa fa-database font-green-jungle"
+                                                    ng-style="{visibility: eventItem.dataEntered === true ? 'visible': 'hidden'}"></span>
+                                                <span class="fa fa-cloud-upload font-green-jungle"
+                                                    ng-style="{visibility: eventItem.appUploaded === true ? 'visible': 'hidden'}"></span>
                                             </p>
                                         </div>
                                     </div>

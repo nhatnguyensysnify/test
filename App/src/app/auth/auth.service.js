@@ -183,7 +183,8 @@
         }
 
         function externalLogin(loginVm) {
-
+            console.log('externalLogin');
+            
             var jsonStr = {
                 "Username": loginVm.userName, // pmartella
                 "Password": loginVm.password, // 123456

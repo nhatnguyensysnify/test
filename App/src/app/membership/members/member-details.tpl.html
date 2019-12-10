@@ -43,22 +43,22 @@
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-barcode"></i> Facility: <span class="bold">{{membershipVm.applicationModel.facilityCode || ''}}</span> ({{facilityName || ''}})
+                            <span class="fa fa-barcode"></span> Facility: <span class="bold">{{membershipVm.applicationModel.facilityCode || ''}}</span> ({{facilityName || ''}})
                         </span>
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-id-badge"></i> Rep Code: <span class="bold">{{membershipVm.applicationModel.representativeCode || ''}}</span>
+                            <span class="fa fa-id-badge"></span> Rep Code: <span class="bold">{{membershipVm.applicationModel.representativeCode || ''}}</span>
                         </span>
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-id-badge"></i> Sale Rep: <span class="bold">{{membershipVm.saleRep || ''}}</span>
+                            <span class="fa fa-id-badge"></span> Sale Rep: <span class="bold">{{membershipVm.saleRep || ''}}</span>
                         </span>
                     </li>
                     <!-- <li>
                         <span class="mem-pro">
-                            <i class="fa fa-barcode"></i> Facility: <span class="bold">{{membershipVm.applicationModel.facilityCode || ''}}</span> ({{facilityName || ''}})
+                            <span class="fa fa-barcode"></span> Facility: <span class="bold">{{membershipVm.applicationModel.facilityCode || ''}}</span> ({{facilityName || ''}})
                         </span>
                     </li>
                     <li>
@@ -68,27 +68,27 @@
                     </li> -->
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-usd"></i> Total: <span class="bold">{{membershipVm.applicationModel.total && membershipVm.applicationModel.total.totalAmount ? membershipVm.applicationModel.total.totalAmount : 0 | currency }}</span>
+                            <span class="fa fa-usd"></span> Total: <span class="bold">{{membershipVm.applicationModel.total && membershipVm.applicationModel.total.totalAmount ? membershipVm.applicationModel.total.totalAmount : 0 | currency }}</span>
                         </span>
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-location-arrow"></i> State: <span class="bold">{{getState(membershipVm.applicationModel.state)}}</span>
+                            <span class="fa fa-location-arrow"></span> State: <span class="bold">{{getState(membershipVm.applicationModel.state)}}</span>
                         </span>
                     </li>
                     <li ng-if="membershipVm.applicationModel.eventId && _.trim(membershipVm.applicationModel.eventId) !== ''">
                         <span class="mem-pro">
-                            <i class="fa fa-calendar-check-o"></i> Event: <span class="bold">{{membershipVm.applicationModel.eventName}}</span>
+                            <span class="fa fa-calendar-check-o"></span> Event: <span class="bold">{{membershipVm.applicationModel.eventName}}</span>
                         </span>
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-registered"></i> Registration Date: <span class="bold">{{membershipVm.membership.timestampCreated | date: 'MM/dd/yyyy'}}</span>
+                            <span class="fa fa-registered"></span> Registration Date: <span class="bold">{{membershipVm.membership.timestampCreated | date: 'MM/dd/yyyy'}}</span>
                         </span>
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-registered"></i> Signature Date: <span class="bold">{{membershipVm.applicationModel.timestampSignatured | date: 'MM/dd/yyyy'}}</span>
+                            <span class="fa fa-registered"></span> Signature Date: <span class="bold">{{membershipVm.applicationModel.timestampSignatured | date: 'MM/dd/yyyy'}}</span>
                         </span>
                     </li>
                 </ul>
@@ -132,7 +132,7 @@
                                     <div class="portlet light no-margin-bottom" style="padding: 10px;">
                                         <div class="portlet-title">
                                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                                                <i class="fa fa-user"></i>
+                                                <span class="fa fa-user"></span>
                                                 <span class="caption-subject bold uppercase">Primary Member</span>
                                             </div>
                                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
@@ -219,7 +219,7 @@
                                     <div class="portlet light no-margin-bottom" style="padding: 10px;" ng-if="membershipVm.isSeccondMem == true">
                                         <div class="portlet-title">
                                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                                                <i class="fa fa-user"></i>
+                                                <span class="fa fa-user"></span>
                                                 <span class="caption-subject bold uppercase">Secondary Member</span>
                                             </div>
                                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
@@ -308,7 +308,7 @@
                                             <div class="input-group">
                                                 <input type="credit card" class="form-control" placeholder="Credit Card Number" value="" ng-model="membershipVm.applicationModel.creditCard.creditCardNumber" name="creditCardNumber" disabled>
                                                 <span class="input-group-addon" ng-click="focusMe('creditCardNum', false)">
-                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                        <span class="fa fa-check font-green-meadow"></span>
                                                     </span>
                                             </div>
                                         </div>
@@ -319,7 +319,7 @@
                                             <div class="input-group">
                                                 <input type="credit card" class="form-control" placeholder="Credit Card Number" value="" ng-model="membershipVm.applicationModel.creditCard.type" name="creditCardType" disabled>
                                                 <span class="input-group-addon" ng-click="focusMe('creditCardType', false)">
-                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                        <span class="fa fa-check font-green-meadow"></span>
                                                     </span>
                                             </div>
                                         </div>
@@ -333,7 +333,7 @@
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Year" value="" ng-model="membershipVm.applicationModel.creditCard.year" ui-mask="9999" name="cardExpYear" disabled>
                                                 <span class="input-group-addon">
-                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                        <span class="fa fa-check font-green-meadow"></span>
                                                     </span>
                                             </div>
                                         </div>
@@ -357,7 +357,7 @@
                                             <div class="input-inline">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
-                                                            <i class="fa fa-usd"></i>
+                                                            <span class="fa fa-usd"></span>
                                                         </span>
                                                     <input type="text" class="form-control" ng-currency currency-symbol="$" placeholder="99999" ng-model="membershipVm.applicationModel.cashInput" name="cashInput" disabled autocomplete="off">
                                                 </div>
@@ -370,7 +370,7 @@
                                             <div class="input-inline">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
-                                                            <i class="fa fa-usd"></i>
+                                                            <span class="fa fa-usd"></span>
                                                         </span>
                                                     <input type="text" class="form-control" ng-currency currency-symbol="$" placeholder="99999" ng-model="cashChange" name="cashChange" disabled autocomplete="off">
                                                 </div>
@@ -471,7 +471,7 @@
                                     <div class="portlet light no-margin-bottom">
                                         <div class="portlet-title">
                                             <div class="caption width100">
-                                                <i class="fa fa-user"></i>
+                                                <span class="fa fa-user"></span>
                                                 <span class="caption-subject bold uppercase">Primary Member</span>
                                             </div>
 
@@ -544,7 +544,7 @@
                                             <div class="input-inline">
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
-                                                                <i class="fa fa-usd"></i>
+                                                                <span class="fa fa-usd"></span>
                                                             </span>
                                                     <input disabled type="text" ng-class="{'not-setup-fee' : membershipVm.applicationModel.waivedSetupFee}" class="form-control" ng-currency currency-symbol="$" placeholder="9,999.99" ng-model="membershipVm.applicationModel.total.setupFee" name="setupFee">
                                                 </div>
@@ -554,7 +554,7 @@
                                     <div class="portlet light no-margin-bottom row" ng-if="userPermission.isAccessPermission && membershipVm.currentFiles !== null">
                                         <div class="portlet-title">
                                             <div class="caption col-xs-9 col-sm-9 col-md-9">
-                                                <i class="fa fa-user"></i>
+                                                <span class="fa fa-user"></span>
                                                 <span class="caption-subject bold uppercase">Application Processed</span>
                                             </div>
                                             <div class="caption col-xs-3 col-sm-3 col-md-3 text-right">
@@ -567,7 +567,7 @@
                                                 <div class="portlet light no-margin-bottom">
                                                     <div class="portlet-title">
                                                         <div class="caption width100">
-                                                            <i class="fa fa-user"></i>
+                                                            <span class="fa fa-user"></span>
                                                             <span class="caption-subject bold uppercase">Secondary Member</span>
                                                         </div>
 

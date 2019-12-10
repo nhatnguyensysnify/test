@@ -126,7 +126,7 @@
                                                             </tr>
                                                             <tr ng-if="userPermission.modify">
                                                                 <td class="width120">Action</td> 
-                                                                <td><a class="btn btn-icon-only blue" href="#" ng-click="egVm.edit(item)"><i class="fa fa-edit"></i></a></td>
+                                                                <td><a class="btn btn-icon-only blue" href="#" ng-click="egVm.edit(item)"><span class="fa fa-edit"></span>/a></td>
                                                             </tr>
 
                                                         </tbody>
@@ -150,8 +150,8 @@
                                                 <td class="hidden-xs hidden-sm text-left ng-binding">{{item.timestampString}}</td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding">{{item.modifiedBy.display}}</td>
                                                 <td class="hidden-xs hidden-sm text-center ng-binding" ng-if="userPermission.modify">
-                                                    <a class="btn btn-icon-only blue" href="#" ng-click="egVm.edit(item)"><i class="fa fa-edit"></i></a>
-                                                    <a class="btn btn-icon-only red" href="#" ng-click="egVm.delete(item)"><i class="fa fa-trash"></i></a>
+                                                    <a class="btn btn-icon-only blue" href="#" ng-click="egVm.edit(item)"><span class="fa fa-edit"></span>/a>
+                                                    <a class="btn btn-icon-only red" href="#" ng-click="egVm.delete(item)"><span class="fa fa-trash"></span></a>
                                                 </td>
                                             </tr>
                                             <tr ng-if="egVm.result.items && egVm.result.items.length === 0">

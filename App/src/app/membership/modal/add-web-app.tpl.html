@@ -14,7 +14,7 @@
                         <div class="portlet light no-margin-bottom">
                             <div class="portlet-title">
                                 <div class="caption width100">
-                                    <i class="fa fa-star"></i>
+                                    <span class="fa fa-star"></span>
                                     <span class="caption-subject bold uppercase">Select Program</span>
                                 </div>
 
@@ -72,6 +72,6 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn dark btn-outline" ng-click="close()">Close</button>
-    <button type="button" class="btn blue-steel" ng-click="applicationVm.saveAndClose(appForm)" ng-disabled="(applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === 0 || applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast)) || applicationVm.submitting"><i class="fa fa-plus"></i> Save & Close</button>
+    <button type="button" class="btn blue-steel" ng-click="applicationVm.saveAndClose(appForm)" ng-disabled="(applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === 0 || applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast)) || applicationVm.submitting"><span class="fa fa-plus"></span> Save & Close</button>
     <button type="button" class="btn green" ng-disabled="(applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === 0 || applicationVm.model.cashInput === ''  || !applicationVm.isEnoughtCast)) || applicationVm.submitting" ng-class="{'btn-summitting': applicationVm.submitting}" ng-click="applicationVm.submit(appForm)"><i ng-if="applicationVm.submitting" class="fa fa-submitting"></i> Submit</button>
 </div>
