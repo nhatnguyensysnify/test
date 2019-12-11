@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
+                            <span class="icon-magnifier"></span>
                             <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.keyword"
                                 ng-change="eventVm.searchKeyword()"
                                 placeholder="Search By Name, Money Order, Member... ">
@@ -41,7 +41,7 @@
                             <a class="btn btn-circle btn-icon-only btn-default dropdown-toggle" data-toggle="dropdown"
                                 data-hover="dropdown" data-close-others="true" ng-disabled="initPage" title="Export CSV"
                                 href="#" style="position: relative;top: 0px;">
-                                <i class="fa fa-download"></i>
+                                <span class="fa fa-download"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu" style="left: -140px;">
                                 <li>
@@ -201,10 +201,10 @@
                                             <tr>
                                                 <td class="width20">Name: </td>
                                                 <td>
-                                                    <i ng-if="item.status === 1"
-                                                        class="fa fa-play font-green-jungle"></i>
-                                                    <i ng-if="item.status === 0" class="fa fa-stop font-red"></i>
-                                                    <i ng-if="item.status === -1" class="fa fa-remove font-red"></i>
+                                                    <span ng-if="item.status === 1"
+                                                        class="fa fa-play font-green-jungle"></span>
+                                                    <span ng-if="item.status === 0" class="fa fa-stop font-red"></span>
+                                                    <span ng-if="item.status === -1" class="fa fa-remove font-red"></span>
                                                     <a class="primary-link" href="#/events/details?id={{item.$id}}">
                                                         {{item.name}}
                                                     </a>
@@ -246,12 +246,12 @@
                                             <tr>
                                                 <td class="width20">Data Status: </td>
                                                 <td>
-                                                    <!--  <i class="fa fa-address-card" ng-if="item.appUploaded === true || item.appUploaded===false" ng-class="{'font-red': !item.appUploaded, 'font-green-jungle': item.appUploaded}"></i>
-                                                    <i ng-if="item.status === 1" class="fa fa-play font-green-jungle"></i>
-                                                    <i ng-if="item.status === 0" class="fa fa-stop font-red"></i>
-                                                    <i ng-if="item.status === -1" class="fa fa-remove font-red"></i> -->
-                                                    <i class="fa fa-database font-green-jungle"
-                                                        ng-style="{visibility: item.dataEntered === true ? 'visible': 'hidden'}"></i>
+                                                    <!--  <span class="fa fa-address-card" ng-if="item.appUploaded === true || item.appUploaded===false" ng-class="{'font-red': !item.appUploaded, 'font-green-jungle': item.appUploaded}"></span>
+                                                    <span ng-if="item.status === 1" class="fa fa-play font-green-jungle"></span>
+                                                    <span ng-if="item.status === 0" class="fa fa-stop font-red"></span>
+                                                    <span ng-if="item.status === -1" class="fa fa-remove font-red"></span> -->
+                                                    <span class="fa fa-database font-green-jungle"
+                                                        ng-style="{visibility: item.dataEntered === true ? 'visible': 'hidden'}"></span>
                                                     <!-- {{item.appUploaded === true || item.appUploaded === false?( item.appUploaded?'Yes': 'No'): 'N/A'}} -->
                                                 </td>
                                             </tr>
@@ -267,24 +267,24 @@
                                             <tr>
                                                 <td class="width20">Status: </td>
                                                 <td>
-                                                    <i class="fa  fa-hourglass-half font-yellow"
+                                                    <span class="fa  fa-hourglass-half font-yellow"
                                                         ng-if="item.verifyStatus === 0"
-                                                        alt="Status"></i>
-                                                    <i class="fa fa-check font-green-jungle"
+                                                        alt="Status"></span>
+                                                    <span class="fa fa-check font-green-jungle"
                                                         ng-if="item.verifyStatus === 1"
-                                                        alt="Status"></i>
-                                                    <i class="fa fa-close font-red"
+                                                        alt="Status"></span>
+                                                    <span class="fa fa-close font-red"
                                                         ng-if="item.verifyStatus == -1"
-                                                        alt="Status"></i>
+                                                        alt="Status"></span>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
-                                    <i ng-if="item.status === 1" class="fa fa-play font-green-jungle"></i>
-                                    <i ng-if="item.status === 0" class="fa fa-stop font-red"></i>
-                                    <i ng-if="item.status === -1" class="fa fa-remove font-red"></i>
+                                    <span ng-if="item.status === 1" class="fa fa-play font-green-jungle"></span>
+                                    <span ng-if="item.status === 0" class="fa fa-stop font-red"></span>
+                                    <span ng-if="item.status === -1" class="fa fa-remove font-red"></span>
                                     <a class="primary-link" href="#/events/details?id={{item.$id}}">{{item.name}}</a>
                                     <p class="functions">
                                         <span><a href="#/events/details?id={{item.$id}}">Edit</a></span>
@@ -319,11 +319,11 @@
                                 <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;"
                                     ng-bind-html="eventVm.getRequester(item.requester)"></td>
                                 <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
-                                    <!--  <i class="fa fa-address-card" ng-class="{'font-red': !item.appUploaded, 'font-green-jungle': item.appUploaded}" ng-style="{visibility: item.appUploaded === true || item.appUploaded===false ? 'visible': 'hidden'}"></i> -->
+                                    <!--  <span class="fa fa-address-card" ng-class="{'font-red': !item.appUploaded, 'font-green-jungle': item.appUploaded}" ng-style="{visibility: item.appUploaded === true || item.appUploaded===false ? 'visible': 'hidden'}"></span> -->
                                     <!-- <span></span> -->
-                                    <i class="fa fa-database font-green-jungle"
+                                    <span class="fa fa-database font-green-jungle"
                                         ng-style="{visibility: item.dataEntered === true ? 'visible': 'hidden'}"
-                                        alt="Data Entered"></i>
+                                        alt="Data Entered"></span>
                                     <!-- <span>&nbsp;{{item.appUploaded === true || item.appUploaded === false?( item.appUploaded?'Yes': 'No'): 'N/A'}}</span> -->
                                 </td>
                                 <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
@@ -331,15 +331,15 @@
                                         (item.appUploaded ? 'Yes' : 'No') : 'N/A'}}</span>
                                 </td>
                                 <td class="hidden-xs hidden-sm text-center" style="vertical-align: middle;">
-                                    <i class="fa  fa-hourglass-half font-yellow"
+                                    <span class="fa  fa-hourglass-half font-yellow"
                                         ng-if="item.verifyStatus === 0"
-                                        alt="Status"></i>
-                                    <i class="fa fa-check font-green-jungle"
+                                        alt="Status"></span>
+                                    <span class="fa fa-check font-green-jungle"
                                         ng-if="item.verifyStatus === 1"
-                                        alt="Status"></i>
-                                    <i class="fa fa-close font-red"
+                                        alt="Status"></span>
+                                    <span class="fa fa-close font-red"
                                         ng-if="item.verifyStatus == -1"
-                                        alt="Status"></i>
+                                        alt="Status"></span>
                                 </td>
                             </tr>
                             <tr ng-if="eventVm.events && eventVm.events.length === 0">
@@ -367,24 +367,24 @@
                                     <div class="col-md-9 border-bottom event-item-col">
                                         <div class="pull-left" style="cursor:pointer;">
                                             <div class="pull-left width100">
-                                                <i ng-if="item.status === 1" class="fa fa-play font-green-jungle"></i>
-                                                <i ng-if="item.status === 0" class="fa fa-stop font-red"></i>
-                                                <i ng-if="item.status === -1" class="fa fa-remove font-red"></i>
+                                                <span ng-if="item.status === 1" class="fa fa-play font-green-jungle"></span>
+                                                <span ng-if="item.status === 0" class="fa fa-stop font-red"></span>
+                                                <span ng-if="item.status === -1" class="fa fa-remove font-red"></span>
                                                 <a class="primary-link" style="word-wrap: break-word;"
                                                     href="#/events/details?id={{item.$id}}">{{item.name}}</a>
                                             </div>
                                         </div>
                                         <div class="pull-left  width100 font-12">
                                             <strong>Status: </strong><span>&nbsp; 
-                                                <i class="fa  fa-hourglass-half font-yellow"
+                                                <span class="fa  fa-hourglass-half font-yellow"
                                                     ng-if="item.verifyStatus === 0"
-                                                    alt="Status"></i>
-                                                <i class="fa fa-check font-green-jungle"
+                                                    alt="Status"></span>
+                                                <span class="fa fa-check font-green-jungle"
                                                     ng-if="item.verifyStatus === 1"
-                                                    alt="Status"></i>
-                                                <i class="fa fa-close font-red"
+                                                    alt="Status"></span>
+                                                <span class="fa fa-close font-red"
                                                     ng-if="item.verifyStatus === -1"
-                                                    alt="Status"></i></span>
+                                                    alt="Status"></span></span>
                                         </div>
                                         <div class="pull-left  width100 font-12">
                                             <strong>Type:</strong> {{eventVm.getType(item.type)}}
@@ -413,9 +413,9 @@
                                                 ng-bind-html="eventVm.getRequester(item.requester)"></span>
                                         </div>
                                         <div class="pull-left  width100 font-12">
-                                            <strong>Data Status: </strong><i class="fa fa-database font-green-jungle"
+                                            <strong>Data Status: </strong><span class="fa fa-database font-green-jungle"
                                                 ng-style="{visibility: item.dataEntered === true ? 'visible': 'hidden'}"
-                                                alt="Data Entered"></i>
+                                                alt="Data Entered"></span>
                                         </div>
                                         <div class="pull-left  width100 font-12">
                                             <strong>Apps Uploaded: </strong><span>&nbsp; {{item.appUploaded === true || item.appUploaded === false ?
@@ -427,14 +427,14 @@
                                     </div>
                                     <div class="col-md-1 border-bottom event-item-col">
                                         <a ng-click="eventVm.viewLocationEvent(item, $index)" class="event-item-icon">
-                                            <i class="fa fa-map-marker"></i>
+                                            <span class="fa fa-map-marker"></span>
                                         </a>
                                     </div>
                                     <div class="col-md-1 border-bottom event-item-col">
                                         <a target="_blank"
                                             href="{{'http://maps.google.com/?q=' + item.mailingAddressTxt}}"
                                             class="event-item-icon">
-                                            <i class="fa fa-map"></i>
+                                            <span class="fa fa-map"></span>
                                         </a>
                                     </div>
                                     <div class="col-md-1 border-bottom event-item-col">
@@ -455,24 +455,24 @@
                                     </marker>
                                     <info-window id="foo" on-mouseover="eventVm.mouseover()">
                                         <div ng-non-bindable="">
-                                            <i ng-if="eventVm.selectedEvent.status === 1"
-                                                class="fa fa-play font-green-jungle"></i>
-                                            <i ng-if="eventVm.selectedEvent.status === 0"
-                                                class="fa fa-stop font-red"></i>
-                                            <i ng-if="eventVm.selectedEvent.status === -1"
-                                                class="fa fa-remove font-red"></i>
+                                            <span ng-if="eventVm.selectedEvent.status === 1"
+                                                class="fa fa-play font-green-jungle"></span>
+                                            <span ng-if="eventVm.selectedEvent.status === 0"
+                                                class="fa fa-stop font-red"></span>
+                                            <span ng-if="eventVm.selectedEvent.status === -1"
+                                                class="fa fa-remove font-red"></span>
                                             <a class="primary-link ng-binding" style="word-wrap: break-word;"
                                                 href="#/events/details?id={{eventVm.selectedEvent.$id}}">{{eventVm.selectedEvent.name}}</a><br />
                                             <strong>Status: </strong> <span>&nbsp;
-                                            <i class="fa fa-hourglass-half font-yellow"
+                                            <span class="fa fa-hourglass-half font-yellow"
                                                 ng-if="eventVm.selectedEvent.verifyStatus === 0"
-                                                alt="Status"></i>
-                                            <i class="fa fa-check font-green-jungle"
+                                                alt="Status"></span>
+                                            <span class="fa fa-check font-green-jungle"
                                                 ng-if="eventVm.selectedEvent.verifyStatus === 1"
-                                                alt="Status"></i>
-                                            <i class="fa fa-close font-red"
+                                                alt="Status"></span>
+                                            <span class="fa fa-close font-red"
                                                 ng-if="eventVm.selectedEvent.verifyStatus == -1"
-                                                alt="Status"></i></span><br />
+                                                alt="Status"></span></span><br />
                                             <strong>Type:</strong> {{eventVm.selectedEvent.typeTxt}}<br />
                                             <strong>Event Time:</strong> {{eventVm.selectedEvent.startDateTxt}}<br />
                                             <strong>Address:</strong> {{eventVm.selectedEvent.mailingAddressTxt}}<br />
@@ -483,9 +483,9 @@
                                                 ng-bind-html="eventVm.selectedEvent.facilityTxt"></span><br />
                                             <strong>Manager:</strong> <span
                                                 ng-bind-html="eventVm.selectedEvent.managerTxt"></span><br />
-                                            <strong>Data Status: </strong><i class="fa fa-database font-green-jungle"
+                                            <strong>Data Status: </strong><span class="fa fa-database font-green-jungle"
                                                 ng-style="{visibility: eventVm.selectedEvent.dataEntered === true ? 'visible': 'hidden'}"
-                                                alt="Data Entered"></i><br />
+                                                alt="Data Entered"></span><br />
                                             <strong>Apps Uploaded: </strong> <span>&nbsp;
                                                 {{eventVm.selectedEvent.appsUploadedTxt}}</span><br />
                                             

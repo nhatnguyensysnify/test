@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
+                            <span class="icon-magnifier"></span>
                             <input type="text" class="form-control form-control-solid" placeholder="Search By Name... ">
                         </div>
                     </div>
@@ -87,9 +87,9 @@
                         <tbody>
                             <tr>
                                 <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
-                                    <i ng-if="item.status === 1" class="fa fa-play font-green-jungle"></i>
-                                    <i ng-if="item.status === 0" class="fa fa-stop font-red"></i>
-                                    <i ng-if="item.status === -1" class="fa fa-remove font-red"></i>
+                                    <span ng-if="item.status === 1" class="fa fa-play font-green-jungle"></span>
+                                    <span ng-if="item.status === 0" class="fa fa-stop font-red"></span>
+                                    <span ng-if="item.status === -1" class="fa fa-remove font-red"></span>
                                     <a class="primary-link" href="#/events/details?id=">Double G Gun Sales</a>
                                     <p class="functions">
                                         <span><a href="#/events/details?id={{item.$id}}">Edit</a></span>
@@ -108,7 +108,7 @@
                                         </span>
                                     </p>
                                 </td>
-                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;"><i class="fa font-green-jungle"></i></td>
+                                <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;"><span class="fa font-green-jungle"></span></td>
                                 <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">tlsldp</td>
                                 <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">506 Rosewood Street, Mnt. Pleasant, Texas</td>
                                 <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">Mark Glover</td>

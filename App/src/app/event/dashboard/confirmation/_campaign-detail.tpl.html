@@ -41,7 +41,7 @@
             <div class="portlet-title">
                 <div class="row">
                     <div class="caption col-xs-4 col-sm-3 col-md-3 col-lg-3 margin-top-10">
-                        <i class=" icon-layers font-blue-steel"></i>
+                        <span class=" icon-layers font-blue-steel"></span>
                         <span class="caption-subject font-blue-steel bold uppercase">Summary</span>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 margin-top-5">
-                    <i class="icon-bar-chart font-blue-steel"></i>
+                    <span class="icon-bar-chart font-blue-steel"></span>
                     <span class="caption-subject font-blue-steel bold uppercase">Classes Status Statistic</span>
                 </div>
             </div>
@@ -92,7 +92,7 @@
         <div class="portlet light bordered">
             <div class="portlet-title">
                 <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 margin-top-5">
-                    <i class="icon-bar-chart font-blue-steel"></i>
+                    <span class="icon-bar-chart font-blue-steel"></span>
                     <span class="caption-subject font-blue-steel bold uppercase">Notification Statistic
                         (Email/SMS)</span>
                 </div>
@@ -154,7 +154,7 @@
                     </div> -->
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                         <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
+                            <span class="icon-magnifier"></span>
                             <input type="text" class="form-control form-control-solid"
                                 ng-change="eventVm.changeStateEventByCampaign()"
                                 ng-model="eventVm.criEventByCampaign.keyword" placeholder="Search By Event">
@@ -202,9 +202,9 @@
                                 <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">
                                     {{eventVm.getType(event.type)}}</td>
                                 <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
-                                    <i ng-if="event.status === 1" class="fa fa-play font-green-jungle"></i>
-                                    <i ng-if="event.status === 0" class="fa fa-stop font-red"></i>
-                                    <i ng-if="event.status === -1" class="fa fa-remove font-red"></i>
+                                    <span ng-if="event.status === 1" class="fa fa-play font-green-jungle"></span>
+                                    <span ng-if="event.status === 0" class="fa fa-stop font-red"></span>
+                                    <span ng-if="event.status === -1" class="fa fa-remove font-red"></span>
                                     <a class="primary-link" target="_blank"
                                         href="#/events/details?id={{event.$id}}">{{event.name}}</a>
                                 </td>

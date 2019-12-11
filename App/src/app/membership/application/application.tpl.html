@@ -14,19 +14,19 @@
             <div class="portlet-body">
                 <ul class="nav nav-tabs">
                     <li ng-class="{'active' : applicationVm.activetab === -1 }">
-                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(-1)"><i class="fa fa-file-o"></i>
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(-1)"><span class="fa fa-file-o"></span>
                             All </a>
                     </li>
                     <li ng-class="{'active' : applicationVm.activetab === 1 }">
-                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(1)"><i class="fa fa-spinner"></i>
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(1)"><span class="fa fa-spinner"></span>
                             Processing </a>
                     </li>
                     <li ng-class="{'active' : applicationVm.activetab === 2 }">
-                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(2)"><i class="fa fa-check-square-o"></i>
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(2)"><span class="fa fa-check-square-o"></span>
                             Verified </a>
                     </li>
                     <li ng-class="{'active' : applicationVm.activetab === 3 }">
-                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(3)"><i class="fa fa-hourglass-half"></i>
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(3)"><span class="fa fa-hourglass-half"></span>
                             Pending </a>
                     </li>
                     <li ng-class="{'active' : applicationVm.activetab === 8}">
@@ -38,15 +38,15 @@
                             Billing Approved </a>
                     </li>
                     <li ng-class="{'active' : applicationVm.activetab === 6 }">
-                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(6)"><i class="fa  fa-times"></i>
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(6)"><span class="fa  fa-times"></span>
                             Cancelled </a>
                     </li>
                     <li ng-class="{'active' : applicationVm.activetab === 7 }">
-                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(7)"><i class="fa fa-exclamation-triangle"></i>
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(7)"><span class="fa fa-exclamation-triangle"></span>
                             Error </a>
                     </li>
                     <li ng-class="{'active' : applicationVm.activetab === 5 }">
-                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(5)"><i class="fa fa fa-exclamation-circle"></i>
+                        <a href="#tab_1_1" data-toggle="tab" ng-click="applicationVm.filterByStatus(5)"><span class="fa fa fa-exclamation-circle"></span>
                             Payment Failed </a>
                     </li>
                 </ul>
@@ -57,7 +57,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-3 no-padding-right">
                                     <div class="input-icon margin-top-bottom-5">
-                                        <i class="icon-magnifier"></i>
+                                        <span class="icon-magnifier"></span>
                                         <input type="text" class="form-control width100 form-control-solid" placeholder="search..."
                                             ng-model="applicationVm.cri.keyword" ng-change="applicationVm.search(true)">
                                     </div>
@@ -149,12 +149,12 @@
                                             ng-repeat="item in modelItems">
                                             <div class="pull-left padding-l-r-5 " style="width:10%">
                                                 <span>
-                                                    <i class="fa" ng-class="applicationVm.getIconStatus(item)"></i>
+                                                    <span class="fa" ng-class="applicationVm.getIconStatus(item)"></span>
                                                 </span>
                                             </div>
                                             <div class="pull-left padding-l-r-5" style="width:10%">
                                                 <a href="#" ng-click="applicationVm.markPriority(item)">
-                                                    <i class="fa" ng-class="applicationVm.getStatusFlagIcon(item)"></i>
+                                                    <span class="fa" ng-class="applicationVm.getStatusFlagIcon(item)"></span>
                                                 </a>
                                             </div>
 
@@ -162,8 +162,8 @@
                                                 ng-click="applicationVm.edit(item)">
                                                 <div class="pull-left width100">
                                                     <!--<a class="font-grey-gallery">{{applicationVm.appFullname[item.membershipId]}}</a>-->
-                                                    <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
-                                                    <i ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></i>
+                                                    <span ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></span>
+                                                    <span ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></span>
                                                     <a class="font-grey-gallery" style="word-wrap: break-word;">{{item.primaryMember
                                                         || item.secondaryMember || ' '}}</a>
                                                 </div>

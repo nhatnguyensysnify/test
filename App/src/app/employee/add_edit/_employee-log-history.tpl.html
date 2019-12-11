@@ -200,7 +200,7 @@
                                                 <div class="col-md-1">
                                                     <div class="form-group col-md-12 text-right" style="word-break: break-all;" ng-if="item.fileInfo.mediaId && !item.fileInfo.hideDownLoadLink">
                                                         <a title="Download File" class="btn btn-circle btn-icon-only btn-default" ng-if="item.fileInfo.downloadUrl" href="#" ng-click="downloadImageWithCustomName(item.fileInfo.downloadUrl,item.fileInfo.fileName)">
-                                                            <i class="margin-left-10 fa fa-download"></i>
+                                                            <span class="margin-left-10 fa fa-download"></span>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -245,7 +245,7 @@
                                                                         {{application.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}} </td>
                                                                     <td class="text-center">
                                                                         <a title="Download File" ng-if="hideDownloadLink(application.status) && application.downloadUrl" class="btn btn-circle btn-icon-only btn-default" ng-if="application.downloadUrl" href="#" ng-click="downloadImageWithCustomName(application.downloadUrl, application.fileName)">
-                                                                            <i class="margin-left-10 fa fa-download"></i>
+                                                                            <span class="margin-left-10 fa fa-download"></span>
                                                                         </a>
                                                                     </td>
                                                                 </tr>

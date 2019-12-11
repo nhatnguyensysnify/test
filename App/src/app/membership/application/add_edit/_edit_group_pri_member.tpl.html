@@ -68,7 +68,7 @@
 <div class="form-group" ng-class="{'has-error': applicationVm.showInvalid && appForm.mailingAddress.$error.required}">
     <label class="col-md-4 control-label">
         Mailing Address <span class="required-field"> *</span>
-        <a href="javascript:void(0);" ng-click="addressVerification.show = !addressVerification.show"><i class="fa fa-map-signs" ng-class="[{'font-red-mint': addressInvalid, 'font-green-meadow': !addressInvalid}]" ng-class="!addressInvalid"></i></a>
+        <a href="javascript:void(0);" ng-click="addressVerification.show = !addressVerification.show"><span class="fa fa-map-signs" ng-class="[{'font-red-mint': addressInvalid, 'font-green-meadow': !addressInvalid}]" ng-class="!addressInvalid"></span></a>
     </label>
     <div class="col-md-8">
         <google-ac ng-show="addressVerification.show" address="addressVerification"></google-ac>

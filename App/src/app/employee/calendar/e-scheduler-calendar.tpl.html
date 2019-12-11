@@ -34,8 +34,8 @@
       </span>
         <span ng-if="day.inMonth" class="pull-right availability-container" data-cal-date style="">
         <div ng-if="day.events[0].canEditShift" class="pull-left btn-container">
-            <i ng-if="day.events[0].statusShift == 1" ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-ban icon-cancel"></i>
-            <i ng-if="day.events[0].statusShift == 0" ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-plus icon-add"></i>
+            <span ng-if="day.events[0].statusShift == 1" ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-ban icon-cancel"></span>
+            <span ng-if="day.events[0].statusShift == 0" ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-plus icon-add"></span>
         </div>
         <!-- <a href="javascript:;" ng-if="day.events && day.events.length> 0 && day.events[0].colorShift" ng-click="$event.stopPropagation(); day.events[0].editShift(day)" class="pull-left event row-percent-event-item" ng-style="{backgroundColor: day.events[0].colorShift}" ng-mousedown="$event.stopPropagation()" ng-mouseenter="vm.highlightEvent(event, true)" ng-mouseleave="vm.highlightEvent(event, false)" tooltip-append-to-body="true" 
             uib-tooltip-html="day.events[0].txtShift | calendarTrustAsHtml"
@@ -96,14 +96,6 @@
                                 class="margin-top-bottom-5"></date-range-report>
                         </div>
                     </div>
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
-                            <input type="text" class="form-control form-control-solid" ng-model="eCalendarVm.cri.keyword"
-                                ng-change="eCalendarVm.searchKeyword()"
-                                placeholder="Search By Name, Money Order, Member... ">
-                        </div>
-                    </div> -->
                     <div class="col-xs-7 col-sm-5 col-md-5 col-lg-3">
                         <div class="right form-group margin-top-bottom-5" style="float:left;">
                             <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
@@ -164,59 +156,6 @@
                     </div>
                 </div>
                 <div class="row">
-
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                            <div class="form-group margin-top-bottom-5">
-                                <select ng-model="eCalendarVm.requester" ui-select2="eCalendarVm.select2Options"
-                                    id="filterRequester" class="form-control">
-                                </select>
-                            </div>
-                        </div> -->
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="form-group margin-top-bottom-5">
-                            <select ui-select2 ng-model="eCalendarVm.chooseStates" id="chooseState" multiple
-                                ng-options="state.iso as state.name for (key, state) in eCalendarVm.allStates"
-                                data-placeholder="All States">
-                            </select>
-                        </div>
-                    </div> -->
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="right margin-top-bottom-5">
-                            <select ui-select2 ng-model="eCalendarVm.chooseTerritories" id="chooseTerritories" multiple
-                                ng-options="territory.id as territory.name for (key, territory) in eCalendarVm.allTerritories"
-                                data-placeholder="All Territories">
-                            </select>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="right margin-top-10"
-                            ng-if="eCalendarVm.calendarView != 'timelineView' && !userPermission.isRep">
-                            <label class="mt-checkbox mt-checkbox-outline">
-                                <input id="resourceAvailability" type="checkbox" ng-model="eCalendarVm.resourceAvailability"
-                                    ng-change="eCalendarVm.onChangeResourceAvailability()" name="resourceAvailability" />
-                                <span></span>
-                            </label>
-                            <label for="resourceAvailability" class="control-label">Resource Availability</label>
-                        </div>
-                    </div>
-                </div> -->
-                    <!-- <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
-                            <input type="text" class="form-control form-control-solid" ng-model="eCalendarVm.cri.moneyOrder"
-                                placeholder="Search By Money Order... ">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
-                            <input type="text" class="form-control form-control-solid" ng-model="eCalendarVm.cri.memKeyword"  placeholder="Search By Member">
-                        </div>
-                    </div>
-                </div> -->
-
                 </div>
                 <div class="portlet-body">
                     <h2 class="text-center">

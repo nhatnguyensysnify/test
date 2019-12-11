@@ -4,10 +4,10 @@
             <div class="portlet-body form">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"><i class="fa fa-map"></i> Regions </a>
+                        <a href="#tab_1_1" data-toggle="tab" aria-expanded="true"><span class="fa fa-map"></span> Regions </a>
                     </li>
                     <!-- <li>
-                        <a href="#tab_1_2" data-toggle="tab" aria-expanded="true"><i class="fa fa-bar-chart"></i> Dashboard</a>
+                        <a href="#tab_1_2" data-toggle="tab" aria-expanded="true"><span class="fa fa-bar-chart"></span> Dashboard</a>
                     </li> -->
                 </ul>
                 <div class="tab-content">
@@ -37,7 +37,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-3">
                                         <div class="input-icon margin-top-bottom-5">
-                                            <!-- <i class="icon-magnifier"></i>
+                                            <!-- <span class="icon-magnifier"></span>
                                             <input type="text" class="form-control" placeholder="Search By Name... " aria-invalid="false"> -->
                                             <select ui-select2 ng-model="egVm.cri.regions" multiple ng-options="state.iso as state.name for (key, state) in egVm.states" data-placeholder="All Regions" id="egVmRegionsFilter">
                                             </select>
@@ -58,8 +58,8 @@
                                             <div class="" style="float: right; padding: 10px 0px;" aria-invalid="false">
                                                 <div class="col-md-12 col-xs-12 items-info dataTables_paginate paging_bootstrap_extended" id="Paging">
                                                     <div class="padding-l-r-10 padding-top-5" id="datatable_products_info" role="status" aria-live="polite"><label><span class="ng-binding" style="font-weight: bold; font-size: 15px;"> Total {{egVm.result.items.length}} regions</span> </label></div>
-                                                    <!-- <div class="pagination-panel"><a href="#" class="btn btn-sm default prev disabled"><i class="fa fa-angle-left"></i></a><input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini ng-pristine ng-untouched ng-valid ng-not-empty"
-                                                            maxlenght="5" style="text-align:center; margin: 0 5px;" aria-invalid="false"><a href="#" class="btn btn-sm default next"><i class="fa fa-angle-right"></i></a><span class="pagination-panel-total padding-top-5 ng-binding"> of  2 page(s)</span></div> -->
+                                                    <!-- <div class="pagination-panel"><a href="#" class="btn btn-sm default prev disabled"><span class="fa fa-angle-left"></span></a><input type="text" class="pagination-panel-input form-control input-sm input-inline input-mini ng-pristine ng-untouched ng-valid ng-not-empty"
+                                                            maxlenght="5" style="text-align:center; margin: 0 5px;" aria-invalid="false"><a href="#" class="btn btn-sm default next"><span class="fa fa-angle-right"></span></a><span class="pagination-panel-total padding-top-5 ng-binding"> of  2 page(s)</span></div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -107,9 +107,9 @@
                                                             <tr>
                                                                 <td class="width120">Total Revenue</td> 
                                                                 <td>{{item.revenue | currency}}
-                                                                    <i class="fa fa-check-square font-green-jungle" ng-if="item.progress.status == 'met'"></i>
-                                                                    <i class="fa fa-spinner font-yellow-crusta" ng-if="item.progress.status == 'warning'"></i>
-                                                                    <i class="fa fa-close font-red" ng-if="item.progress.status == 'alert'"></i>
+                                                                    <span class="fa fa-check-square font-green-jungle" ng-if="item.progress.status == 'met'"></span>
+                                                                    <span class="fa fa-spinner font-yellow-crusta" ng-if="item.progress.status == 'warning'"></span>
+                                                                    <span class="fa fa-close font-red" ng-if="item.progress.status == 'alert'"></span>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -137,14 +137,14 @@
                                                 </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding">{{item.prevPlan | currency}}</td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding">{{item.prevRevenue | currency}}
-                                                    <i class="fa fa-check-square font-green-jungle" ng-if="item.prevRevenue >= item.prevPlan"></i>
-                                                    <i class="fa fa-close font-red" ng-if="item.prevRevenue < item.prevPlan"></i>
+                                                    <span class="fa fa-check-square font-green-jungle" ng-if="item.prevRevenue >= item.prevPlan"></span>
+                                                    <span class="fa fa-close font-red" ng-if="item.prevRevenue < item.prevPlan"></span>
                                                 </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" >{{item.plan | currency}} </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" >{{item.revenue | currency}}
-                                                    <i class="fa fa-check-square font-green-jungle" ng-if="item.progress.status == 'met'"></i>
-                                                    <i class="fa fa-spinner font-yellow-crusta" ng-if="item.progress.status == 'warning'"></i>
-                                                    <i class="fa fa-close font-red" ng-if="item.progress.status == 'alert'"></i>
+                                                    <span class="fa fa-check-square font-green-jungle" ng-if="item.progress.status == 'met'"></span>
+                                                    <span class="fa fa-spinner font-yellow-crusta" ng-if="item.progress.status == 'warning'"></span>
+                                                    <span class="fa fa-close font-red" ng-if="item.progress.status == 'alert'"></span>
                                                 </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" ><span ng-class="{'font-green-jungle':item.progress.status == 'met', 'font-yellow-crusta':  item.progress.status == 'warning','font-red':  item.progress.status == 'alert'}">{{item.progress.progress}}%</span></td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding">{{item.timestampString}}</td>
@@ -188,14 +188,14 @@
                                                     Alabama
                                                 </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$17,500.00</td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$17,500.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$17,500.00 <span class="fa fa-check-square font-green-jungle" style="visibility: visible;"></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$19,000.00 </td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$16,500.00 <i class="fa fa-spinner font-yellow-crusta" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$16,500.00 <span class="fa fa-spinner font-yellow-crusta" style="visibility: visible;"></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-yellow-crusta">86.84%</span></td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/02/2018 9:25 (CST)</td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Lan Nguyenn (lnguyen)</td>
                                                 <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
-                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                    <span class="fa fa-edit font-blue" style="visibility: visible;"></span>
                                                 </td>
                                             </tr>
                                             <tr class="ng-scope" style="">
@@ -203,14 +203,14 @@
                                                     Arizona
                                                 </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$30,000.00</td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$31,000.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$31,000.00 <span class="fa fa-check-square font-green-jungle" style="visibility: visible;"></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$33,000.00 </td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$24,000.00 <i class="fa fa-spinner font-red" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$24,000.00 <span class="fa fa-spinner font-red" style="visibility: visible;"></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-red">72.21%</span></td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/01/2018 7:00 (CST)</td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Lan Nguyen (lnguyen)</td>
                                                 <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
-                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                    <span class="fa fa-edit font-blue" style="visibility: visible;"></span>
                                                 </td>
                                             </tr>
                                             <tr class="ng-scope" style="">
@@ -218,14 +218,14 @@
                                                     Arkansas
                                                 </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$12,500.00</td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$12,600.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$12,600.00 <span class="fa fa-check-square font-green-jungle" style="visibility: visible;"></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$14,000.00 </td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$13,200.00 <i class="fa fa-spinner font-yellow-crusta" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$13,200.00 <span class="fa fa-spinner font-yellow-crusta" style="visibility: visible;"></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-yellow-crusta">94.28%</span></td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/02/2018 9:30 (CST)</td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Lan Nguyen (lnguyen)</td>
                                                 <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
-                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                    <span class="fa fa-edit font-blue" style="visibility: visible;"></span>
                                                 </td>
                                             </tr>
                                             <tr class="ng-scope" style="">
@@ -233,14 +233,14 @@
                                                     Colorado
                                                 </td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$45,500.00</td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$40,500.00 <i class="fa fa-close font-red" style="visibility: visible;"></i></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$40,500.00 <span class="fa fa-close font-red" style="visibility: visible;"></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;">$42,000.00 </td>
-                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span>$46,000.00 <i class="fa fa-check-square font-green-jungle" style="visibility: visible;"></i></span></td>
+                                                <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span>$46,000.00 <span class="fa fa-check-square font-green-jungle" style="visibility: visible;"></span></span></td>
                                                 <td class="hidden-xs hidden-sm text-right ng-binding" style="vertical-align: middle;"><span class="font-green-jungle">109.00%</span></td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">10/02/2018 9:29 (CST)</td>
                                                 <td class="hidden-xs hidden-sm text-left ng-binding" style="vertical-align: middle;">Jamie Edmonds (jedmonds)</td>
                                                 <td class="hidden-xs hidden-sm text-center ng-binding" style="vertical-align: middle;">
-                                                    <i class="fa fa-edit font-blue" style="visibility: visible;"></i>
+                                                    <span class="fa fa-edit font-blue" style="visibility: visible;"></span>
                                                 </td>
                                             </tr>
                                             <tr class="ng-scope" style="">

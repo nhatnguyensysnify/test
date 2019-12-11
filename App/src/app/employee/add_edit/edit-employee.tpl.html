@@ -14,7 +14,7 @@
                     <ul class="nav padding-10">
                         <li style="text-align: center;">
                             <span class="mem-pro" ng-if="user.lastLoginDate && user.lastLoginDate !== ''">
-                                <i class="icon-user"></i> Last Login:
+                                <span class="icon-user"></span> Last Login:
                                 <span class="bold">{{user.lastLoginDate | date: 'MM/dd/yyyy hh:mm a'}}</span>
                             </span>
                         </li>
@@ -28,7 +28,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title tabbable-line">
                     <div class="caption caption-md">
-                        <i class="icon-globe theme-font hide"></i>
+                        <span class="icon-globe theme-font hide"></span>
                         <span class="caption-subject font-blue-madison bold uppercase">Profile Account</span>
                     </div>
                     <ul class="nav nav-tabs">

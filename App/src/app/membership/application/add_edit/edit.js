@@ -160,7 +160,7 @@
         $scope.addressVerification = {
             show: false,
             cls: 'gplace',
-            content: $sce.trustAsHtml('<i class="fa fa-spinner font-grey-silver"></i>'),
+            content: $sce.trustAsHtml('<span class="fa fa-spinner font-grey-silver"></span>'),
             place: {
                 address: '',
                 city: '',
@@ -2704,7 +2704,7 @@
                 $scope.bankAddressVerification = {
                     show: false,
                     cls: 'gplace',
-                    content: $sce.trustAsHtml('<i class="fa fa-spinner font-grey-silver"></i>'),
+                    content: $sce.trustAsHtml('<span class="fa fa-spinner font-grey-silver"></span>'),
                     place: {
                         address: '',
                         city: '',

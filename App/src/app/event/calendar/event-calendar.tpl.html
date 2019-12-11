@@ -8,7 +8,7 @@
       </span>
       <span class="pull-right availability-container" data-cal-date style="margin-right: 3px;margin-top: 20px; opacity: 1;">
         <div ng-if="day.events[0].canEditShift" class="pull-left btn-container" ng-if="day.inMonth">
-            <i  ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-plus icon-add"></i>
+            <span  ng-click="$event.stopPropagation(); vm.onEventClick({calendarEvent:day})" class="fa fa-plus icon-add"></span>
         </div>
       </span>
       <div style="

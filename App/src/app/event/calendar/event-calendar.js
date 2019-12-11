@@ -180,13 +180,13 @@
         eventVm.viewDate = eventVm.timestampStart ? new Date(moment.utc(eventVm.timestampStart).format('MM/DD/YYYY')) : new Date();
 
         var actions = [{
-            label: '<i class=\'glyphicon glyphicon-pencil\'></i>',
+            label: '<span class=\'glyphicon glyphicon-pencil\'></span>',
             onClick: function (args) {
                 console.log('Edited', args.calendarEvent);
 
             }
         }, {
-            label: '<i class=\'glyphicon glyphicon-remove\'></i>',
+            label: '<span class=\'glyphicon glyphicon-remove\'></span>',
             onClick: function (args) {
                 console.log('Deleted', args.calendarEvent);
             }

@@ -3,11 +3,11 @@
         <div class="portlet-title padding-bottom-10">
             <div class="row">
                 <!-- <div class="caption caption-md col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                    <i class="icon-globe theme-font hide"></i>
+                    <span class="icon-globe theme-font hide"></span>
                     <span class="caption-subject font-blue-madison bold uppercase">Availability</span>
                 </div> -->
                 <div class="caption caption-md col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <i class="icon-globe theme-font hide"></i>
+                    <span class="icon-globe theme-font hide"></span>
                     <span class="caption-subject font-blue-madison bold uppercase">Career</span>
                 </div>
             </div>
@@ -96,7 +96,7 @@
                     </div> -->
                 <div class="row">
                     <div class="caption caption-md col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <i class="icon-globe theme-font hide"></i>
+                        <span class="icon-globe theme-font hide"></span>
                         <span class="caption-subject font-blue-madison bold uppercase">Licenses</span>
                     </div>
                     <div class="col-md-6  col-lg-6 text-right">
@@ -137,7 +137,6 @@
                                     </select>
                                 </td>
                                 <td class="width8 bold" ng-class="{'has-error': $check.errors.issueDate && submitted}">
-                                    <!-- <i class="fa fa-calendar"></i> -->
                                     <input type="text" data-provide="datepicker"
                                         class="form-control text-center bold font-green-jungle"
                                         ng-model="editModel.issueDate" placeholder="mm/dd/yyyy"
@@ -166,7 +165,6 @@
                                     <!-- <div ng-if="$check.touched.number && $check.errors.number">ERR</div> -->
                                 </td>
                                 <td class="width8" ng-class="{'has-error': $check.errors.expirationDate && submitted}">
-                                    <!-- <i class=" fa fa-calendar"></i> -->
                                     <input type="text" data-provide="datepicker"
                                         class="form-control text-center font-red" ng-model="editModel.expirationDate"
                                         placeholder="mm/dd/yyyy"
@@ -187,7 +185,6 @@
                                     <p ng-if="!isAdmin">{{appointed[editModel.appointed]}}</p>
                                 </td>
                                 <td class="width8">
-                                    <!-- <i class="fa fa-calendar"></i> -->
                                     <p class="text-center">{{editModel.timestampModified}}</p>
                                 </td>
                                 <td class="width5 text-center">
@@ -254,7 +251,6 @@
                                     </select>
                                 </td>
                                 <td class="width8 bold" ng-class="{'has-error': $check.errors.issueDate && submitted}">
-                                    <!-- <i class="fa fa-calendar"></i> -->
                                     <input type="text" data-provide="datepicker"
                                         class="form-control text-center bold font-green-jungle"
                                         ng-model="editModel.issueDate" placeholder="mm/dd/yyyy"
@@ -283,7 +279,6 @@
                                     <!-- <div ng-if="$check.touched.number && $check.errors.number">ERR</div> -->
                                 </td>
                                 <td class="width8" ng-class="{'has-error': $check.errors.expirationDate && submitted}">
-                                    <!-- <i class=" fa fa-calendar"></i> -->
                                     <input type="text" data-provide="datepicker"
                                         class="form-control text-center font-red" ng-model="editModel.expirationDate"
                                         placeholder="mm/dd/yyyy"

@@ -28,17 +28,17 @@
                 <ul class="nav">
                     <li>
                         <span class="mem-pro">
-                            <i class="icon-user"></i> Account ID: <span class="bold">{{membershipVm.membership.accountId}}</span>
+                            <span class="icon-user"></span> Account ID: <span class="bold">{{membershipVm.membership.accountId}}</span>
                         </span>
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="icon-user"></i> Primary Member ID: <span class="bold">{{membershipVm.primaryMember.memberId}}</span>
+                            <span class="icon-user"></span> Primary Member ID: <span class="bold">{{membershipVm.primaryMember.memberId}}</span>
                         </span>
                     </li>
                     <li ng-if="membershipVm.isSeccondMem == true">
                         <span class="mem-pro">
-                            <i class="icon-user"></i> Secondary Member ID: <span class="bold">{{membershipVm.secondMember.memberId}}</span>
+                            <span class="icon-user"></span> Secondary Member ID: <span class="bold">{{membershipVm.secondMember.memberId}}</span>
                         </span>
                     </li>
                     <li>
@@ -63,7 +63,7 @@
                     </li>
                     <li>
                         <span class="mem-pro">
-                            <i class="fa fa-id-badge "></i> RepCode: <span class="bold">{{repCode || membershipVm.applicationModel.representativeCode || ''}}</span>
+                            <span class="fa fa-id-badge "></span> RepCode: <span class="bold">{{repCode || membershipVm.applicationModel.representativeCode || ''}}</span>
                         </span>
                     </li> -->
                     <li>
@@ -103,7 +103,7 @@
         <div class="portlet light bordered" style="padding: 10px;">
             <div class="portlet-title tabbable-line">
                 <div class="caption caption-md">
-                    <i class="icon-globe theme-font hide"></i>
+                    <span class="icon-globe theme-font hide"></span>
                     <span class="caption-subject font-blue-madison bold uppercase">Profile Information</span>
                 </div>
                 <ul class="nav nav-tabs">
@@ -344,7 +344,7 @@
                                             <div class="input-group">
                                                 <input name="cvv" type="text" minlength="3" maxlength="4" class="form-control" placeholder="CVV" value="" ng-model="membershipVm.applicationModel.creditCard.cvv" name="cvv" disabled/>
                                                 <span class="input-group-addon">
-                                                        <i class="fa fa-check font-green-meadow"></i>
+                                                        <span class="fa fa-check font-green-meadow"></span>
                                                     </span>
                                             </div>
                                         </div>

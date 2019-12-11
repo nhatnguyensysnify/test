@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
                     <div class="input-icon margin-top-bottom-5">
-                        <i class="icon-magnifier"></i>
+                        <span class="icon-magnifier"></span>
                         <input type="text" class="form-control form-control-solid" ng-model="membershipVm.cri.keyword"
                             placeholder="search..." ng-change="membershipVm.searchMember(true)">
                     </div>
@@ -128,8 +128,8 @@
                                             <td>Name: </td>
                                             <td>
                                                 <a class="primary-link" href="#" ng-click="membershipVm.editMember(item.membershipId)">
-                                                    <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
-                                                    <i ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></i>
+                                                    <span ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></span>
+                                                    <span ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></span>
                                                     {{item.primaryMember || ' '}}
                                                 </a>
                                             </td>
@@ -176,8 +176,8 @@
                             <td class="hidden-xs hidden-sm show-function" style="vertical-align: middle;">
                                 <p class=" margin-bottom-10">
                                     <a class="primary-link" href="#" ng-click="membershipVm.editMember(item.membershipId)">
-                                        <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
-                                        <i ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></i>
+                                        <span ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></span>
+                                        <span ng-if="item.processPayment === false" class="font-red fa fa-bookmark" style="text-decoration: line-through; "></span>
                                         {{item.primaryMember || ' '}}
                                     </a>
                                 </p>

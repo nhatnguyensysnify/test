@@ -8,7 +8,6 @@
                 &nbsp;&nbsp;<a href="#" class="padding-10 badge badge-success" style="background-color: #c49f47 !important; height: auto !important;" ng-if="eventVm.model._verifyStatus == 0">Pending</a>
                 &nbsp;&nbsp;<a href="#" class="padding-10 badge badge-primary" style="height: auto !important;" ng-if="eventVm.model._verifyStatus == 1">Confirmed</a>
                 &nbsp;&nbsp;<a href="#" class="padding-10 badge badge-danger" style="height: auto !important;" ng-if="eventVm.model._verifyStatus == -1">Canceled</a>
-                <!-- &nbsp;&nbsp;<i class="fa fa-address-card" ng-class="{'font-red': !eventVm.model.appUploaded, 'font-green-jungle': eventVm.model.appUploaded}" ng-if="eventVm.model.appUploaded === true || eventVm.model.appUploaded===false"> --></i>
                 </span>
             </div>
             <div class="col-md-8 text-right">
@@ -398,11 +397,6 @@
         <hr>
         <div class="caption"  ng-if="!eventVm.isEdit">
             <span class="caption-subject bold uppercase">Address</span>&nbsp;
-            <!-- <button type="button" class="btn blue" ng-if="!eventVm.isEdit && eventVm.model.facilityId"
-            ng-click="eventVm.showModalAddEventAddress()">
-            <i ng-if="!eventVm.isEditedAddress" class="fa fa-plus"></i>
-            <i ng-if="eventVm.isEditedAddress" class="fa fa-edit"></i>
-            </button> -->
         </div>
         <hr  ng-if="!eventVm.isEdit">
         <div class="form-group margin-top-20" ng-if="!eventVm.isEdit">

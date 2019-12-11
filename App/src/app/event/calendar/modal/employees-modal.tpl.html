@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-7">
                             <div class="input-icon right margin-top-bottom-5 margin-left-10">
-                                <i class="icon-magnifier"></i>
+                                <span class="icon-magnifier"></span>
                                 <input type="text" class="form-control form-control-solid"
                                     ng-model="eventModalVm.cri.keyword" ng-change="eventModalVm.search()"
                                     placeholder=" search...">
@@ -73,8 +73,8 @@
                                                     <td class="width15 text-left">Name: </td>
                                                     <td class="text-left"></td>
                                                     <td class="text-left hidden-xs hidden-sm">
-                                                        <i ng-if="item.replaceWith" class="fa fa-refresh"
-                                                            aria-hidden="true"></i>
+                                                        <span ng-if="item.replaceWith" class="fa fa-refresh"
+                                                            aria-hidden="true"></span>
                                                         <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
                                                             target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
                                                         <a ng-if="$parent.userPermission.isAdmin"
@@ -107,14 +107,14 @@
                                                 <tr ng-if="eventModalVm.typeModal == 'cancellation_request'">
                                                     <td class="width15 text-left">Actions: </td>
                                                     <td class="text-left"><a href="javascript:;"
-                                                            ng-click="eventModalVm.editShift()"><i
-                                                                class="fa fa-edit"></i></a></td>
+                                                            ng-click="eventModalVm.editShift()"><span
+                                                                class="fa fa-edit"></span></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </td>
                                     <td class="hidden-xs hidden-sm">
-                                        <i ng-if="item.replaceWith" class="fa fa-refresh" aria-hidden="true"></i>
+                                        <span ng-if="item.replaceWith" class="fa fa-refresh" aria-hidden="true"></span>
                                         <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
                                             target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
                                         <a ng-if="$parent.userPermission.isAdmin" href="#/employees/edit/{{item.$id}}/"
@@ -134,14 +134,14 @@
                                     <td class="hidden-xs hidden-sm"
                                         ng-if="eventModalVm.typeModal == 'cancellation_request'">
                                         <a href="javascript:;" ng-if="!item.repAssigned"
-                                            ng-click="eventModalVm.reassign(item,$index)"><i
-                                                class="fa fa-edit"></i>&nbsp;Re-assign</a>
+                                            ng-click="eventModalVm.reassign(item,$index)"><span
+                                                class="fa fa-edit"></span>&nbsp;Re-assign</a>
                                     </td>
                                     <td class="hidden-xs hidden-sm"
                                         ng-if="eventModalVm.typeModal == 'reps_unavailable_add_availability'">
                                         <a href="javascript:;"
-                                            ng-click="eventModalVm.showConfirmAddAvailability(item,$index)"><i
-                                                class="fa fa-plus"></i>&nbsp;Set Availability</a>
+                                            ng-click="eventModalVm.showConfirmAddAvailability(item,$index)"><span
+                                                class="fa fa-plus"></span>&nbsp;Set Availability</a>
                                     </td>
                                 </tr>
                                 <tr ng-if="employeeModalVm.employees && employeeModalVm.employees.length === 0">
@@ -185,8 +185,8 @@
                                                     <td class="width15 text-left">Name: </td>
                                                     <td class="text-left"></td>
                                                     <td class="text-left hidden-xs hidden-sm">
-                                                        <i ng-if="item.replaceWith" class="fa fa-refresh"
-                                                            aria-hidden="true"></i>
+                                                        <span ng-if="item.replaceWith" class="fa fa-refresh"
+                                                            aria-hidden="true"></span>
                                                         <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
                                                             target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
                                                         <a ng-if="$parent.userPermission.isAdmin"
@@ -222,7 +222,7 @@
                                     </td>
 
                                     <td class="hidden-xs hidden-sm">
-                                        <i ng-if="item.replaceWith" class="fa fa-refresh" aria-hidden="true"></i>
+                                        <span ng-if="item.replaceWith" class="fa fa-refresh" aria-hidden="true"></span>
                                         <a ng-if="!$parent.userPermission.isAdmin" href="javascript:;"
                                             target="_blank">{{item.firstName + ' ' +item.lastName}}</a>
                                         <a ng-if="$parent.userPermission.isAdmin" href="#/employees/edit/{{item.$id}}/"

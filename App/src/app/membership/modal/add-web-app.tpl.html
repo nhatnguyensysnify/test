@@ -1,7 +1,7 @@
 <div class="modal-header">
     <button type="button" class="close" aria-hidden="true" ng-click="close()"></button>
     <div class="caption caption-md">
-        <i class="icon-globe theme-font hide"></i>
+        <span class="icon-globe theme-font hide"></span>
         <span class="caption-subject font-blue-madison bold uppercase">{{applicationVm.formTitle}}</span>
     </div>
 </div>
@@ -73,5 +73,5 @@
 <div class="modal-footer">
     <button type="button" class="btn dark btn-outline" ng-click="close()">Close</button>
     <button type="button" class="btn blue-steel" ng-click="applicationVm.saveAndClose(appForm)" ng-disabled="(applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === 0 || applicationVm.model.cashInput === '' || !applicationVm.isEnoughtCast)) || applicationVm.submitting"><span class="fa fa-plus"></span> Save & Close</button>
-    <button type="button" class="btn green" ng-disabled="(applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === 0 || applicationVm.model.cashInput === ''  || !applicationVm.isEnoughtCast)) || applicationVm.submitting" ng-class="{'btn-summitting': applicationVm.submitting}" ng-click="applicationVm.submit(appForm)"><i ng-if="applicationVm.submitting" class="fa fa-submitting"></i> Submit</button>
+    <button type="button" class="btn green" ng-disabled="(applicationVm.model.paymentMethod === '1' && (applicationVm.model.cashInput === 0 || applicationVm.model.cashInput === ''  || !applicationVm.isEnoughtCast)) || applicationVm.submitting" ng-class="{'btn-summitting': applicationVm.submitting}" ng-click="applicationVm.submit(appForm)"><span ng-if="applicationVm.submitting" class="fa fa-submitting"></span> Submit</button>
 </div>

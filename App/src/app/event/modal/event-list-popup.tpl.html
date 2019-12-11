@@ -1,6 +1,6 @@
 <div class="modal-header">
     <div class="caption caption-md">
-        <i class="icon-globe theme-font hide"></i>
+        <span class="icon-globe theme-font hide"></span>
         <span class="caption-subject font-blue-madison bold uppercase">Select Event</span>
         <button type="button" class="close" aria-hidden="true" ng-click="eventVm.close()"></button>
     </div>
@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <div class="input-icon right margin-top-bottom-5 margin-left-10">
-                    <i class="icon-magnifier"></i>
+                    <span class="icon-magnifier"></span>
                     <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.keyword"
                         placeholder="search..." ng-change="eventVm.search()">
                 </div>
@@ -40,8 +40,8 @@
             <div class="col-xs-12 col-sm-12 col-sm-12 col-lg-12">
                 <label class="control-label"><strong>Selected: </strong></label>
                 <span class="badge badge-info margin-left-10" style="height: 30px; border-radius:20px !important; padding:10px;">
-                    {{eventVm.eventSelected.name}}<i class="fa fa-remove margin-left-10" ng-click="eventVm.removeSelectEvent()"
-                        style="cursor: pointer;"></i>
+                    {{eventVm.eventSelected.name}}<span class="fa fa-remove margin-left-10" ng-click="eventVm.removeSelectEvent()"
+                        style="cursor: pointer;"></span>
                 </span>
             </div>
         </div>
