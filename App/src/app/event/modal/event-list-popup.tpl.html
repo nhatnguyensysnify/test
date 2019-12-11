@@ -74,17 +74,17 @@
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <td>Name: </td>
+                                        <th>Name: </th>
                                         <td>
                                             <p style="margin: 0px; padding: 0px"><label title="{{item.name}}" for="{{item.$id}}">{{item.name}}</label></p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Type: </td>
+                                        <th>Type: </th>
                                         <td>{{eventVm.getType(item.type)}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Event Time: </td>
+                                        <th>Event Time: </th>
                                         <td>
                                             <span>From: {{eventVm.getDateTime(item.startDate)}}</span>s
                                             <br ng-if="item.endDate">
@@ -92,11 +92,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>State: </td>
+                                        <th>State: </th>
                                         <td>{{eventVm.getState(item.state)}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Facility: </td>
+                                        <th>Facility: </th>
                                         <td ng-bind-html="eventVm.getFacility(item.facilityId)"></td>
                                     </tr>
                                 </tbody>

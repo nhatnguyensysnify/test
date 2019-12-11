@@ -70,7 +70,7 @@
                                         <table class="table table-striped">
                                             <tbody>
                                                 <tr>
-                                                    <td class="width15 text-left">Name: </td>
+                                                    <th scope="row" class="width15 text-left">Name: </th>
                                                     <td class="text-left"></td>
                                                     <td class="text-left hidden-xs hidden-sm">
                                                         <span ng-if="item.replaceWith" class="fa fa-refresh"
@@ -84,28 +84,28 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width15 text-left">Rep Code: </td>
+                                                    <th scope="row" class="width15 text-left">Rep Code: </th>
                                                     <td class="text-left">
                                                         <label>{{item.repCode}}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width15 text-left">Email: </td>
+                                                    <th scope="row" class="width15 text-left">Email: </th>
                                                     <td class="text-left">
                                                         <label style="word-break: break-all;">{{item.email}}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width15 text-left">Manager: </td>
+                                                    <th scope="row" class="width15 text-left">Manager: </th>
                                                     <td class="text-left" ng-bind-html="item.manager"></td>
                                                 </tr>
                                                 <tr ng-if="eventModalVm.typeModal == 'cancellation_request'">
-                                                    <td class="width15 text-left">Replaced with: </td>
+                                                    <th scope="row" class="width15 text-left">Replaced with: </th>
                                                     <td class="text-left"
                                                         ng-bind-html="eventVm.getRequesters(item.repAssigned)"></td>
                                                 </tr>
                                                 <tr ng-if="eventModalVm.typeModal == 'cancellation_request'">
-                                                    <td class="width15 text-left">Actions: </td>
+                                                    <th scope="row" class="width15 text-left">Actions: </th>
                                                     <td class="text-left"><a href="javascript:;"
                                                             ng-click="eventModalVm.editShift()"><span
                                                                 class="fa fa-edit"></span></a></td>
@@ -182,7 +182,7 @@
                                         <table class="table table-striped">
                                             <tbody>
                                                 <tr>
-                                                    <td class="width15 text-left">Name: </td>
+                                                    <th scope="row" class="width15 text-left">Name: </th>
                                                     <td class="text-left"></td>
                                                     <td class="text-left hidden-xs hidden-sm">
                                                         <span ng-if="item.replaceWith" class="fa fa-refresh"
@@ -196,23 +196,23 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width15 text-left">Rep Code: </td>
+                                                    <th scope="row" class="width15 text-left">Rep Code: </th>
                                                     <td class="text-left">
                                                         <label>{{item.repCode}}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width15 text-left">Email: </td>
+                                                    <th scope="row" class="width15 text-left">Email: </th>
                                                     <td class="text-left">
                                                         <label style="word-break: break-all;">{{item.email}}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width15 text-left">Manager: </td>
+                                                    <th scope="row" class="width15 text-left">Manager: </th>
                                                     <td class="text-left" ng-bind-html="item.manager"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width15 text-left">Availability Source: </td>
+                                                    <th scope="row" class="width15 text-left">Availability Source: </th>
                                                     <td class="text-left">
                                                         <label style="word-break: break-all;">{{item.sourceTxt}}</label>
                                                     </td>

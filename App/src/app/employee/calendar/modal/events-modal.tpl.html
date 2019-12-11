@@ -141,11 +141,11 @@
                                         <table class="table table-striped">
                                             <tbody>
                                                 <tr>
-                                                    <td class="width30 text-left">Type: </td>
+                                                    <th scope="row" class="width30 text-left">Type: </th>
                                                     <td class="text-left">{{eventModalVm.getType(item.type)}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Event Name: </td>
+                                                    <th scope="row" class="width30 text-left">Event Name: </th>
                                                     <td class="text-left">
                                                         <!-- <a href="javascript:;" ng-if="!$parent.userPermission.isAdmin" target="_blank">{{item.name}}</a> -->
                                                         <a href="#/events/details?id={{item.$id}}"
@@ -153,7 +153,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Start Date: </td>
+                                                    <th scope="row" class="width30 text-left">Start Date: </th>
                                                     <td class="text-left">
                                                         {{eventModalVm.getDateTime(item.startDate)}}
                                                         <span ng-if="item.endDate"> - </span>
@@ -161,41 +161,41 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">State: </td>
+                                                    <th scope="row" class="width30 text-left">State: </th>
                                                     <td class="text-left">{{eventModalVm.getState(item.state)}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Plan Type: </td>
+                                                    <th scope="row" class="width30 text-left">Plan Type: </th>
                                                     <td class="text-left">{{eventModalVm.getRegion(item)}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Territory: </td>
+                                                    <th scope="row" class="width30 text-left">Territory: </th>
                                                     <td class="text-left">{{eventModalVm.getTerritory(item.territory)}}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Facility: </td>
+                                                    <th scope="row" class="width30 text-left">Facility: </th>
                                                     <td class="text-left"
                                                         ng-bind-html="eventModalVm.getFacility(item.facilityId)">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left"> Total Revenue: </td>
+                                                    <th scope="row" class="width30 text-left"> Total Revenue: </th>
                                                     <td class="text-left">
                                                         {{eventModalVm.parseToNumber(item.iptTotalRevenue) | currency}}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left"> Manager: </td>
+                                                    <th scope="row" class="width30 text-left"> Manager: </th>
                                                     <td ng-bind-html="eCalendarVm.getRequesters(item.requester)"></td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td class="width30 text-left"> Area Manager: </td>
+                                                    <th scope="row" class="width30 text-left"> Area Manager: </th>
                                                     <td ng-bind-html="eCalendarVm.getRequesters(item.areaManager)"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Representative: </td>
+                                                    <th scope="row" class="width30 text-left">Representative: </th>
                                                     <td
                                                         ng-bind-html="eCalendarVm.getRequesters(item.representativeAttended)">
                                                     </td>

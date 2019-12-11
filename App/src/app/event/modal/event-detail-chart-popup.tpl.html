@@ -152,59 +152,59 @@
                                         <table class="table table-striped">
                                             <tbody>
                                                 <tr>
-                                                    <td class="width30 text-left">Full Name: </td>
+                                                    <th scope="row" class="width30 text-left">Full Name: </th>
                                                     <td class="text-left">
                                                         <a href="#" ng-click="goTo(item)">{{getFullName(item)}}</a>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Facility Code: </td>
+                                                    <th scope="row" class="width30 text-left">Facility Code: </th>
                                                     <td class="text-left">
                                                         {{item.facilityName}} (<strong>{{item.facilityCode}}</strong>)
                                                     </td>
                                                 </tr>
 
                                                 <tr>
-                                                    <td class="width30 text-left">Plans: </td>
+                                                    <th scope="row" class="width30 text-left">Plans: </th>
                                                     <td class="text-left">{{item.planName}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Addons: </td>
+                                                    <th scope="row" class="width30 text-left">Addons: </th>
                                                     <td class="text-left" ng-bind-html="item.addons"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Representative Code: </td>
+                                                    <th scope="row" class="width30 text-left">Representative Code: </th>
                                                     <td class="text-left">{{item.saleRep || item.employeeName || ''}} (<strong>{{item.representativeCode}}</strong>)</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">State </td>
+                                                    <th scope="row" class="width30 text-left">State </th>
                                                     <td class="text-left">
                                                         {{item.state}} 
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                        <td class="width30 text-left">Plan Type </td>
+                                                        <th scope="row" class="width30 text-left">Plan Type </th>
                                                         <td class="text-left">
                                                             {{item.planType}} 
                                                         </td>
                                                     </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Status</td>
+                                                    <th scope="row" class="width30 text-left">Status</th>
                                                     <td class="text-left">
                                                         {{eventChartVm.getAppStatus(item.status)}}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Total: </td>
+                                                    <th scope="row" class="width30 text-left">Total: </th>
                                                     <td class="text-right">{{item.totalAmount | currency}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Signature Date: </td>
+                                                    <th scope="row" class="width30 text-left">Signature Date: </th>
                                                     <td class="text-left">{{item.timestampSignatured | date:
                                                         'MM/dd/yyyy'}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="width30 text-left">Event: </td>
+                                                    <th scope="row" class="width30 text-left">Event: </th>
                                                     <td class="text-left">{{eventVm.model.name}}</td>
                                                 </tr>
                                             </tbody>

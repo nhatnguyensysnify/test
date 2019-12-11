@@ -125,7 +125,7 @@
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr>
-                                            <td>Name: </td>
+                                            <th>Name: </th>
                                             <td>
                                                 <a class="primary-link" href="#" ng-click="membershipVm.editMember(item.membershipId)">
                                                     <span ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></span>
@@ -135,39 +135,39 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>RepCode: </td>
+                                            <th>RepCode: </th>
                                             <td>{{item.representativeCode}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Facility: </td>
+                                            <th>Facility: </th>
                                             <td ng-bind-html="item.facilityText"></td>
                                         </tr>
                                         <tr>
-                                            <td>State: </td>
+                                            <th>State: </th>
                                             <td>{{item.total | currency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Plan Type: </td>
+                                            <th>Plan Type: </th>
                                             <td>{{item.total | currency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Total: </td>
+                                            <th>Total: </th>
                                             <td>{{item.total | currency}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Method: </td>
+                                            <th>Method: </th>
                                             <td>{{membershipVm.getMethod(item.method)}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Status: </td>
+                                            <th>Status: </th>
                                             <td>{{item.status === 4 ? 'Completed' : 'Billing Required'}}</td>
                                         </tr>
                                         <tr>
-                                            <td>SignUp Date Time: </td>
+                                            <th>SignUp Date Time: </th>
                                             <td>{{item.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
                                         </tr>
                                         <tr>
-                                            <td>Verified Date Time: </td>
+                                            <th>Verified Date Time: </th>
                                             <td>{{item.timestampVerified | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
                                         </tr>
                                     </tbody>

@@ -89,23 +89,23 @@
                                                      <table class="table table-striped">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="width120">Region</td> 
+                                                                <th scope="row" class="width120">Region</th> 
                                                                 <td>{{item.region}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width120">Prev Goal</td> 
+                                                                <th scope="row" class="width120">Prev Goal</th> 
                                                                 <td>{{item.prevPlan | currency}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width120">Prev Revenue</td> 
+                                                                <th scope="row" class="width120">Prev Revenue</th> 
                                                                 <td>{{item.prevRevenue | currency}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width120">Current Goal</td> 
+                                                                <th scope="row" class="width120">Current Goal</th> 
                                                                 <td>{{item.plan | currency}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width120">Total Revenue</td> 
+                                                                <th scope="row" class="width120">Total Revenue</th> 
                                                                 <td>{{item.revenue | currency}}
                                                                     <span class="fa fa-check-square font-green-jungle" ng-if="item.progress.status == 'met'"></span>
                                                                     <span class="fa fa-spinner font-yellow-crusta" ng-if="item.progress.status == 'warning'"></span>
@@ -113,19 +113,19 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width120">Progress</td> 
+                                                                <th scope="row" class="width120">Progress</th> 
                                                                 <td><span ng-class="{'font-green-jungle':item.progress.status == 'met', 'font-yellow-crusta':  item.progress.status == 'warning','font-red':  item.progress.status == 'alert'}">{{item.progress.progress}}%</span></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width120">Last Modifed</td> 
+                                                                <th scope="row" class="width120">Last Modifed</th> 
                                                                 <td>{{item.timestampString}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width120">Modified By</td> 
+                                                                <th scope="row" class="width120">Modified By</th> 
                                                                 <td>{{item.modifiedBy.display}}</td>
                                                             </tr>
                                                             <tr ng-if="userPermission.modify">
-                                                                <td class="width120">Action</td> 
+                                                                <th scope="row" class="width120">Action</th> 
                                                                 <td><a class="btn btn-icon-only blue" href="#" ng-click="egVm.edit(item)"><span class="fa fa-edit"></span>/a></td>
                                                             </tr>
 

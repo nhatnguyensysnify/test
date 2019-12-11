@@ -520,28 +520,28 @@
                                                     <table class="table table-striped">
                                                         <tbody>
                                                             <tr>
-                                                                <td class="width35 text-left">Member ID: </td>
+                                                                <th scope="row" class="width35 text-left">Member ID: </th>
                                                                 <td class="text-left">
                                                                     {{item.memberId}}
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width35 text-left">Facility Code: </td>
+                                                                <th scope="row" class="width35 text-left">Facility Code: </th>
                                                                 <td class="text-left">
                                                                         {{item.facilityCode || ''}}
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width35 text-left">RepCode: </td>
+                                                                <th scope="row" class="width35 text-left">RepCode: </th>
                                                                 <td class="text-left">{{item.representativeCode || ''}}</td>
                                                             </tr>
                                                             
                                                             <tr>
-                                                                <td class="width35 text-left">Total: </td>
+                                                                <th scope="row" class="width35 text-left">Total: </th>
                                                                 <td class="text-left">{{item.total || 0 | currency}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="width35 text-left">Signature Date: </td>
+                                                                <th scope="row" class="width35 text-left">Signature Date: </th>
                                                                 <td class="text-left">
                                                                     {{item.timestampSignatured | date: 'MM/dd/yyyy'}}
                                                                 </td>

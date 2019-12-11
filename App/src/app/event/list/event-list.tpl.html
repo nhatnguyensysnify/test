@@ -199,7 +199,7 @@
                                     <table class="table table-striped">
                                         <tbody>
                                             <tr>
-                                                <td class="width20">Name: </td>
+                                                <th scope="row" class="width20">Name: </th>
                                                 <td>
                                                     <span ng-if="item.status === 1"
                                                         class="fa fa-play font-green-jungle"></span>
@@ -211,11 +211,11 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Type: </td>
+                                                <th scope="row" class="width20">Type: </th>
                                                 <td>{{eventVm.getType(item.type)}}</td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Event Time: </td>
+                                                <th scope="row" class="width20">Event Time: </th>
                                                 <td>
                                                     <span>{{eventVm.getDateTime(item.startDate)}}</span>
                                                     <br ng-if="item.endDate">
@@ -224,27 +224,27 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">State: </td>
+                                                <th scope="row" class="width20">State: </th>
                                                 <td>{{eventVm.getState(item.state)}}</td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Plan Type: </td>
+                                                <th scope="row" class="width20">Plan Type: </th>
                                                 <td>{{eventVm.getRegion(item)}}</td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Territory: </td>
+                                                <th scope="row" class="width20">Territory: </th>
                                                 <td>{{eventVm.getTerritory(item.territory)}}</td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Facility: </td>
+                                                <th scope="row" class="width20">Facility: </th>
                                                 <td ng-bind-html="eventVm.getFacility(item.facilityId)"></td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Manager: </td>
+                                                <th scope="row" class="width20">Manager: </th>
                                                 <td ng-bind-html="eventVm.getRequester(item.requester)"></td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Data Status: </td>
+                                                <th scope="row" class="width20">Data Status: </th>
                                                 <td>
                                                     <!--  <span class="fa fa-address-card" ng-if="item.appUploaded === true || item.appUploaded===false" ng-class="{'font-red': !item.appUploaded, 'font-green-jungle': item.appUploaded}"></span>
                                                     <span ng-if="item.status === 1" class="fa fa-play font-green-jungle"></span>
@@ -256,7 +256,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Apps Uploaded: </td>
+                                                <th scope="row" class="width20">Apps Uploaded: </th>
                                                 <td>
                                                     <span>&nbsp;
                                                         {{item.appUploaded === true || item.appUploaded === false ?
@@ -265,7 +265,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="width20">Status: </td>
+                                                <th scope="row" class="width20">Status: </th>
                                                 <td>
                                                     <span class="fa  fa-hourglass-half font-yellow"
                                                         ng-if="item.verifyStatus === 0"

@@ -118,70 +118,70 @@
                                             <table class="table table-striped">
                                                 <tbody>
                                                     <tr>
-                                                        <td class="width30 text-left">Start Date: </td>
+                                                        <th scope="row" class="width30 text-left">Start Date: </th>
                                                         <td>{{eventVm.getDateTime(item.startDate)}}
                                                             <span ng-if="item.endDate"> - </span> {{eventVm.getDateTime(item.endDate)}}
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="width30 text-left">Type: </td>
+                                                        <th scope="row" class="width30 text-left">Type: </th>
                                                         <td>{{eventVm.getType(item.type)}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="width30 text-left">Name: </td>
+                                                        <th scope="row" class="width30 text-left">Name: </th>
                                                         <td><a class="primary-link" href="#/events/details?id={{item.$id}}" target="_blank">{{item.name}}</a></td>
                                                     </tr>
 
 
                                                     <tr>
-                                                        <td class="width30 text-left">Apps Uploaded: </td>
+                                                        <th scope="row" class="width30 text-left">Apps Uploaded: </th>
                                                         <td> <span>&nbsp; {{item.appUploaded === true ||
                                                                 item.appUploaded === false ?
                                                                 (item.appUploaded ? 'Yes' : 'No') : 'N/A'}}</span></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="width30 text-left">Facility: </td>
+                                                        <th scope="row" class="width30 text-left">Facility: </th>
                                                         <td ng-bind-html="eventVm.getFacility(item.facilityId)"></td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="width30 text-left">State: </td>
+                                                        <th scope="row" class="width30 text-left">State: </th>
                                                         <td>{{eventVm.getState(item.state)}}</td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="width30 text-left">Plan Type: </td>
+                                                        <th scope="row" class="width30 text-left">Plan Type: </th>
                                                         <td>{{eventVm.getRegion(item)}}</td>
                                                     </tr>
                                                     <!-- <tr>
-                                                        <td class="width30 text-right">Est. Revenue: </td>
+                                                        <th scope="row" class="width30 text-right">Est. Revenue: </td>
                                                         <td>
                                                             {{eventVm.parseToNumber(item.estTotalRevenue) | currency}}
                                                         </td>
                                                     </tr> -->
                                                     <tr>
-                                                        <td class="width30 text-left">Total Revenue: </td>
+                                                        <th scope="row" class="width30 text-left">Total Revenue: </th>
                                                         <td>
                                                             {{eventVm.parseToNumber(item.iptTotalRevenue) | currency}}
                                                         </td>
                                                     </tr>
                                                     <!-- <tr>
-                                                        <td class="width30 text-left">System Total Revenue: </td>
+                                                        <th scope="row" class="width30 text-left">System Total Revenue: </td>
                                                         <td>
                                                             {{eventVm.parseToNumber(item.sysTotalRevenue) | currency}}
                                                         </td>
                                                     </tr> -->
                                                     <tr>
-                                                        <td class="width30 text-left">Closing Rate: </td>
+                                                        <th scope="row" class="width30 text-left">Closing Rate: </th>
                                                         <td>
                                                             {{item.iptCloseRate !== undefined ? eventVm.parseToNumber(item.iptCloseRate).toFixed(2) + '%' : ''}}
                                                             <!-- {{eventVm.parseToNumber(item.iptCloseRate).toFixed(2)}}% -->
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="width30 text-left">Representative: </td>
+                                                        <th scope="row" class="width30 text-left">Representative: </th>
                                                         <td ng-bind-html="eventVm.getRequesters(item.representativeAttended)"></td>
                                                     </tr>
                                                     <!-- <tr>
-                                                        <td class="width30 text-left">System Closing Rate: </td>
+                                                        <th scope="row" class="width30 text-left">System Closing Rate: </td>
                                                         <td>
                                                             {{item.sysCloseRate ?
                                                             eventVm.parseToNumber(item.sysCloseRate).toFixed(2) + '%' :
@@ -208,9 +208,6 @@
                                         </td>
                                         <td class="hidden-xs hidden-sm text-left" style="vertical-align: middle;">{{eventVm.getRegion(item.state, item.region)}}
                                         </td>
-                                        <!-- <td class="width10 hidden-xs hidden-sm text-right">
-                                            {{eventVm.parseToNumber(item.estTotalRevenue) | currency}}
-                                        </td> -->
                                         <td class=" hidden-xs hidden-sm text-left" style="vertical-align: middle;">
                                             {{eventVm.parseToNumber(item.iptTotalRevenue) | currency}}
                                         </td>

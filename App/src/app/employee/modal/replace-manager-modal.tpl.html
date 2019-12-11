@@ -44,32 +44,32 @@
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr>
-                                            <td class="width35 text-left">Full Name: </td>
+                                            <th scope="row" class="width35 text-left">Full Name: </th>
                                             <td class="text-left"><span class="font-blue">{{item.firstName + ' ' +
                                                     item.lastName}}</span></td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">UserName: </td>
+                                            <th scope="row" class="width35 text-left">UserName: </th>
                                             <td class="text-left">
                                                 {{item.repCode}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">Manager: </td>
+                                            <th scope="row" class="width35 text-left">Manager: </th>
                                             <td class="text-left" ng-bind-html="item.manager"></td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">Role: </td>
+                                            <th scope="row" class="width35 text-left">Role: </th>
                                             <td class="text-left">{{rVm.getRoleText(item)}}</td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">Status: </td>
+                                            <th scope="row" class="width35 text-left">Status: </th>
                                             <td class="text-left">
                                                 <span class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left"></td>
+                                            <th scope="row" class="width35 text-left"></th>
                                             <td class="text-left">
                                                 <a href="javascript:;" class="btn btn-outline btn-circle btn-sm" style="width: 90px;"
                                                     ng-click="rVm.selectedReplace(item)" ng-class="{'font-red': item.selected, 'primary' : !item.selected}">

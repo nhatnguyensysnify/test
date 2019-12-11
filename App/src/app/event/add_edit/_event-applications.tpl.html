@@ -88,7 +88,7 @@
                                         <table class="table table-striped">
                                             <tbody>
                                                 <tr>
-                                                    <td>Full Name: </td>
+                                                    <th scope="row">Full Name: </th>
                                                     <td>
                                                         <a class="primary-link" href="#/membership/application/{{item.$id}}?tab={{item.status}}&status={{item.status}}&start={{eventAppVm.cri.timestampStart}}&end={{eventAppVm.cri.timestampEnd}}&page={{eventAppVm.paging.currentPage}}&author={{eventAppVm.cri.clients}}&state={{eventAppVm.cri.state}}&reportBy={{eventAppVm.reportDate}}&sortBy={{eventAppVm.cri.sort}}" target="_blank">
                                                             {{item.primaryMember || item.secondaryMember || 'Unknown'}}
@@ -96,23 +96,23 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>RepCode: </td>
+                                                    <th scope="row">RepCode: </th>
                                                     <td>{{item.representativeCode}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Total: </td>
+                                                    <th scope="row">Total: </th>
                                                     <td>{{item.total | currency}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Status: </td>
+                                                    <th scope="row">Status: </th>
                                                     <td>{{item.status === 4 ? 'Completed' : 'Billing Required'}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Created Date: </td>
+                                                    <th scope="row">Created Date: </th>
                                                     <td>{{item.timestampCreated | date: 'MM/dd/yyyy hh:mm:ss a'}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Created By: </td>
+                                                    <th scope="row">Created By: </th>
                                                     <td><a href="#/employees/edit/{{item.author}}/">{{item.authorName}}</a></td>
                                                 </tr>
                                             </tbody>

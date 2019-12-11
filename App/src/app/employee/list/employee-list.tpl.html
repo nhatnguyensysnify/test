@@ -204,7 +204,7 @@
                                 <table class="table table-striped">
                                     <tbody>
                                         <tr>
-                                            <td class="width35 text-left">Email: </td>
+                                            <th scope="row" class="width35 text-left">Email: </th>
                                             <td class="text-left show-function">
                                                 <span class="primary-link" style="word-break: break-all;">{{item.email}}</span>
                                                 <p class="functions" style="font-style: italic">
@@ -223,38 +223,38 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">UserName: </td>
+                                            <th scope="row" class="width35 text-left">UserName: </th>
                                             <td class="text-left">
                                                 {{item.repCode}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">Full Name: </td>
+                                            <th scope="row" class="width35 text-left">Full Name: </th>
                                             <td class="text-left"><span class="font-blue">{{item.firstName + ' ' +
                                                     item.lastName}}</span></td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">Role: </td>
+                                            <th scope="row" class="width35 text-left">Role: </th>
                                             <td class="text-left">{{getRoleText(item)}}</td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">Manager: </td>
+                                            <th scope="row" class="width35 text-left">Manager: </th>
                                             <td class="text-left" ng-bind-html="item.manager"></td>
                                         </tr>
 
                                         <tr>
-                                            <td class="width35 text-left">Last Login: </td>
+                                            <th scope="row" class="width35 text-left">Last Login: </th>
                                             <td class="text-left">{{item.lastLoginDate | date: 'MM/dd/yyyy hh:mm a'}}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left">Status: </td>
+                                            <th scope="row" class="width35 text-left">Status: </th>
                                             <td class="text-left">
                                                 <span class="fa" ng-class="{'fa-check font-green-jungle': item.isAuthorized, 'fa-ban font-red': !item.isAuthorized}"></span>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="width35 text-left"></td>
+                                            <th scope="row" class="width35 text-left"></th>
                                             <td class="text-left">
                                                 <a href="#" ng-click="showManagerInfo(item)" data-toggle="tooltip" title="Show Manager Hierarchy"><span class="fa fa-info-circle"></span></a>
                                             </td>
