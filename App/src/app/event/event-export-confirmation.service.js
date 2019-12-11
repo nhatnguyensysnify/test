@@ -12,7 +12,7 @@
 
         function exportWorkbook(cri, opts) {
             var p;
-            p = _getEventStyles(opts).then(function (res) {
+            p = _getEventStyles().then(function (res) {
                 opts.theme = res;
             });
             p = p.then(function () {
