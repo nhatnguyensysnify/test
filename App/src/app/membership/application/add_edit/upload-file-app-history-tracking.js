@@ -246,13 +246,13 @@
                         diff.class = 'col-xs-12 col-sm-12 col-md-12';
                         var tpl = '<table class="table table-striped table-bordered">' +
                             '<thead>' +
-                            '<th class="text-center width10" style="vertical-align: middle;"> State </th>' +
-                            '<th class="text-center width8" style="vertical-align: middle;"> Issue Date </th>' +
-                            '<th class="text-center width10" style="vertical-align: middle;"> License Type </th>' +
-                            '<th class="text-center width10" style="vertical-align: middle;"> License Number </th>' +
-                            '<th class="text-center width8" style="vertical-align: middle;"> Expiration Date </th>' +
-                            '<th class="text-center width10" style="vertical-align: middle;"> Appointed </th>' +
-                            '<th class="text-center width8" style="vertical-align: middle;"> Modified Date </th>' +
+                            '<th scope="col" class="text-center width10" style="vertical-align: middle;"> State </th>' +
+                            '<th scope="col" class="text-center width8" style="vertical-align: middle;"> Issue Date </th>' +
+                            '<th scope="col" class="text-center width10" style="vertical-align: middle;"> License Type </th>' +
+                            '<th scope="col" class="text-center width10" style="vertical-align: middle;"> License Number </th>' +
+                            '<th scope="col" class="text-center width8" style="vertical-align: middle;"> Expiration Date </th>' +
+                            '<th scope="col" class="text-center width10" style="vertical-align: middle;"> Appointed </th>' +
+                            '<th scope="col" class="text-center width8" style="vertical-align: middle;"> Modified Date </th>' +
                             '</thead>' +
                             '<tbody>';
                         if (_.isObject(diff.old)) {

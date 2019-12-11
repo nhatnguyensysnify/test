@@ -30,7 +30,7 @@
 						<table class="table table-hover table-light dataTable" ng-class="{'dashboard-popup-width': isByPlanType}">
 							<thead>
 								<tr>
-									<th class="width20 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width20' :'width25'}}"
+									<th scope="col" class="width20 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width20' :'width25'}}"
 									 ng-click="dashVm.toggleSort('primaryMember'); dashVm.sort.field='primaryMember'">
 										<p>
 											Full Name
@@ -40,7 +40,7 @@
 											</span>
 										</p>
 									</th>
-									<!-- <th class="text-center cursor-pointer" ng-class="{{isByPlanType ? 'width15' :'width25'}}" ng-click="dashVm.toggleSort('lastName'); dashVm.sort.field='lastName'">
+									<!-- <th scope="col" class="text-center cursor-pointer" ng-class="{{isByPlanType ? 'width15' :'width25'}}" ng-click="dashVm.toggleSort('lastName'); dashVm.sort.field='lastName'">
 									<p>
 												Last Name 
 										<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'lastName'">
@@ -49,7 +49,7 @@
 										</span>
 									</p>
 								</th> -->
-									<th class="width15 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width15' :'width20'}}"
+									<th scope="col" class="width15 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width15' :'width20'}}"
 									 ng-click="dashVm.toggleSort('facilityCode'); dashVm.sort.field='facilityCode'">
 										<p>
 											Facility Code
@@ -59,7 +59,7 @@
 											</span>
 										</p>
 									</th>
-									<th class="width15 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width15' :'width20'}}"
+									<th scope="col" class="width15 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width15' :'width20'}}"
 									 ng-click="dashVm.toggleSort('representativeCode'); dashVm.sort.field='representativeCode'">
 										<p>
 											Representative Code
@@ -69,7 +69,7 @@
 											</span>
 										</p>
 									</th>
-									<th class="width25 text-center cursor-pointer hidden-xs hidden-sm" ng-click="dashVm.toggleSort('planName'); dashVm.sort.field='planName'"
+									<th scope="col" class="width25 text-center cursor-pointer hidden-xs hidden-sm" ng-click="dashVm.toggleSort('planName'); dashVm.sort.field='planName'"
 									 ng-if="isByPlanType">
 										<p>
 											Plans/Addons
@@ -79,12 +79,12 @@
 											</span>
 										</p>
 									</th>
-									<!-- <th class="width25 text-center cursor-pointer hidden-xs" ng-if="isByPlanType">
+									<!-- <th scope="col" class="width25 text-center cursor-pointer hidden-xs" ng-if="isByPlanType">
 									<p>
 											Addons 
 									</p>
 								</th> -->
-									<th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width10'}}"
+									<th scope="col" class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width10'}}"
 									 ng-click="dashVm.toggleSort('state'); dashVm.sort.field='state'">
 										<p>
 											State
@@ -94,7 +94,7 @@
 											</span>
 										</p>
 									</th>
-									<th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width10'}}"
+									<th scope="col" class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width10'}}"
 									 ng-click="dashVm.toggleSort('planType'); dashVm.sort.field='planType'">
 										<p>
 											Plan Type
@@ -104,7 +104,7 @@
 											</span>
 										</p>
 									</th>
-									<th class="width5 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width5' :'width10'}}"
+									<th scope="col" class="width5 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width5' :'width10'}}"
 									 ng-click="dashVm.toggleSort('totalAmount'); dashVm.sort.field='totalAmount'">
 										<p>
 											Total
@@ -114,7 +114,7 @@
 											</span>
 										</p>
 									</th>
-									<th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width15'}}"
+									<th scope="col" class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width15'}}"
 									 ng-click="dashVm.toggleSort('timestampSignatured'); dashVm.sort.field='timestampSignatured'">
 										<p>
 											Signature Date
@@ -124,7 +124,7 @@
 											</span>
 										</p>
 									</th>
-									<th class="width100 text-center cursor-pointer hidden-md hidden-lg">
+									<th scope="col" class="width100 text-center cursor-pointer hidden-md hidden-lg">
 										<p>
 											Information
 										</p>

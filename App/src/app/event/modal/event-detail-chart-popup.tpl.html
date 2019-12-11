@@ -20,7 +20,7 @@
                         <table class="table table-hover table-light dataTable">
                             <thead>
                                 <tr>
-                                    <th class="width15 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('firstName'); eventChartVm.sort.field='firstName'">
+                                    <th scope="col" class="width15 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('firstName'); eventChartVm.sort.field='firstName'">
                                         <p>
                                             Full Name
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'firstName'">
@@ -29,7 +29,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('facilityCode'); eventChartVm.sort.field='facilityCode'">
+                                    <th scope="col" class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('facilityCode'); eventChartVm.sort.field='facilityCode'">
                                         <p>
                                             Facility Code
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'facilityCode'">
@@ -38,7 +38,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <!-- <th class="width20 text-center cursor-pointer hidden-xs hidden-sm"  ng-click="eventChartVm.toggleSort('firstName'); eventChartVm.sort.field='planName'">
+                                    <!-- <th scope="col" class="width20 text-center cursor-pointer hidden-xs hidden-sm"  ng-click="eventChartVm.toggleSort('firstName'); eventChartVm.sort.field='planName'">
                                         <p >
                                             Plans/Addons
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'planName'">
@@ -47,7 +47,7 @@
                                             </span>
                                         </p>
                                     </th> -->
-                                    <th class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('representativeCode'); eventChartVm.sort.field='representativeCode'">
+                                    <th scope="col" class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('representativeCode'); eventChartVm.sort.field='representativeCode'">
                                         <p>
                                             Sale Rep
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'representativeCode'">
@@ -56,7 +56,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width5 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('state'); eventChartVm.sort.field='state'">
+                                    <th scope="col" class="width5 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('state'); eventChartVm.sort.field='state'">
                                         <p>
                                             State
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'state'">
@@ -65,7 +65,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('planType'); eventChartVm.sort.field='planType'">
+                                    <th scope="col" class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('planType'); eventChartVm.sort.field='planType'">
                                         <p>
                                             Plan Type
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'planType'">
@@ -74,7 +74,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('status'); eventChartVm.sort.field='status'">
+                                    <th scope="col" class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('status'); eventChartVm.sort.field='status'">
                                         <p>
                                             Status
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'status'">
@@ -83,7 +83,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width5 text-right cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('totalAmount'); eventChartVm.sort.field='totalAmount'">
+                                    <th scope="col" class="width5 text-right cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('totalAmount'); eventChartVm.sort.field='totalAmount'">
                                         <p>
                                             Total
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'totalAmount'">
@@ -92,7 +92,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('timestampSignatured'); eventChartVm.sort.field='timestampSignatured'">
+                                    <th scope="col" class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('timestampSignatured'); eventChartVm.sort.field='timestampSignatured'">
                                         <p>
                                             Signature Date
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'timestampSignatured'">
@@ -101,7 +101,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('eventName'); eventChartVm.sort.field='eventName'">
+                                    <th scope="col" class="width10 text-left cursor-pointer hidden-xs hidden-sm" ng-click="eventChartVm.toggleSort('eventName'); eventChartVm.sort.field='eventName'">
                                         <p>
                                             Event
                                             <span class="margin-left-5 margin-right-5" ng-show="eventChartVm.sort.field == 'eventName'">
@@ -110,7 +110,7 @@
                                             </span>
                                         </p>
                                     </th>
-                                    <th class="width100 text-center cursor-pointer hidden-md hidden-lg">
+                                    <th scope="col" class="width100 text-center cursor-pointer hidden-md hidden-lg">
                                         <p>
                                             Information
                                         </p>

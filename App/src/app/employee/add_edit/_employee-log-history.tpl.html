@@ -45,15 +45,15 @@
             <div class="table-responsive employee-history-tracking">
                 <table class="table table-striped table-bordered">
                     <thead>
-                        <th class="text-center width10" style="vertical-align: middle;"> Action </th>
-                        <th class="text-center width5" style="vertical-align: middle;"> Status </th>
-                        <th class="text-center width20" style="vertical-align: middle;"> Facility </th>
-                        <th class="text-center width20" style="vertical-align: middle;"> File Name </th>
-                        <th class="text-center width5" style="vertical-align: middle;"> Pages Count </th>
-                        <th class="text-center width15" style="vertical-align: middle;"> On Date </th>
-                        <th class="text-center width10" style="vertical-align: middle;"> Author </th>
-                        <th class="text-center width10" style="vertical-align: middle;"> Source </th>
-                        <th class="text-center width5" style="vertical-align: middle;">Details</th>
+                        <th scope="col" class="text-center width10" style="vertical-align: middle;"> Action </th>
+                        <th scope="col" class="text-center width5" style="vertical-align: middle;"> Status </th>
+                        <th scope="col" class="text-center width20" style="vertical-align: middle;"> Facility </th>
+                        <th scope="col" class="text-center width20" style="vertical-align: middle;"> File Name </th>
+                        <th scope="col" class="text-center width5" style="vertical-align: middle;"> Pages Count </th>
+                        <th scope="col" class="text-center width15" style="vertical-align: middle;"> On Date </th>
+                        <th scope="col" class="text-center width10" style="vertical-align: middle;"> Author </th>
+                        <th scope="col" class="text-center width10" style="vertical-align: middle;"> Source </th>
+                        <th scope="col" class="text-center width5" style="vertical-align: middle;">Details</th>
                     </thead>
                     <tbody>
                         <tr ng-repeat-start="item in employeeHistoryVm.list[employeeHistoryVm.paging.currentPage] track by $index" ng-class="{'tracking-info-active': employeeHistoryVm.trackingDetails === $index}">
@@ -221,12 +221,12 @@
                                                         <table class="table table-hover table-light">
                                                             <thead>
                                                                 <tr class="uppercase">
-                                                                    <th> MEMBER </th>
-                                                                    <th class="text-center"> Page Index </th>
-                                                                    <th class="text-center"> Status </th>
-                                                                    <th class="text-center"> Method </th>
-                                                                    <th class="text-center"> Created Date </th>
-                                                                    <th class="text-center"> Download Image</th>
+                                                                    <th scope="col"> MEMBER </th>
+                                                                    <th scope="col" class="text-center"> Page Index </th>
+                                                                    <th scope="col" class="text-center"> Status </th>
+                                                                    <th scope="col" class="text-center"> Method </th>
+                                                                    <th scope="col" class="text-center"> Created Date </th>
+                                                                    <th scope="col" class="text-center"> Download Image</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>

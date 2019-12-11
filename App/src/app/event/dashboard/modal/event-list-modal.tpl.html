@@ -98,8 +98,8 @@
                     <table class="table table-hover table-light dataTable">
                         <thead>
                             <tr class="uppercase">
-                                <th class="width100 text-center hidden-md hidden-lg">Information</th>
-                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('startDate'); eventModalVm.sort.field='startDate'">
+                                <th scope="col" class="width100 text-center hidden-md hidden-lg">Information</th>
+                                <th scope="col" class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('startDate'); eventModalVm.sort.field='startDate'">
                                     <p>
                                         Start Date
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'startDate'">
@@ -108,7 +108,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('type'); eventModalVm.sort.field='type'">
+                                <th scope="col" class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('type'); eventModalVm.sort.field='type'">
                                     <p>
                                         Type
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'type'">
@@ -117,7 +117,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width20 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('name'); eventModalVm.sort.field='name'">
+                                <th scope="col" class="width20 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('name'); eventModalVm.sort.field='name'">
                                     <p>
                                         Name
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'name'">
@@ -126,7 +126,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('appUploaded'); eventModalVm.sort.field='appUploaded'">
+                                <th scope="col" class="width5 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('appUploaded'); eventModalVm.sort.field='appUploaded'">
                                     <p>
                                         Uploaded
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'appUploaded'">
@@ -135,7 +135,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width15 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('facilityCode'); eventModalVm.sort.field='facilityCode'">
+                                <th scope="col" class="width15 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('facilityCode'); eventModalVm.sort.field='facilityCode'">
                                     <p>
                                         Facility
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'facilityCode'">
@@ -144,7 +144,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('state'); eventModalVm.sort.field='state'">
+                                <th scope="col" class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('state'); eventModalVm.sort.field='state'">
                                     <p>
                                         State
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'state'">
@@ -153,7 +153,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('planType'); eventModalVm.sort.field='planType'">
+                                <th scope="col" class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('planType'); eventModalVm.sort.field='planType'">
                                     <p>
                                         Plan Type
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'planType'">
@@ -162,7 +162,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('iptTotalRevenue'); eventModalVm.sort.field='iptTotalRevenue'">
+                                <th scope="col" class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('iptTotalRevenue'); eventModalVm.sort.field='iptTotalRevenue'">
                                     <p>
                                         Total Revenue
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'iptTotalRevenue'">
@@ -171,7 +171,7 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('iptCloseRate'); eventModalVm.sort.field='iptCloseRate'">
+                                <th scope="col" class="width10 hidden-xs hidden-sm cursor-pointer text-left" ng-click="eventModalVm.toggleSort('iptCloseRate'); eventModalVm.sort.field='iptCloseRate'">
                                     <p>
                                         Closing Rate
                                         <span class="margin-left-5 margin-right-5" ng-show="eventModalVm.sort.field == 'iptCloseRate'">
@@ -180,12 +180,12 @@
                                         </span>
                                     </p>
                                 </th>
-                                <th class="width10 hidden-xs hidden-sm text-left">
+                                <th scope="col" class="width10 hidden-xs hidden-sm text-left">
                                     <p>
                                         Representative
                                     </p>
                                 </th>
-                                <th class="width10 hidden-xs hidden-sm text-left">
+                                <th scope="col" class="width10 hidden-xs hidden-sm text-left">
                                     <p>
                                         Territory
                                     </p>

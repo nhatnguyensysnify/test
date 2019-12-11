@@ -16,7 +16,7 @@
 			 */
 			$delegate.buildElement = function buildElement(type, path, params) {
 				var deferred = $q.defer(),
-					el,
+					el = {},
 					loaded,
 					filesCache = $delegate._getFilesCache(),
 					cacheBuster = function cacheBuster(url) {

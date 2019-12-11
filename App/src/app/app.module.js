@@ -198,6 +198,7 @@
 
         var appSettingRef = firebaseDataRef.child('app-options');
         appSettingRef.on('value', updateStorageAppSetting);
+        appUtils.initializeApp();
 
         $scope.$on('$destroy', function () {
             if (appSettingRef) {

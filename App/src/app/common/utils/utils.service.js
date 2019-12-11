@@ -1,11 +1,11 @@
-(function() {
+(function () {
     'use strict';
     angular.module('app.utils').factory('appUtils', appUtils);
     /** @ngInject **/
     function appUtils($rootScope, $q, APP_CONFIG, $filter, $uibModal, deviceDetector, $http) {
         var appSettings = $rootScope.storage && $rootScope.storage.appSettings || null,
             specifyRoles = appSettings && appSettings.specifyPermissionsRoles || null;
-        
+
         var geoCodeUrl = APP_CONFIG.geocodeMapUrl || 'https://maps.googleapis.com/maps/api/geocode/';
         var geoCodeKey = APP_CONFIG.geoCodeKey || 'AIzaSyCTU4vy7rFUTUSbMez8fFfXmUoXfix3xHc';
 
@@ -421,17 +421,17 @@
         ];
 
         var eventStatus = [{
-                value: 1,
-                text: 'Publish'
-            },
-            // {
-            //     value: 0,
-            //     text: 'UnPublish'
-            // },
-            {
-                value: -1,
-                text: 'Archived'
-            }
+            value: 1,
+            text: 'Publish'
+        },
+        // {
+        //     value: 0,
+        //     text: 'UnPublish'
+        // },
+        {
+            value: -1,
+            text: 'Archived'
+        }
         ];
         var eventVerifyStatus = [{
             value: 1,
@@ -452,7 +452,7 @@
         var eventListVerifyStatus = [{
             value: "Empty",
             text: 'Not Send'
-        },{
+        }, {
             value: 1,
             text: 'Confirmed'
         },
@@ -484,27 +484,27 @@
             CONFIRMED: 1,
         };
         var licenseTypes = [{
-                value: 1,
-                text: 'PACKAGE SALES LICENSE'
-            },
-            {
-                value: 0,
-                text: 'Prepaid Legal'
-            },
-            {
-                value: 2,
-                text: 'L-LOA'
-            }
+            value: 1,
+            text: 'PACKAGE SALES LICENSE'
+        },
+        {
+            value: 0,
+            text: 'Prepaid Legal'
+        },
+        {
+            value: 2,
+            text: 'L-LOA'
+        }
         ];
 
         var hireTypes = [{
-                value: '1',
-                text: 'Contractor'
-            },
-            {
-                value: '0',
-                text: 'Employee'
-            }
+            value: '1',
+            text: 'Contractor'
+        },
+        {
+            value: '0',
+            text: 'Employee'
+        }
         ];
 
         const licenseTypeEnum = {
@@ -635,7 +635,8 @@
             hireTypes: hireTypes,
             summerNoteOptions: summerNoteOptions,
             identifyEmail: identifyEmail,
-            getLatLonByAddressString: getLatLonByAddressString
+            getLatLonByAddressString: getLatLonByAddressString,
+            initializeApp: initializeApp
         };
 
         function editorInsertMedia(context) {
@@ -644,10 +645,10 @@
             var button = ui.button({
                 contents: '<i class="fa fa-file-code-o"/>',
                 tooltip: 'Insert Media',
-                click: function() {
+                click: function () {
                     // invoke insertText method with 'hello' on editor module.
-                    popupMediaMulti().then(function(selectedItems) {
-                        _.forEach(selectedItems, function(item) {
+                    popupMediaMulti().then(function (selectedItems) {
+                        _.forEach(selectedItems, function (item) {
                             //console.log(item);
                             if (!item.type) item.type = '';
 
@@ -737,7 +738,7 @@
 
         function getImageFBUrl(imageUri) {
             if (imageUri.startsWith('gs://')) {
-                return firebase.storage().refFromURL(imageUri).getMetadata().then(function(metadata) {
+                return firebase.storage().refFromURL(imageUri).getMetadata().then(function (metadata) {
                     return $q.when({ imgUrl: metadata.downloadURLs[0] });
                 });
             } else {
@@ -770,12 +771,12 @@
         // }
 
         function checkAllCheckBox(controlId, name) {
-            var _isChecked = function(Id) {
+            var _isChecked = function (Id) {
                 return $("#" + Id).is(':checked');
             };
 
             var check = _isChecked(controlId);
-            if (typeof(check) === 'undefined') {
+            if (typeof (check) === 'undefined') {
                 check = false;
             }
             $('input[name=' + name + ']').attr('checked', check);
@@ -783,7 +784,7 @@
 
         function getTreeCategories(cateItems, checkedItems) {
             var categories = [];
-            _.forEach(cateItems, function(value, key) {
+            _.forEach(cateItems, function (value, key) {
                 var subCates = _.filter(cateItems, ['parent', value.$id]);
                 value.children = [];
                 if (subCates.length > 0) {
@@ -792,7 +793,7 @@
 
                 value.checked = false;
                 if (checkedItems && checkedItems.length > 0) {
-                    var checkedCates = _.filter(checkedItems, function(o) {
+                    var checkedCates = _.filter(checkedItems, function (o) {
                         if (o == value.$id) {
                             checkedItems.push(value.$id);
                             return true;
@@ -805,7 +806,7 @@
                 }
                 categories.push(value);
             });
-            categories = _.find(categories, function(item) { return item.parent === '' || item.parent === 'root'; });
+            categories = _.find(categories, function (item) { return item.parent === '' || item.parent === 'root'; });
             return categories;
         }
 
@@ -818,7 +819,7 @@
         function getTimestamp() {
             if (firebase && firebase.database) {
                 var offsetRef = firebase.database().ref(".info/serverTimeOffset");
-                offsetRef.on("value", function(snap) {
+                offsetRef.on("value", function (snap) {
                     var offset = snap.val();
                     var estimatedServerTimeMs = new Date().getTime() + offset;
                     return estimatedServerTimeMs;
@@ -831,7 +832,7 @@
         function getOffSet() {
             if (firebase && firebase.database) {
                 var offsetRef = firebase.database().ref(".info/serverTimeOffset");
-                offsetRef.on("value", function(snap) {
+                offsetRef.on("value", function (snap) {
                     return snap.val();
                 });
             }
@@ -844,7 +845,7 @@
                 controller: 'ImagesGalleryCtrl as galleryVm',
                 size: 'lg',
                 resolve: {
-                    isFeatured: function() {
+                    isFeatured: function () {
                         return false;
                     }
                 }
@@ -859,7 +860,7 @@
                 controller: 'ImagesGalleryCtrl as galleryVm',
                 size: 'lg',
                 resolve: {
-                    isFeatured: function() {
+                    isFeatured: function () {
                         return true;
                     }
                 }
@@ -869,7 +870,7 @@
         }
 
         function sortArray(arr, sortField) {
-            return arr.sort(function(a, b) {
+            return arr.sort(function (a, b) {
                 return b[sortField] - a[sortField];
             });
         }
@@ -877,7 +878,7 @@
         function toArray(targetObject) {
             if (!targetObject) { return []; }
             return Object.keys(targetObject).map(
-                function(key) {
+                function (key) {
                     return {
                         key: key,
                         value: targetObject[key]
@@ -925,7 +926,7 @@
 
         function uploadFileDropzone(func, membershipMediaService, currentUser) {
             //Overite submitRequest method of dropzone.js file
-            Dropzone.prototype.submitRequest = function(xhr, formData, files) {
+            Dropzone.prototype.submitRequest = function (xhr, formData, files) {
                 // var formDropzone = $("#form-dropzone:visible");
                 $('.dz-upload:visible').css('background', 'green');
                 var file = files[0];
@@ -936,13 +937,13 @@
                 // Upload file and metadata to the object 'images/mountains.jpg'
                 var uploadTask = membershipMediaService.uploadFile('application/', file, metadata); // Listen for state changes, errors, and completion of the upload.
                 uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                    function(snapshot) {
+                    function (snapshot) {
                         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                         var dzProgress = $('.dz-progress:visible');
                         dzProgress.find('.dz-upload').css('width', progress + '%');
                         if (progress == 100) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 dzProgress.hide();
                             }, 1000);
                         }
@@ -954,7 +955,7 @@
                                 break;
                         }
                     },
-                    function(error) {
+                    function (error) {
                         switch (error.code) {
                             case 'storage/unauthorized':
                                 // User doesn't have permission to access the object
@@ -969,7 +970,7 @@
                                 break;
                         }
                     },
-                    function() {
+                    function () {
                         // Upload completed successfully, now we can get the download URL
                         hideLoading();
                         var downloadURL = uploadTask.snapshot.downloadURL;
@@ -1173,7 +1174,7 @@
             if (number === '') {
                 deferred.resolve("");
             } else {
-                firebase.database().ref("app-options/paymentCardType").once("value", function(snap) {
+                firebase.database().ref("app-options/paymentCardType").once("value", function (snap) {
                     if (snap && snap.val()) {
                         var cardTypes = snap.val();
                         // visa
@@ -1244,7 +1245,7 @@
             // 	deviceInfo.appVersion = appVersion || '';
             // });
 
-            return getCurrentPosition().then(function(position) {
+            return getCurrentPosition().then(function (position) {
                 deviceInfo.geoCode = position;
                 deviceInfo.appVersion = APP_CONFIG.appVersion || '';
                 deviceInfo.buildVersion = APP_CONFIG.buildVersion || '';
@@ -1254,7 +1255,7 @@
 
         function getAppVersion(settingName) {
             var deferred = $q.defer();
-            firebase.database().ref("app-options/" + settingName).on("value", function(snap) {
+            firebase.database().ref("app-options/" + settingName).on("value", function (snap) {
                 if (snap && snap.val()) {
                     deferred.resolve(snap.val());
                 }
@@ -1281,7 +1282,7 @@
         function stripDollarPrefixedKeys(data) {
             if (!angular.isObject(data) || angular.isDate(data)) { return data; }
             var out = angular.isArray(data) ? [] : {};
-            angular.forEach(data, function(v, k) {
+            angular.forEach(data, function (v, k) {
                 if (typeof k !== 'string' || k.charAt(0) !== '$') {
                     out[k] = stripDollarPrefixedKeys(v);
                 }
@@ -1367,12 +1368,14 @@
 
         function checkPermission(user, action, pAcl) {
             var uRoles = [],
-                adminId = (specifyRoles && (specifyRoles.admin || specifyRoles.corp)) || '-KTlccaZaxPCGDaFPSc5' || '-LP-HKNae1mrVBYGWHRJ';
+                adminId = (specifyRoles && (specifyRoles.admin)) || '-KTlccaZaxPCGDaFPSc5',
+                corpId = (specifyRoles && (specifyRoles.corp)) || '-LP-HKNae1mrVBYGWHRJ';
             if (user !== undefined) {
                 if (user && user.acl && user.acl.roles) {
                     uRoles = Object.keys(user.acl.roles);
                     var admin = user.acl.roles[adminId]; //is Administrator
-                    if (admin) {
+                    var corp = user.acl.roles[corpId]; //is Corp role
+                    if (admin || corp) {
                         return true;
                     }
                 }
@@ -1388,7 +1391,7 @@
 
                 //check users
                 if (pAcl.users) {
-                    var pUser = _.find(pAcl.users, function(value, key) {
+                    var pUser = _.find(pAcl.users, function (value, key) {
                         return key === (user.$id || user.uid) && value[action];
                     });
 
@@ -1399,7 +1402,7 @@
 
                 //check groups
                 if (pAcl.groups) {
-                    var pGroup = _.find(pAcl.groups, function(value, key) {
+                    var pGroup = _.find(pAcl.groups, function (value, key) {
                         return uGroups.indexOf(key) > -1 && value[action];
                     });
 
@@ -1410,7 +1413,7 @@
 
                 //check roles
                 if (pAcl.roles) {
-                    var pRole = _.find(pAcl.roles, function(value, key) {
+                    var pRole = _.find(pAcl.roles, function (value, key) {
                         return uRoles.indexOf(key) > -1 && value[action];
                     });
 
@@ -1430,11 +1433,11 @@
             }
 
             switch (type) {
-                case 'admin':{
+                case 'admin': {
                     var adminRoleId = specifyRoles && specifyRoles.admin || '-KTlccaZaxPCGDaFPSc5';
                     var corpRoleId = specifyRoles && specifyRoles.corp || '-LP-HKNae1mrVBYGWHRJ';
-                    return (user.acl.roles[adminRoleId] !== undefined) || user.acl.roles[corpRoleId] !== undefined; 
-                }break;
+                    return (user.acl.roles[adminRoleId] !== undefined) || user.acl.roles[corpRoleId] !== undefined;
+                } break;
                 case 'regional':
                     roleId = specifyRoles && specifyRoles.regional || '-LP-HEFPYwwqQoS4hSCn';
                     break;
@@ -1472,7 +1475,7 @@
             address = address.replace(/undefined/g, '');
             address = address.replace(/Undefined/g, '');
             address = address.replace(/#/g, '');
-            return $http.get(geoCodeUrl + 'xml?sensor=false&address=' + address + "" + '&key=' + geoCodeKey).then(function(res) {
+            return $http.get(geoCodeUrl + 'xml?sensor=false&address=' + address + "" + '&key=' + geoCodeKey).then(function (res) {
                 // console.log('===============Utils GetLatLonByAddress==================');
                 // console.log('Address: ' + address);
                 // console.log(res);
@@ -1487,7 +1490,7 @@
                     return [];
                 }
                 // console.log(locationNodes);
-                return _.map(locationNodes, function(location) {
+                return _.map(locationNodes, function (location) {
                     if (location.children) {
                         var latNode = location.children[0].innerHTML;
                         var lngNode = location.children[1].innerHTML;
@@ -1500,12 +1503,15 @@
                     }
                     return [];
                 });
-            }, function(error) {
+            }, function (error) {
                 console.log('error', error);
                 return [];
             });
         }
-
+        function initializeApp() {
+            appSettings = $rootScope.storage && $rootScope.storage.appSettings || null;
+            specifyRoles = appSettings && appSettings.specifyPermissionsRoles || null;
+        }
         // function checkIsAdmin(user) {
         //     var adminId = specifyRoles && specifyRoles.admin || '-KTlccaZaxPCGDaFPSc5';
         //     if (user && user.acl && user.acl.roles) {

@@ -11,7 +11,7 @@
                   function formatState (state) {
                         if (!state.id) { return state.text; }
                         var facility = scope.facilities[state.id];
-                        if (!facility || facility === undefined) { return state.text; }
+                        if (!facility || typeof facility === 'undefined') { return state.text; }
                         var tmpl = '<ul style="list-style: none;padding-left: 20px; ">'+
                                     '<li style="font-weight: bold;">'+facility.name+'</li>'+
                                     '<ul style="list-style: none;padding-left: 20px;"> '+

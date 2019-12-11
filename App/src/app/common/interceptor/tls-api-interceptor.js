@@ -161,7 +161,7 @@
 	function deparam(params, coerce) {
 		var obj = {},
 			coerce_types = { 'true': !0, 'false': !1, 'null': null };
-
+		
 		// Iterate over all name=value pairs.
 		$.each(params.replace(/\+/g, ' ').split('&'), function (j, v) {
 			var param = v.split('='),
@@ -214,7 +214,7 @@
 					// * Move the 'cur' pointer to the next level.
 					// * Rinse & repeat.
 					for (; i <= keys_last; i++) {
-						key = keys[i] === '' ? cur.length : keys[i];
+						key = keys[i] === '' ? Object.keys(cur).length : keys[i];
 						cur = cur[key] = i < keys_last ? cur[key] || (keys[i + 1] && isNaN(keys[i + 1]) ? {} : []) : val;
 					}
 
