@@ -279,15 +279,15 @@
                                                       {{employeeHistoryVm.fieldText[field.field]}}:
                                                     </label>
                                                     <span class="font-yellow-gold" ng-if="field.field !== 'primaryPhone' && field.field !== 'availability' && field.field !== 'licenses'">
-                                                        <strong><strike ng-bind-html="field.oldTxt"></strike> - <span ng-bind-html="field.newTxt"></span></strong>
+                                                        <strong><s ng-bind-html="field.oldTxt"></s> - <span ng-bind-html="field.newTxt"></span></strong>
                                                     </span>
                                                     <span class="font-yellow-gold" ng-if="field.field === 'primaryPhone'">
-                                                        <strong><strike>{{field.oldTxt | tel}}</strike> - <span>{{field.newTxt | tel}}</span></strong>
+                                                        <strong><s>{{field.oldTxt | tel}}</s> - <span>{{field.newTxt | tel}}</span></strong>
                                                     </span>
                                                     <span class="font-yellow-gold" ng-if="field.field === 'availability'">
                                                         <strong>
                                                             <br>
-                                                            <strike>{{field.oldTxt}}</strike>
+                                                            <s>{{field.oldTxt}}</s>
                                                             <br>
                                                             <span>{{field.newTxt}}</span>
                                                     </strong>

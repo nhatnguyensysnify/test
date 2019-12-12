@@ -257,13 +257,13 @@
                             '<tbody>';
                         if (_.isObject(diff.old)) {
                             tpl += '<tr class="font-yellow-gold">' +
-                                '<td><strike>' + (logingProvider.getStateTxt(employeeHistoryVm.allStates, diff.old.issueState)) + '</strike></td>' +
-                                '<td><strike>' + (moment(diff.old.issueDate).format('MM/DD/YYYY')) + '</strike></td>' +
-                                '<td><strike>' + (appUtils.licenseTypeEnum[diff.old.type] || '') + '</strike></td>' +
-                                '<td><strike>' + (diff.old.number) + '</strike></td>' +
-                                '<td><strike>' + (moment(diff.old.expirationDate).format('MM/DD/YYYY')) + '</strike></td>' +
-                                '<td><strike>' + (appUtils.appointedEnum[diff.old.appointed] || '') + '</strike></td>' +
-                                '<td><strike>' + (diff.old.timestampModified ? moment(diff.old.timestampModified).format('MM/DD/YYYY') : '') + '</strike></td>' +
+                                '<td><s>' + (logingProvider.getStateTxt(employeeHistoryVm.allStates, diff.old.issueState)) + '</s></td>' +
+                                '<td><s>' + (moment(diff.old.issueDate).format('MM/DD/YYYY')) + '</s></td>' +
+                                '<td><s>' + (appUtils.licenseTypeEnum[diff.old.type] || '') + '</s></td>' +
+                                '<td><s>' + (diff.old.number) + '</s></td>' +
+                                '<td><s>' + (moment(diff.old.expirationDate).format('MM/DD/YYYY')) + '</s></td>' +
+                                '<td><s>' + (appUtils.appointedEnum[diff.old.appointed] || '') + '</s></td>' +
+                                '<td><s>' + (diff.old.timestampModified ? moment(diff.old.timestampModified).format('MM/DD/YYYY') : '') + '</s></td>' +
                                 '</tr>';
                         }
                         if (_.isObject(diff.new)) {

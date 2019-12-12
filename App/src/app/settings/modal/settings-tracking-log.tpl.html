@@ -31,8 +31,8 @@
                                 <label class="control-label">
                                   {{sTrackingVm.fieldText[field.field]}}:
                                 </label>
-                                <span class="font-yellow-gold" ng-if="field.field !== 'TLSCacheTimestamp'" style=" overflow-wrap: break-word; "><strong><strike>{{field.old}}</strike> - {{field.new}}</strong></span>
-                                <span class="font-yellow-gold" ng-if="field.field === 'TLSCacheTimestamp'" style=" overflow-wrap: break-word; "><strong><strike>{{field.old | date: 'MM/dd/yyyy hh:mm a'}}</strike> - {{field.new | date: 'MM/dd/yyyy hh:mm a'}}</strong></span>
+                                <span class="font-yellow-gold" ng-if="field.field !== 'TLSCacheTimestamp'" style=" overflow-wrap: break-word; "><strong><s>{{field.old}}</s> - {{field.new}}</strong></span>
+                                <span class="font-yellow-gold" ng-if="field.field === 'TLSCacheTimestamp'" style=" overflow-wrap: break-word; "><strong><s>{{field.old | date: 'MM/dd/yyyy hh:mm a'}}</s> - {{field.new | date: 'MM/dd/yyyy hh:mm a'}}</strong></span>
                             </div>
                             <div class="form-group col-md-12">
                                 <label class="control-label">
