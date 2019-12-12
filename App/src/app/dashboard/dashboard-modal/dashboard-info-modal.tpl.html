@@ -40,15 +40,6 @@
 											</span>
 										</p>
 									</th>
-									<!-- <th scope="col" class="text-center cursor-pointer" ng-class="{{isByPlanType ? 'width15' :'width25'}}" ng-click="dashVm.toggleSort('lastName'); dashVm.sort.field='lastName'">
-									<p>
-												Last Name 
-										<span class="margin-left-5 margin-right-5" ng-show="dashVm.sort.field == 'lastName'">
-											<span ng-show="!dashVm.sort.desc"><span class="fa  fa-sort-asc"></span></span>
-											<span ng-show="dashVm.sort.desc"><span class="fa fa-sort-desc"></span></span>
-										</span>
-									</p>
-								</th> -->
 									<th scope="col" class="width15 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width15' :'width20'}}"
 									 ng-click="dashVm.toggleSort('facilityCode'); dashVm.sort.field='facilityCode'">
 										<p>
@@ -79,11 +70,6 @@
 											</span>
 										</p>
 									</th>
-									<!-- <th scope="col" class="width25 text-center cursor-pointer hidden-xs" ng-if="isByPlanType">
-									<p>
-											Addons 
-									</p>
-								</th> -->
 									<th scope="col" class="width10 text-center cursor-pointer hidden-xs hidden-sm" ng-class="{{isByPlanType ? 'width10' :'width10'}}"
 									 ng-click="dashVm.toggleSort('state'); dashVm.sort.field='state'">
 										<p>
@@ -134,12 +120,9 @@
 							<tbody>
 								<tr ng-repeat="item in dashVm.items">
 									<td class="text-center hidden-xs hidden-sm "><a href="#" ng-click="goTo(item)">{{item.primaryMember}}</a></td>
-									<!-- <td class="text-center"><a href="#" ng-click="goTo(item)">{{item.lastName || 'Unknown'}}</a></td> -->
 									<td class="text-center hidden-xs hidden-sm ">{{item.facilityCode}}<br> {{item.facilityName}}</td>
 									<td class="text-center hidden-xs hidden-sm ">{{item.representativeCode}}<br> ({{item.saleRep ||
 										item.employeeName || ''}})</td>
-									<!-- <td class="text-center hidden-xs" ng-if="isByPlanType">{{item.planName}}</td>
-								<td class="text-left   hidden-xs"  ng-if="isByPlanType" ng-bind-html="item.addons"></td> -->
 									<td class="text-center hidden-xs hidden-sm " ng-if="isByPlanType">
 										<table class="table table-striped">
 											<tbody>

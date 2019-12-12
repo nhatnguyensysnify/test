@@ -345,18 +345,18 @@
             var orders = [], 
                 searchField = dashVm.sort.field;
 
-            var fieldVal = function (field) {
+            var fieldVal = function (_field) {
                 return function (item) {
-                    if (item[field] == undefined) {
+                    if (item[_field] == undefined) {
                         return dashVm.sort.desc ? -1 : Number.MAX_SAFE_INTEGER;
                     }
-                    return item[field];
+                    return item[_field];
                 };
             };
             if (searchField == 'primaryMember' || searchField == 'facilityCode' || searchField == 'representativeCode' || searchField == 'planName' || searchField == 'state') {
-                fieldVal = function (field) {
+                fieldVal = function (_field) {
                     return function(item){
-                        return item[field] && item[field].toLowerCase();
+                        return item[_field] && item[_field].toLowerCase();
                     };
                 };
             }

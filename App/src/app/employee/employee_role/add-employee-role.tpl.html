@@ -7,12 +7,12 @@
 <div class="modal-body" id="modal-body">
     <table class="table table-light table-hover">            
         <tr ng-repeat="item in roles">
-            <td>
+            <th scope="row">
                 <label class="mt-checkbox mt-checkbox-outline">
                     <input type="checkbox" id="{{item.$id}}" name="chk-user-role" value="{{item.$id}}" ng-checked="{{item.checked}}"/> 
                     <span></span>
                 </label>
-            </td>
+            </th>
             <td class="bold"><label for="{{item.$id}}">{{item.name}}</label></td>
             <td >{{item.permissionstxt}}
             </td>

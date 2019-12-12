@@ -63,7 +63,7 @@
 							}
 						}, function() {
 							// Upload completed successfully, now we can get the download URL
-							var downloadURL = uploadTask.snapshot.downloadURL;
+							// var downloadURL = uploadTask.snapshot.downloadURL;
 							var imgFile = {
 								fileName : uploadTask.snapshot.metadata.name,
 								fileSize :  uploadTask.snapshot.metadata.size,

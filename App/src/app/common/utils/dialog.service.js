@@ -5,7 +5,7 @@
 	/** @ngInject **/
 	function dialogService($ngBootbox, DialogButton) {
 
-		const defaultSize = 'large';
+		// const defaultSize = 'large';
 
 		var service = {
 			confirm: confirm,

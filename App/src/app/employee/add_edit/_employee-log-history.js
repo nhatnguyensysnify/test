@@ -8,8 +8,8 @@
     function employeeHistoryController($scope, $q, $timeout, $state, appUtils, BaseEmployeLogClass, employeeService) {
         var defaultStart = Date.parse(new Date(moment().subtract('days', 6).startOf('day')));
         var defaultEnd = Date.parse(new Date(moment().endOf('day')));
-        var appStatus = appUtils.appStatus;
-        var appMethods = appUtils.appMethods;
+        // var appStatus = appUtils.appStatus;
+        // var appMethods = appUtils.appMethods;
         //
         var employeeHistoryVm = this; // jshint ignore:line
         var parent = $scope.$parent;
@@ -153,10 +153,10 @@
 
             if (item && item.fileInfo && item.fileInfo.applications) {
                 var applications = angular.copy(item.fileInfo.applications);
-                var apps = _.map(applications, function(item, key) {
+                var apps = _.map(applications, function(_item, key) {
                     return {
                         appId: key,
-                        mediaId: item.mediaId
+                        mediaId: _item.mediaId
                     };
                 });
 

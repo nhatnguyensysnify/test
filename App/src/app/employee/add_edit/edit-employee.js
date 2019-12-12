@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module("app.employee")
@@ -81,17 +81,17 @@
             ajax: {
                 dataType: 'json',
                 delay: 250,
-                transport: function(params, success, failure) {
+                transport: function (params, success, failure) {
                     var $request = employeeService.search(params.data);
                     $request.then(success, failure);
                     return $request;
                 },
-                data: function(params) {
+                data: function (params) {
                     $scope.select2Cri.keyword = params.term;
                     return $scope.select2Cri;
                 },
-                processResults: function(data) {
-                    var result = _.map(data.items, function(item) {
+                processResults: function (data) {
+                    var result = _.map(data.items, function (item) {
                         return _composeSelectBoxText(item, $scope.roles);
                     });
                     //
@@ -102,14 +102,14 @@
             }
         };
 
-        angular.element(document).ready(function() {
+        angular.element(document).ready(function () {
             appUtils.clearSelection();
-            $timeout(function() {
-                $('#ChooseManager').on('select2:select', function(e) {
+            $timeout(function () {
+                $('#ChooseManager').on('select2:select', function (e) {
                     var isNew = e.params.data.id === e.params.data.text;
                     if (isNew) {
-                        $timeout(function() {
-                            $scope.$apply(function() {
+                        $timeout(function () {
+                            $scope.$apply(function () {
                                 editEmployeeVm.selectedManager = [];
                             });
                         }, 200);
@@ -123,7 +123,7 @@
 
         function initPage() {
             appUtils.showLoading();
-            var req = employeeService.getUser(userId).then(function(result) {
+            var req = employeeService.getUser(userId).then(function (result) {
                 appUtils.hideLoading();
                 if (result !== undefined && result !== null) {
                     setUser(result);
@@ -132,7 +132,7 @@
                     $state.go('employee.list');
                 }
             });
-            Promise.all([loadAllTerritory(), loadAllRegion(), req]).then(function() {
+            Promise.all([loadAllTerritory(), loadAllRegion(), req]).then(function () {
                 $timeout(angular.noop, 500);
             });
         }
@@ -162,7 +162,7 @@
             //get profile images
             $scope.profileImage = '';
             if (result.photoURL) {
-                appUtils.getImageFBUrl(result.photoURL).then(function(data) {
+                appUtils.getImageFBUrl(result.photoURL).then(function (data) {
                     $scope.profileImage = data.imgUrl;
                 });
             }
@@ -174,7 +174,7 @@
             }
             $timeout(angular.noop, 200);
             //Get UserRole Info
-            loadRoles().then(function() {
+            loadRoles().then(function () {
                 loadManager($scope.user, $scope.roles);
             });
 
@@ -189,20 +189,20 @@
                 myManager = user.managers[0];
                 editEmployeeVm.selectedManager.push(myManager);
             }
-            employeeService.getUserByAlias(myManager).then(function(selected) {
+            employeeService.getUserByAlias(myManager).then(function (selected) {
                 //var reqs = [];
                 if (user.acl && user.acl.roles) {
                     var roleIds = Object.keys(user.acl.roles);
                     if (roleIds && roleIds.length > 0) {
                         var assigned = [];
-                        _.forEach(roleIds, function(roleId) {
+                        _.forEach(roleIds, function (roleId) {
                             if (allRoles[roleId]) {
                                 assigned.push(allRoles[roleId]);
                             }
                         });
                         var highestRole = _.minBy(assigned, 'number');
                         if (highestRole) {
-                            var managerRole = highestRole && highestRole.managerRole || null;
+                            var managerRole = highestRole.managerRole || null;
                             if (managerRole) {
                                 $scope.select2Cri.role = managerRole;
                             } else {
@@ -239,11 +239,11 @@
 
         function loadRoles() {
             $scope.userRoles = [];
-            return roleService.itemsObj().then(function(roles) {
+            return roleService.itemsObj().then(function (roles) {
                 $scope.roles = roles;
                 if (roles !== null && $scope.user.acl && $scope.user.acl.roles) {
                     var userRoles = angular.copy($scope.user.acl.roles);
-                    _.forEach(userRoles, function(value, roleId) {
+                    _.forEach(userRoles, function (value, roleId) {
                         if (roles[roleId]) {
                             roles[roleId].id = roleId;
                             $scope.userRoles.push(roles[roleId]);
@@ -255,14 +255,14 @@
         }
 
         function loadAllTerritory() {
-            return memTerritoryService.getAllTerritoryLoadOnce().then(function(data) {
+            return memTerritoryService.getAllTerritoryLoadOnce().then(function (data) {
                 $scope.territories = data;
                 $timeout(angular.noop, 100);
             });
         }
 
         function loadAllRegion() {
-            return memStateService.statesLoadOnce().then(function(data) {
+            return memStateService.statesLoadOnce().then(function (data) {
                 $scope.regions = data;
                 $timeout(angular.noop, 200);
             });
@@ -277,25 +277,25 @@
                 scope: $scope,
                 backdrop: 'static',
                 resolve: {
-                    user: function() {
+                    user: function () {
                         return $scope.user;
                     },
-                    mode: function() {
+                    mode: function () {
                         return 'role';
                     },
-                    data: function() {
+                    data: function () {
                         return data;
                     }
                 }
             });
 
-            modalInstance.result.then(function(rs) {
+            modalInstance.result.then(function (rs) {
                 $scope.user = rs;
                 if (currentUser.$id === rs.$id) {
                     $rootScope.storage.currentUser = currentUser = rs;
                 }
                 $state.go('employee.edit', { id: userId }, { reload: true });
-            }).catch(function(res) {});
+            }).catch(function (res) { });
 
         }
 
@@ -319,17 +319,17 @@
             //Custom logics when save user
             //1. Handle default case for working state base on address state: forced change
             console.log(currentAddrState, $scope.user.state);
-            if(!extra && (currentAddrState !== $scope.user.state)){
+            if (!extra && (currentAddrState !== $scope.user.state)) {
                 let addrState = angular.copy($scope.user.state);
                 $scope.user.workingStates = {};
                 $scope.user.workingStates[addrState] = true;
                 currentAddrState = angular.copy($scope.user.state);
             }
-            
+
             // if ((!$scope.user.workingStates || angular.equals($scope.user.workingStates, {})) &&
             //     (addrState && !angular.equals(addrState, ''))) {
             //     //console.log(addrState);
-                
+
             // }
             //2. Handle defaul case for type of hire base on role
             if (!$scope.user.typeOfHire || angular.equals($scope.user.typeOfHire, '')) {
@@ -342,7 +342,6 @@
                         }
                         break;
                     case 'A':
-                        {}
                         break;
                     case 'D':
                         {
@@ -360,7 +359,6 @@
                         }
                         break;
                     default:
-                        {}
                         break;
                 }
             }
@@ -411,10 +409,10 @@
                         }
                     });
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     employeeLog.status = 'Failed';
                     if (err && err.message) {
-                        employeeLog.message = err && err.message;
+                        employeeLog.message = err.message;
                     } else {
                         employeeLog.message = 'Update employee information has error.';
                         if (changeManager) {
@@ -429,8 +427,8 @@
         }
 
         function saveEdit(form) {
-            
-            
+
+
             if (form.$invalid && $scope.userPermission.isRep) {
                 $scope.showInvalid = true;
                 return;
@@ -446,7 +444,7 @@
             $scope.user.managers = [];
             var selectedManager = $('#ChooseManager').select2('data'),
                 newManager = selectedManager && selectedManager[0];
-            return employeeService.getUser(newManager && newManager.id || '').then(function(manager) {
+            return employeeService.getUser(newManager && newManager.id || '').then(function (manager) {
                 if (manager) {
                     if (manager.managers && manager.managers.length > 0) {
                         $scope.user.managers = manager.managers;
@@ -481,25 +479,17 @@
             // Upload file and metadata to the object 'images/mountains.jpg'
             var uploadTask = mediaService.uploadFile('images/user_profile/', file, metadata); // Listen for state changes, errors, and completion of the upload.
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                function(snapshot) {
+                function (snapshot) {
                     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log('Upload is ' + progress + '% done');
                 },
-                function(error) {
+                function (error) {
                     switch (error.code) {
                         case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            appUtils.hideLoading();
-                            dialogService.alert(error.error);
-                            break;
-
+                        // User doesn't have permission to access the object
                         case 'storage/canceled':
-                            // User canceled the upload
-                            appUtils.hideLoading();
-                            dialogService.alert(error.error);
-                            break;
-
+                        // User canceled the upload
                         case 'storage/unknown':
                             // Unknown error occurred, inspect error.serverResponse
                             appUtils.hideLoading();
@@ -507,7 +497,7 @@
                             break;
                     }
                 },
-                function() {
+                function () {
                     // Upload completed successfully, now we can get the download URL
                     var downloadUrl = uploadTask.snapshot.downloadURL;
                     //Update User Details
@@ -515,7 +505,7 @@
                     if (currentUser.$id == userId) {
                         $('#header-img-profile img').attr('src', downloadUrl + '');
                     }
-                    return employeeService.updateAvatar(userId, downloadUrl).then(function() {
+                    return employeeService.updateAvatar(userId, downloadUrl).then(function () {
                         appUtils.hideLoading();
                         $state.go('employee.edit', { id: userId }, { reload: true });
                         $('a.fileinput-exists').click();
@@ -529,10 +519,10 @@
 
         function resetPassword() {
             appUtils.showLoading();
-            authService.resetPasswordAuth($scope.user.email).then(function() {
+            authService.resetPasswordAuth($scope.user.email).then(function () {
                 toaster.pop('success', 'Success', "Reset Password Successfully!");
                 appUtils.hideLoading();
-            }).catch(function(error) {
+            }).catch(function (error) {
                 toaster.pop('error', 'Error', error);
                 appUtils.hideLoading();
             });
@@ -557,7 +547,7 @@
             /* jshint ignore:start */
             var deferred = $q.defer();
             var req = employeeService.checkPhoneExist(editEmployeeVm.Phone);
-            req.then(function(res) {
+            req.then(function (res) {
                 appUtils.hideLoading();
                 if (res.data !== null && res.data.length >= 1) {
                     if (userPhone != editEmployeeVm.Phone) {
@@ -569,7 +559,7 @@
                 } //Phone exists.
                 deferred.resolve({ result: false });
                 return deferred.promise;
-            }, function(res) {
+            }, function (res) {
                 // show not found error
                 form.primaryphone.$setValidity('server', false);
                 $scope.e_msges['primaryphone'] = "Phone number already exists. Please enter another.";
@@ -579,9 +569,9 @@
             return deferred.promise;
         }
 
-        function _checkIsChangeManager(oldManagers, newManagers) {
-            var compare = _.omitBy(newManagers, function(value, key) {
-                return _.isEqual(value, oldManagers[key]);
+        function _checkIsChangeManager(_oldManagers, newManagers) {
+            var compare = _.omitBy(newManagers, function (value, key) {
+                return _.isEqual(value, _oldManagers[key]);
             });
             var keys = Object.keys(compare);
             return keys && keys.length > 0;
@@ -647,9 +637,9 @@
         $scope.showEmployeeDashboardModal = showEmployeeDashboardModal;
 
         // Make sure DOM is loaded before get elems
-        angular.element(document).ready(function() {
-            $timeout(function() {
-                $('#dashboardRange').on('apply.daterangepicker', function(ev, picker) {
+        angular.element(document).ready(function () {
+            $timeout(function () {
+                $('#dashboardRange').on('apply.daterangepicker', function (ev, picker) {
                     //reload UI
                     initDashboardTab();
                 });
@@ -657,17 +647,17 @@
         });
 
         function showEmployeeDashboardModal(type) {
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 templateUrl: 'app/employee/add_edit/_employee-dashboard-modal.tpl.html',
                 controller: 'EmployeeDashBoardModalCtrl',
                 size: 'lg',
                 scope: $scope,
                 backdrop: 'static',
                 resolve: {
-                    reportType: function() {
+                    reportType: function () {
                         return type;
                     },
-                    reportData: function() {
+                    reportData: function () {
                         return $scope.dashBoardData;
                     }
                 }
@@ -688,7 +678,7 @@
             if (search && search.index) {
                 getDashboardData();
             } else {
-                appSettingService.getSettings().then(function(optionRs) {
+                appSettingService.getSettings().then(function (optionRs) {
                     appSettings = optionRs;
                     search = appSettings.elasticSearch ? appSettings.elasticSearch.application : {};
                     getDashboardData();
@@ -767,13 +757,13 @@
                 status: 'All',
                 keyword: '',
                 sort: true
-            }).then(function(res) {
+            }).then(function (res) {
                 $scope.dashBoardModel.total = res.totalRecords;
                 $scope.dashBoardData = res.items || [];
                 detachDashboarData(res.items);
-            }).then(function() {
-                memRegionService.getAll().then(function(regionGroups) {
-                    _.each(regionGroups, function(regionGroup, stateCode) {
+            }).then(function () {
+                memRegionService.getAll().then(function (regionGroups) {
+                    _.each(regionGroups, function (regionGroup, stateCode) {
                         regionGroups[stateCode] = DataUtils.toAFArray(regionGroup);
                     });
                     editEmployeeVm.regionGroups = regionGroups;
@@ -786,7 +776,7 @@
             //group item by method
             var groupItems = _.groupBy(list, 'method');
             //caculate data by status		
-            _.forEach(groupItems, function(value, key) {
+            _.forEach(groupItems, function (value, key) {
                 if (parseInt(key) === 2 || parseInt(key) === 1) {
                     //OCR method
                     $scope.dashBoardModel.ocr.total += value.length;
@@ -802,7 +792,7 @@
             //group item by offline
             groupItems = _.groupBy(list, 'isOffline');
             //caculate data by status
-            _.forEach(groupItems, function(value, key) {
+            _.forEach(groupItems, function (value, key) {
                 if (key === true || key === 'true') {
                     $scope.dashBoardModel.offLine = {
                         total: value.length,
@@ -819,7 +809,7 @@
             //group item by status
             groupItems = _.groupBy(list, 'status');
             //caculate data by status
-            _.forEach(groupItems, function(value, key) {
+            _.forEach(groupItems, function (value, key) {
                 if (parseInt(key) === 0) {
                     $scope.dashBoardModel.new = {
                         total: value.length,
@@ -881,7 +871,7 @@
 
         function _caculateTotalAmountRevenue(items) {
             var total = 0;
-            _.forEach(items, function(value, key) {
+            _.forEach(items, function (value, key) {
                 if (value && value.total) {
                     var itemTotal = parseFloat(value.total);
                     if (!isNaN(itemTotal)) {

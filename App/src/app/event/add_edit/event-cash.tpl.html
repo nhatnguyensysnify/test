@@ -18,7 +18,6 @@
     <label class="control-label col-xs-12 col-sm-2 col-md-2 col-lg-2" style="max-width: 150px; text-align: left;">Money Order#</label>
     <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
         <input type="text" name="moneyOrder" placeholder="Money Order#" class="form-control" ng-model="eventVm.model.moneyOrder" />
-        <!-- <tags-input class="" ng-model="eventVm.model.moneyOrder" name="moneyOrder" placeholder="Money Order"></tags-input> -->
     </div>
 </div>
 <div class="form-group  margin-top-20 row">
@@ -26,7 +25,6 @@
     <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2" ng-if="eventVm.model.type ==='event'">
         <input type="text" name="fees" placeholder="Event Fees" class="form-control" ng-model="eventVm.model.fees" ng-currency
                          currency-symbol="$" ng-change="eCashVm.updateEventCashTotal(false)"/>
-        <!-- <tags-input class="" ng-model="eventVm.model.moneyOrder" name="moneyOrder" placeholder="Money Order"></tags-input> -->
     </div>
 </div>
 <div ng-if="eventVm.isEdit">
@@ -50,9 +48,6 @@
 					<th scope="col">Name of Member</th>
 					<th scope="col" class="width15">Member Number</th>
 					<th scope="col" class="width15">Amount Collected</th>
-					<!-- <th scope="col" class="width15">Money Order#</th> -->
-					<!-- <th scope="col" class="width15" ng-if="eventVm.model.type ==='event'">Event Fees</th> -->
-					<!-- <th scope="col" class="width10" ng-if="eventVm.model.type ==='event'">Total</th> -->
 					<th scope="col" style="width: 130px;">Actions</th>
 				</tr>
 			</thead>
@@ -71,18 +66,6 @@
 						<input ng-if="item.editing" type="text" class="form-control no-animate" min="0" hard-cap="true" ng-currency
                          currency-symbol="$" ng-model="item.amount" style="text-align: right;"/>
 					</td>
-					<!-- <td>
-						<span ng-if="!item.editing" class="no-animate">{{item.moneyOrder}}</span>
-						<input ng-if="item.editing"type="text" class="form-control no-animate" ng-model="item.moneyOrder"/>
-					</td> -->
-					<!-- <td class="text-right" ng-if="eventVm.model.type ==='event'">
-						<span class="no-animate">{{eventVm.model.fees |currency}}</span>
-						<input ng-if="item.editing" type="text" class="form-control no-animate" min="0" hard-cap="true" ng-currency
-                         currency-symbol="$" ng-model="item.fees" style="text-align: right;"/>
-					</td> -->
-					<!-- <td class="text-right" ng-if="eventVm.model.type ==='event'">
-						<span>{{((eventVm.model.fees || 0) + (item.amount || 0))|currency}}</span>
-					</td> -->
 					<td >
 						<a href="#" class="btn btn-icon-only no-animate" ng-show="!item.editing" ng-click="eCashVm.edit(item, $index)"><span class="fa fa-edit"></span></a>
 						<a href="#" class="btn btn-icon-only no-animate" ng-show="item.editing" ng-click="eCashVm.save(item)"><span class="fa fa-floppy-o"></ispan></a>

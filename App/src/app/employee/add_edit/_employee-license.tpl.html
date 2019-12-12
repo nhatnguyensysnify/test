@@ -2,10 +2,6 @@
     <div class="portlet-light">
         <div class="portlet-title padding-bottom-10">
             <div class="row">
-                <!-- <div class="caption caption-md col-xs-12 col-sm-12 col-md-5 col-lg-5">
-                    <span class="icon-globe theme-font hide"></span>
-                    <span class="caption-subject font-blue-madison bold uppercase">Availability</span>
-                </div> -->
                 <div class="caption caption-md col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <span class="icon-globe theme-font hide"></span>
                     <span class="caption-subject font-blue-madison bold uppercase">Career</span>
@@ -14,18 +10,6 @@
         </div>
         <form class="portlet-body" style="width: 100%;" name="availsForm" novalidate ng-submit="saveExtraInfo()">
             <div class="row">
-                <!-- <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 margin-top-5">
-                    <div class="form-group col-md-12" ng-repeat="(key,value) in dayOfWeek">
-                        <label class="control-label col-xs-5 col-sm-5 col-md-4 col-lg-4 margin-top-5">{{value}}</label>
-                        <div class="col-xs-7 col-sm-7 col-md-8 col-lg-8">
-                            <select class="bs-select form-control " name="{{'avails_'+key}}"
-                                ng-model="employeeLicenseVm.avails[key]" id="action-list">
-                                <option ng-repeat="(key,value) in avails" ng-value="{{key}}">{{value}}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-top-5 no-padding-l-r">
                     <div class="form-group col-md-6 no-padding-l-r">
                         <label class="control-label col-xs-5 col-sm-5 col-md-4 col-lg-4 margin-top-5">Type of Hire</label>
@@ -89,11 +73,6 @@
         <hr />
         <div class="portlet-light">
             <div class="portlet-title padding-bottom-10">
-                <!-- <div class="caption">
-                        <span class="caption-subject font-blue-sharp bold uppercase">
-                            Availability
-                        </span>
-                    </div> -->
                 <div class="row">
                     <div class="caption caption-md col-xs-12 col-sm-12 col-md-6 col-lg-6">
                         <span class="icon-globe theme-font hide"></span>
@@ -161,8 +140,6 @@
                                         ng-change="$check.errors.number=err.number(editModel.number)"
                                         ng-init="$check.touched.number=false;$check.errors.number=err.number(editModel.number)"
                                         ng-focus="$check.touched.number=true" />
-                                    <!-- required && minlength=2 -->
-                                    <!-- <div ng-if="$check.touched.number && $check.errors.number">ERR</div> -->
                                 </td>
                                 <td class="width8" ng-class="{'has-error': $check.errors.expirationDate && submitted}">
                                     <input type="text" data-provide="datepicker"

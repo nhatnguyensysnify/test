@@ -102,9 +102,9 @@
             var states = opts.states,
                 territories = opts.territories,
                 roles = opts.roles,
-                licenseTypes = appUtils.licenseTypeEnum,
-                hireTypes = appUtils.hireTypes,
-                licenseAppointed = appUtils.appointedEnum;
+                // licenseTypes = appUtils.licenseTypeEnum,
+                hireTypes = appUtils.hireTypes;
+                // licenseAppointed = appUtils.appointedEnum;
 
             _.each(rawData, function(item, index) {
                 item.index = _.clone(index) + 1;
@@ -273,8 +273,8 @@
                 sheets.licensing.data.push(licensingSheetRow);
 
                 if (item.licenses) {
-                    var licenseH = _.map(licensingSheetStruct.licenseG.fields, function(cellS, index) {
-                        if (index === 4) {
+                    var licenseH = _.map(licensingSheetStruct.licenseG.fields, function(cellS, _index) {
+                        if (_index === 4) {
                             return ['Licenses', null, cellS.mainHStyle];
                         }
                         return ['', null, cellS.mainHStyle];
@@ -286,14 +286,14 @@
                     sheets.licensing.data.push(licenseG);
                     item.licenses = _.sortBy(item.licenses, 'expirationDate');
                     _.each(item.licenses, function(license) {
-                        var state = licensingStates[license.issueState];
+                        var _state = licensingStates[license.issueState];
                         Object.assign(license, {
                             issueDateTxt: license.issueDate ? moment(license.issueDate).format("MM/DD/YYYY") : '',
                             expiredDateTxt: license.expirationDate ? moment(license.expirationDate).format("MM/DD/YYYY") : '',
                             createdDateTxt: license.timestampCreated ? moment(license.timestampCreated).format("MM/DD/YYYY") : '',
                             ModifiedDateTxt: license.timestampModified ? moment(license.timestampModified).format("MM/DD/YYYY") : '',
                             licenseTypeTxt: licensingLicenseTypes[license.type] || '',
-                            stateTxt: state && state.name || '',
+                            stateTxt: _state && _state.name || '',
                             appointedTxt: licensingLicenseAppointed[license.appointed] || ''
                         });
                         var licensingRow = _.map(licensingSheetStruct.licenseG.fields, function(cellS) {
@@ -329,9 +329,9 @@
             var states = opts.states,
                 territories = opts.territories,
                 roles = opts.roles,
-                licenseTypes = appUtils.licenseTypeEnum,
-                hireTypes = appUtils.hireTypes,
-                licenseAppointed = appUtils.appointedEnum;
+                // licenseTypes = appUtils.licenseTypeEnum,
+                hireTypes = appUtils.hireTypes;
+                // licenseAppointed = appUtils.appointedEnum;
 
             _.each(rawData, function(item, index) {
                 item.index = _.clone(index) + 1;

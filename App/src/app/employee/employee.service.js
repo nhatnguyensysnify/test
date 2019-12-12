@@ -5,12 +5,12 @@
     function employeeService($rootScope, $q, $http, authService, firebaseDataRef, departmentSevice, appUtils, DataUtils, searchService) {
         var employees = firebaseDataRef.child('users'),
             employeeLogRef = firebaseDataRef.child('employee-logs'),
-            specifyRoles = $rootScope.storage.appSettings && $rootScope.storage.appSettings.specifyPermissionsRoles || null,
-            adminRole = specifyRoles && specifyRoles.admin || '-KTlccaZaxPCGDaFPSc5',
+            // specifyRoles = $rootScope.storage.appSettings && $rootScope.storage.appSettings.specifyPermissionsRoles || null,
+            // adminRole = specifyRoles && specifyRoles.admin || '-KTlccaZaxPCGDaFPSc5',
             autoGenerateConfig = $rootScope.storage.appSettings && $rootScope.storage.appSettings.autoGenerateAvailability;
 
-        var daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
-        var employeeService = {
+        // var daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+        var _employeeService = {
             getAll: getAll,
             getUser: getUser,
             getUserByEmail: getUserByEmail,
@@ -44,7 +44,7 @@
             //reUpdateManager: reUpdateManager,
         };
 
-        return employeeService;
+        return _employeeService;
 
         function getAll() {
             return DataUtils.getListDataFirebaseLoadOnce(employees, true);
@@ -274,8 +274,8 @@
                 };
 
             return compareUpdateValue(ref, data).then(function (diffValue) {
-                let lastAddedShift = _.find(diffValue, function (i) { return i.field == 'lastAddedShift'; });
-                if (lastAddedShift.new <= lastAddedShift.old) {
+                let _lastAddedShift = _.find(diffValue, function (i) { return i.field == 'lastAddedShift'; });
+                if (_lastAddedShift.new <= _lastAddedShift.old) {
                     return { result: false, errorMsg: '', diffValue: diffValue };
                 }
                 // return ref.update(data).then(function(result) {
@@ -388,7 +388,7 @@
                     }
                 };
                 _.each(roles, function (role) {
-                    var bool = {
+                    let bool = {
                         exists: {
                             field: 'acl.roles.' + _.trim(role)
                         }
@@ -621,7 +621,6 @@
             var currentUser = authService.getCurrentUser();
             _.forEach(userIds, function (id) {
                 var req = getUser(id).then(function (res) {
-                    var ref = firebaseDataRef.child('users/' + id);
                     if (res) {
                         var acl = {
                             roles: {}
@@ -887,9 +886,9 @@
                             // var buckets = (aggregationsByState[day] && aggregationsByState[day].buckets) || null;
                             if (aggregationsByState) {
                                 // var bucket = buckets[0];
-                                var users = (aggregationsByState && aggregationsByState.users && aggregationsByState.users.hits && aggregationsByState.users.hits.hits) || [];
+                                var users = (aggregationsByState.users && aggregationsByState.users.hits && aggregationsByState.users.hits.hits) || [];
                                 result[isoState] = {
-                                    count: (aggregationsByState && aggregationsByState.doc_count) || 0,
+                                    count: (aggregationsByState.doc_count) || 0,
                                     users: searchService.convertDataSnapshot(users, '')
                                 };
                             }

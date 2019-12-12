@@ -32,8 +32,7 @@
         });
         eCalendarVm.appSettings = appSettings;
 
-        var timestampStart = moment().startOf('day'),
-            timestampEnd = moment().endOf('month');
+        var timestampStart = moment().startOf('day');
         // eCalendarVm.modeView = 'calendarView';
         var currentDate = moment(); //init local time
         eCalendarVm.timestampCurrent = moment.utc(currentDate.format('MM/DD/YYYY'), 'MM/DD/YYYY').startOf('day').valueOf(); //parse to UTC time
@@ -186,18 +185,7 @@
 
         eCalendarVm.viewDate = eCalendarVm.timestampStart ? new Date(moment.utc(eCalendarVm.timestampStart).format('MM/DD/YYYY')) : new Date();
 
-        var actions = [{
-            label: '<span class=\'glyphicon glyphicon-pencil\'></span>',
-            onClick: function (args) {
-                //console.log('Edited', args.calendarEvent);
-
-            }
-        }, {
-            label: '<span class=\'glyphicon glyphicon-remove\'></span>',
-            onClick: function (args) {
-                //console.log('Deleted', args.calendarEvent);
-            }
-        }];
+        
         eCalendarVm.modifyCell = function (cell) {
             cell.cssClass = !eCalendarVm.resourceAvailability ? 'custom-month-cell-employee-calendar' : 'custom-month-cell-manager-calendar';
         };
@@ -786,7 +774,6 @@
                     color = eCalendarVm.colorTypes.repsavailable.primary;
                     break;
                 case -1:
-                    color = '';
                     break;
                 default:
                     break;
@@ -808,7 +795,6 @@
                     classShift = 'shift-available';
                     break;
                 case -1:
-                    classShift = '';
                     break;
                 default:
                     break;
@@ -1162,9 +1148,9 @@
             return moment.utc(eCalendarVm.cri.timestampStart).format("MMMM YYYY");
         }
 
-        function createDateRange(start, end) {
-            var startTime = moment(start).utc();
-            var endTime = moment(end).utc();
+        function createDateRange(_start, _end) {
+            var startTime = moment(_start).utc();
+            var endTime = moment(_end).utc();
             let groupByDateRange = [];
             while (startTime <= endTime) {
                 groupByDateRange.push({

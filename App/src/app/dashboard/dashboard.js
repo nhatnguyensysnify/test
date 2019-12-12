@@ -342,14 +342,14 @@
 		}
 
 		$('#overviewReportDateRange').on('apply.daterangepicker', function (ev, picker) {
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -373,28 +373,28 @@
 		};
 
 		//Revenue Line Chart
-		function loadRevenueData(items, startDate, endDate, isFilter) {
+		function loadRevenueData(items, _startDate, _endDate, isFilter) {
 			var deferred = $q.defer();
 			//set title
 			var cDate = moment().format("MM/DD/YYYY");
-			var sDate = startDate.format("MM/DD/YYYY");
-			var eDate = endDate.format("MM/DD/YYYY");
+			var sDate = _startDate.format("MM/DD/YYYY");
+			var eDate = _endDate.format("MM/DD/YYYY");
 			var title = sDate + ' - ' + eDate;
-			if (startDate.isSame(moment().startOf('month')) && endDate.isSame(moment().endOf('month'))) {
+			if (_startDate.isSame(moment().startOf('month')) && _endDate.isSame(moment().endOf('month'))) {
 				title = 'This Month';
-			} else if (startDate.isSame(moment().subtract('month', 1).startOf('month')) && endDate.isSame(moment().subtract('month', 1).endOf('month'))) {
+			} else if (_startDate.isSame(moment().subtract('month', 1).startOf('month')) && _endDate.isSame(moment().subtract('month', 1).endOf('month'))) {
 				title = 'Last Month';
 			}
 
-			var startDay = startDate.date();
-			var startMonth = startDate.month();
-			var startYear = startDate.year();
+			var startDay = _startDate.date();
+			var startMonth = _startDate.month();
+			var startYear = _startDate.year();
 
-			var endDay = endDate.date();
-			var endMonth = endDate.month();
-			var endYear = endDate.year();
+			var endDay = _endDate.date();
+			var endMonth = _endDate.month();
+			var endYear = _endDate.year();
 
-			var diffDay = endDate.diff(startDate, 'days');
+			var diffDay = _endDate.diff(_startDate, 'days');
 			//var total = caculateTotalAmountRevenue(items);
 
 			var lstDataApprove = [], lstDataAnother = [], lstDataAll = [], obj = {}, dataProcessed, dataUnProcessed, totalProcessed = 0, totalUnProcessed = 0;
@@ -412,9 +412,9 @@
 				//caculate data
 				_.forEach(dashboardVm.revenuexAxis, function (value, key) {
 					//get timestamp start & end hour in day
-					var date = startDate.format("MM/DD/YYYY") + ' ' + value;
-					var startOfHour = moment(date).startOf('hour');
-					var endOfHour = moment(date).endOf('hour');
+					let _date = _startDate.format("MM/DD/YYYY") + ' ' + value;
+					var startOfHour = moment(_date).startOf('hour');
+					var endOfHour = moment(_date).endOf('hour');
 					var timestampS = Date.parse(new Date(startOfHour));
 					var timestampE = Date.parse(new Date(endOfHour));
 
@@ -487,11 +487,11 @@
 				}
 
 				//set title line set xAxis 
-				var tmp = endDate;
+				var tmp = _endDate;
 				for (var i = 0; i <= diffDay; i++) {
-					var date = tmp.format("MM/DD/YYYY");
-					dashboardVm.revenuexAxis.push(date);
-					date = tmp.subtract('days', 1);
+					let _date = tmp.format("MM/DD/YYYY");
+					dashboardVm.revenuexAxis.push(_date);
+					_date = tmp.subtract('days', 1);
 				}
 				dashboardVm.revenuexAxis.reverse();
 				//caculate data
@@ -650,14 +650,14 @@
 			dashboardVm.revenueData = [];
 			dashboardVm.revenuexAxis = [];
 			//
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -689,12 +689,12 @@
 			var daterangepicker = $('#revenuerange').data('daterangepicker');
 			exStartRange = Date.parse(new Date(daterangepicker.startDate));
 			exEndRange = Date.parse(new Date(daterangepicker.endDate));
-			var startDate = moment(daterangepicker.startDate).format('MM/DD/YYYY');
-			var endDate = moment(daterangepicker.endDate).format('MM/DD/YYYY');
+			var _startDate = moment(daterangepicker.startDate).format('MM/DD/YYYY');
+			var _endDate = moment(daterangepicker.endDate).format('MM/DD/YYYY');
 			// if(parseInt(exStartRange) === parseInt(exEndRange)){
-			if ((new Date(startDate).getTime() == new Date(endDate).getTime())) {
+			if ((new Date(_startDate).getTime() == new Date(_endDate).getTime())) {
 				exStartOfDay = moment(exStartRange).startOf('hour');
-				exEndOfDay = moment(exStartRange).endOf('hour');
+				// exEndOfDay = moment(exStartRange).endOf('hour'); useless assignment to variable "exEndOfDay"
 				exStart = Date.parse(new Date(exStartOfDay));
 				exEnd = Date.parse(new Date(exEndRange));
 			} else {
@@ -734,7 +734,7 @@
 		//Application Pie Chart
 		function loadApplicationData(items, isFilter) {
 			var deferred = $q.defer();
-			var totalRecord = items.length;
+			// var totalRecord = items.length;
 			//group item by status
 			var groupItems = _.groupBy(items, 'status');
 			//caculate data by status
@@ -816,14 +816,14 @@
 
 		$('#applicationrange').on('apply.daterangepicker', function (ev, picker) {
 			dashboardVm.applicationData = [];
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -893,7 +893,7 @@
 					return item.state === state;
 				});
 			}
-			var total = caculateTotalAmountRevenue(items);
+			// var total = caculateTotalAmountRevenue(items);
 			var groupItems = _.groupBy(items, 'facilityId');
 			_.forEach(groupItems, function (value, key) {
 				var totalFacCode = caculateTotalAmountRevenue(value);
@@ -976,14 +976,14 @@
 
 		$('#faccoderange').on('apply.daterangepicker', function (ev, picker) {
 			dashboardVm.revenueFacCodeData = [];
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1000,14 +1000,14 @@
 
 		function facilityReportChange() {
 			dashboardVm.revenueFacCodeData = [];
-			var startDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').startDate));
-			var endDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').endDate));
+			var _startDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').startDate));
+			var _endDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').endDate));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1024,13 +1024,13 @@
 
 		function changeState(val) {
 			dashboardVm.revenueFacCodeData = [];
-			var startDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').startDate));
-			var endDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').endDate));
+			var _startDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').startDate));
+			var _endDate = Date.parse(new Date($('#faccoderange').data('daterangepicker').endDate));
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1097,7 +1097,7 @@
 				else
 					return parseInt(item.status) !== 4 && parseInt(item.status) !== 6;
 			});
-			var total = caculateTotalAmountRevenue(items);
+			// var total = caculateTotalAmountRevenue(items);
 			var groupItems = _.groupBy(items, 'state');
 			_.forEach(groupItems, function (value, key) {
 				var totalState = caculateTotalAmountRevenue(value);
@@ -1178,14 +1178,14 @@
 
 		$('#stateRange').on('apply.daterangepicker', function (ev, picker) {
 			dashboardVm.revenueStateData = [];
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1241,14 +1241,14 @@
 
 		function stateReportChange() {
 			dashboardVm.revenueStateData = [];
-			var startDate = Date.parse(new Date($('#stateRange').data('daterangepicker').startDate));
-			var endDate = Date.parse(new Date($('#stateRange').data('daterangepicker').endDate));
+			var _startDate = Date.parse(new Date($('#stateRange').data('daterangepicker').startDate));
+			var _endDate = Date.parse(new Date($('#stateRange').data('daterangepicker').endDate));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1552,14 +1552,14 @@
 
 		$('#PlanTypeRange').on('apply.daterangepicker', function (ev, picker) {
 			dashboardVm.revenuePlanTypeData = [];
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1615,14 +1615,14 @@
 
 		function planTypeReportChange() {
 			dashboardVm.revenuePlanTypeData = [];
-			var startDate = Date.parse(new Date($('#PlanTypeRange').data('daterangepicker').startDate));
-			var endDate = Date.parse(new Date($('#PlanTypeRange').data('daterangepicker').endDate));
+			var _startDate = Date.parse(new Date($('#PlanTypeRange').data('daterangepicker').startDate));
+			var _endDate = Date.parse(new Date($('#PlanTypeRange').data('daterangepicker').endDate));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1810,14 +1810,14 @@
 			dashboardVm.filteredItems = [];
 			dashboardVm.pagedItems = [];
 			//Load Data
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',
@@ -1834,18 +1834,18 @@
 		});
 		//--------------------------------------------------------------------------------------------
 		//Signup Data Chart	
-		function loadSignUpData(items, startDate, endDate, isFilter) {
+		function loadSignUpData(items, _startDate, endDate, isFilter) {
 			var deferred = $q.defer();
 
-			var startDay = startDate.date();
-			var startMonth = startDate.month();
-			var startYear = startDate.year();
+			var startDay = _startDate.date();
+			var startMonth = _startDate.month();
+			var startYear = _startDate.year();
 
 			var endDay = endDate.date();
 			var endMonth = endDate.month();
 			var endYear = endDate.year();
 
-			var diffDay = endDate.diff(startDate, 'days');
+			var diffDay = endDate.diff(_startDate, 'days');
 			var objAppManual = {
 				name: 'App New Application',
 				data: []
@@ -1875,23 +1875,23 @@
 				signUpAxis = [];
 				_.forEach(dashboardVm.signUpAxis, function (value, key) {
 					//get timestamp start & end hour in day
-					var date = startDate.format("MM/DD/YYYY") + ' ' + value;
-					var startOfHour = moment(date).startOf('hour');
-					var endOfHour = moment(date).endOf('hour');
+					let _date = _startDate.format("MM/DD/YYYY") + ' ' + value;
+					var startOfHour = moment(_date).startOf('hour');
+					var endOfHour = moment(_date).endOf('hour');
 					var timestampS = Date.parse(new Date(startOfHour));
 					var timestampE = Date.parse(new Date(endOfHour));
 					//Caculate total amount in hours of day
 					var data = _.filter(items, function (item) {
 						return parseInt(item.timestampSignatured) >= parseInt(timestampS) && parseInt(item.timestampSignatured) <= parseInt(timestampE);
 					});
-					var groupItems = _.groupBy(data, 'method');
+					// var groupItems = _.groupBy(data, 'method');
 					//caculate data by method
 					var appManual = 0;
 					var webAdminManual = 0;
 					var webOCR = 0;
 					var webAdminORC = 0;
-					_.forEach(data, function (value, key) {
-						var method = _.find(dashboardVm.appMethods, { key: value.method });
+					_.forEach(data, function (_value) {
+						var method = _.find(dashboardVm.appMethods, { key: _value.method });
 						if (method) {
 							if (method.value === 'App New Application' || method.key === 0) {
 								appManual = appManual + 1;
@@ -1931,9 +1931,9 @@
 				//set title line set xAxis 
 				var tmp = endDate;
 				for (var i = 0; i <= diffDay; i++) {
-					var date = tmp.format("MM/DD/YYYY");
-					dashboardVm.signUpAxis.push(date);
-					date = tmp.subtract('days', 1);
+					let _date = tmp.format("MM/DD/YYYY");
+					dashboardVm.signUpAxis.push(_date);
+					_date = tmp.subtract('days', 1);
 				}
 				dashboardVm.signUpAxis.reverse();
 				//caculate data
@@ -1948,14 +1948,14 @@
 					var data = _.filter(items, function (item) {
 						return parseInt(item.timestampSignatured) >= parseInt(timestampS) && parseInt(item.timestampSignatured) <= parseInt(timestampE);
 					});
-					var groupItems = _.groupBy(data, 'method');
+					// var groupItems = _.groupBy(data, 'method');
 					//caculate data by method
 					var appManual = 0;
 					var webAdminManual = 0;
 					var webOCR = 0;
 					var webAdminORC = 0;
-					_.forEach(data, function (value, key) {
-						var method = _.find(dashboardVm.appMethods, { key: value.method });
+					_.forEach(data, function (_value) {
+						var method = _.find(dashboardVm.appMethods, { key: _value.method });
 						if (method) {
 							if (method.value === 'App New Application' || method.key === 0) {
 								appManual = appManual + 1;
@@ -2056,14 +2056,14 @@
 			dashboardVm.signUpData = [];
 			dashboardVm.signUpAxis = [];
 			//
-			var startDate = Date.parse(new Date(picker.startDate._d));
-			var endDate = Date.parse(new Date(picker.endDate._d));
+			var _startDate = Date.parse(new Date(picker.startDate._d));
+			var _endDate = Date.parse(new Date(picker.endDate._d));
 			pushLoading();
 			memAppService.getDataGolbalReport({
 				size: 0,
 				from: 0,
-				timestampStart: startDate,
-				timestampEnd: endDate,
+				timestampStart: _startDate,
+				timestampEnd: _endDate,
 				isDashboard: true,
 				status: 'All',
 				keyword: '',

@@ -38,16 +38,16 @@
                     toaster.error(err);
                 },
                 complete: function (rs) {
-                    var fileName = $('#files').val() || '';
+                    // var fileName = $('#files').val() || '';
                     try {
                         var appIds = _.map(rs.data, function (value, key) {
                             return value[0];
                         });
                         if (appIds && appIds.length > 0) {
-                            memAppService.clearApplicationDataForTesting(appIds).then(function (rs) {
+                            memAppService.clearApplicationDataForTesting(appIds).then(function (result) {
                                 appUtils.hideLoading();
-                                if (!rs.result) {
-                                    toaster.error(rs.message);
+                                if (!result.result) {
+                                    toaster.error(result.message);
                                     return;
                                 } else {
                                     toaster.success('Clear application success.');

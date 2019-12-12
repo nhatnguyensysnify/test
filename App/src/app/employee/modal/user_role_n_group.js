@@ -6,8 +6,8 @@
 
     /** @ngInject */
     function userRoleNGroupCtrl($rootScope, $uibModalInstance, appUtils, authService, employeeService, appSettingService, departmentSevice, managerService, employeeQueueService, employeeLogService, user, toaster, data, mode) {
-        var appSettings = $rootScope.storage.appSettings,
-            searchSetting = appSettings.elasticSearch ? appSettings.elasticSearch.users : {};
+        // var appSettings = $rootScope.storage.appSettings;
+            // searchSetting = appSettings.elasticSearch ? appSettings.elasticSearch.users : {};
         var currentUser = authService.getCurrentUser();
         var uVm = this; // jshint ignore:line
         var userInfo = user;

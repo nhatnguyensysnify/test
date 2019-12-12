@@ -47,7 +47,7 @@
 		}
 
 		function getDataFirebaseLoadOnce(refPath, notCache) {
-			var deferred = $q.defer();
+			// var deferred = $q.defer();
 			var ref = angular.isString(refPath) ? firebaseDataRef.child(refPath) : refPath,
 				storageKey = ref.toString().replace(APP_CONFIG.fbConnection.databaseURL, 'strg').replace('/', ':'),
 				cache = CacheUtil.getOfflineCache(),

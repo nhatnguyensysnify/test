@@ -30,7 +30,7 @@
                     permissionService.getPermissionByRole(obj.$id).then(function (res) {
                         obj.permissions = [];
                         if (res.length > 0) {
-                            _.forEach(res, function (val, key) {
+                            _.forEach(res, function (val, _key) {
                                 obj.permissions.push(val.name);
                             });
                             obj.permissionstxt = angular.fromJson(obj.permissions).join(', ');

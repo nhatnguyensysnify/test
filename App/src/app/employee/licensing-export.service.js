@@ -181,8 +181,8 @@
                 // sheets.all.data.push(allAvailabilityG);
 
                 if (item.licenses) {
-                    var licenseH = _.map(allSheetStruct.licenseG.fields, function(cellS, index) {
-                        if (index === 4) {
+                    var licenseH = _.map(allSheetStruct.licenseG.fields, function(cellS, _index) {
+                        if (_index === 4) {
                             return ['Licenses', null, cellS.mainHStyle];
                         }
                         return ['', null, cellS.mainHStyle];
@@ -194,14 +194,14 @@
                     sheets.all.data.push(licenseG);
                     item.licenses = _.sortBy(item.licenses, 'expirationDate');
                     _.each(item.licenses, function(license) {
-                        var state = states[license.issueState];
+                        var _state = states[license.issueState];
                         Object.assign(license, {
                             issueDateTxt: license.issueDate ? moment(license.issueDate).format("MM/DD/YYYY") : '',
                             expiredDateTxt: license.expirationDate ? moment(license.expirationDate).format("MM/DD/YYYY") : '',
                             createdDateTxt: license.timestampCreated ? moment(license.timestampCreated).format("MM/DD/YYYY") : '',
                             ModifiedDateTxt: license.timestampModified ? moment(license.timestampModified).format("MM/DD/YYYY") : '',
                             licenseTypeTxt: licenseTypes[license.type] || '',
-                            stateTxt: state && state.name || '',
+                            stateTxt: _state && _state.name || '',
                             appointedTxt: licenseAppointed[license.appointed] || ''
                         });
                         var allRow = _.map(allSheetStruct.licenseG.fields, function(cellS) {

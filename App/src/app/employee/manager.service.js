@@ -429,7 +429,7 @@
 
         function _deleteApplication(from) {
             var searchSetting = $rootScope.storage.appSettings.elasticSearch.application;
-            var ts = appUtils.getTimestamp();
+            // var ts = appUtils.getTimestamp();
             var query = {
                 index: searchSetting.index,
                 type: searchSetting.type,

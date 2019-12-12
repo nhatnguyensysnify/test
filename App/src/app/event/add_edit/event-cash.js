@@ -4,8 +4,8 @@
         .controller('EventCashCtrl', EventCashCtrl);
     /** @ngInject */
     function EventCashCtrl($rootScope, $scope, $state, $stateParams, $uibModal, $timeout, $ngBootbox, $q, appUtils, authService, toaster, DataUtils, eventService, employeeService, eventCashService, eventExportFullService) {
-    	var currentUser = authService.getCurrentUser(),
-            appSettings = $rootScope.storage.appSettings;
+    	// var currentUser = authService.getCurrentUser(),
+        //     appSettings = $rootScope.storage.appSettings;
         var eventVm = $scope.eventVm,
         	eCashVm = this;
 
@@ -124,7 +124,7 @@
                 
             });
         }
-        function updateEventCashTotal(save){
+        function updateEventCashTotal(_save){
             // var total =  _.sumBy(eCashVm.items, function(item){
             //     var amount = item.amount || 0, fees = eventVm.model.fees || 0;
             //     // console.log(amount, fees);
@@ -138,7 +138,7 @@
             };
             Object.assign(eventVm.model, eventUpdatedData);
             $timeout(angular.noop,0);
-            if(save !== false){
+            if(_save !== false){
                 // eventCashService.updateEventCashTotal(eCashVm.eventId,total);
                 // console.log(eventUpdatedData);
                 eventCashService.updateCashInfoEvent(eCashVm.eventId,eventUpdatedData);

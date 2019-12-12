@@ -8,7 +8,7 @@
     <list-paging ng-model="uVm.paging" change-page="uVm.changePage" style="float: right; margin-bottom: 10px;"></list-paging>
     <table class="table table-light table-hover" s>            
         <tr ng-repeat="item in uVm.pagedItems[uVm.paging.currentPage]" ng-if="uVm.pagedItems.length > 0">
-            <td class="bold width35 text-left">{{item.name}}</td>
+            <th scope="row" class="bold width35 text-left">{{item.name}}</th>
             <td class="width55 text-left">
                 {{item.description}}
             </td>

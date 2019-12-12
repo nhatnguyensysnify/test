@@ -5,7 +5,7 @@
     function eSchedulerCancelShiftModalCtrl(cancelDate, shift, cUser, $scope, $uibModalInstance, eventService, shiftsService,
         appUtils, employeeLogService) {
         //shiftsModal.dismiss();
-        var cancelShiftVm = this; // jshint ignore:line
+        // var cancelShiftVm = this; // jshint ignore:line
 
         $scope.reason = "";
         $scope.title = "Cancel request on " + cancelDate;

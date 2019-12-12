@@ -63,7 +63,7 @@
 
 				var start = new Date();
 				// set end date to max one year period:
-				var end = new Date(new Date().setYear(start.getFullYear()+1));
+				// var end = new Date(new Date().setYear(start.getFullYear()+1));
 				$(".start-datetime-" + scope.index).datepicker({
 	                isRTL: App.isRTL(),
 	                format: 'mm/dd/yyyy',

@@ -143,40 +143,6 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-12 text-left" style="padding-right:5px;">
-                            <div class="col-md-12 border-bottom" ng-class="{'bold' : item.status && item.status === 0, 'bg-grey bg-font-grey' : item.$id === itemSelected}"
-                                ng-repeat="item in modelItems">
-                                <div class="pull-left padding-l-r-5 " style="width:10%">
-                                    <span>
-                                        <i class="fa" ng-class="eventAppVm.getIconStatus(item)"></i>
-                                    </span>
-                                </div>
-                                <div class="pull-left padding-l-r-5" style="width:10%">
-                                    <a href="#" ng-click="eventAppVm.markPriority(item)">
-                                        <i class="fa" ng-class="eventAppVm.getStatusFlagIcon(item)"></i>
-                                    </a>
-                                </div>
-                                <div class="pull-left padding-l-r-5" style="width:80%" style="cursor:pointer;" ng-click="eventAppVm.edit(item)">
-                                    <div class="pull-left width100">
-                                        <i ng-if="item.overwrite == true" class="font-red fa fa-exclamation-triangle "></i>
-                                        <a class="font-grey-gallery" style="word-wrap: break-word;">{{item.primaryMember
-                                            || item.secondaryMember || ' '}}</a>
-                                    </div>
-                                    <div class="pull-left width100 font-11">
-                                        Method: {{eventAppVm.getStateName(item.state)}}
-                                    </div>
-                                    <div class="pull-left font-11 bold font-grey-gallery width100 text-left">
-                                        {{item.timestampCreated | date: 'MM/dd/yyyy @ h:mm a'}}
-                                    </div>
-                                    <div class="pull-left font-11 font-grey-silver width100 text-left" ng-if="item.isEdited">
-                                        <p class="edited-loading"><img src="./img/editing-loading.png" /></p>
-                                        <p class="edited-by font-blue-steel"><b>Being edited by: </b>{{item.editingBy}}</p>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </div>

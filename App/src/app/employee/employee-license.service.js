@@ -9,7 +9,7 @@
             upd: upd,
             del: del,
             err: err,
-            obj: obj,
+            obj: object,
             viewObj: viewObj,
             logField: "number"
         };
@@ -61,7 +61,7 @@
             };
         }
 
-        function obj(issueState) {
+        function object(issueState) {
             if(!issueState){
                 issueState = null;
             }
@@ -119,10 +119,10 @@
                     log('Add employee license:' + _newObj[services.logField] + '.', diffValue);
                     _newObj.id = key;
                     return _newObj;
-                }).then(function(_newObj) {
+                }).then(function(_newRsObj) {
                     return DataUtils.updateTimeStampModifiedNode('users/' + userId()).then(function() {
                         return employeeService.index(userId()).then(function() {
-                            return _newObj;
+                            return _newRsObj;
                         });
                     });
                 });
@@ -138,11 +138,11 @@
                     log('Update employee license:' + _modObj[services.logField] + '.', diffValue);
                     _modObj.id = id;
                     return _modObj;
-                }).then(function(_modObj) {
+                }).then(function(_modRsObj) {
                     //_modObj.timestampCreated = toTimeStamp(obj.timestampCreated);
                     return DataUtils.updateTimeStampModifiedNode('users/' + userId()).then(function() {
                         return employeeService.index(userId()).then(function() {
-                            return _modObj;
+                            return _modRsObj;
                         });
                     });
                 });
@@ -232,9 +232,9 @@
                 let [MM, DD, YYYY] = tmp;
                 //console.log((typeof MM) + "/" + (typeof DD) + "/" + typeof (YYYY)); */
             },
-            invalid: function(err) {
+            invalid: function(_err) {
                 //console.log(JSON.stringify(err));
-                if (JSON.stringify(err) !== "{}")
+                if (JSON.stringify(_err) !== "{}")
                     return true;
             },
 

@@ -96,7 +96,7 @@
             }
 
             eTemplateService.checkUniqueName(tplVm.model).then(function(res) {
-                if (res && res !== null) {
+                if (res) {
                     appUtils.hideLoading();
                     form.shortname.$setValidity('server', false);
                     tplVm.e_msges.shortname = "ShortName already exists. Please enter another.";
@@ -104,16 +104,16 @@
                 }
                 tplVm.model.authorName = currentUser.email;
                 tplVm.model.editorName = currentUser.email;
-                eTemplateService.create(tplVm.model).then(function(res) {
+                eTemplateService.create(tplVm.model).then(function(result) {
                     appUtils.hideLoading();
-                    if (!res.result) {
-                        $ngBootbox.alert(res.errorMsg);
+                    if (!result.result) {
+                        $ngBootbox.alert(result.errorMsg);
                         return;
                     }
                     toaster.pop('success', 'Success', "Created Success.");
                     $state.go('eTemplate.list');
-                }, function(res) {
-                    $ngBootbox.alert(res.errorMsg);
+                }, function(result) {
+                    $ngBootbox.alert(result.errorMsg);
                     appUtils.hideLoading();
                     return;
                 });
@@ -196,7 +196,7 @@
             var req = eTemplateService.checkUniqueName(tplVm.model);
             req.then(function(res) {
                 appUtils.hideLoading();
-                if (res && res !== null) {
+                if (res) {
                     if (oldShortName !== '' && oldShortName != tplVm.model.shortName) {
                         form.shortname.$setValidity('server', false);
                         tplVm.e_msges['shortname'] = "ShortName already exists. Please enter another.";

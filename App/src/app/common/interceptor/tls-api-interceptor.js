@@ -120,7 +120,7 @@
 
 	// override default transform
 	var APPLICATION_JSON = 'application/json';
-	var CONTENT_TYPE_APPLICATION_JSON = { 'Content-Type': APPLICATION_JSON + ';charset=utf-8' };
+	// var CONTENT_TYPE_APPLICATION_JSON = { 'Content-Type': APPLICATION_JSON + ';charset=utf-8' };
 	var JSON_START = /^\[|^\{(?!\{)/;
 	var JSON_ENDS = {
 		'[': /]$/,

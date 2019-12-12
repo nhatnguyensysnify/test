@@ -59,9 +59,9 @@
             return ngModel.$parsers.push(cvcParse);
           } else {
             scope.$watch(attrs.ngModel, function(card) {// Get ng-model name
-              var visa = new RegExp("^4[0-9]{12}(?:[0-9]{3})?$");
+              // var visa = new RegExp("^4[0-9]{12}(?:[0-9]{3})?$");
               var amex = new RegExp("^3[47][0-9]{13}$");
-              var mastercard = new RegExp("^5[1-5][0-9]{14}$");
+              // var mastercard = new RegExp("^5[1-5][0-9]{14}$");
 
               if ( amex.test(card) ) {
                 el.val(card.replace(/\b(\d{4})(\d{6})(\d{5})\b/, '$1-$2-$3'));

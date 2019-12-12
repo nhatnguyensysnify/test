@@ -52,8 +52,7 @@
                     //update last login Date
                     authService.updateLastLoginDate(result.uid);
                     authService.getUserInfo(result.uid).then(function (user) {
-                        var appOptions = firebaseDataRef.child('app-options'),
-                            loginSucces = false,
+                        var loginSucces = false,
                             loginReq = [];
                         if (user && user.isDeleted) {
                             $timeout(function () {
@@ -107,7 +106,7 @@
 
                             if (loginSucces) {
                                 var appOptions = firebaseDataRef.child('app-options');
-                                var sideBarData = firebaseDataRef.child('side-bar-menu-admin');
+                                var sideBar = firebaseDataRef.child('side-bar-menu-admin');
                                 var permissions = firebaseDataRef.child('permissions');
                                 var roles = firebaseDataRef.child('roles'),
                                     rolesData = null;
@@ -118,14 +117,14 @@
                                     setTLSApiToken();
                                 });
 
-                                var reqSideBar = DataUtils.getDataFirebaseLoadOnce(sideBarData, true).then(function (sideBarData) {
+                                var reqSideBar = DataUtils.getDataFirebaseLoadOnce(sideBar, true).then(function (sideBarData) {
                                     sideBarData = DataUtils.stripDollarPrefixedKeys(sideBarData);
                                     $rootScope.storage.sideBarData = sideBarData;
                                 });
 
-                                var reqPermission = DataUtils.getDataFirebaseLoadOnce(permissions, true).then(function (permissions) {
-                                    permissions = DataUtils.stripDollarPrefixedKeys(permissions);
-                                    $rootScope.storage.permissions = permissions;
+                                var reqPermission = DataUtils.getDataFirebaseLoadOnce(permissions, true).then(function (permissionsData) {
+                                    permissionsData = DataUtils.stripDollarPrefixedKeys(permissionsData);
+                                    $rootScope.storage.permissions = permissionsData;
                                 });
                                 var reqRole = roles.once('value').then(function (snap) {
                                     rolesData = snap && snap.val();
@@ -153,7 +152,7 @@
                                             });
                                             var highestRole = _.minBy(assigned, 'number');
                                             if (highestRole) {
-                                                var managerRole = highestRole && highestRole.managerRole || null;
+                                                var managerRole = highestRole.managerRole || null;
                                                 if ((managerRole && userInfo.managers && userInfo.managers.length > 0) || !managerRole) {
                                                     hasManager = true;
                                                 }
@@ -172,9 +171,10 @@
                                         dialogService.alert(msg).then(function () {
                                             $state.go('employee.edit', { id: userInfo.$id, editprofile: true });
                                         }, function () {
-                                            if (isAdmin) {
-                                                $state.go('dashboard.index');
-                                            } else if (myDashboard) {
+                                            // if (isAdmin) { //isAdmin value always false 
+                                            //     $state.go('dashboard.index');
+                                            // } else 
+                                            if (myDashboard) {
                                                 $state.go('dashboard.employee');
                                             } else {
                                                 $state.go('index');
@@ -199,9 +199,10 @@
                                         dialogService.alert("Your address information is empty, please update your profile!").then(function () {
                                             $state.go('employee.edit', { id: userInfo.$id, editprofile: true });
                                         }, function () {
-                                            if (isAdmin) {
-                                                $state.go('dashboard.index');
-                                            } else if (myDashboard) {
+                                            // if (isAdmin) { //isAdmin value always false 
+                                            //     $state.go('dashboard.index');
+                                            // } else 
+                                            if (myDashboard) {
                                                 $state.go('dashboard.employee');
                                             } else {
                                                 $state.go('index');
@@ -213,9 +214,10 @@
                                         dialogService.alert("Your primary phone is empty, please update your profile!").then(function () {
                                             $state.go('employee.edit', { id: userInfo.$id, editprofile: true });
                                         }, function () {
-                                            if (isAdmin) {
-                                                $state.go('dashboard.index');
-                                            } else if (myDashboard) {
+                                            // if (isAdmin) { //isAdmin value always false 
+                                            //     $state.go('dashboard.index');
+                                            // } else 
+                                            if (myDashboard) {
                                                 $state.go('dashboard.employee');
                                             } else {
                                                 $state.go('index');
@@ -227,9 +229,10 @@
                                         dialogService.alert("Your notification email is empty, please update your profile!").then(function () {
                                             $state.go('employee.edit', { id: userInfo.$id, editprofile: true });
                                         }, function () {
-                                            if (isAdmin) {
-                                                $state.go('dashboard.index');
-                                            } else if (myDashboard) {
+                                            // if (isAdmin) { //isAdmin value always false 
+                                            //     $state.go('dashboard.index');
+                                            // } else 
+                                            if (myDashboard) {
                                                 $state.go('dashboard.employee');
                                             } else {
                                                 $state.go('index');
@@ -315,8 +318,8 @@
                 size: 'md',
                 windowClass: 'model-z-index',
                 resolve: {
-                    "currentAuth": ["authService", function (authService) {
-                        return authService.waitForSignIn();
+                    "currentAuth": ["authService", function (_authService) {
+                        return _authService.waitForSignIn();
                     }]
                 }
             });

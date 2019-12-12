@@ -29,7 +29,7 @@
                         var gPlace = new google.maps.places.Autocomplete(gPlaceFrm, options);
 
                         google.maps.event.addListener(gPlace, 'place_changed', function() {
-                            var place = gPlace.getPlace();
+                            place = gPlace.getPlace();
                             var addComponents = [];
                             if ( place ) addComponents = place.address_components;
 

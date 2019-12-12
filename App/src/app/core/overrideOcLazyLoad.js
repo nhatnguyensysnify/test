@@ -123,7 +123,7 @@
 						var tries = 1000; // * 20 = 20000 miliseconds
 						var interval = $interval(function () {
 							try {
-								el.sheet.cssRules;
+								// el.sheet.cssRules;
 								$interval.cancel(interval);
 								el.onload();
 							} catch (e) {

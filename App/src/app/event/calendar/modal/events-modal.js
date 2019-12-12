@@ -11,7 +11,7 @@
             eventModalVm.events = [];
         }
         // eventModalVm.cri = angular.copy(eventCalendarCtrl.cri);
-        
+
         eventModalVm.type = 1;
         eventModalVm.title = '';
         eventModalVm.result = [];
@@ -56,14 +56,12 @@
             //
             if (eventModalVm.events && eventModalVm.events.length > 0) {
                 // not search
-                if(currentDay){
+                if (currentDay) {
                     eventModalVm.title = `<span class="caption-subject font-blue-steel bold ">Events - ${moment.utc(currentDay).format('LL')}</span>`;
-                }else{
+                } else {
                     eventModalVm.title = `<span class="caption-subject font-blue-steel bold ">Classes</span>`;
                 }
                 _search();
-            } else {
-
             }
 
         }
@@ -92,7 +90,7 @@
 
             const emp = _.filter(objs, o => {
                 return (o.name && o.name.toLowerCase().includes(eventModalVm.cri.keyword.toLowerCase())) ||
-                    (o.type && o.type.toLowerCase().includes(eventModalVm.cri.keyword.toLowerCase())) ;
+                    (o.type && o.type.toLowerCase().includes(eventModalVm.cri.keyword.toLowerCase()));
             });
 
             const totalPage = Math.ceil(emp.length / pageSize);

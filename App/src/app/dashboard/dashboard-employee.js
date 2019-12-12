@@ -45,7 +45,7 @@
         
 
         dashboardVm.showEmployeeDashboardModal = function(type){
-			var modalInstance = $uibModal.open({
+			$uibModal.open({
 			   templateUrl: 'app/dashboard/dashboard-modal/dashboard-employee-info-modal.tpl.html',
 			   controller: 'DashBoardEmployeeModalCtrl',
 			   size: 'lg',

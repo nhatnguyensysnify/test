@@ -47,14 +47,14 @@
                 }).then(function () {
                     // var currentUser = authService.getCurrentUser();
                     // if (currentUser.$id === uid) {
-                        var timestamp = time.valueOf();
-                        return firebaseDataRef.child('users/' + uid).update({
-                            timestampActivity: timestamp
-                            //timestampModified: timestamp
-                        }).then(function () {
-                            var setting = $rootScope.storage.appSettings.elasticSearch.users;
-                            return authService.indexUser(uid, setting);
-                        });
+                    var timestamp = time.valueOf();
+                    return firebaseDataRef.child('users/' + uid).update({
+                        timestampActivity: timestamp
+                        //timestampModified: timestamp
+                    }).then(function () {
+                        var setting = $rootScope.storage.appSettings.elasticSearch.users;
+                        return authService.indexUser(uid, setting);
+                    });
                     // }
                     // return true;
                 }).then(function () {
@@ -123,12 +123,12 @@
             return ref.then(function (res) {
                 var data = res.val();
                 if (data !== null) {
-                    var items = _.map(data, function (val, key) {
+                    var itemsResult = _.map(data, function (val, key) {
                         val.timestampCreated = key;
                         return val;
                     });
 
-                    items = _.filter(items, function (item, key) {
+                    itemsResult = _.filter(itemsResult, function (item, key) {
                         //filter action
                         var actionFlag = false;
                         if (!cri.action || cri.action === '' || cri.action === 'All') {
@@ -145,28 +145,24 @@
 
                         //filter facility
                         var factilityFlag = false;
-                        if (!cri.facility || cri.facility === '' || cri.facility === 'All') {
-                            factilityFlag = true;
-                        } else if (item.fileInfo && item.fileInfo.facility && item.fileInfo.facility.id && item.fileInfo.facility.id === cri.facility) {
+                        if ((!cri.facility || cri.facility === '' || cri.facility === 'All') || (item.fileInfo && item.fileInfo.facility && item.fileInfo.facility.id && item.fileInfo.facility.id === cri.facility)) {
                             factilityFlag = true;
                         }
 
                         //filter event
                         var eventFlag = false;
-                        if (!cri.eventId || cri.eventId === '' || cri.eventId === 'All') {
-                            eventFlag = true;
-                        } else if (item.fileInfo && item.fileInfo.eventId && item.fileInfo.eventId === cri.eventId) {
+                        if ((!cri.eventId || cri.eventId === '' || cri.eventId === 'All') || (item.fileInfo && item.fileInfo.eventId && item.fileInfo.eventId === cri.eventId)) {
                             eventFlag = true;
                         }
 
                         return actionFlag && factilityFlag && eventFlag;
                     });
 
-                    result.items = items.sort(function (a, b) {
+                    result.items = itemsResult.sort(function (a, b) {
                         return b.timestampCreated - a.timestampCreated;
                     });
 
-                    result.totalRecords = items.length;
+                    result.totalRecords = itemsResult.length;
                 }
 
                 return result;
@@ -197,7 +193,7 @@
                 });
             });
             return Promise.all(reqs).then(function (rs) {
-                var items = _.filter(rs || [], function (item, key) {
+                var itemsResult = _.filter(rs || [], function (item, key) {
                     //console.log(item);
                     if (!item) {
                         return false;
@@ -242,11 +238,11 @@
                     // return timeFlag && actionFlag && factilityFlag && eventFlag;
                 });
 
-                result.items = items.sort(function (a, b) {
+                result.items = itemsResult.sort(function (a, b) {
                     return b.timestampCreated - a.timestampCreated;
                 });
 
-                result.totalRecords = items.length;
+                result.totalRecords = itemsResult.length;
 
                 return result;
             });

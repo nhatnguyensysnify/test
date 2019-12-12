@@ -7,7 +7,7 @@
     function AddEmployeeCtrl($rootScope, $scope, $state, $timeout, dialogService, employeeService, authService, roleService, memStateService, memTerritoryService, appUtils, toaster, appSettingService, departmentSevice) {
         var appSettings = $rootScope.storage && $rootScope.storage.appSettings || null,
             specifyRoles = appSettings && appSettings.specifyPermissionsRoles || null,
-            defaultRole = specifyRoles.rep || '-KTqlt0WbRBekRyP6pYN';
+            defaultRole = specifyRoles && specifyRoles.rep || '-KTqlt0WbRBekRyP6pYN';
 
         var currentUser = authService.getCurrentUser();
         var aliasIndex = null;
@@ -228,7 +228,6 @@
                                 }
                                 break;
                             case 'A':
-                                {}
                                 break;
                             case 'D':
                                 {
@@ -251,9 +250,9 @@
                         }
                     }
 
-                    return employeeService.createUser($scope.user, res.uid).then(function(res) {
-                        if (!res.result) {
-                            dialogService.alert(res.errorMsg);
+                    return employeeService.createUser($scope.user, res.uid).then(function(_res) {
+                        if (!_res.result) {
+                            dialogService.alert(_res.errorMsg);
                             return;
                         }
                         //update alias index
@@ -263,7 +262,7 @@
 
                         // create department
                         var user = angular.copy($scope.user);
-                        user.$id = res.userKey;
+                        user.$id = _res.userKey;
 
                         departmentSevice.create(user);
 
@@ -271,9 +270,9 @@
                         appUtils.hideLoading();
                         //create succces go to edit view
                         $rootScope.reProcessSideBar = true;
-                        $state.go('employee.edit', { id: res.userKey });
-                    }, function(res) {
-                        dialogService.alert(res.errorMsg);
+                        $state.go('employee.edit', { id: _res.userKey });
+                    }, function(_res) {
+                        dialogService.alert(_res.errorMsg);
                         appUtils.hideLoading();
                         return;
                     });
@@ -308,11 +307,11 @@
             // 	 return false;
             // }, onFail);
 
-            employeeService.checkUserIsDeleted($scope.user.email).then(function(res) {
-                if (res === null) {
+            employeeService.checkUserIsDeleted($scope.user.email).then(function(_res) {
+                if (_res === null) {
                     //Check Phone Number Exist.
-                    isPhoneExistReq.then(function(res) {
-                        if (res) {
+                    isPhoneExistReq.then(function(_resPhoneExistReq) {
+                        if (_resPhoneExistReq) {
                             return;
                         }
                         // //Check RepCode Exist
@@ -330,9 +329,9 @@
                 } else {
                     appUtils.hideLoading();
                     dialogService.confirm('The user has been archived. Do you want to restore that user now ?').then(function() {
-                        employeeService.restoreUser(res.$id).then(function(resRestore) {
+                        employeeService.restoreUser(_res.$id).then(function(resRestore) {
                             if (resRestore.result) {
-                                $state.go('employee.edit', { id: res.$id });
+                                $state.go('employee.edit', { id: _res.$id });
                             }
                         });
                     });

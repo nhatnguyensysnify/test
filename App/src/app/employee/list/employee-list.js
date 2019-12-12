@@ -12,12 +12,11 @@
         $scope.userPermission = $rootScope.storage.statePermission;
         $scope.userPermission.isAdmin = appUtils.checkSpecifyRole(currentUser, 'admin');
 
-        console.log($scope.userPermission.isAdmin);
 
         var timestampStart = moment().utc().startOf('month'),
             timestampEnd = moment().utc().endOf('month');
 
-        var employeeVm = this;
+        // var employeeVm = this;
 
         $scope.cri = {
             keyword: $stateParams.keyword ? $stateParams.keyword : '',
@@ -573,7 +572,7 @@
 
         function showManagerInfo(item) {
             return getManagerInfo(item).then(function (managerText) {
-                var dialog = bootbox.dialog({
+                bootbox.dialog({
                     title: '<span class="fa fa-info-circle margin-right-10"></span>' + item.firstName + ' ' +
                         item.lastName + ' Manager Information',
                     message: managerText,
@@ -589,7 +588,6 @@
         }
 
         function showModalReplace(item) {
-            var data = $scope.roles;
             var modalInstance = $uibModal.open({
                 templateUrl: 'app/employee/modal/replace-manager-modal.tpl.html',
                 controller: 'replaceManagerCtrl as rVm',

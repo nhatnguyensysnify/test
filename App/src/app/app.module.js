@@ -342,32 +342,32 @@
             //});
         }
 
-        function checkOutDate(settings) {
-            var buildVersion = settings && settings.webBuildVersion || 0;
+        function checkOutDate(settingsData) {
+            var buildVersion = settingsData && settingsData.webBuildVersion || 0;
             if (buildVersion > APP_CONFIG.buildVersion) {
                 if ($state.current.name == "event.confirmation") {
                     // $state.reload();
                 } else {
-                    dialogService.alert(settings.webUpdateMsg).then(function () {
-                        checkStorageUpdate(settings);
+                    dialogService.alert(settingsData.webUpdateMsg).then(function () {
+                        checkStorageUpdate(settingsData);
                     });
                 }
 
             } else {
-                checkStorageUpdate(settings);
+                checkStorageUpdate(settingsData);
             }
         }
 
-        function checkStorageUpdate(settings) {
+        function checkStorageUpdate(settingsData) {
             var storageBuildVersion = $rootScope.storage.buildVersion || 0;
-            var clearStorageUpdateFlag = settings && settings.webClearStorageUpdate || false;
+            var clearStorageUpdateFlag = settingsData && settingsData.webClearStorageUpdate || false;
             console.log(storageBuildVersion);
             console.log(APP_CONFIG.buildVersion);
             console.log(clearStorageUpdateFlag);
             console.log('$state', $state);
 
             if (storageBuildVersion < APP_CONFIG.buildVersion && clearStorageUpdateFlag && $state.current.name != "event.confirmation" && $state.current.name != "dRemote") {
-                dialogService.alert(settings.webClearStorageUpdateMsg).then(function () {
+                dialogService.alert(settingsData.webClearStorageUpdateMsg).then(function () {
                     delete $rootScope.storage.overviewReport;
                     delete $rootScope.storage.revenueReport;
                     delete $rootScope.storage.applicationReport;

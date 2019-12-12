@@ -103,9 +103,6 @@
     </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-        <!-- <button class="btn blue margin-top-bottom-5" ng-click="eventVm.showShiftsModal()">Add Shift</button> -->
-        <!-- <button class="btn blue margin-top-bottom-5" >Publish {{eventVm.calendarView}} <span class="badge badge-danger"> 2 </span></button> -->
-        <!-- <a class="btn blue margin-top-bottom-5" href="#/events/details" ng-if="!allowAddUser">Add New</a> -->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="portlet light ">
@@ -118,14 +115,6 @@
                                 class="margin-top-bottom-5"></date-range-report>
                         </div>
                     </div>
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
-                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.keyword"
-                                ng-change="eventVm.searchKeyword()"
-                                placeholder="Search By Name, Money Order, Member... ">
-                        </div>
-                    </div> -->
                     <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                         <div class="right form-group margin-top-bottom-5" style="float:left;">
                             <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
@@ -133,10 +122,6 @@
                             <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
                                 ng-click="eventVm.resetFiler()">Reset</button>
                         </div>
-                        <!-- <div class="form-group margin-top-bottom-5">
-                                <select ui-select2 ng-model="eventVm.cri.facilityId" ng-options="item.$id as item.text for item in eventVm.allFacilities">
-                                </select>
-                            </div> -->
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                         <div class="btn-group form-group margin-top-bottom-5" style="float:right;"
@@ -243,21 +228,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
-                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.moneyOrder"
-                                placeholder="Search By Money Order... ">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <div class="input-icon margin-top-bottom-5">
-                            <i class="icon-magnifier"></i>
-                            <input type="text" class="form-control form-control-solid" ng-model="eventVm.cri.memKeyword"  placeholder="Search By Member">
-                        </div>
-                    </div>
-                </div> -->
 
             </div>
             <div class="portlet-body">
@@ -290,14 +260,12 @@
                     <div class="col-md-6 text-right">
 
                         <div class="btn-group">
-                            <!-- <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'year'" ng-click="eventVm.cellIsOpen = false">Year</label> -->
                             <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'week'"
                                 ng-click="eventVm.cellIsOpen = false; eventVm.onChangeCalendarView()">Week</label>
                             <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'month'"
                                 ng-click="eventVm.onChangeCalendarView()">Month</label>
                             <label class="btn btn-primary" ng-model="eventVm.calendarView"
                                 uib-btn-radio="'timelineView'" ng-click="eventVm.cellIsOpen = false">Events</label>
-                            <!-- <label class="btn btn-primary" ng-model="eventVm.calendarView" uib-btn-radio="'day'" ng-click="eventVm.cellIsOpen = false">Day</label> -->
                         </div>
 
                     </div>
@@ -326,7 +294,6 @@
                         </mwl-calendar>
                     </div>
 
-                    <!-- cell-is-open="eventVm.cellIsOpen" day-view-start="06:00" day-view-end="22:59" day-view-split="30" -->
                 </div>
                 <div class="row" ng-if="eventVm.calendarView == 'timelineView'">
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -338,20 +305,11 @@
                             <li class="mt-item" ng-repeat="eventsByDay in eventVm.eventsGroupUS.groupByDateRange"
                                 ng-if="eventsByDay.events && eventsByDay.events.length > 0">
                                 <div class="mt-timeline-icon bg-blue bg-font-blue border-grey-steel">
-                                    <!-- <i class="icon-home"></i> -->
                                     <p style=" top: 40%;  font-size: 14px; position: relative;text-align: center; ">
                                         {{eventsByDay.title}} </p>
                                 </div>
                                 <div class="mt-timeline-content" ng-if="$even">
                                     <div class="mt-content-container" style=" overflow-y: scroll; max-height: 400px; ">
-                                        <!-- <div class="mt-title">
-                                            <h3 class="mt-content-title">Event List</h3>
-                                        </div> -->
-                                        <!-- <div class="mt-author">
-                                            <div class="mt-author-name">
-                                                <a href="javascript:;" class="font-blue-madison">Classes</a>
-                                            </div>
-                                        </div> -->
                                         <div class="border-grey-salt">
                                             <p>Total {{eventsByDay.events.length}} items</p>
                                             <p ng-repeat="eventItem in eventsByDay.events"><a

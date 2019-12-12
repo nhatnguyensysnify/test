@@ -81,9 +81,6 @@
         </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-        <!-- <button class="btn blue margin-top-bottom-5" ng-click="eCalendarVm.showShiftsModal()">Add Shift</button>
-        <button class="btn blue margin-top-bottom-5" >Publish {{eCalendarVm.calendarView}} <span class="badge badge-danger"> 2 </span></button> -->
-        <!-- <button class="btn blue margin-top-bottom-5" ng-click="eCalendarVm.showSignUpShiftCalendar()">Add Availability</button> -->
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="portlet light ">
@@ -103,10 +100,6 @@
                             <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
                                 ng-click="eCalendarVm.resetFiler()">Reset</button>
                         </div>
-                        <!-- <div class="form-group margin-top-bottom-5">
-                                <select ui-select2 ng-model="eCalendarVm.cri.facilityId" ng-options="item.$id as item.text for item in eCalendarVm.allFacilities">
-                                </select>
-                            </div> -->
                     </div>
                     <div class="col-xs-1 col-sm-3 col-md-3 col-lg-5 text-right no-padding">
                         <button class="btn blue margin-top-bottom-5"
@@ -188,14 +181,6 @@
                         <div class="col-md-4 text-right">
 
                             <div class="btn-group">
-                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'year'" ng-click="eCalendarVm.cellIsOpen = false">Year</label> -->
-                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'week'"
-                                ng-click="eCalendarVm.cellIsOpen = false; eCalendarVm.onChangeCalendarView()">Week</label> -->
-                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'month'"
-                                ng-click="eCalendarVm.onChangeCalendarView()">Month</label>
-                            <label class="btn btn-primary" ng-model="eCalendarVm.calendarView"
-                                uib-btn-radio="'timelineView'" ng-click="eCalendarVm.cellIsOpen = false">Events</label> -->
-                                <!-- <label class="btn btn-primary" ng-model="eCalendarVm.calendarView" uib-btn-radio="'day'" ng-click="eCalendarVm.cellIsOpen = false">Day</label> -->
                             </div>
 
                         </div>
@@ -207,7 +192,6 @@
                         <div ng-repeat="eventsByState in eCalendarVm.eventsByStates" class="margin-top-20">
                             <h3 ng-if="(eCalendarVm.calendarView != 'week' || !eventsByState.eventsCalendar || eventsByState.eventsCalendar.length == 0) && (eCalendarVm.cri.state.indexOf(eventsByState.iso) > -1 || (eCalendarVm.cri.state == '' && eventsByState.iso == 'US') )"
                                 class="margin-top-50" ng-class="{'text-center':eCalendarVm.calendarView == 'month'}">
-                                <!-- <a style=" font-weight: bold; ">{{eCalendarVm.getState(eventsByState.iso)}}</a>  -->
                                 <span ng-if="eventsByState.eventsCalendar.length == 0">: No records</span>
                             </h3>
                             <mwl-calendar
@@ -224,7 +208,6 @@
                             </mwl-calendar>
                         </div>
 
-                        <!-- cell-is-open="eCalendarVm.cellIsOpen" day-view-start="06:00" day-view-end="22:59" day-view-split="30" -->
                     </div>
                 </div>
             </div>

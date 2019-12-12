@@ -62,8 +62,6 @@
                 // not search
                 shiftModalVm.title = `<span class="caption-subject font-blue-steel bold ">Events - ${moment(currentDay).format('LL')}</span>`;
 
-            } else {
-
             }
 
 

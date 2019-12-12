@@ -88,7 +88,7 @@
             return moment(date).format("MM/DD/YYYY");
         }
 
-        var shiftUtils = {
+        var _shiftUtils = {
             EndRepeatEnum: EndRepeatEnum,
             StatusEnum: StatusEnum,
             StatusToString: StatusToString,
@@ -104,6 +104,6 @@
         };
 
 
-        return shiftUtils;
+        return _shiftUtils;
     }
 })();

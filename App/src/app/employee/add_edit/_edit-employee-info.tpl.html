@@ -58,19 +58,6 @@
         <label class="control-label required-field" ng-show="editUserForm.notificationEmail.$error.email">This field
             is not valid, the email is not formatted correctly</label>
     </div>
-    <!-- <div class="form-group col-md-6" ng-if="isManager" ng-class="{'has-error': showInvalid && editUserForm.regional.$error.required}">
-        <label class="control-label">Regional <span class="required-field">*</span></label>
-        <select ng-model="user.regional" required name="regional" ui-select2="select2OptionsRegional" id="ChooseRegional"
-            class="form-control" data-placeholder="Choose a regional" ng-options="region.iso as region.name for (key, region) in regions">
-            <option value="">Choose Regional</option>
-        </select>
-    </div>
-    <div class="form-group col-md-6" ng-if="isManager" ng-class="{'has-error': showInvalid && editUserForm.territory.$error.required}">
-        <label class="control-label">Territories <span class="required-field">*</span></label>
-        <select ng-model="user.territories" required name="territory" multiple ui-select2="select2OptionsTerritory" id="ChooseTerritory"
-            class="form-control" data-placeholder="Choose Territories" ng-options="territory.id as territory.name for (key, territory) in territories">
-        </select>
-    </div> -->
     <div class="form-group col-md-6" ng-if="hasManager" ng-class="{'has-error': showInvalid && editUserForm.myManager.$error.required}">
         <label class="control-label">Manager <span class="required-field">*</span></label>
         <select ng-model="editEmployeeVm.selectedManager" required name="myManager" multiple ui-select2="select2Options" id="ChooseManager" class="form-control" data-placeholder="Choose your manager">
