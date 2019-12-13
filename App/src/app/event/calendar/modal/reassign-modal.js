@@ -52,7 +52,7 @@
         };
 
         function getEventsInfo() {
-            eventService.searchByShift({ date: $scope.employee.date, rep: $scope.employee.$id })
+            return eventService.searchByShift({ date: $scope.employee.date, rep: $scope.employee.$id })
                 .then(result => {
                     const events = result.items;
                     $scope.events = events;

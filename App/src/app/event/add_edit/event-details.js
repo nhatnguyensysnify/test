@@ -637,7 +637,9 @@
                     eventVm.model[ad.$id] = null;
                 }
             });
-            $timeout(_loadChart(), 1000);
+            $timeout(() => {
+                _loadChart()
+            }, 1000);
         }
 
         function _loadTerritories() {
@@ -688,7 +690,7 @@
                     eventVm.model.managerRefs = [];
                 }
                 console.log('eventVm.model', eventVm.model);
-                
+
                 if (!eventVm.model.iptAnE) {
                     eventVm.model.iptAnE = 0;
                 }
@@ -1122,7 +1124,7 @@
                 return;
             }
             $ngBootbox.confirm(`Do you really want to force refresh event data?`).then(function () {
-                let callback = function() {
+                let callback = function () {
                     appUtils.hideLoading();
                     setTimeout(() => {
                         toaster.pop('success', 'Success', "Submit refresh event successfully.");
