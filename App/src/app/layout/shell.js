@@ -74,15 +74,17 @@
 
         function getUserInfo() {
             $timeout(function () {
+                // Cmt for event confirmation
+                // if (!$rootScope.storage.currentUser) {
+                //     var cU = authService.getCurrentUser();
+                //     var uid = cU && cU.uid || 'null';
+                //     var userRef = firebaseDataRef.child('users/' + uid);
+                //     DataUtils.getDataFirebaseLoadOnce(userRef, true).then(function (user) {
+                //         $rootScope.storage.currentUser = user || null;
+                //         setUserInfo(user);
+                //     });
+                // } else 
                 if ($rootScope.storage.currentUser) {
-                    var cU = authService.getCurrentUser();
-                    var uid = cU && cU.uid || 'null';
-                    var userRef = firebaseDataRef.child('users/' + uid);
-                    DataUtils.getDataFirebaseLoadOnce(userRef, true).then(function (user) {
-                        $rootScope.storage.currentUser = user || null;
-                        setUserInfo(user);
-                    });
-                } else if ($rootScope.storage.currentUser) {
                     setUserInfo($rootScope.storage.currentUser);
                 }
                 Layout.initHeader(); // init header
@@ -367,11 +369,7 @@
 
         function unActiveMenus(menus) {
             _.forEach(menus.items, function (item) {
-                if (item.isSelected === undefined)
-                    item.isSelected = false;
-                else
-                    item.isSelected = false;
-
+                item.isSelected = false;
                 if (item.items) {
                     unActiveMenus(item);
                 }

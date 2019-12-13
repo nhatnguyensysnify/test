@@ -9,7 +9,7 @@
         var currentUser = authService.getCurrentUser();
         var vm = this; // jshint ignore:line
         vm.model = angular.copy(data);
-        vm.isEdit =  data && data !== null;
+        vm.isEdit = !!data;
 		vm.nameRegx = /^(a-z|A-Z|0-9)*[^!#$%^&*()'"\/\\;:@=+,?\[\]\/]*$/;
         vm.selectedStates = [];
         vm.select2Options = {
@@ -24,7 +24,7 @@
         function initModal(){
             vm.showInvalid = true;
             vm.oldStates = angular.copy(data && data.states || {});
-            vm.selectedStates = Object.keys(vm.oldStates) ||[];
+            vm.selectedStates = Object.keys(vm.oldStates);
             if(!vm.isEdit){
                 vm.showInvalid = false;
                 vm.model = {

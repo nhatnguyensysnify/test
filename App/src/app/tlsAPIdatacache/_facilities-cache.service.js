@@ -81,7 +81,7 @@
 								state_name: value.state_name || "",
 								country_name: value.country_name || "",
 								facility_promo_code: value.facility_promo_code ? value.facility_promo_code.toUpperCase() : "",
-								state_code: state ? state.iso : "",
+								state_code: state.iso
 							};
 						}
 						return null;

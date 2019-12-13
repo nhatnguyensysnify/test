@@ -96,10 +96,10 @@
                     return $request;
                 },
                 data: function(params) {
-                    var alias = currentUser.alias;
-                    if ($scope.userPermission.isAdmin || $scope.userPermission.viewAllApplication) {
-                        alias = null;
-                    }
+                    // var alias = currentUser.alias;
+                    // if ($scope.userPermission.isAdmin || $scope.userPermission.viewAllApplication) {
+                    //     alias = null;
+                    // }
                     var cri = {
                         keyword: params.term,
                         size: 25,
@@ -209,8 +209,8 @@
             _search();
         }
 
-        function search(reset) {
-            if (reset) {
+        function search(_reset) {
+            if (_reset) {
                 eventAppVm.cri.from = eventAppVm.paging.currentPage = 0;
             }
             //

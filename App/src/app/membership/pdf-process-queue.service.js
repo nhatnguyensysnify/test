@@ -11,7 +11,6 @@
           create: create
       };
   
-      return services;
   
       function create(add){
           var key = moment().format('x');
@@ -22,6 +21,8 @@
               return {result: false , errorMsg: error.message};
           });
       }
+      return services;
+
     } 
   })();
   

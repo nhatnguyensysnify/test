@@ -46,7 +46,6 @@
             'bg-blue', 'bg-purple-seance', 'bg-grey-cascade', 'bg-red'
         ];
 
-        var chicago = new google.maps.LatLng(41.850033, -87.6500523);
         // NgMap.getMap().then(function (map) {
 
         //     eventVm.map = map;
@@ -420,10 +419,6 @@
                     }).then(success, failure);
                 },
                 data: function (params) {
-                    var alias = null;
-                    if (!$scope.userPermission.isAdmin) {
-                        alias = currentUser.alias;
-                    }
                     var cri = {
                         keyword: params.term,
                         size: 25,
@@ -458,10 +453,6 @@
                     return $request;
                 },
                 data: function (params) {
-                    var alias = null;
-                    if (!$scope.userPermission.isAdmin) {
-                        alias = currentUser.alias;
-                    }
                     var cri = {
                         keyword: params.term,
                         size: 25,
@@ -496,10 +487,6 @@
                     return $request;
                 },
                 data: function (params) {
-                    var alias = null;
-                    if (!$scope.userPermission.isAdmin) {
-                        alias = currentUser.alias;
-                    }
                     var cri = {
                         keyword: params.term,
                         size: 25,
@@ -521,7 +508,7 @@
         };
 
         function initPage() {
-            var reqInit = $q.when({});
+            var reqInit;
             if (eventId) {
                 eventVm.isEdit = true;
                 eventVm.showInvalid = true;
@@ -1089,7 +1076,7 @@
         }
 
         function showPopupTrackingActivities() {
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 templateUrl: './app/event/modal/event-tracking-log.tpl.html',
                 controller: 'eventTrackingLogCtrl as eTrackingVm',
                 size: 'lg',
@@ -1721,7 +1708,7 @@
 
         function showReportInformation(pointData) {
             if (pointData.series && pointData.series.userOptions && pointData.series.userOptions.showModal) {
-                var modalInstance = $uibModal.open({
+                $uibModal.open({
                     templateUrl: 'app/event/modal/event-detail-chart-popup.tpl.html',
                     controller: 'eventDetailChartPopupCtrl as eventChartVm',
                     size: 'lg',

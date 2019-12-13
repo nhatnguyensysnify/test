@@ -182,7 +182,7 @@
             } else {
                 filterUser = currentUser;
             }
-            Promise.all(reqs).then(function () {
+            return Promise.all(reqs).then(function () {
                 $timeout(function () {
                     var option;
                     if (membershipVm.cri.clients === 'All') {

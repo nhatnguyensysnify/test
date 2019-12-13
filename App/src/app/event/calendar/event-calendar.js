@@ -11,8 +11,8 @@
     /** @ngInject */
     function EventCalendarCtrl($rootScope, $stateParams, $scope, $state, $timeout, $ngBootbox, $q, appUtils, DataUtils, toaster, authService, eventService, employeeService, memTerritoryService, memberShipFacilitiesService, memStateService, memRegionService, eventGoalService, eventExportService, eventExportFullService, eventExportCalendarService, calendarConfig, $uibModal, departmentSevice, roleService, calendarEventTitle, shiftsService, shiftUtils) {
         $rootScope.settings.layout.pageSidebarClosed = true;
-        var currentUser = authService.getCurrentUser(), //$rootScope.storage.currentUser,
-            appSettings = $rootScope.storage.appSettings;
+        var currentUser = authService.getCurrentUser(); //$rootScope.storage.currentUser,
+            // appSettings = $rootScope.storage.appSettings;
 
         $scope.userPermission = $rootScope.storage.statePermission;
         $scope.userPermission.isAdmin = appUtils.checkSpecifyRole(currentUser, 'admin');
@@ -26,8 +26,7 @@
                 dow: 1 // Monday is the first day of the week
             }
         });
-        var timestampStart = moment().startOf('day'),
-            timestampEnd = moment().endOf('month');
+        var timestampStart = moment().startOf('day');
 
         // eventVm.modeView = 'calendarView';
         var currentDate = moment(); //init local time
@@ -179,18 +178,7 @@
         eventVm.calendarView = $stateParams.calendarView ? $stateParams.calendarView : 'month';
         eventVm.viewDate = eventVm.timestampStart ? new Date(moment.utc(eventVm.timestampStart).format('MM/DD/YYYY')) : new Date();
 
-        var actions = [{
-            label: '<span class=\'glyphicon glyphicon-pencil\'></span>',
-            onClick: function (args) {
-                console.log('Edited', args.calendarEvent);
-
-            }
-        }, {
-            label: '<span class=\'glyphicon glyphicon-remove\'></span>',
-            onClick: function (args) {
-                console.log('Deleted', args.calendarEvent);
-            }
-        }];
+       
         eventVm.modifyCell = function (cell) {
             cell.cssClass = !eventVm.resourceAvailability ? 'custom-month-cell-event-calendar' : 'custom-template-cell';
         };
@@ -632,10 +620,10 @@
                         if ((eventVm.resourceAvailability && !$scope.userPermission.isRep) || isExport) {
                             let repsWorkingState = (eventVm.employees[itemState.iso] && eventVm.employees[itemState.iso].users) || [];
                             let shiftOnDay = eventVm.employeesAvailable[item.key] || { count: 0, repsAvailable: [] };
-                            let employeesAvailableDay = _.filter(shiftOnDay.repsAvailable, item => item.availability && _.find(repsWorkingState, r => r.$id == item.$id));
-                            let shiftsCanceled = _.filter(shiftOnDay.repsAvailable, item => !item.availability && item.status === shiftUtils.StatusEnum.APPROVED && _.find(repsWorkingState, r => r.$id == item.$id));
-                            let showBadgeshiftsCanceled = _.filter(shiftsCanceled, item => item.eventsUndo && !item.repAssigned);
-                            let repPendingAvailable = _.filter(repsWorkingState, item => !_.find(shiftOnDay.repsAvailable, r => r.$id == item.$id));
+                            let employeesAvailableDay = _.filter(shiftOnDay.repsAvailable, _item => _item.availability && _.find(repsWorkingState, r => r.$id == _item.$id));
+                            let shiftsCanceled = _.filter(shiftOnDay.repsAvailable, _item => !_item.availability && _item.status === shiftUtils.StatusEnum.APPROVED && _.find(repsWorkingState, r => r.$id == _item.$id));
+                            let showBadgeshiftsCanceled = _.filter(shiftsCanceled, _item => _item.eventsUndo && !_item.repAssigned);
+                            // let repPendingAvailable = _.filter(repsWorkingState, item => !_.find(shiftOnDay.repsAvailable, r => r.$id == item.$id));
                             let numerator = item.repsActivities ? _.filter(item.repsActivities, i => { return _.find(repsWorkingState, r => r.$id == i.$id); }).length : 0;
                             let fraction = ((numerator || 0) * 100) / (employeesAvailableDay.length || 0);
                             fraction = isNaN(fraction) ? 0 : fraction;
@@ -1374,9 +1362,9 @@
             return moment.utc(eventVm.cri.timestampStart).format("MMMM YYYY");
         }
 
-        function createDateRange(start, end) {
-            var startTime = moment(start).utc();
-            var endTime = moment(end).utc();
+        function createDateRange(_start, _end) {
+            var startTime = moment(_start).utc();
+            var endTime = moment(_end).utc();
             let groupByDateRange = [];
             while (startTime <= endTime) {
                 groupByDateRange.push({

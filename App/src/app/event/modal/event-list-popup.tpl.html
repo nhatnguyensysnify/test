@@ -74,17 +74,17 @@
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <th>Name: </th>
+                                        <th scope="row">Name: </th>
                                         <td>
                                             <p style="margin: 0px; padding: 0px"><label title="{{item.name}}" for="{{item.$id}}">{{item.name}}</label></p>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>Type: </th>
+                                        <th scope="row">Type: </th>
                                         <td>{{eventVm.getType(item.type)}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Event Time: </th>
+                                        <th scope="row">Event Time: </th>
                                         <td>
                                             <span>From: {{eventVm.getDateTime(item.startDate)}}</span>s
                                             <br ng-if="item.endDate">
@@ -92,11 +92,11 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>State: </th>
+                                        <th scope="row">State: </th>
                                         <td>{{eventVm.getState(item.state)}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Facility: </th>
+                                        <th scope="row">Facility: </th>
                                         <td ng-bind-html="eventVm.getFacility(item.facilityId)"></td>
                                     </tr>
                                 </tbody>

@@ -20,7 +20,7 @@
         $rootScope.settings.layout.showSmartphone = false;
         $rootScope.settings.layout.showFooter = false;
         // var currentUser = authService.getCurrentUser(), //$rootScope.storage.currentUser,
-        var appSettings = $rootScope.storage.appSettings;
+        // var appSettings = $rootScope.storage.appSettings;
         $scope.showInvalid = false;
         $scope.emailRegx = /^[^!'"\/ ]+$/;
 

@@ -12,7 +12,6 @@
           checkIsProcess: checkIsProcess
       };
   
-      return services;
   
       function create(uid, data, isUpdate){
         var key = 'update';
@@ -35,6 +34,8 @@
             return checked || false;
         });
       }
+
+      return services;
     } 
   })();
   

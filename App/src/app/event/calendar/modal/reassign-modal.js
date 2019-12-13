@@ -7,12 +7,12 @@
     /** @ngInject */
     function eventCalendarReassignModalCtrl($scope, $rootScope, $uibModalInstance, $q, $timeout, employee, employeeService, shiftsService, appUtils, authService, eventService) {
 
-        var reassignModalVm = this; // jshint ignore:line
+        // var reassignModalVm = this; // jshint ignore:line
         $scope.employee = angular.copy(employee);
         $scope.employeeId = angular.copy(employee.uid);
         $scope.repAssigned = employee.repAssigned;
         $scope.events = null;
-        var eventCalendarCtrl = $scope.eventVm;
+        // var eventCalendarCtrl = $scope.eventVm;
         $scope.currentUser = authService.getCurrentUser();
         $scope.userPermission = $rootScope.storage.statePermission;
         $scope.userPermission.isAdmin = appUtils.checkSpecifyRole($scope.currentUser, 'admin');

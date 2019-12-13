@@ -8,7 +8,6 @@
             exportCampaignsWorkbook: exportCampaignsWorkbook,
             exportRunsWorkbook: exportRunsWorkbook
         };
-        return services;
 
         function exportWorkbook(cri, opts) {
             var p;
@@ -879,6 +878,8 @@
             return ws;
         }
         /** clone from XLSX.utils sheet_add_aoa **/
+
+        return services;
 
     }
 })();

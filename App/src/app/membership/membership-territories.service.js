@@ -12,7 +12,6 @@
             create: create
         };
   
-        return services;
 
         function getAllTerritoryLoadOnce(){
             return DataUtils.getListDataFirebaseLoadOnce(items);
@@ -224,6 +223,8 @@
 
             return $q.all(reqs);
         }
+        return services;
+
     }
   })();
   

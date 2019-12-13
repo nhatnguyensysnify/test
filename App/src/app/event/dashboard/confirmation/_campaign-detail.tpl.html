@@ -57,16 +57,10 @@
                                 </div>
                                 <div class="col-md-2 no-padding-left-right text-right icon">
                                     <span class="fa {{item.icon}} font-white"></span>
-                                    <!-- <span class="label label-sm label-danger circle" style="background: #EF5B5B !important; font-size: 16px; padding: 6px 10px;">{{item.total}}</span> -->
                                 </div>
                             </div>
                             <div class="display-number">
                                 <small class="total">{{item.total}}</small>
-                                <!-- <small class="total"  style="visibility: {{item.hideTotal ? 'hidden' : 'inherit'}}">{{item.percent && item.percent !== 'N/A' ? item.percent + '%' : item.percent}}</small>
-                                        <small class="amount" ng-if="item.type === 'revenue'">
-                                            {{item.value_1 | currency}} VS {{item.value_2 | currency}}
-                                        </small>
-                                        <small class="amount" ng-if="item.type !== 'revenue'" >{{item.value_1 || 0}} VS {{item.value_2 || 0}}</small> -->
                             </div>
                         </div>
                     </div>
@@ -145,13 +139,6 @@
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <div class="input-icon margin-top-bottom-5">
-                            <select ng-model="eventVm.requester" ui-select2="eventVm.select2OptionsEventByCampaign"
-                                id="filterRequester" class="form-control">
-                            </select>
-                        </div>
-                    </div> -->
                     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                         <div class="input-icon margin-top-bottom-5">
                             <span class="icon-magnifier"></span>
@@ -161,14 +148,6 @@
 
                         </div>
                     </div>
-                    <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                        <div class="right form-group margin-top-bottom-5" style="float:left;">
-                            <button type="button" class="btn green-haze padding-l-r-20" style="float: left;"
-                                ng-click="eventVm.changeStateEventByCampaign(true)">Filter</button>
-                            <button type="button" class="btn default padding-l-r-20 margin-l-r-5" style="float: left;"
-                                ng-click="eventVm.resetFilerEventByCampaign()">Reset</button>
-                        </div>
-                    </div> -->
                     <div class="col-xs-12 col-sm-4 col-md-6 col-lg-6 margin-top-10">
                         <list-paging ng-model="eventVm.pagingEventByCampaign"
                             change-page="eventVm.changePageEventByCampaign" style="float: right;">

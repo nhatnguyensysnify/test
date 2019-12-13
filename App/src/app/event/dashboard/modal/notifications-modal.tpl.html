@@ -98,8 +98,8 @@
                                     <td class="text-left hidden-xs hidden-sm">
                                         {{item.status == 0?'Pending Response': 'Responded'}}</td>
                                     <td class="width100 text-center hidden-md hidden-lg">
-                                        <table class="table table-striped">
-                                            <!-- <tbody>
+                                         <!--<table class="table table-striped">
+                                            <tbody>
                                                 <tr>
                                                     <td class="width30 text-left">Type: </td>
                                                     <td class="text-left">{{eventModalVm.getType(item.type)}}</td>
@@ -159,8 +159,8 @@
                                                         ng-bind-html="eventVm.getRequesters(item.representativeAttended)">
                                                     </td>
                                                 </tr>
-                                            </tbody> -->
-                                        </table>
+                                            </tbody> 
+                                        </table>-->
                                     </td>
                                 </tr>
                                 <tr ng-if="eventModalVm.pagedItems && eventModalVm.pagedItems.length === 0">

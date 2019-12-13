@@ -84,8 +84,8 @@
         $scope.initMedia = function (item) {
             return membershipMediaService.get(item.mediaId).then(function (media) {
                 if (media) {
-                    item.fileName = media.fileName || '',
-                        item.downloadUrl = media.downloadUrl;
+                    item.fileName = media.fileName || '';
+                    item.downloadUrl = media.downloadUrl;
                     $timeout(angular.noop, 400);
                 }
             });

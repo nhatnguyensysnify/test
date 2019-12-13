@@ -220,10 +220,10 @@
 
             if (item && item.fileInfo && item.fileInfo.applications) {
                 var applications = angular.copy(item.fileInfo.applications);
-                var apps = _.map(applications, function (item, key) {
+                var apps = _.map(applications, function (_item, key) {
                     return {
                         appId: key,
-                        mediaId: item.mediaId || item.media
+                        mediaId: _item.mediaId || _item.media
                     };
                 });
 

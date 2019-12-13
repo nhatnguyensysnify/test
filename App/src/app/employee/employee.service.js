@@ -388,12 +388,12 @@
                     }
                 };
                 _.each(roles, function (role) {
-                    let bool = {
+                    let boolRole = {
                         exists: {
                             field: 'acl.roles.' + _.trim(role)
                         }
                     };
-                    roleQuery.bool.should.push(bool);
+                    roleQuery.bool.should.push(boolRole);
                 });
                 queryBody.must.push(roleQuery);
             }

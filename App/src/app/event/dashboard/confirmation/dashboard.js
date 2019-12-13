@@ -70,7 +70,6 @@
         //get query end date
         eventVm.timestampEnd = endDate.valueOf();
         eventVm.cri.timestampEnd = angular.copy(endDate).utc().endOf("day").valueOf();
-        var initPage = true;
         eventVm.tabIdx = 1;
         eventVm.changeType = eventVm.changeState = changeFilter;
         eventVm.changeTypeEventByCampaign = eventVm.changeStateEventByCampaign = changeFilterEventByCampaign;
@@ -407,8 +406,8 @@
             });
         }
         function searchDataCampaigns() {
-            let startDate = moment.utc(eventVm.cri.timestampStart).subtract(3, 'days').valueOf();
-            eventVm.criCampaigns.timestampStart = startDate;
+            let _startDate = moment.utc(eventVm.cri.timestampStart).subtract(3, 'days').valueOf();
+            eventVm.criCampaigns.timestampStart = _startDate;
             eventVm.criCampaigns.timestampEnd = eventVm.cri.timestampEnd;
             let p = eventCampaignService.search(eventVm.criCampaigns);
             return p;
@@ -422,7 +421,6 @@
             return groupByDateRange;
         }
         function _loadData() {
-            console.time('loaddata');
             appUtils.showLoading();
             try {
                 eventVm.cri.state = eventVm.chooseStates.join(',');
@@ -436,10 +434,7 @@
                 srcP.push(searchDataCampaigns());
                 let p = Promise.all(srcP).then(function (result) {
                     // console.log('===================data report===================');
-                    console.log(result);
-                    console.log('_loadData');
 
-                    initPage = false;
                     let events = result[0];
                     eventVm.events = events.items;
 
@@ -519,8 +514,9 @@
             });
         }
         function loadOverview(campaigns) {
-            let _eventsScheduled = _.filter(eventVm.events, event => event.verifyStatus == appUtils.eventVerifyStatusEnum.PENDING);
-            let _eventsScheduledCount = _eventsScheduled && _eventsScheduled.length || 0;
+            var deferred = $q.defer();
+            // let _eventsScheduled = _.filter(eventVm.events, event => event.verifyStatus == appUtils.eventVerifyStatusEnum.PENDING);
+            // let _eventsScheduledCount = _eventsScheduled && _eventsScheduled.length || 0;
             let _eventsConfirmed = _.filter(eventVm.events, event => event.verifyStatus == appUtils.eventVerifyStatusEnum.CONFIRMED);
             let _eventsConfirmedCount = _eventsConfirmed && _eventsConfirmed.length || 0;
             let _eventsCancelled = _.filter(eventVm.events, event => event.verifyStatus == appUtils.eventVerifyStatusEnum.CANCELED);
@@ -579,11 +575,14 @@
                     showReportInformation(_runsHaveEventsCanceled, 'employees');
                 }
             });
+            deferred.resolve(true);
+            return deferred.promise;
+
         }
 
         //Revenue Line Chart
         function loadRevenueData(items, events) {
-            var groupByDay = items || [];
+            // var groupByDay = items || [];
             var deferred = $q.defer();
 
             //set title
@@ -693,7 +692,7 @@
             // console.log('eventVm.eventListVerifyStatus', eventVm.eventListVerifyStatus);
 
             _.forEach(groupByType, function (item, key) {
-                var name = _.find(eventVm.eventListVerifyStatus, item => { return item.value + '' == key; });
+                var name = _.find(eventVm.eventListVerifyStatus, _item => { return _item.value + '' == key; });
                 // console.log('name', name, key);
 
                 if (name) {
@@ -822,7 +821,7 @@
                 groupByDateRange.push({
                     key: keyDay.valueOf(),
                     title: keyDay.format("LL"),
-                    runs: angular.copy(campaignFitting || {}),
+                    runs: angular.copy(campaignFitting),
                     _originRuns: angular.copy(campaignF || {}),
                     totalSend: Object.keys(campaignFitting).length,
                     runsHaveEventsCanceled: _runsHaveEventsCanceled,
@@ -890,7 +889,7 @@
                         key: campaign.key,
                         dateString: campaign.title,
                         title: `${campaign.title} - 48 Hours`,
-                        runs: angular.copy(runs || {}),
+                        runs: angular.copy(runs),
                         _originRuns: angular.copy(_originRuns48h || {}),
                         events: eventSentByDay,
                         eventsSnapshot: eventSnapshotSentByDay,
@@ -924,7 +923,7 @@
                         key: campaign.key,
                         dateString: campaign.title,
                         title: `${campaign.title} - 24 Hours`,
-                        runs: angular.copy(runs || {}),
+                        runs: angular.copy(runs),
                         _originRuns: angular.copy(_originRuns24h || {}),
                         events: eventSentByDay,
                         eventsSnapshot: eventSnapshotSentByDay,
@@ -958,7 +957,7 @@
                         key: campaign.key,
                         dateString: campaign.title,
                         title: `${campaign.title} - Smart Admin`,
-                        runs: angular.copy(runs || {}),
+                        runs: angular.copy(runs),
                         _originRuns: angular.copy(_originRunsSmartAdmin || {}),
                         events: eventSentByDay,
                         eventsSnapshot: eventSnapshotSentByDay,
@@ -988,15 +987,10 @@
                 totalPage: 0,
                 totalRecord: 0
             };
-            return changePageEventByCampaign().then(function () {
-                // if (eventVm.tabIdx === 2) {
-                //     return loadSaleByRegionChart();
-                // }
-            });
+            return changePageEventByCampaign();
         }
         function changeFilter() {
             console.log('changeFilter');
-            initPage = true;
             //Overview
             eventVm.sectionNotification = [];
 
@@ -1037,8 +1031,6 @@
         function showReportInformation(pointData, infoType) {
             // console.log('showReportInformation', pointData, infoType);
             if (infoType == 'events') {
-                let firstItem = _.head(pointData.values);
-                let currentDay = firstItem ? firstItem.date : null;
                 let modalInstance = $uibModal.open({
                     templateUrl: 'app/event/calendar/modal/events-modal.tpl.html',
                     controller: 'eventCalendarEventsModalCtrl as eventModalVm',

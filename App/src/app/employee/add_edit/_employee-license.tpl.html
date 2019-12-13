@@ -253,7 +253,6 @@
                                         ng-init="$check.touched.number=false;$check.errors.number=err.number(editModel.number)"
                                         ng-focus="$check.touched.number=true" />
                                     <!-- required && minlength=2 -->
-                                    <!-- <div ng-if="$check.touched.number && $check.errors.number">ERR</div> -->
                                 </td>
                                 <td class="width8" ng-class="{'has-error': $check.errors.expirationDate && submitted}">
                                     <input type="text" data-provide="datepicker"

@@ -61,7 +61,7 @@
 				scope.titleStart = iAttrs.titleStart ? iAttrs.titleStart : 'Start Date';
 				scope.titleEnd = iAttrs.titleEnd ? iAttrs.titleEnd : 'End Date';
 
-				var start = new Date();
+				// var start = new Date();
 				// set end date to max one year period:
 				// var end = new Date(new Date().setYear(start.getFullYear()+1));
 				$(".start-datetime-" + scope.index).datepicker({

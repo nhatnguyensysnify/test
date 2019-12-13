@@ -312,7 +312,7 @@
         }
 
         function openResetPassPopup() {
-            var modalInstance = $uibModal.open({
+            $uibModal.open({
                 templateUrl: 'app/auth/forgotpasword.tpl.html',
                 controller: 'MCMForgotPasswordCtrl',
                 size: 'md',

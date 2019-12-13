@@ -1834,18 +1834,18 @@
 		});
 		//--------------------------------------------------------------------------------------------
 		//Signup Data Chart	
-		function loadSignUpData(items, _startDate, endDate, isFilter) {
+		function loadSignUpData(items, _startDate, _endDate, isFilter) {
 			var deferred = $q.defer();
 
 			var startDay = _startDate.date();
 			var startMonth = _startDate.month();
 			var startYear = _startDate.year();
 
-			var endDay = endDate.date();
-			var endMonth = endDate.month();
-			var endYear = endDate.year();
+			var endDay = _endDate.date();
+			var endMonth = _endDate.month();
+			var endYear = _endDate.year();
 
-			var diffDay = endDate.diff(_startDate, 'days');
+			var diffDay = _endDate.diff(_startDate, 'days');
 			var objAppManual = {
 				name: 'App New Application',
 				data: []
@@ -1929,7 +1929,7 @@
 
 			} else {
 				//set title line set xAxis 
-				var tmp = endDate;
+				var tmp = _endDate;
 				for (var i = 0; i <= diffDay; i++) {
 					let _date = tmp.format("MM/DD/YYYY");
 					dashboardVm.signUpAxis.push(_date);

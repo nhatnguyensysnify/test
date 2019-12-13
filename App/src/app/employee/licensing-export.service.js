@@ -8,7 +8,6 @@
         var services = {
             exportEmployee: exportEmployee
         };
-        return services;
 
         function exportEmployee(cri, opts) {
             var p;
@@ -463,6 +462,8 @@
             return ws;
         }
         /** clone from XLSX.utils sheet_add_aoa **/
+
+        return services;
 
     }
 })();

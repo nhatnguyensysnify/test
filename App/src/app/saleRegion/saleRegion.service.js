@@ -21,8 +21,8 @@
         }
 
         function get(id) {
-            var ref = ref.child(id);
-            return DataUtils.getDataFirebaseLoadOnce(ref, true);
+            var refItem = ref.child(id);
+            return DataUtils.getDataFirebaseLoadOnce(refItem, true);
         }
 
         function create(add) {

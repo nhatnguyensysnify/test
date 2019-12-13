@@ -56,9 +56,7 @@
                 eventModalVm.title = `<span class="caption-subject font-blue-steel bold ">Events - ${moment.utc(currentDay).format('LL')}</span>`;
                 _search();
 
-            } else {
-
-            }
+            } 
 
         }
 

@@ -39,7 +39,6 @@
 		}
 		// end clone form event-details
 
-		return services;
 
 
 
@@ -938,6 +937,7 @@
 			return ws;
 		}
 		/** clone from XLSX.utils sheet_add_aoa **/
+		return services;
 
 	}
 })();

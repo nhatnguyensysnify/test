@@ -1149,7 +1149,7 @@
         function checkPriAddon(key) {
             if (!applicationVm.model.selectedAddOns) return false;
             var rs = _.find(applicationVm.model.selectedAddOns, { 'key': key.toString() });
-            return rs && rs !== null;
+            return rs && rs != null;
         }
 
         //End Common Functions
@@ -1686,7 +1686,7 @@
                 return;
             }
             var editingBy = '';
-            memAppIndicatorService.get(applicationId).then(function (data) {
+            return memAppIndicatorService.get(applicationId).then(function (data) {
                 if (data && data.editingBy) {
                     //add more user in indicator
                     var uEdited = data.editingBy[currentUser.$id];

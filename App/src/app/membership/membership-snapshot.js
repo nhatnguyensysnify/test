@@ -30,12 +30,12 @@
 
         function create(membershipId) {
             var mem = firebaseDataRef.child('membership/' + membershipId);
-            DataUtils.getDataFirebaseLoadOnce(mem, true).then(function(result) {
+            return DataUtils.getDataFirebaseLoadOnce(mem, true).then(function(result) {
                 if (result) {
                     var appId = result.apps && result.apps.length > 0 ? result.apps[0] : 'NonId';
                     if (appId !== 'NonId') {
                         var app = firebaseDataRef.child('membership-applications/' + appId);
-                        DataUtils.getDataFirebaseLoadOnce(app, true).then(function(rs) {
+                        return DataUtils.getDataFirebaseLoadOnce(app, true).then(function(rs) {
                             var snapshot = {
                                 membershipId: result.$id,
                                 author: result.uid || '',

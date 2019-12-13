@@ -303,9 +303,9 @@
 
         };
 
-        function notifyRepsPending(reps, mailOf) {
+        function notifyRepsPending(reps, _mailOf) {
             appUtils.showLoading();
-            return notificationService.notiRepsPending(reps, mailOf)
+            return notificationService.notiRepsPending(reps, _mailOf)
                 .then((updateData) => {
                     const total = _.size(updateData);
                     toaster.success("Notify email will be sent to " + total + " user" + (total > 1 ? "s" : ""));

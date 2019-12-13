@@ -45,7 +45,7 @@
             var states = vm.model && vm.model.states || null;
             vm.selectedState = states && states[vm.state] || null;
             vm.oldTerritories = angular.copy(vm.selectedState && vm.selectedState.territories || {});
-            vm.selectedTerritories = Object.keys(vm.oldTerritories) || [];
+            vm.selectedTerritories = Object.keys(vm.oldTerritories);
             return loadTeritories();
         }
 
